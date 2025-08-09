@@ -1,0 +1,39 @@
+# Core dependencies
+pandas>=1.5.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+tensorflow>=2.8.0
+torch>=1.10.0
+matplotlib>=3.5.0
+
+# API and web dependencies
+fastapi>=0.68.0
+uvicorn>=0.15.0
+httpx>=0.23.0
+python-dotenv>=1.0.0
+apscheduler>=3.10.0
+twilio>=9.0.0
+
+# Security
+cryptography>=3.4.0
+pyjwt>=2.3.0
+
+# Utils
+joblib>=1.1.0
+tenacity>=8.0.0
+redis>=4.0.0
+prometheus-client>=0.13.0
+psutil>=5.9.0
+tqdm>=4.65.0
+watchdog>=2.1.0
+
+# Progress bars and rich output
+rich>=10.0.0
+
+# Optional dependencies
+[ml]
+tensorflow>=2.8.0
+scikit-learn>=1.0.0
+
+[progress]
+rich>=10.0.0

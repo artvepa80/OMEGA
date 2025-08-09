@@ -1,0 +1,66 @@
+# Sistema / OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+.env
+.python-version
+
+# IDE
+.vscode/
+.idea/
+
+# Logs y artefactos de ejecución
+logs/
+outputs/
+results/
+predictions/
+reports/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Datos pesados
+data/
+!data/README.md
+
+# Modelos/pesos/binarios grandes
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.joblib
+models/**/*.pkl
+models/**/*.npz
+modules/**/*.pt
+modules/**/*.pth
+*.dylib
+*.so
+*.dll
+
+# UI/Next.js
+ui/node_modules/
+ui/.next/
+ui/.turbo/
+ui/.env*
+
+# PyTest / cachés
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.pytype/
+
+# Otros exportados
+*.parquet
+*.jsonl
+
+# Backups temporales
+*.backup_*
+*~
