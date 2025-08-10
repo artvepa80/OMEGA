@@ -2,17 +2,17 @@
 pandas>=1.5.0
 numpy>=1.21.0
 scikit-learn>=1.0.0
-tensorflow>=2.8.0
-torch>=1.10.0
-matplotlib>=3.5.0
+# tensorflow>=2.8.0  # Comentado para Railway - muy pesado
+# torch>=1.10.0       # Comentado para Railway - muy pesado
+# matplotlib>=3.5.0  # Comentado para Railway - no necesario para API
 
 # API and web dependencies
 fastapi>=0.68.0
 uvicorn>=0.15.0
 httpx>=0.23.0
 python-dotenv>=1.0.0
-apscheduler>=3.10.0
-twilio>=9.0.0
+# apscheduler>=3.10.0  # Opcional - comentado para Railway
+# twilio>=9.0.0        # Opcional - comentado para Railway
 
 # Security
 cryptography>=3.4.0
@@ -30,10 +30,6 @@ watchdog>=2.1.0
 # Progress bars and rich output
 rich>=10.0.0
 
-# Optional dependencies
-[ml]
-tensorflow>=2.8.0
-scikit-learn>=1.0.0
-
-[progress]
-rich>=10.0.0
+# Optional dependencies (comentadas para Railway)
+# tensorflow>=2.8.0  # Demasiado pesado para Railway
+# torch>=1.10.0       # Demasiado pesado para Railway
