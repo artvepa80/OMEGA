@@ -247,9 +247,12 @@ async def startup_event():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
+    print(f"🚀 Starting OMEGA API on port {port}")
+    print(f"🔗 Health check: http://0.0.0.0:{port}/health")
     uvicorn.run(
         "api_interface_railway:app",
         host="0.0.0.0",
         port=port,
-        log_level="info"
+        log_level="info",
+        access_log=True
     )
