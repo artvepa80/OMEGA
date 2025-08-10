@@ -27,12 +27,11 @@ COPY . .
 # Crear directorios necesarios
 RUN mkdir -p logs data export model checkpoints results
 
-# Health check simplificado
-HEALTHCHECK --interval=30s --timeout=30s --start-period=120s --retries=5 \
-    CMD curl -f http://localhost:$PORT/health || exit 1
+# Railway maneja healthcheck automáticamente
+# HEALTHCHECK removido temporalmente
 
 # Exponer puerto (Railway asigna automáticamente)
 EXPOSE $PORT
 
-# Comando de inicio con logs verbose
-CMD ["sh", "-c", "echo 'Starting on port $PORT' && uvicorn api_interface_railway:app --host 0.0.0.0 --port $PORT --log-level info"]
+# Comando simple que funciona
+CMD uvicorn api_interface_railway:app --host 0.0.0.0 --port $PORT
