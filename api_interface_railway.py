@@ -11,8 +11,8 @@ import uvicorn
 # Inicializar FastAPI
 app = FastAPI(
     title="OMEGA API - Railway",
-    description="OMEGA PRO AI Sistema Agéntico - Versión optimizada para Railway",
-    version="4.0.0-railway"
+    description="OMEGA PRO AI Sistema Agéntico - Versión optimizada para Railway", 
+    version="4.0.1-railway"
 )
 
 # CORS
