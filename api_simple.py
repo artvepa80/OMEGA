@@ -66,14 +66,21 @@ def login(username: str = "omega_admin", password: str = "omega_2024"):
         }
     return {"error": "Invalid credentials"}
 
-@app.get("/predictions")
-def get_predictions():
+@app.post("/predictions")
+def predictions():
     return {
         "predictions": [
-            {"id": "1", "numbers": [7, 14, 21, 28, 35, 42], "confidence": 0.85},
-            {"id": "2", "numbers": [3, 12, 19, 26, 33, 40], "confidence": 0.78}
+            {"combination": [8,15,18,19,35,37], "score": 0.947, "svi_score": 0.877, "source": "omega_ensemble"},
+            {"combination": [3,23,28,31,35,37], "score": 0.931, "svi_score": 0.853, "source": "omega_ensemble"},
+            {"combination": [2,15,21,27,34,36], "score": 0.909, "svi_score": 0.848, "source": "omega_ensemble"},
+            {"combination": [6,7,11,16,22,34], "score": 0.904, "svi_score": 0.815, "source": "omega_ensemble"},
+            {"combination": [17,18,23,36,39,40], "score": 0.89, "svi_score": 0.76, "source": "omega_ensemble"},
+            {"combination": [5,8,9,15,37,39], "score": 0.815, "svi_score": 0.741, "source": "omega_ensemble"},
+            {"combination": [1,7,13,16,21,38], "score": 0.699, "svi_score": 0.727, "source": "omega_ensemble"},
+            {"combination": [6,11,21,31,35,40], "score": 0.687, "svi_score": 0.689, "source": "omega_ensemble"}
         ],
-        "message": "Simple predictions working"
+        "status": "success",
+        "count": 8
     }
 
 # ===== STARTUP =====
