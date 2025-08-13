@@ -3,13 +3,18 @@
 API ultra-simple para Railway - garantizada para funcionar
 """
 import os
-import uvicorn
+print("🔧 Importing FastAPI...")
 from fastapi import FastAPI
+print("🔧 Importing CORS...")
 from fastapi.middleware.cors import CORSMiddleware
+print("🔧 Importing uvicorn...")
+import uvicorn
 
+print("🔧 Setting up configuration...")
 # ===== CONFIGURACIÓN =====
 PORT = int(os.getenv("PORT", 8000))
 print(f"🚀 Starting OMEGA API on port {PORT}")
+print(f"🌍 Environment PORT: {os.getenv('PORT', 'Not set')}")
 
 # ===== FASTAPI APP =====
 app = FastAPI(
