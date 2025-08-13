@@ -1,7 +1,18 @@
-FROM python:3.12-slim
+# Dockerfile for OMEGA API - Railway optimized
+FROM python:3.11-slim
+
 WORKDIR /app
-COPY . /app
-RUN pip install --no-cache-dir --upgrade pip \
- && pip install --no-cache-dir -r requirements.txt || true
+
+# Copy only what we need
+COPY requirements-railway.txt .
+COPY api_simple.py .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements-railway.txt
+
+# Expose port
 EXPOSE 8000
+
+# Run the application
+CMD ["python", "api_simple.py"]
 
