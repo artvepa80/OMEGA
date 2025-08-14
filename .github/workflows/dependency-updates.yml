@@ -42,8 +42,15 @@ jobs:
         # Backup current requirements
         cp requirements.txt requirements.txt.backup
         
+        # Create requirements.in if it doesn't exist
+        if [ ! -f "requirements.in" ]; then
+          echo "Creating requirements.in from requirements.txt..."
+          # Extract base package names without versions
+          grep -v "^#" requirements.txt | grep -v "^$" | sed 's/==.*//' | sed 's/>=.*//' | sed 's/@.*//' > requirements.in
+        fi
+        
         # Try to update packages safely
-        pip-compile --upgrade --resolver=backtracking requirements.in 2>/dev/null || true
+        pip-compile --upgrade --resolver=backtracking requirements.in 2>/dev/null || echo "⚠️ pip-compile failed, using current requirements"
 
     - name: Run security checks on updated packages
       run: |

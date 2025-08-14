@@ -1,0 +1,134 @@
+---
+version: "2.0"
+
+services:
+  omega-gpu:
+    image: artvepa80/omega-pro-ai:gpu-latest
+    expose:
+      - port: 8000
+        as: 8000
+        to:
+          - global: true
+      - port: 8080  
+        as: 8080
+        to:
+          - global: true
+    env:
+      - OMEGA_ENV=production
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - GPU_MEMORY_STRATEGY=balanced
+      - ENABLE_GPU_MONITORING=true
+      - LOG_LEVEL=INFO
+      - REDIS_URL=redis://redis:6379
+    
+    # GPU Resources
+    resources:
+      cpu:
+        units: 4.0
+      memory:
+        size: 8Gi
+      storage:
+        size: 100Gi
+      gpu:
+        units: 1
+        attributes:
+          vendor:
+            nvidia:
+              - model: rtx4090  # or tesla-t4, rtx3090, a100
+                ram: 24Gi
+
+  redis:
+    image: redis:7-alpine
+    expose:
+      - port: 6379
+        to:
+          - service: omega-gpu
+    resources:
+      cpu:
+        units: 0.5
+      memory:
+        size: 1Gi
+      storage:
+        size: 10Gi
+
+  prometheus:
+    image: prom/prometheus:v2.40.0
+    expose:
+      - port: 9090
+        to:
+          - service: omega-gpu
+    resources:
+      cpu:
+        units: 0.5
+      memory:
+        size: 1Gi
+      storage:
+        size: 20Gi
+
+profiles:
+  compute:
+    omega-gpu:
+      resources:
+        cpu:
+          units: 4.0
+        memory:
+          size: 8Gi
+        storage:
+          size: 100Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+                  ram: 24Gi
+    redis:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 10Gi
+    prometheus:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 20Gi
+
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"  # Akash insiders
+          - "akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4"  # Overclock Labs
+      pricing:
+        omega-gpu:
+          denom: uakt
+          amount: 1000  # Max price per hour in uAKT
+        redis:
+          denom: uakt
+          amount: 100
+        prometheus:
+          denom: uakt
+          amount: 100
+
+deployment:
+  omega-gpu:
+    dcloud:
+      profile: omega-gpu
+      count: 1
+  redis:
+    dcloud:
+      profile: redis
+      count: 1
+  prometheus:
+    dcloud:
+      profile: prometheus
+      count: 1

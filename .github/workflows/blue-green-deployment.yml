@@ -138,19 +138,34 @@ jobs:
           echo "✅ Deployed to $TARGET_ENV environment"
           
           # Store deployment information
-          cat > deployment-info-$TARGET_ENV.json << EOF
+          cat > deployment-info-$TARGET_ENV.json << 'EOF'
 {
-  "environment": "$TARGET_ENV",
-  "deployment_id": "$DEPLOYMENT_ID",
-  "timestamp": "$(date -Iseconds)",
-  "commit": "${{ github.sha }}",
+  "environment": "TARGET_ENV_PLACEHOLDER",
+  "deployment_id": "DEPLOYMENT_ID_PLACEHOLDER", 
+  "timestamp": "TIMESTAMP_PLACEHOLDER",
+  "commit": "COMMIT_PLACEHOLDER",
   "status": "deployed",
   "endpoints": {
-    "api": "https://omega-$TARGET_ENV.akash.network:808$([[ '$TARGET_ENV' == 'blue' ]] && echo '1' || echo '2')",
-    "health": "https://omega-$TARGET_ENV.akash.network:808$([[ '$TARGET_ENV' == 'blue' ]] && echo '1' || echo '2')/health"
+    "api": "API_ENDPOINT_PLACEHOLDER",
+    "health": "HEALTH_ENDPOINT_PLACEHOLDER"
   }
 }
 EOF
+          
+          # Replace placeholders with actual values
+          sed -i "s/TARGET_ENV_PLACEHOLDER/$TARGET_ENV/g" deployment-info-$TARGET_ENV.json
+          sed -i "s/DEPLOYMENT_ID_PLACEHOLDER/$DEPLOYMENT_ID/g" deployment-info-$TARGET_ENV.json  
+          sed -i "s/TIMESTAMP_PLACEHOLDER/$(date -Iseconds)/g" deployment-info-$TARGET_ENV.json
+          sed -i "s/COMMIT_PLACEHOLDER/${{ github.sha }}/g" deployment-info-$TARGET_ENV.json
+          
+          # Set endpoint based on target environment
+          if [ "$TARGET_ENV" == "blue" ]; then
+            API_PORT="8081"
+          else
+            API_PORT="8082"
+          fi
+          sed -i "s|API_ENDPOINT_PLACEHOLDER|https://omega-$TARGET_ENV.akash.network:$API_PORT|g" deployment-info-$TARGET_ENV.json
+          sed -i "s|HEALTH_ENDPOINT_PLACEHOLDER|https://omega-$TARGET_ENV.akash.network:$API_PORT/health|g" deployment-info-$TARGET_ENV.json
           
       - name: Upload deployment artifacts
         uses: actions/upload-artifact@v4
@@ -169,7 +184,7 @@ EOF
       - uses: actions/checkout@v4
       
       - name: Download deployment artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deployment-${{ needs.prepare-blue-green.outputs.target_environment }}-${{ needs.prepare-blue-green.outputs.deployment_id }}
           
@@ -264,7 +279,7 @@ EOF
       - uses: actions/checkout@v4
       
       - name: Download deployment artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deployment-${{ needs.prepare-blue-green.outputs.target_environment }}-${{ needs.prepare-blue-green.outputs.deployment_id }}
           
