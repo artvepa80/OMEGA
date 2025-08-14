@@ -1,0 +1,62 @@
+# 🚀 OMEGA PRO AI - Akash Network Deployment
+# Optimizado para GPUs descentralizadas en Akash Network
+
+FROM nvidia/cuda:12.1-devel-ubuntu22.04
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    curl \
+    git \
+    wget \
+    vim \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear usuario no-root para seguridad
+RUN useradd -m -u 1000 omega && mkdir -p /app && chown -R omega:omega /app
+USER omega
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar requirements primero para cache de Docker layers
+COPY requirements.txt .
+COPY requirements-gpu.txt .
+
+# Instalar dependencias Python
+RUN pip3 install --user --no-cache-dir -r requirements.txt
+RUN pip3 install --user --no-cache-dir -r requirements-gpu.txt
+
+# Instalar PyTorch optimizado para CUDA
+RUN pip3 install --user --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# Copiar código fuente
+COPY --chown=omega:omega . .
+
+# Crear directorios necesarios
+RUN mkdir -p /app/data /app/models /app/outputs /app/logs /app/checkpoints
+
+# Variables de entorno
+ENV PYTHONPATH="/app:/home/omega/.local/lib/python3.10/site-packages"
+ENV PATH="/home/omega/.local/bin:$PATH"
+ENV CUDA_VISIBLE_DEVICES=0
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
+ENV ENVIRONMENT=production
+ENV AKASH_DEPLOYMENT=true
+ENV PYTHONUNBUFFERED=1
+ENV TZ=UTC
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
+
+# Exponer puerto
+EXPOSE 8000
+
+# Script de entrada
+CMD ["python3", "omega_unified_main.py", "--mode", "api", "--port", "8000", "--host", "0.0.0.0"]

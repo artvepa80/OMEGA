@@ -1,0 +1,291 @@
+name: OMEGA PRO AI - Akash CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Allow manual triggers
+
+env:
+  DOCKER_IMAGE: omegaproai/omega-pro-ai
+  AKASH_IMAGE_TAG: latest
+
+jobs:
+  # Stage 1: Code Quality & Security Checks
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛡️ Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐍 Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install safety bandit flake8
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: 🔍 Security Scan with Bandit
+        run: |
+          bandit -r . -f json -o security-report.json || true
+          bandit -r . || true
+          
+      - name: 🛡️ Vulnerability Check with Safety
+        run: |
+          safety check --json --output safety-report.json || true
+          safety check || true
+          
+      - name: 📊 Code Style Check
+        run: |
+          flake8 --max-line-length=120 --ignore=E203,W503,F401 . || true
+
+  # Stage 2: Docker Build & Push
+  docker-build:
+    needs: code-quality
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: 🛡️ Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: 🔑 Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: 🏷️ Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value={{date 'YYYYMMDD-HHmmss'}}
+            
+      - name: 🏗️ Build and Push Docker Image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.akash
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          
+      - name: 🔍 Docker Image Security Scan
+        uses: aquasec/trivy-action@master
+        with:
+          image-ref: ${{ env.DOCKER_IMAGE }}:latest
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          
+      - name: 📤 Upload Security Scan Results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Stage 3: Integration Tests
+  integration-tests:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    services:
+      omega-api:
+        image: ${{ env.DOCKER_IMAGE }}:latest
+        ports:
+          - 8000:8000
+        options: >-
+          --health-cmd "curl -f http://localhost:8000/health || exit 1"
+          --health-interval 30s
+          --health-timeout 10s
+          --health-retries 5
+          --health-start-period 40s
+    steps:
+      - name: 🛡️ Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: ⏳ Wait for Service
+        run: |
+          echo "Waiting for OMEGA API to be ready..."
+          timeout 120s bash -c 'until curl -f http://localhost:8000/health; do sleep 2; done'
+          
+      - name: 🧪 API Health Check
+        run: |
+          curl -f http://localhost:8000/health
+          curl -f http://localhost:8000/ | jq .
+          
+      - name: 🎯 Test Prediction Endpoint
+        run: |
+          response=$(curl -s -X POST http://localhost:8000/predict \
+            -H "Content-Type: application/json" \
+            -d '{"cantidad": 5, "perfil_svi": "default"}')
+          echo "$response" | jq .
+          # Verify response has predictions
+          echo "$response" | jq -e '.predictions | length > 0'
+
+  # Stage 4: Deploy to Akash (Production)
+  deploy-akash:
+    needs: [docker-build, integration-tests]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - name: 🛡️ Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🏗️ Install Akash CLI
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/akash-network/node/master/install.sh | sh
+          sudo mv ./bin/akash /usr/local/bin/
+          akash version
+          
+      - name: 🔑 Configure Akash Wallet
+        run: |
+          echo "${{ secrets.AKASH_KEY_SECRET }}" | base64 -d > key.txt
+          akash keys import akash-key key.txt --keyring-backend test
+          rm key.txt
+          export AKASH_KEYRING_BACKEND=test
+          export AKASH_FROM=akash-key
+          export AKASH_NODE="${{ secrets.AKASH_NODE }}"
+          export AKASH_CHAIN_ID="${{ secrets.AKASH_CHAIN_ID }}"
+          
+      - name: 📋 Update Deployment Manifest
+        run: |
+          # Update the deployment manifest with new image
+          sed -i "s|image:.*|image: ${{ env.DOCKER_IMAGE }}:latest|g" deploy/omega-simple.yaml
+          cat deploy/omega-simple.yaml
+          
+      - name: 🚀 Deploy to Akash
+        env:
+          AKASH_KEYRING_BACKEND: test
+          AKASH_FROM: akash-key
+          AKASH_NODE: ${{ secrets.AKASH_NODE }}
+          AKASH_CHAIN_ID: ${{ secrets.AKASH_CHAIN_ID }}
+          AKASH_DSEQ: ${{ secrets.AKASH_DSEQ }}
+          AKASH_GSEQ: ${{ secrets.AKASH_GSEQ }}
+          AKASH_OSEQ: ${{ secrets.AKASH_OSEQ }}
+          AKASH_PROVIDER: ${{ secrets.AKASH_PROVIDER }}
+        run: |
+          echo "🔄 Updating existing Akash deployment..."
+          
+          # Update deployment
+          akash tx deployment update deploy/omega-simple.yaml \
+            --from $AKASH_FROM \
+            --node $AKASH_NODE \
+            --chain-id $AKASH_CHAIN_ID \
+            --dseq $AKASH_DSEQ \
+            --gas-prices="0.025uakt" \
+            --gas="auto" \
+            --gas-adjustment=1.15 \
+            --broadcast-mode=block \
+            -y
+            
+          echo "⏳ Waiting for deployment to update..."
+          sleep 60
+          
+          # Send manifest to provider
+          akash provider send-manifest deploy/omega-simple.yaml \
+            --node $AKASH_NODE \
+            --chain-id $AKASH_CHAIN_ID \
+            --dseq $AKASH_DSEQ \
+            --provider $AKASH_PROVIDER \
+            --from $AKASH_FROM
+            
+      - name: ✅ Deployment Health Check
+        run: |
+          echo "🏥 Checking deployment health..."
+          sleep 120  # Wait for deployment to stabilize
+          
+          # Try to access the deployment
+          AKASH_URI="${{ secrets.AKASH_URI }}"
+          if curl -f "$AKASH_URI/health"; then
+            echo "✅ Deployment successful and healthy"
+          else
+            echo "❌ Deployment health check failed"
+            exit 1
+          fi
+          
+      - name: 📱 Notify Deployment Status
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          if [ "$STATUS" = "success" ]; then
+            echo "🎉 OMEGA PRO AI v10.1 successfully deployed to Akash!"
+            echo "🌐 Access at: ${{ secrets.AKASH_URI }}"
+          else
+            echo "❌ Deployment failed. Check logs for details."
+          fi
+
+  # Stage 5: Post-Deployment Monitoring
+  monitor-deployment:
+    needs: deploy-akash
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: 📊 Health Monitoring
+        run: |
+          echo "🔍 Starting 5-minute health monitoring..."
+          for i in {1..10}; do
+            echo "Health check #$i"
+            if curl -f "${{ secrets.AKASH_URI }}/health"; then
+              echo "✅ Health check passed"
+            else
+              echo "⚠️ Health check failed"
+            fi
+            sleep 30
+          done
+          
+      - name: 🎯 Prediction Test
+        run: |
+          echo "🧪 Testing prediction endpoint..."
+          response=$(curl -s -X POST "${{ secrets.AKASH_URI }}/predict" \
+            -H "Content-Type: application/json" \
+            -d '{"cantidad": 3, "perfil_svi": "default"}')
+          echo "Response: $response"
+          echo "$response" | jq -e '.predictions | length > 0'
+          echo "✅ Prediction endpoint working correctly"
+
+  # Stage 6: Cleanup (Optional)
+  cleanup:
+    needs: [deploy-akash, monitor-deployment]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: 🧹 Clean up old Docker images
+        run: |
+          echo "🧹 Cleaning up old Docker images..."
+          # This could include cleanup logic for old images
+          echo "Cleanup completed"
+
+  # Rollback job (manual trigger only)
+  rollback:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    environment: production
+    steps:
+      - name: 🔄 Rollback Deployment
+        run: |
+          echo "🔄 Rolling back to previous version..."
+          # Implement rollback logic here
+          echo "Rollback completed"

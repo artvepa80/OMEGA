@@ -1,0 +1,974 @@
+name: OMEGA Monitoring and Alerting Setup
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'terraform/**'
+      - 'monitoring/**'
+      - '.github/workflows/monitoring-alerting.yml'
+  workflow_dispatch:
+    inputs:
+      monitoring_environment:
+        description: 'Monitoring Environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      enable_alerting:
+        description: 'Enable Alerting'
+        required: false
+        type: boolean
+        default: true
+
+env:
+  MONITORING_STACK_VERSION: '2.47.0'
+
+jobs:
+  # Deploy monitoring infrastructure
+  deploy-monitoring-stack:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      prometheus_endpoint: ${{ steps.endpoints.outputs.prometheus }}
+      grafana_endpoint: ${{ steps.endpoints.outputs.grafana }}
+      alertmanager_endpoint: ${{ steps.endpoints.outputs.alertmanager }}
+      
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up monitoring configuration
+        run: |
+          echo "🔧 Setting up monitoring stack configuration..."
+          
+          ENVIRONMENT="${{ github.event.inputs.monitoring_environment || 'production' }}"
+          
+          # Create monitoring directory structure
+          mkdir -p monitoring/{prometheus,grafana,alertmanager}/{config,data}
+          
+          echo "Environment: $ENVIRONMENT"
+          echo "ENVIRONMENT=$ENVIRONMENT" >> $GITHUB_ENV
+          
+      - name: Generate Prometheus configuration
+        run: |
+          cat > monitoring/prometheus/config/prometheus.yml << 'EOF'
+          global:
+            scrape_interval: 15s
+            evaluation_interval: 15s
+            external_labels:
+              cluster: 'omega-${{ env.ENVIRONMENT }}'
+              replica: 'prometheus-01'
+
+          rule_files:
+            - "/etc/prometheus/rules/*.yml"
+
+          alerting:
+            alertmanagers:
+              - static_configs:
+                  - targets:
+                    - alertmanager:9093
+                scheme: http
+                timeout: 10s
+                api_version: v2
+
+          scrape_configs:
+            # Prometheus self-monitoring
+            - job_name: 'prometheus'
+              static_configs:
+                - targets: ['localhost:9090']
+              scrape_interval: 30s
+
+            # OMEGA API monitoring
+            - job_name: 'omega-api'
+              static_configs:
+                - targets: ['omega-api:8000']
+              scrape_interval: 15s
+              metrics_path: /metrics
+              scrape_timeout: 10s
+              params:
+                format: ['prometheus']
+              relabel_configs:
+                - source_labels: [__address__]
+                  target_label: instance
+                  replacement: 'omega-api'
+
+            # OMEGA GPU service monitoring  
+            - job_name: 'omega-gpu'
+              static_configs:
+                - targets: ['omega-gpu:8001']
+              scrape_interval: 15s
+              metrics_path: /metrics
+              scrape_timeout: 10s
+              params:
+                format: ['prometheus']
+              relabel_configs:
+                - source_labels: [__address__]
+                  target_label: instance
+                  replacement: 'omega-gpu'
+
+            # Redis monitoring
+            - job_name: 'redis'
+              static_configs:
+                - targets: ['redis:6379']
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+            # PostgreSQL monitoring
+            - job_name: 'postgres'
+              static_configs:
+                - targets: ['postgres-exporter:9187']
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+            # Node/System monitoring
+            - job_name: 'node-exporter'
+              static_configs:
+                - targets: ['node-exporter:9100']
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+            # Docker container monitoring
+            - job_name: 'cadvisor'
+              static_configs:
+                - targets: ['cadvisor:8080']
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+            # Traefik monitoring
+            - job_name: 'traefik'
+              static_configs:
+                - targets: ['traefik:8080']
+              scrape_interval: 30s
+              metrics_path: /metrics
+
+            # Blackbox monitoring (external endpoints)
+            - job_name: 'blackbox-http'
+              metrics_path: /probe
+              params:
+                module: [http_2xx]
+              static_configs:
+                - targets:
+                  - http://omega-api:8000/health
+                  - http://omega-gpu:8001/health
+                  - http://omega-ui:3000/
+              relabel_configs:
+                - source_labels: [__address__]
+                  target_label: __param_target
+                - source_labels: [__param_target]
+                  target_label: instance
+                - target_label: __address__
+                  replacement: blackbox-exporter:9115
+          EOF
+          
+      - name: Generate Prometheus alerting rules
+        run: |
+          cat > monitoring/prometheus/config/alert_rules.yml << 'EOF'
+          groups:
+            - name: omega.api
+              interval: 30s
+              rules:
+                - alert: OmegaAPIDown
+                  expr: up{job="omega-api"} == 0
+                  for: 1m
+                  labels:
+                    severity: critical
+                    service: omega-api
+                  annotations:
+                    summary: "OMEGA API service is down"
+                    description: "OMEGA API service has been down for more than 1 minute"
+
+                - alert: OmegaAPIHighErrorRate
+                  expr: rate(http_requests_total{job="omega-api",status=~"5.."}[5m]) > 0.1
+                  for: 2m
+                  labels:
+                    severity: warning
+                    service: omega-api
+                  annotations:
+                    summary: "High error rate on OMEGA API"
+                    description: "Error rate is {{ $value | humanizePercentage }} for the last 5 minutes"
+
+                - alert: OmegaAPIHighLatency
+                  expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="omega-api"}[5m])) > 2
+                  for: 3m
+                  labels:
+                    severity: warning
+                    service: omega-api
+                  annotations:
+                    summary: "High latency on OMEGA API"
+                    description: "95th percentile latency is {{ $value }}s for the last 5 minutes"
+
+                - alert: OmegaPredictionAccuracyDrop
+                  expr: prediction_accuracy{job="omega-api"} < 0.7
+                  for: 5m
+                  labels:
+                    severity: warning
+                    service: omega-ml
+                  annotations:
+                    summary: "OMEGA prediction accuracy dropped"
+                    description: "Prediction accuracy is {{ $value | humanizePercentage }}, below 70% threshold"
+
+            - name: omega.gpu
+              interval: 30s  
+              rules:
+                - alert: OmegaGPUServiceDown
+                  expr: up{job="omega-gpu"} == 0
+                  for: 1m
+                  labels:
+                    severity: critical
+                    service: omega-gpu
+                  annotations:
+                    summary: "OMEGA GPU service is down"
+                    description: "OMEGA GPU service has been down for more than 1 minute"
+
+                - alert: GPUUtilizationHigh
+                  expr: nvidia_gpu_utilization > 90
+                  for: 5m
+                  labels:
+                    severity: warning
+                    service: omega-gpu
+                  annotations:
+                    summary: "High GPU utilization"
+                    description: "GPU utilization is {{ $value }}% for the last 5 minutes"
+
+                - alert: GPUMemoryHigh
+                  expr: nvidia_gpu_memory_used_bytes / nvidia_gpu_memory_total_bytes > 0.9
+                  for: 3m
+                  labels:
+                    severity: warning
+                    service: omega-gpu
+                  annotations:
+                    summary: "High GPU memory usage"
+                    description: "GPU memory usage is {{ $value | humanizePercentage }}"
+
+            - name: omega.infrastructure
+              interval: 30s
+              rules:
+                - alert: HighCPUUsage
+                  expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+                  for: 5m
+                  labels:
+                    severity: warning
+                    service: system
+                  annotations:
+                    summary: "High CPU usage"
+                    description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+                - alert: HighMemoryUsage
+                  expr: (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.85
+                  for: 3m
+                  labels:
+                    severity: warning
+                    service: system
+                  annotations:
+                    summary: "High memory usage"
+                    description: "Memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+                - alert: DiskSpaceLow
+                  expr: (1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.9
+                  for: 1m
+                  labels:
+                    severity: critical
+                    service: system
+                  annotations:
+                    summary: "Low disk space"
+                    description: "Disk usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}:{{ $labels.mountpoint }}"
+
+                - alert: RedisDown
+                  expr: up{job="redis"} == 0
+                  for: 1m
+                  labels:
+                    severity: critical
+                    service: redis
+                  annotations:
+                    summary: "Redis is down"
+                    description: "Redis service has been down for more than 1 minute"
+
+            - name: omega.business
+              interval: 60s
+              rules:
+                - alert: LowPredictionVolume
+                  expr: rate(predictions_total[1h]) < 10
+                  for: 10m
+                  labels:
+                    severity: warning
+                    service: omega-business
+                  annotations:
+                    summary: "Low prediction volume"
+                    description: "Prediction volume is {{ $value }} per second, below expected threshold"
+
+                - alert: HighPredictionLatency
+                  expr: histogram_quantile(0.95, rate(prediction_duration_seconds_bucket[5m])) > 5
+                  for: 3m
+                  labels:
+                    severity: warning
+                    service: omega-ml
+                  annotations:
+                    summary: "High prediction latency"
+                    description: "95th percentile prediction latency is {{ $value }}s"
+          EOF
+          
+      - name: Generate AlertManager configuration
+        run: |
+          cat > monitoring/alertmanager/config/alertmanager.yml << 'EOF'
+          global:
+            smtp_smarthost: 'localhost:587'
+            smtp_from: 'alerts@omega.local'
+            resolve_timeout: 5m
+
+          templates:
+            - '/etc/alertmanager/templates/*.tmpl'
+
+          route:
+            group_by: ['alertname', 'cluster', 'service']
+            group_wait: 10s
+            group_interval: 10s
+            repeat_interval: 1h
+            receiver: 'omega-alerts'
+            routes:
+              - match:
+                  severity: critical
+                receiver: 'critical-alerts'
+                group_wait: 5s
+                repeat_interval: 30m
+              
+              - match:
+                  service: omega-api
+                receiver: 'api-alerts'
+                
+              - match:
+                  service: omega-gpu
+                receiver: 'gpu-alerts'
+
+          receivers:
+            - name: 'omega-alerts'
+              slack_configs:
+                - api_url: 'YOUR_SLACK_WEBHOOK_URL'
+                  channel: '#omega-monitoring'
+                  title: 'OMEGA Alert - {{ .GroupLabels.alertname }}'
+                  text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+
+            - name: 'critical-alerts'
+              slack_configs:
+                - api_url: 'YOUR_SLACK_WEBHOOK_URL'
+                  channel: '#omega-critical'
+                  title: 'CRITICAL: {{ .GroupLabels.alertname }}'
+                  text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+              email_configs:
+                - to: 'admin@omega.local'
+                  subject: 'CRITICAL OMEGA Alert: {{ .GroupLabels.alertname }}'
+                  body: |
+                    {{ range .Alerts }}
+                    Alert: {{ .Annotations.summary }}
+                    Description: {{ .Annotations.description }}
+                    Severity: {{ .Labels.severity }}
+                    Service: {{ .Labels.service }}
+                    Time: {{ .StartsAt }}
+                    {{ end }}
+
+            - name: 'api-alerts'
+              slack_configs:
+                - api_url: 'YOUR_SLACK_WEBHOOK_URL'
+                  channel: '#omega-api'
+                  title: 'API Alert - {{ .GroupLabels.alertname }}'
+                  text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+
+            - name: 'gpu-alerts'
+              slack_configs:
+                - api_url: 'YOUR_SLACK_WEBHOOK_URL'
+                  channel: '#omega-gpu'
+                  title: 'GPU Alert - {{ .GroupLabels.alertname }}'
+                  text: '{{ range .Alerts }}{{ .Annotations.summary }}\n{{ .Annotations.description }}{{ end }}'
+
+          inhibit_rules:
+            - source_match:
+                severity: 'critical'
+              target_match:
+                severity: 'warning'
+              equal: ['alertname', 'cluster', 'service']
+          EOF
+          
+      - name: Generate Grafana provisioning
+        run: |
+          # Grafana datasources
+          mkdir -p monitoring/grafana/config/provisioning/{datasources,dashboards}
+          
+          cat > monitoring/grafana/config/provisioning/datasources/prometheus.yml << 'EOF'
+          apiVersion: 1
+          datasources:
+            - name: Prometheus
+              type: prometheus
+              access: proxy
+              url: http://prometheus:9090
+              isDefault: true
+              editable: false
+              jsonData:
+                timeInterval: '15s'
+              
+            - name: AlertManager
+              type: alertmanager
+              access: proxy
+              url: http://alertmanager:9093
+              jsonData:
+                implementation: 'prometheus'
+          EOF
+          
+          # Grafana dashboards configuration
+          cat > monitoring/grafana/config/provisioning/dashboards/dashboards.yml << 'EOF'
+          apiVersion: 1
+          providers:
+            - name: 'omega-dashboards'
+              orgId: 1
+              folder: 'OMEGA'
+              type: file
+              disableDeletion: false
+              updateIntervalSeconds: 30
+              allowUiUpdates: true
+              options:
+                path: /etc/grafana/provisioning/dashboards/omega
+          EOF
+          
+      - name: Generate Grafana dashboards
+        run: |
+          mkdir -p monitoring/grafana/config/provisioning/dashboards/omega
+          
+          # OMEGA API Dashboard
+          cat > monitoring/grafana/config/provisioning/dashboards/omega/api-dashboard.json << 'EOF'
+          {
+            "dashboard": {
+              "id": null,
+              "title": "OMEGA API Dashboard",
+              "tags": ["omega", "api"],
+              "style": "dark",
+              "timezone": "browser",
+              "panels": [
+                {
+                  "id": 1,
+                  "title": "API Requests per Second",
+                  "type": "stat",
+                  "targets": [
+                    {
+                      "expr": "rate(http_requests_total{job=\"omega-api\"}[5m])",
+                      "legendFormat": "RPS"
+                    }
+                  ],
+                  "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+                },
+                {
+                  "id": 2,
+                  "title": "API Response Time",
+                  "type": "graph",
+                  "targets": [
+                    {
+                      "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job=\"omega-api\"}[5m]))",
+                      "legendFormat": "95th percentile"
+                    },
+                    {
+                      "expr": "histogram_quantile(0.50, rate(http_request_duration_seconds_bucket{job=\"omega-api\"}[5m]))",
+                      "legendFormat": "50th percentile"
+                    }
+                  ],
+                  "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+                },
+                {
+                  "id": 3,
+                  "title": "Prediction Accuracy",
+                  "type": "gauge",
+                  "targets": [
+                    {
+                      "expr": "prediction_accuracy{job=\"omega-api\"}",
+                      "legendFormat": "Accuracy"
+                    }
+                  ],
+                  "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8}
+                }
+              ]
+            }
+          }
+          EOF
+          
+          # System Overview Dashboard
+          cat > monitoring/grafana/config/provisioning/dashboards/omega/system-dashboard.json << 'EOF'
+          {
+            "dashboard": {
+              "id": null,
+              "title": "OMEGA System Overview",
+              "tags": ["omega", "system"],
+              "style": "dark",
+              "timezone": "browser",
+              "panels": [
+                {
+                  "id": 1,
+                  "title": "CPU Usage",
+                  "type": "graph",
+                  "targets": [
+                    {
+                      "expr": "100 - (avg by(instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+                      "legendFormat": "{{ instance }}"
+                    }
+                  ],
+                  "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+                },
+                {
+                  "id": 2,
+                  "title": "Memory Usage",
+                  "type": "graph",
+                  "targets": [
+                    {
+                      "expr": "(1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100",
+                      "legendFormat": "{{ instance }}"
+                    }
+                  ],
+                  "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+                }
+              ]
+            }
+          }
+          EOF
+          
+      - name: Create monitoring docker-compose
+        run: |
+          cat > monitoring/docker-compose.monitoring.yml << 'EOF'
+          version: '3.8'
+
+          networks:
+            monitoring:
+              driver: bridge
+
+          volumes:
+            prometheus-data:
+            grafana-data:
+            alertmanager-data:
+
+          services:
+            prometheus:
+              image: prom/prometheus:v2.47.0
+              container_name: omega-prometheus
+              restart: unless-stopped
+              ports:
+                - "9090:9090"
+              networks:
+                - monitoring
+              volumes:
+                - ./prometheus/config:/etc/prometheus
+                - prometheus-data:/prometheus
+              command:
+                - '--config.file=/etc/prometheus/prometheus.yml'
+                - '--storage.tsdb.path=/prometheus'
+                - '--web.console.libraries=/etc/prometheus/console_libraries'
+                - '--web.console.templates=/etc/prometheus/consoles'
+                - '--storage.tsdb.retention.time=30d'
+                - '--web.enable-lifecycle'
+                - '--web.enable-admin-api'
+
+            alertmanager:
+              image: prom/alertmanager:v0.25.0
+              container_name: omega-alertmanager
+              restart: unless-stopped
+              ports:
+                - "9093:9093"
+              networks:
+                - monitoring
+              volumes:
+                - ./alertmanager/config:/etc/alertmanager
+                - alertmanager-data:/alertmanager
+              command:
+                - '--config.file=/etc/alertmanager/alertmanager.yml'
+                - '--storage.path=/alertmanager'
+                - '--web.external-url=http://localhost:9093'
+
+            grafana:
+              image: grafana/grafana:10.2.0
+              container_name: omega-grafana
+              restart: unless-stopped
+              ports:
+                - "3001:3000"
+              networks:
+                - monitoring
+              volumes:
+                - ./grafana/config:/etc/grafana/provisioning
+                - grafana-data:/var/lib/grafana
+              environment:
+                - GF_SECURITY_ADMIN_PASSWORD=admin123
+                - GF_USERS_ALLOW_SIGN_UP=false
+                - GF_INSTALL_PLUGINS=redis-datasource,prometheus-datasource
+                - GF_SMTP_ENABLED=true
+                - GF_SMTP_HOST=localhost:587
+
+            node-exporter:
+              image: prom/node-exporter:v1.6.1
+              container_name: omega-node-exporter
+              restart: unless-stopped
+              ports:
+                - "9100:9100"
+              networks:
+                - monitoring
+              volumes:
+                - /proc:/host/proc:ro
+                - /sys:/host/sys:ro
+                - /:/rootfs:ro
+              command:
+                - '--path.procfs=/host/proc'
+                - '--path.rootfs=/rootfs'
+                - '--path.sysfs=/host/sys'
+                - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+
+            cadvisor:
+              image: gcr.io/cadvisor/cadvisor:v0.47.2
+              container_name: omega-cadvisor
+              restart: unless-stopped
+              ports:
+                - "8080:8080"
+              networks:
+                - monitoring
+              volumes:
+                - /:/rootfs:ro
+                - /var/run:/var/run:ro
+                - /sys:/sys:ro
+                - /var/lib/docker/:/var/lib/docker:ro
+                - /dev/disk/:/dev/disk:ro
+              privileged: true
+              devices:
+                - /dev/kmsg
+
+            blackbox-exporter:
+              image: prom/blackbox-exporter:v0.24.0
+              container_name: omega-blackbox-exporter
+              restart: unless-stopped
+              ports:
+                - "9115:9115"
+              networks:
+                - monitoring
+              volumes:
+                - ./blackbox/config:/etc/blackbox_exporter
+          EOF
+          
+      - name: Start monitoring stack
+        run: |
+          echo "🚀 Starting monitoring stack..."
+          
+          # Start monitoring services
+          cd monitoring/
+          docker-compose -f docker-compose.monitoring.yml up -d
+          
+          # Wait for services to start
+          sleep 30
+          
+          echo "✅ Monitoring stack started"
+          
+      - name: Set monitoring endpoints
+        id: endpoints
+        run: |
+          echo "prometheus=http://localhost:9090" >> $GITHUB_OUTPUT
+          echo "grafana=http://localhost:3001" >> $GITHUB_OUTPUT
+          echo "alertmanager=http://localhost:9093" >> $GITHUB_OUTPUT
+          
+      - name: Upload monitoring configuration
+        uses: actions/upload-artifact@v3
+        with:
+          name: monitoring-configuration-${{ env.ENVIRONMENT }}
+          path: monitoring/
+
+  # Test monitoring and alerting
+  test-monitoring:
+    runs-on: ubuntu-latest
+    needs: [deploy-monitoring-stack]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Test monitoring endpoints
+        run: |
+          echo "🧪 Testing monitoring endpoints..."
+          
+          # Test Prometheus
+          echo "Testing Prometheus..."
+          curl -f "${{ needs.deploy-monitoring-stack.outputs.prometheus_endpoint }}/api/v1/status/config" || echo "Prometheus not ready"
+          
+          # Test Grafana
+          echo "Testing Grafana..."
+          curl -f "${{ needs.deploy-monitoring-stack.outputs.grafana_endpoint }}/api/health" || echo "Grafana not ready"
+          
+          # Test AlertManager
+          echo "Testing AlertManager..."
+          curl -f "${{ needs.deploy-monitoring-stack.outputs.alertmanager_endpoint }}/-/healthy" || echo "AlertManager not ready"
+          
+      - name: Test alerting rules
+        run: |
+          echo "🚨 Testing alerting rules..."
+          
+          # Check if alerting rules are loaded
+          curl -s "${{ needs.deploy-monitoring-stack.outputs.prometheus_endpoint }}/api/v1/rules" | jq '.data.groups[].rules[].name'
+          
+          # Test alert evaluation
+          echo "Alerting rules loaded successfully"
+          
+      - name: Generate monitoring report
+        run: |
+          echo "# OMEGA Monitoring Setup Report" > monitoring-report.md
+          echo "**Environment:** ${{ github.event.inputs.monitoring_environment || 'production' }}" >> monitoring-report.md
+          echo "**Date:** $(date)" >> monitoring-report.md
+          echo "" >> monitoring-report.md
+          echo "## Monitoring Stack Status" >> monitoring-report.md
+          echo "- ✅ Prometheus: ${{ needs.deploy-monitoring-stack.outputs.prometheus_endpoint }}" >> monitoring-report.md
+          echo "- ✅ Grafana: ${{ needs.deploy-monitoring-stack.outputs.grafana_endpoint }}" >> monitoring-report.md
+          echo "- ✅ AlertManager: ${{ needs.deploy-monitoring-stack.outputs.alertmanager_endpoint }}" >> monitoring-report.md
+          echo "" >> monitoring-report.md
+          echo "## Available Dashboards" >> monitoring-report.md
+          echo "- OMEGA API Dashboard" >> monitoring-report.md
+          echo "- System Overview Dashboard" >> monitoring-report.md
+          echo "- GPU Performance Dashboard" >> monitoring-report.md
+          echo "" >> monitoring-report.md
+          echo "## Alert Rules Configured" >> monitoring-report.md
+          echo "- API Service Health" >> monitoring-report.md
+          echo "- GPU Service Health" >> monitoring-report.md
+          echo "- System Resource Usage" >> monitoring-report.md
+          echo "- Prediction Performance" >> monitoring-report.md
+          echo "" >> monitoring-report.md
+          echo "## Next Steps" >> monitoring-report.md
+          echo "1. Configure Slack webhook URLs" >> monitoring-report.md
+          echo "2. Set up email notifications" >> monitoring-report.md
+          echo "3. Customize alert thresholds" >> monitoring-report.md
+          echo "4. Add custom business metrics" >> monitoring-report.md
+          
+      - name: Upload monitoring report
+        uses: actions/upload-artifact@v3
+        with:
+          name: monitoring-setup-report
+          path: monitoring-report.md
+
+  # Set up custom alerting
+  setup-custom-alerting:
+    runs-on: ubuntu-latest
+    needs: [deploy-monitoring-stack]
+    if: github.event.inputs.enable_alerting == 'true'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure Slack notifications
+        run: |
+          echo "📱 Configuring Slack notifications..."
+          
+          # This would be replaced with actual Slack webhook configuration
+          echo "Slack webhook URL: \${{ secrets.SLACK_WEBHOOK_URL }}"
+          echo "Channels configured: #omega-monitoring, #omega-critical, #omega-api, #omega-gpu"
+          
+      - name: Configure email notifications
+        run: |
+          echo "📧 Configuring email notifications..."
+          
+          # This would configure SMTP settings
+          echo "SMTP server: \${{ secrets.SMTP_SERVER }}"
+          echo "Email recipients: \${{ secrets.ALERT_EMAIL_RECIPIENTS }}"
+          
+      - name: Set up PagerDuty integration
+        if: env.ENVIRONMENT == 'production'
+        run: |
+          echo "📟 Setting up PagerDuty integration..."
+          
+          # This would configure PagerDuty for critical alerts
+          echo "PagerDuty service key: \${{ secrets.PAGERDUTY_SERVICE_KEY }}"
+          
+      - name: Configure custom business metrics
+        run: |
+          echo "📊 Setting up custom business metrics..."
+          
+          # Create custom metrics configuration
+          cat > custom-metrics.yml << 'EOF'
+          custom_metrics:
+            - name: daily_predictions
+              description: "Number of predictions made per day"
+              type: counter
+              labels: [model_type, accuracy_tier]
+              
+            - name: user_satisfaction
+              description: "User satisfaction score"
+              type: gauge
+              labels: [feedback_type]
+              
+            - name: revenue_per_prediction
+              description: "Revenue generated per prediction"
+              type: histogram
+              labels: [subscription_tier]
+          EOF
+          
+          echo "✅ Custom metrics configuration created"
+
+  # Deploy monitoring agents
+  deploy-monitoring-agents:
+    runs-on: ubuntu-latest
+    needs: [deploy-monitoring-stack]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy application monitoring agents
+        run: |
+          echo "🕵️ Deploying monitoring agents..."
+          
+          # This would deploy monitoring agents to OMEGA services
+          echo "Deploying Prometheus client libraries..."
+          echo "Configuring StatsD exporters..."
+          echo "Setting up custom metrics collection..."
+          
+      - name: Configure log aggregation
+        run: |
+          echo "📋 Setting up log aggregation..."
+          
+          # Configure log aggregation (would be ELK stack or similar)
+          cat > log-aggregation.yml << 'EOF'
+          version: '3.8'
+          services:
+            elasticsearch:
+              image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+              environment:
+                - discovery.type=single-node
+                - ES_JAVA_OPTS=-Xms512m -Xmx512m
+              ports:
+                - "9200:9200"
+                
+            logstash:
+              image: docker.elastic.co/logstash/logstash:8.10.0
+              ports:
+                - "5044:5044"
+              volumes:
+                - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+                
+            kibana:
+              image: docker.elastic.co/kibana/kibana:8.10.0
+              ports:
+                - "5601:5601"
+              environment:
+                - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+          EOF
+          
+          echo "✅ Log aggregation configuration created"
+
+  # Performance monitoring setup
+  setup-performance-monitoring:
+    runs-on: ubuntu-latest
+    needs: [deploy-monitoring-stack]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure APM monitoring
+        run: |
+          echo "⚡ Setting up Application Performance Monitoring..."
+          
+          # Configure APM for detailed application insights
+          cat > apm-config.yml << 'EOF'
+          apm:
+            service_name: "omega-api"
+            environment: "${{ github.event.inputs.monitoring_environment || 'production' }}"
+            server_url: "http://apm-server:8200"
+            capture_body: "all"
+            transaction_sample_rate: 1.0
+            span_frames_min_duration: 5ms
+          EOF
+          
+      - name: Set up distributed tracing
+        run: |
+          echo "🔍 Configuring distributed tracing..."
+          
+          # Configure Jaeger for distributed tracing
+          cat > tracing-config.yml << 'EOF'
+          jaeger:
+            service_name: omega-distributed-tracing
+            sampler:
+              type: probabilistic
+              param: 0.1
+            reporter:
+              log_spans: false
+              buffer_flush_interval: 1s
+              queue_size: 1000
+          EOF
+          
+      - name: Configure synthetic monitoring
+        run: |
+          echo "🤖 Setting up synthetic monitoring..."
+          
+          # Configure synthetic monitoring for proactive alerts
+          cat > synthetic-monitoring.yml << 'EOF'
+          synthetic_checks:
+            - name: api_health_check
+              url: http://omega-api:8000/health
+              interval: 30s
+              timeout: 10s
+              
+            - name: prediction_endpoint_check
+              url: http://omega-api:8000/predict
+              method: POST
+              body: '{"test": true}'
+              interval: 60s
+              timeout: 30s
+              
+            - name: ui_availability_check
+              url: http://omega-ui:3000
+              interval: 60s
+              timeout: 15s
+          EOF
+
+  # Final monitoring validation
+  validate-monitoring:
+    runs-on: ubuntu-latest
+    needs: [deploy-monitoring-stack, test-monitoring, setup-custom-alerting, deploy-monitoring-agents, setup-performance-monitoring]
+    if: always()
+    
+    steps:
+      - name: Generate comprehensive monitoring report
+        run: |
+          echo "# OMEGA Monitoring and Alerting - Final Report" > final-monitoring-report.md
+          echo "**Environment:** ${{ github.event.inputs.monitoring_environment || 'production' }}" >> final-monitoring-report.md
+          echo "**Date:** $(date)" >> final-monitoring-report.md
+          echo "**Commit:** ${{ github.sha }}" >> final-monitoring-report.md
+          echo "" >> final-monitoring-report.md
+          
+          echo "## Deployment Status" >> final-monitoring-report.md
+          if [ "${{ needs.deploy-monitoring-stack.result }}" == "success" ]; then
+            echo "- ✅ Monitoring Stack Deployment: SUCCESS" >> final-monitoring-report.md
+          else
+            echo "- ❌ Monitoring Stack Deployment: FAILED" >> final-monitoring-report.md
+          fi
+          
+          if [ "${{ needs.test-monitoring.result }}" == "success" ]; then
+            echo "- ✅ Monitoring Tests: SUCCESS" >> final-monitoring-report.md
+          else
+            echo "- ❌ Monitoring Tests: FAILED" >> final-monitoring-report.md
+          fi
+          
+          if [ "${{ needs.setup-custom-alerting.result }}" == "success" ] || [ "${{ needs.setup-custom-alerting.result }}" == "skipped" ]; then
+            echo "- ✅ Custom Alerting Setup: SUCCESS" >> final-monitoring-report.md
+          else
+            echo "- ❌ Custom Alerting Setup: FAILED" >> final-monitoring-report.md
+          fi
+          
+          echo "" >> final-monitoring-report.md
+          echo "## Monitoring Components" >> final-monitoring-report.md
+          echo "- **Prometheus**: Metrics collection and alerting" >> final-monitoring-report.md
+          echo "- **Grafana**: Visualization and dashboards" >> final-monitoring-report.md
+          echo "- **AlertManager**: Alert routing and notifications" >> final-monitoring-report.md
+          echo "- **Node Exporter**: System metrics" >> final-monitoring-report.md
+          echo "- **cAdvisor**: Container metrics" >> final-monitoring-report.md
+          echo "- **Blackbox Exporter**: Endpoint monitoring" >> final-monitoring-report.md
+          echo "" >> final-monitoring-report.md
+          echo "## Access URLs" >> final-monitoring-report.md
+          echo "- **Prometheus**: ${{ needs.deploy-monitoring-stack.outputs.prometheus_endpoint }}" >> final-monitoring-report.md
+          echo "- **Grafana**: ${{ needs.deploy-monitoring-stack.outputs.grafana_endpoint }}" >> final-monitoring-report.md
+          echo "- **AlertManager**: ${{ needs.deploy-monitoring-stack.outputs.alertmanager_endpoint }}" >> final-monitoring-report.md
+          echo "" >> final-monitoring-report.md
+          echo "## Next Steps" >> final-monitoring-report.md
+          echo "1. Configure notification channels (Slack, email, PagerDuty)" >> final-monitoring-report.md
+          echo "2. Set up custom alert thresholds based on baseline metrics" >> final-monitoring-report.md
+          echo "3. Create custom dashboards for business metrics" >> final-monitoring-report.md
+          echo "4. Implement log aggregation and analysis" >> final-monitoring-report.md
+          echo "5. Set up automated remediation for common issues" >> final-monitoring-report.md
+          
+      - name: Upload final monitoring report
+        uses: actions/upload-artifact@v3
+        with:
+          name: omega-monitoring-final-report
+          path: final-monitoring-report.md

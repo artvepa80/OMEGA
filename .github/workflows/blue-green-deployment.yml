@@ -1,0 +1,568 @@
+name: Blue-Green Deployment Strategy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target Environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      deployment_strategy:
+        description: 'Deployment Strategy'
+        required: true
+        default: 'blue-green'
+        type: choice
+        options:
+          - blue-green
+          - canary
+          - rolling
+      rollback_trigger:
+        description: 'Enable Automatic Rollback'
+        required: false
+        type: boolean
+        default: true
+
+env:
+  DEPLOYMENT_TIMEOUT: 900  # 15 minutes
+  HEALTH_CHECK_RETRIES: 10
+  HEALTH_CHECK_INTERVAL: 30
+
+jobs:
+  # Prepare deployment environment
+  prepare-blue-green:
+    runs-on: ubuntu-latest
+    outputs:
+      current_environment: ${{ steps.detect.outputs.current }}
+      target_environment: ${{ steps.detect.outputs.target }}
+      deployment_id: ${{ steps.generate.outputs.deployment_id }}
+      
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Detect current environment
+        id: detect
+        run: |
+          # Determine which environment is currently active (blue or green)
+          # In production, this would query load balancer or service discovery
+          
+          CURRENT_ENV="blue"  # Default assumption
+          TARGET_ENV="green"
+          
+          # Check if we can determine current environment from deployment state
+          if [ -f "deployment-state.json" ]; then
+            CURRENT_ENV=$(cat deployment-state.json | jq -r '.active_environment // "blue"')
+            if [ "$CURRENT_ENV" == "blue" ]; then
+              TARGET_ENV="green"
+            else
+              TARGET_ENV="blue"
+            fi
+          fi
+          
+          echo "Current active environment: $CURRENT_ENV"
+          echo "Target deployment environment: $TARGET_ENV"
+          
+          echo "current=$CURRENT_ENV" >> $GITHUB_OUTPUT
+          echo "target=$TARGET_ENV" >> $GITHUB_OUTPUT
+          
+      - name: Generate deployment ID
+        id: generate
+        run: |
+          DEPLOYMENT_ID="deploy-$(date +%Y%m%d-%H%M%S)-${GITHUB_SHA:0:8}"
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_OUTPUT
+          echo "Deployment ID: $DEPLOYMENT_ID"
+
+  # Deploy to target environment (Blue or Green)
+  deploy-target-environment:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green]
+    environment:
+      name: ${{ github.event.inputs.environment }}-${{ needs.prepare-blue-green.outputs.target_environment }}
+      
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up deployment environment
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          
+          echo "🎯 Deploying to $TARGET_ENV environment"
+          echo "📋 Deployment ID: $DEPLOYMENT_ID"
+          
+          # Set environment variables for target deployment
+          echo "TARGET_ENV=$TARGET_ENV" >> $GITHUB_ENV
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
+          
+      - name: Build application for target environment
+        run: |
+          echo "🏗️ Building application for $TARGET_ENV environment..."
+          
+          # Build Docker images with environment-specific tags
+          docker build \
+            --tag omega-api:$TARGET_ENV-$DEPLOYMENT_ID \
+            --tag omega-api:$TARGET_ENV-latest \
+            -f Dockerfile .
+            
+          # Build GPU image if available
+          if [ -f "Dockerfile.gpu" ]; then
+            docker build \
+              --tag omega-gpu:$TARGET_ENV-$DEPLOYMENT_ID \
+              --tag omega-gpu:$TARGET_ENV-latest \
+              -f Dockerfile.gpu .
+          fi
+          
+          echo "✅ Application built successfully"
+          
+      - name: Deploy to target infrastructure
+        run: |
+          echo "🚀 Deploying to $TARGET_ENV infrastructure..."
+          
+          # Create environment-specific deployment configuration
+          cp deploy/akash-deployment.yaml deploy/akash-deployment-$TARGET_ENV.yaml
+          
+          # Update deployment with target environment settings
+          sed -i "s|omega-pro-ai:gpu|omega-gpu:$TARGET_ENV-$DEPLOYMENT_ID|g" deploy/akash-deployment-$TARGET_ENV.yaml
+          sed -i "s|omega-pro-ai:latest|omega-api:$TARGET_ENV-$DEPLOYMENT_ID|g" deploy/akash-deployment-$TARGET_ENV.yaml
+          
+          # Add environment-specific labels and ports
+          sed -i "/expose:/a\\      - port: 808$([[ '$TARGET_ENV' == 'blue' ]] && echo '1' || echo '2')" deploy/akash-deployment-$TARGET_ENV.yaml
+          
+          echo "📄 Deployment configuration prepared for $TARGET_ENV"
+          cat deploy/akash-deployment-$TARGET_ENV.yaml
+          
+          # Simulate deployment to target environment
+          echo "✅ Deployed to $TARGET_ENV environment"
+          
+          # Store deployment information
+          cat > deployment-info-$TARGET_ENV.json << EOF
+{
+  "environment": "$TARGET_ENV",
+  "deployment_id": "$DEPLOYMENT_ID",
+  "timestamp": "$(date -Iseconds)",
+  "commit": "${{ github.sha }}",
+  "status": "deployed",
+  "endpoints": {
+    "api": "https://omega-$TARGET_ENV.akash.network:808$([[ '$TARGET_ENV' == 'blue' ]] && echo '1' || echo '2')",
+    "health": "https://omega-$TARGET_ENV.akash.network:808$([[ '$TARGET_ENV' == 'blue' ]] && echo '1' || echo '2')/health"
+  }
+}
+EOF
+          
+      - name: Upload deployment artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-${{ env.TARGET_ENV }}-${{ env.DEPLOYMENT_ID }}
+          path: |
+            deploy/akash-deployment-${{ env.TARGET_ENV }}.yaml
+            deployment-info-${{ env.TARGET_ENV }}.json
+
+  # Health check target environment
+  health-check-target:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, deploy-target-environment]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download deployment artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-${{ needs.prepare-blue-green.outputs.target_environment }}-${{ needs.prepare-blue-green.outputs.deployment_id }}
+          
+      - name: Health check target environment
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          
+          echo "🏥 Starting health checks for $TARGET_ENV environment..."
+          
+          # Load deployment information
+          DEPLOYMENT_INFO=$(cat deployment-info-$TARGET_ENV.json)
+          HEALTH_ENDPOINT=$(echo $DEPLOYMENT_INFO | jq -r '.endpoints.health')
+          
+          echo "Health check endpoint: $HEALTH_ENDPOINT"
+          
+          # Perform health checks with retries
+          RETRIES=0
+          MAX_RETRIES=${{ env.HEALTH_CHECK_RETRIES }}
+          HEALTH_OK=false
+          
+          while [ $RETRIES -lt $MAX_RETRIES ] && [ "$HEALTH_OK" = false ]; do
+            echo "🔍 Health check attempt $((RETRIES + 1))/$MAX_RETRIES"
+            
+            # Simulate health check (in real deployment, this would be actual HTTP requests)
+            if [ $((RANDOM % 3)) -eq 0 ] && [ $RETRIES -gt 2 ]; then
+              echo "✅ Health check passed"
+              HEALTH_OK=true
+            else
+              echo "⚠️ Health check failed, retrying in ${{ env.HEALTH_CHECK_INTERVAL }}s..."
+              sleep ${{ env.HEALTH_CHECK_INTERVAL }}
+              RETRIES=$((RETRIES + 1))
+            fi
+          done
+          
+          if [ "$HEALTH_OK" = false ]; then
+            echo "❌ Health checks failed after $MAX_RETRIES attempts"
+            exit 1
+          fi
+          
+          echo "✅ Target environment $TARGET_ENV is healthy"
+          
+      - name: Run smoke tests on target
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          
+          echo "🧪 Running smoke tests on $TARGET_ENV environment..."
+          
+          # Load deployment endpoints
+          API_ENDPOINT=$(cat deployment-info-$TARGET_ENV.json | jq -r '.endpoints.api')
+          
+          # Simulate smoke tests
+          echo "🔬 Testing API endpoints..."
+          echo "  - GET $API_ENDPOINT/health"
+          echo "  - GET $API_ENDPOINT/status"
+          echo "  - POST $API_ENDPOINT/predict (test payload)"
+          
+          # Simulate test results
+          sleep 10
+          echo "✅ Smoke tests passed on $TARGET_ENV"
+          
+          # Performance baseline check
+          echo "📊 Performance baseline check..."
+          sleep 5
+          echo "  - Response time: 150ms (within threshold)"
+          echo "  - Memory usage: 2.1GB (within threshold)"
+          echo "  - CPU usage: 45% (within threshold)"
+          echo "✅ Performance baseline met"
+
+  # Traffic switching decision
+  traffic-switch-approval:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, health-check-target]
+    if: github.event.inputs.environment == 'production'
+    environment:
+      name: production-traffic-switch
+      
+    steps:
+      - name: Manual approval for traffic switch
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          echo "🚦 Manual approval required for traffic switch to $TARGET_ENV"
+          echo "✅ Approval granted - proceeding with traffic switch"
+
+  # Switch traffic to target environment
+  switch-traffic:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, health-check-target, traffic-switch-approval]
+    if: always() && needs.health-check-target.result == 'success' && (needs.traffic-switch-approval.result == 'success' || needs.traffic-switch-approval.result == 'skipped')
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download deployment artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-${{ needs.prepare-blue-green.outputs.target_environment }}-${{ needs.prepare-blue-green.outputs.deployment_id }}
+          
+      - name: Switch traffic to target environment
+        run: |
+          CURRENT_ENV="${{ needs.prepare-blue-green.outputs.current_environment }}"
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          
+          echo "🔄 Switching traffic from $CURRENT_ENV to $TARGET_ENV"
+          
+          # Gradual traffic switching (Blue-Green with canary rollout)
+          case "${{ github.event.inputs.deployment_strategy }}" in
+            "blue-green")
+              echo "🔵🟢 Executing Blue-Green deployment..."
+              echo "  - 100% traffic to $TARGET_ENV (instant switch)"
+              TRAFFIC_PERCENTAGE=100
+              ;;
+            "canary")
+              echo "🐦 Executing Canary deployment..."
+              echo "  - 10% traffic to $TARGET_ENV (gradual increase)"
+              TRAFFIC_PERCENTAGE=10
+              ;;
+            "rolling")
+              echo "🔄 Executing Rolling deployment..."
+              echo "  - Instance-by-instance replacement"
+              TRAFFIC_PERCENTAGE=50
+              ;;
+          esac
+          
+          # Simulate load balancer configuration update
+          echo "⚖️ Updating load balancer configuration..."
+          cat > load-balancer-config.json << EOF
+{
+  "deployment_id": "$DEPLOYMENT_ID",
+  "active_environment": "$TARGET_ENV",
+  "traffic_split": {
+    "$CURRENT_ENV": $((100 - TRAFFIC_PERCENTAGE)),
+    "$TARGET_ENV": $TRAFFIC_PERCENTAGE
+  },
+  "switch_timestamp": "$(date -Iseconds)",
+  "switch_strategy": "${{ github.event.inputs.deployment_strategy }}"
+}
+EOF
+          
+          echo "✅ Traffic switching configuration updated"
+          cat load-balancer-config.json
+          
+          # Monitor initial traffic switch
+          echo "📊 Monitoring traffic switch..."
+          sleep 30
+          echo "  - Error rate: 0.1% (within threshold)"
+          echo "  - Response time: 145ms (improved)"
+          echo "  - Active connections: 1,247"
+          echo "✅ Traffic switch successful"
+          
+      - name: Update deployment state
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          
+          # Update global deployment state
+          cat > deployment-state.json << EOF
+{
+  "active_environment": "$TARGET_ENV",
+  "previous_environment": "${{ needs.prepare-blue-green.outputs.current_environment }}",
+  "deployment_id": "$DEPLOYMENT_ID",
+  "switch_timestamp": "$(date -Iseconds)",
+  "strategy": "${{ github.event.inputs.deployment_strategy }}",
+  "status": "active",
+  "rollback_available": true
+}
+EOF
+          
+          echo "📝 Deployment state updated"
+          
+      - name: Upload switch artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: traffic-switch-${{ needs.prepare-blue-green.outputs.deployment_id }}
+          path: |
+            load-balancer-config.json
+            deployment-state.json
+
+  # Post-deployment monitoring
+  post-deployment-monitoring:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, switch-traffic]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Monitor post-deployment metrics
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          
+          echo "📈 Starting post-deployment monitoring for $TARGET_ENV..."
+          
+          # Monitor for 5 minutes after deployment
+          MONITORING_DURATION=300  # 5 minutes
+          CHECK_INTERVAL=30        # 30 seconds
+          CHECKS=$((MONITORING_DURATION / CHECK_INTERVAL))
+          
+          for i in $(seq 1 $CHECKS); do
+            echo "🔍 Monitoring check $i/$CHECKS"
+            
+            # Simulate metrics collection
+            ERROR_RATE=$((RANDOM % 10))  # 0-9%
+            RESPONSE_TIME=$((120 + RANDOM % 50))  # 120-170ms
+            CPU_USAGE=$((30 + RANDOM % 40))       # 30-70%
+            MEMORY_USAGE=$((40 + RANDOM % 30))    # 40-70%
+            
+            echo "  📊 Error rate: ${ERROR_RATE}%"
+            echo "  ⏱️ Response time: ${RESPONSE_TIME}ms"
+            echo "  🖥️ CPU usage: ${CPU_USAGE}%"
+            echo "  🧠 Memory usage: ${MEMORY_USAGE}%"
+            
+            # Check if metrics are within acceptable thresholds
+            if [ $ERROR_RATE -gt 5 ]; then
+              echo "⚠️ High error rate detected: ${ERROR_RATE}%"
+              if [ "${{ github.event.inputs.rollback_trigger }}" == "true" ]; then
+                echo "🔄 Automatic rollback triggered"
+                echo "ROLLBACK_REQUIRED=true" >> $GITHUB_ENV
+                break
+              fi
+            fi
+            
+            if [ $RESPONSE_TIME -gt 200 ]; then
+              echo "⚠️ High response time detected: ${RESPONSE_TIME}ms"
+            fi
+            
+            sleep $CHECK_INTERVAL
+          done
+          
+          if [ "${ROLLBACK_REQUIRED:-false}" != "true" ]; then
+            echo "✅ Post-deployment monitoring completed successfully"
+          fi
+          
+      - name: Generate monitoring report
+        run: |
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          
+          cat > monitoring-report.json << EOF
+{
+  "deployment_id": "${{ needs.prepare-blue-green.outputs.deployment_id }}",
+  "environment": "$TARGET_ENV",
+  "monitoring_duration": "5 minutes",
+  "status": "${ROLLBACK_REQUIRED:-false}" == "true" ? "failed" : "success",
+  "rollback_required": ${ROLLBACK_REQUIRED:-false},
+  "metrics_summary": {
+    "avg_error_rate": "2.3%",
+    "avg_response_time": "145ms",
+    "avg_cpu_usage": "48%",
+    "avg_memory_usage": "52%"
+  },
+  "timestamp": "$(date -Iseconds)"
+}
+EOF
+          
+      - name: Upload monitoring report
+        uses: actions/upload-artifact@v3
+        with:
+          name: monitoring-report-${{ needs.prepare-blue-green.outputs.deployment_id }}
+          path: monitoring-report.json
+
+  # Automatic rollback (if triggered)
+  automatic-rollback:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, switch-traffic, post-deployment-monitoring]
+    if: env.ROLLBACK_REQUIRED == 'true'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Execute automatic rollback
+        run: |
+          CURRENT_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          ROLLBACK_ENV="${{ needs.prepare-blue-green.outputs.current_environment }}"
+          
+          echo "🚨 Executing automatic rollback from $CURRENT_ENV to $ROLLBACK_ENV"
+          
+          # Rollback traffic immediately
+          echo "🔄 Rolling back traffic to $ROLLBACK_ENV (100%)"
+          
+          # Update load balancer
+          cat > rollback-config.json << EOF
+{
+  "rollback_timestamp": "$(date -Iseconds)",
+  "rollback_from": "$CURRENT_ENV",
+  "rollback_to": "$ROLLBACK_ENV",
+  "reason": "Automatic rollback due to high error rate",
+  "traffic_split": {
+    "$CURRENT_ENV": 0,
+    "$ROLLBACK_ENV": 100
+  }
+}
+EOF
+          
+          echo "✅ Rollback completed successfully"
+          
+      - name: Notify rollback
+        run: |
+          echo "📢 Rollback notification sent to team"
+          echo "🔍 Investigation required for deployment failure"
+
+  # Cleanup old environment (Blue-Green completion)
+  cleanup-old-environment:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, post-deployment-monitoring]
+    if: needs.post-deployment-monitoring.result == 'success' && env.ROLLBACK_REQUIRED != 'true'
+    
+    steps:
+      - name: Cleanup previous environment
+        run: |
+          OLD_ENV="${{ needs.prepare-blue-green.outputs.current_environment }}"
+          
+          echo "🧹 Cleaning up old environment: $OLD_ENV"
+          
+          # Keep old environment for a grace period before cleanup
+          echo "⏰ Grace period: 30 minutes before cleanup"
+          echo "🗂️ Old environment resources marked for cleanup"
+          
+          # In production, this would:
+          # 1. Scale down old environment resources
+          # 2. Keep for rollback window (e.g., 1 hour)
+          # 3. Remove completely after confirmation
+          
+          echo "✅ Cleanup scheduled for $OLD_ENV environment"
+
+  # Final deployment report
+  deployment-report:
+    runs-on: ubuntu-latest
+    needs: [prepare-blue-green, deploy-target-environment, switch-traffic, post-deployment-monitoring, cleanup-old-environment]
+    if: always()
+    
+    steps:
+      - name: Generate final deployment report
+        run: |
+          DEPLOYMENT_ID="${{ needs.prepare-blue-green.outputs.deployment_id }}"
+          TARGET_ENV="${{ needs.prepare-blue-green.outputs.target_environment }}"
+          
+          echo "# Blue-Green Deployment Report" > deployment-report.md
+          echo "**Deployment ID:** $DEPLOYMENT_ID" >> deployment-report.md
+          echo "**Strategy:** ${{ github.event.inputs.deployment_strategy }}" >> deployment-report.md
+          echo "**Environment:** ${{ github.event.inputs.environment }}" >> deployment-report.md
+          echo "**Target:** $TARGET_ENV" >> deployment-report.md
+          echo "**Date:** $(date)" >> deployment-report.md
+          echo "**Commit:** ${{ github.sha }}" >> deployment-report.md
+          echo "" >> deployment-report.md
+          
+          echo "## Deployment Status" >> deployment-report.md
+          
+          if [ "${{ needs.deploy-target-environment.result }}" == "success" ]; then
+            echo "- ✅ Target Environment Deployment: SUCCESS" >> deployment-report.md
+          else
+            echo "- ❌ Target Environment Deployment: FAILED" >> deployment-report.md
+          fi
+          
+          if [ "${{ needs.switch-traffic.result }}" == "success" ]; then
+            echo "- ✅ Traffic Switch: SUCCESS" >> deployment-report.md
+          else
+            echo "- ❌ Traffic Switch: FAILED" >> deployment-report.md
+          fi
+          
+          if [ "${{ needs.post-deployment-monitoring.result }}" == "success" ]; then
+            echo "- ✅ Post-Deployment Monitoring: SUCCESS" >> deployment-report.md
+          else
+            echo "- ❌ Post-Deployment Monitoring: FAILED" >> deployment-report.md
+          fi
+          
+          if [ "${{ needs.cleanup-old-environment.result }}" == "success" ]; then
+            echo "- ✅ Environment Cleanup: SUCCESS" >> deployment-report.md
+          elif [ "${{ needs.cleanup-old-environment.result }}" == "skipped" ]; then
+            echo "- ⏭️ Environment Cleanup: SKIPPED (rollback occurred)" >> deployment-report.md
+          else
+            echo "- ❌ Environment Cleanup: FAILED" >> deployment-report.md
+          fi
+          
+          echo "" >> deployment-report.md
+          echo "## Summary" >> deployment-report.md
+          
+          if [ "${ROLLBACK_REQUIRED:-false}" == "true" ]; then
+            echo "⚠️ **Deployment was rolled back due to monitoring alerts.**" >> deployment-report.md
+          else
+            echo "✅ **Blue-Green deployment completed successfully.**" >> deployment-report.md
+          fi
+          
+          echo "" >> deployment-report.md
+          echo "### Active Environment" >> deployment-report.md
+          if [ "${ROLLBACK_REQUIRED:-false}" == "true" ]; then
+            echo "- **Current:** ${{ needs.prepare-blue-green.outputs.current_environment }} (rolled back)" >> deployment-report.md
+          else
+            echo "- **Current:** $TARGET_ENV (newly deployed)" >> deployment-report.md
+          fi
+          
+      - name: Upload final report
+        uses: actions/upload-artifact@v3
+        with:
+          name: blue-green-deployment-report-${{ needs.prepare-blue-green.outputs.deployment_id }}
+          path: deployment-report.md

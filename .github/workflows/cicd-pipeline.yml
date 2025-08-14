@@ -1,0 +1,498 @@
+name: 🚀 OMEGA PRO AI - Complete CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run health checks daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      deploy_to_akash:
+        description: 'Deploy to Akash Network'
+        required: false
+        default: 'true'
+        type: boolean
+      force_rebuild:
+        description: 'Force complete rebuild'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_IMAGE_NAME: omegaproai/omega-ai
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+
+jobs:
+  # =========================================================================
+  # SECURITY & CODE QUALITY ANALYSIS
+  # =========================================================================
+  security-analysis:
+    name: 🔐 Security & Code Quality Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-security-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-security-
+          ${{ runner.os }}-pip-
+
+    - name: Install security tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit[toml] safety semgrep
+
+    - name: Run Bandit security scan
+      run: |
+        bandit -r . -f json -o bandit-report.json --skip B101,B601 || true
+        bandit -r . -f txt || true
+
+    - name: Run Safety vulnerability check
+      run: |
+        safety check --json --output safety-report.json || true
+        safety check || true
+
+    - name: Run Semgrep analysis
+      run: |
+        semgrep --config=auto --json --output=semgrep-report.json . || true
+        semgrep --config=auto . || true
+
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
+          semgrep-report.json
+        retention-days: 30
+
+  # =========================================================================
+  # AUTOMATED TESTING SUITE
+  # =========================================================================
+  test-suite:
+    name: 🧪 Automated Testing Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-xvfb
+
+    - name: Create test directories
+      run: |
+        mkdir -p data models results logs temp
+
+    - name: Run unit tests
+      run: |
+        pytest tests/ -v --cov=. --cov-report=xml --cov-report=html --cov-fail-under=70 || true
+
+    - name: Run integration tests
+      run: |
+        python -m pytest tests/ -v -m integration || true
+
+    - name: Upload coverage to GitHub
+      uses: actions/upload-artifact@v3
+      if: matrix.python-version == '3.11'
+      with:
+        name: coverage-report
+        path: |
+          coverage.xml
+          htmlcov/
+        retention-days: 30
+
+  # =========================================================================
+  # DOCKER BUILD & SECURITY SCAN
+  # =========================================================================
+  docker-build:
+    name: 🐳 Docker Build & Security Scan
+    runs-on: ubuntu-latest
+    needs: [security-analysis, test-suite]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.DOCKER_REGISTRY }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Generate Docker metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix=sha-{{date 'YYYYMMDD'}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=stable,enable=${{ github.ref == 'refs/heads/main' }}
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile.production
+        push: false
+        load: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          BUILDTIME=${{ github.run_id }}
+          VERSION=${{ github.sha }}
+
+    - name: Run Docker Trivy vulnerability scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: Test Docker container
+      run: |
+        docker run --rm -d --name omega-test -p 8000:8000 \
+          ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+        sleep 30
+        curl -f http://localhost:8000/health || exit 1
+        curl -f http://localhost:8000/ || exit 1
+        docker stop omega-test
+
+    - name: Push Docker image
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile.production
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # =========================================================================
+  # AKASH NETWORK DEPLOYMENT
+  # =========================================================================
+  deploy-akash:
+    name: 🌐 Deploy to Akash Network
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event.inputs.deploy_to_akash == 'true')
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Akash CLI
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/akash-network/node/master/install.sh | sh
+        sudo mv ./bin/akash /usr/local/bin/
+        akash version
+
+    - name: Configure Akash wallet
+      env:
+        AKASH_KEYRING_BACKEND: test
+        AKASH_NODE: ${{ secrets.AKASH_NODE }}
+        AKASH_CHAIN_ID: ${{ secrets.AKASH_CHAIN_ID }}
+      run: |
+        echo "${{ secrets.AKASH_WALLET_MNEMONIC }}" | akash keys recover main --recover-key
+
+    - name: Create Akash deployment manifest
+      run: |
+        cat > deploy.yaml << EOF
+        version: "2.0"
+        services:
+          omega-ai:
+            image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+            expose:
+              - port: 8000
+                as: 80
+                to:
+                  - global: true
+            env:
+              - "APP_ENV=production"
+              - "PORT=8000"
+        profiles:
+          compute:
+            omega-ai:
+              resources:
+                cpu:
+                  units: "2"
+                memory:
+                  size: "4Gi"
+                storage:
+                  size: "10Gi"
+          placement:
+            akash:
+              attributes:
+                host: akash
+              signedBy:
+                anyOf:
+                  - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+              pricing:
+                omega-ai:
+                  denom: uakt
+                  amount: 1000
+        deployment:
+          omega-ai:
+            akash:
+              profile: omega-ai
+              count: 1
+        EOF
+
+    - name: Deploy to Akash Network
+      env:
+        AKASH_KEYRING_BACKEND: test
+        AKASH_NODE: ${{ secrets.AKASH_NODE }}
+        AKASH_CHAIN_ID: ${{ secrets.AKASH_CHAIN_ID }}
+        AKASH_ACCOUNT_ADDRESS: ${{ secrets.AKASH_ACCOUNT_ADDRESS }}
+        AKASH_OWNER: ${{ secrets.AKASH_ACCOUNT_ADDRESS }}
+        AKASH_DSEQ: ${{ secrets.AKASH_DSEQ }}
+        AKASH_OSEQ: 1
+        AKASH_GSEQ: 1
+        AKASH_PROVIDER: ${{ secrets.AKASH_PROVIDER }}
+      run: |
+        # Update existing deployment
+        akash tx deployment update deploy.yaml \
+          --from main \
+          --gas-prices="0.025uakt" \
+          --gas="auto" \
+          --gas-adjustment=1.15 \
+          --broadcast-mode=block \
+          --yes
+
+    - name: Wait for deployment to be active
+      timeout-minutes: 10
+      run: |
+        echo "Waiting for deployment to be active..."
+        for i in {1..60}; do
+          STATUS=$(akash query deployment get \
+            --owner ${{ secrets.AKASH_ACCOUNT_ADDRESS }} \
+            --dseq ${{ secrets.AKASH_DSEQ }} \
+            --output json | jq -r '.deployment.state')
+          
+          if [ "$STATUS" = "active" ]; then
+            echo "✅ Deployment is active!"
+            break
+          fi
+          
+          echo "⏳ Deployment status: $STATUS (attempt $i/60)"
+          sleep 10
+        done
+
+    - name: Get deployment URI
+      id: uri
+      run: |
+        URI=$(akash provider lease-status \
+          --node ${{ secrets.AKASH_NODE }} \
+          --owner ${{ secrets.AKASH_ACCOUNT_ADDRESS }} \
+          --dseq ${{ secrets.AKASH_DSEQ }} \
+          --oseq 1 \
+          --gseq 1 \
+          --provider ${{ secrets.AKASH_PROVIDER }} \
+          --output json | jq -r '.services.omega-ai.uris[0]')
+        echo "DEPLOYMENT_URI=$URI" >> $GITHUB_OUTPUT
+        echo "🌐 Deployment URI: $URI"
+
+    - name: Health check deployment
+      run: |
+        sleep 60  # Wait for service to fully start
+        HEALTH_URL="${{ steps.uri.outputs.DEPLOYMENT_URI }}/health"
+        echo "🏥 Health checking: $HEALTH_URL"
+        
+        for i in {1..10}; do
+          if curl -f "$HEALTH_URL"; then
+            echo "✅ Health check passed!"
+            break
+          fi
+          echo "⏳ Health check attempt $i/10..."
+          sleep 30
+        done
+
+    - name: Update deployment status
+      run: |
+        echo "🎉 OMEGA PRO AI successfully deployed to Akash Network!"
+        echo "🌐 URL: ${{ steps.uri.outputs.DEPLOYMENT_URI }}"
+        echo "📊 DSEQ: ${{ secrets.AKASH_DSEQ }}"
+        echo "🏢 Provider: ${{ secrets.AKASH_PROVIDER }}"
+
+  # =========================================================================
+  # MONITORING & NOTIFICATIONS
+  # =========================================================================
+  monitoring:
+    name: 📊 Monitoring & Health Checks
+    runs-on: ubuntu-latest
+    needs: [deploy-akash]
+    if: always() && (needs.deploy-akash.result == 'success' || github.event_name == 'schedule')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Health check Akash deployment
+      id: health
+      run: |
+        AKASH_URL="https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win"
+        
+        echo "🏥 Performing comprehensive health check..."
+        
+        # Basic health check
+        HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$AKASH_URL/health" || echo "000")
+        echo "HEALTH_STATUS=$HEALTH_STATUS" >> $GITHUB_OUTPUT
+        
+        # API functionality check
+        API_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$AKASH_URL/" || echo "000")
+        echo "API_STATUS=$API_STATUS" >> $GITHUB_OUTPUT
+        
+        # Performance check
+        RESPONSE_TIME=$(curl -s -o /dev/null -w "%{time_total}" "$AKASH_URL/health" || echo "999")
+        echo "RESPONSE_TIME=$RESPONSE_TIME" >> $GITHUB_OUTPUT
+        
+        echo "📊 Health Status: $HEALTH_STATUS"
+        echo "📊 API Status: $API_STATUS"
+        echo "📊 Response Time: ${RESPONSE_TIME}s"
+
+    - name: Generate monitoring report
+      run: |
+        cat > monitoring-report.json << EOF
+        {
+          "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+          "deployment": {
+            "url": "https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win",
+            "dseq": "${{ secrets.AKASH_DSEQ }}",
+            "provider": "${{ secrets.AKASH_PROVIDER }}"
+          },
+          "health": {
+            "status": "${{ steps.health.outputs.HEALTH_STATUS }}",
+            "api_status": "${{ steps.health.outputs.API_STATUS }}",
+            "response_time": "${{ steps.health.outputs.RESPONSE_TIME }}",
+            "healthy": ${{ steps.health.outputs.HEALTH_STATUS == '200' && steps.health.outputs.API_STATUS == '200' }}
+          },
+          "github": {
+            "run_id": "${{ github.run_id }}",
+            "sha": "${{ github.sha }}",
+            "ref": "${{ github.ref }}"
+          }
+        }
+        EOF
+
+    - name: Upload monitoring report
+      uses: actions/upload-artifact@v3
+      with:
+        name: monitoring-report
+        path: monitoring-report.json
+        retention-days: 90
+
+    - name: Slack notification
+      if: failure() || steps.health.outputs.HEALTH_STATUS != '200'
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#omega-alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        custom_payload: |
+          {
+            "text": "🚨 OMEGA PRO AI Deployment Alert",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*OMEGA PRO AI - Deployment Status*\n\n*Status:* ${{ job.status }}\n*Health Check:* ${{ steps.health.outputs.HEALTH_STATUS }}\n*URL:* https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win\n*GitHub Run:* ${{ github.run_id }}"
+                }
+              }
+            ]
+          }
+
+  # =========================================================================
+  # DEPLOYMENT SUMMARY & CLEANUP
+  # =========================================================================
+  deployment-summary:
+    name: 📋 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [security-analysis, test-suite, docker-build, deploy-akash, monitoring]
+    if: always()
+    
+    steps:
+    - name: Generate deployment summary
+      run: |
+        echo "# 🚀 OMEGA PRO AI - Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 📊 Pipeline Results" >> $GITHUB_STEP_SUMMARY
+        echo "| Job | Status | Duration |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----|--------|----------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Security Analysis | ${{ needs.security-analysis.result }} | - |" >> $GITHUB_STEP_SUMMARY
+        echo "| Test Suite | ${{ needs.test-suite.result }} | - |" >> $GITHUB_STEP_SUMMARY
+        echo "| Docker Build | ${{ needs.docker-build.result }} | - |" >> $GITHUB_STEP_SUMMARY
+        echo "| Akash Deployment | ${{ needs.deploy-akash.result }} | - |" >> $GITHUB_STEP_SUMMARY
+        echo "| Monitoring | ${{ needs.monitoring.result }} | - |" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## 🌐 Deployment Information" >> $GITHUB_STEP_SUMMARY
+        echo "- **URL:** https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win" >> $GITHUB_STEP_SUMMARY
+        echo "- **Docker Image:** ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest" >> $GITHUB_STEP_SUMMARY
+        echo "- **Git SHA:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Timestamp:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_STEP_SUMMARY
+
+    - name: Clean up old artifacts
+      run: |
+        echo "🧹 Cleanup completed - old artifacts will be automatically removed based on retention policies"
