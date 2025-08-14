@@ -122,7 +122,7 @@ jobs:
           EOF
           
       - name: Upload rollback log
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rollback-log-${{ github.run_id }}
           path: rollback-log.json
@@ -206,7 +206,7 @@ jobs:
           EOF
           
       - name: Upload pre-rollback snapshot
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pre-rollback-snapshot-${{ github.run_id }}
           path: snapshots/
@@ -726,7 +726,7 @@ jobs:
           EOF
           
       - name: Upload rollback report and logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rollback-report-${{ github.run_id }}
           path: |

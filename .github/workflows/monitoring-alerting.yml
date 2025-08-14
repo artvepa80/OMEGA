@@ -666,7 +666,7 @@ jobs:
           echo "alertmanager=http://localhost:9093" >> $GITHUB_OUTPUT
           
       - name: Upload monitoring configuration
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: monitoring-configuration-${{ env.ENVIRONMENT }}
           path: monitoring/
@@ -734,7 +734,7 @@ jobs:
           echo "4. Add custom business metrics" >> monitoring-report.md
           
       - name: Upload monitoring report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: monitoring-setup-report
           path: monitoring-report.md
@@ -968,7 +968,7 @@ jobs:
           echo "5. Set up automated remediation for common issues" >> final-monitoring-report.md
           
       - name: Upload final monitoring report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: omega-monitoring-final-report
           path: final-monitoring-report.md

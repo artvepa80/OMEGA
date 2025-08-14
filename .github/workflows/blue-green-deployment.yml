@@ -153,7 +153,7 @@ jobs:
 EOF
           
       - name: Upload deployment artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-${{ env.TARGET_ENV }}-${{ env.DEPLOYMENT_ID }}
           path: |
@@ -342,7 +342,7 @@ EOF
           echo "📝 Deployment state updated"
           
       - name: Upload switch artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: traffic-switch-${{ needs.prepare-blue-green.outputs.deployment_id }}
           path: |
@@ -426,7 +426,7 @@ EOF
 EOF
           
       - name: Upload monitoring report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: monitoring-report-${{ needs.prepare-blue-green.outputs.deployment_id }}
           path: monitoring-report.json
@@ -562,7 +562,7 @@ EOF
           fi
           
       - name: Upload final report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: blue-green-deployment-report-${{ needs.prepare-blue-green.outputs.deployment_id }}
           path: deployment-report.md

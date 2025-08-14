@@ -434,7 +434,7 @@ jobs:
           fi
           
       - name: Upload deployment report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: akash-deployment-report-${{ needs.prepare-deployment.outputs.deployment_env }}
           path: akash-deployment-report.md

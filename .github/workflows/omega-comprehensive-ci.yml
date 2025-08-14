@@ -95,7 +95,7 @@ jobs:
           esac
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results-${{ matrix.python-version }}-${{ matrix.test-suite }}
@@ -389,7 +389,7 @@ jobs:
           echo "- Deployment: ✓" >> deployment-report.md
           
       - name: Upload deployment report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-report
           path: deployment-report.md

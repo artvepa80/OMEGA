@@ -275,7 +275,7 @@ jobs:
           "
           
       - name: Upload security reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: security-reports
@@ -444,7 +444,7 @@ jobs:
           echo "Regression testing completed for OMEGA system components." >> regression-report.md
           
       - name: Upload regression report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: regression-test-report
           path: regression-report.md

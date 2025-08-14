@@ -84,7 +84,7 @@ jobs:
           EOF
           
       - name: Upload validation structure
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: validation-structure
           path: validation-reports/
@@ -186,7 +186,7 @@ jobs:
           EOF
           
       - name: Upload CI/CD validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cicd-validation-reports
           path: cicd-validation-*.json
@@ -303,7 +303,7 @@ jobs:
           EOF
           
       - name: Upload deployment validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-validation-report
           path: deployment-validation.json
@@ -399,7 +399,7 @@ jobs:
           EOF
           
       - name: Upload monitoring validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: monitoring-validation-report
           path: monitoring-validation.json
@@ -473,7 +473,7 @@ jobs:
           EOF
           
       - name: Upload rollback validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rollback-validation-report
           path: rollback-validation.json
@@ -556,7 +556,7 @@ jobs:
           EOF
           
       - name: Upload security validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-validation-report
           path: security-validation.json
@@ -699,7 +699,7 @@ jobs:
           EOF
           
       - name: Upload performance validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: performance-validation-report
           path: |
@@ -875,7 +875,7 @@ jobs:
           echo "*This validation was performed by OMEGA DevOps Automation Pipeline v${{ env.PIPELINE_VERSION }}*" >> final-validation-report.md
           
       - name: Upload final validation report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: omega-devops-complete-validation-report
           path: final-validation-report.md
@@ -905,7 +905,7 @@ jobs:
           EOF
           
       - name: Upload final validation status
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: validation-final-status
           path: validation-final-status.json

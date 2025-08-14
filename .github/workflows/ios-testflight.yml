@@ -252,7 +252,7 @@ EOF
           fi
           
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-build-artifacts
           path: |
@@ -378,7 +378,7 @@ EOF
           #   --apiIssuer "${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}"
           
       - name: Upload iOS artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-archive
           path: |
@@ -430,7 +430,7 @@ EOF
           echo "- **Distribution:** TestFlight (Internal Testing)" >> testflight-report.md
           
       - name: Upload TestFlight report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: testflight-deployment-report
           path: testflight-report.md
