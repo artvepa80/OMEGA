@@ -1,0 +1,284 @@
+version: "2.0"
+
+services:
+  # Main API service with SSL/TLS termination
+  omega-api:
+    image: ghcr.io/omega-pro-ai/omega-api:latest
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "*.omega-pro.ai"
+          - omega-api.akash.network
+        http_options:
+          max_body_size: 67108864  # 64MB
+    depends_on:
+      - redis
+      - nginx-security
+    env:
+      - OMEGA_ENV=production
+      - SSL_ENABLED=true
+      - SECURITY_HEADERS=true
+      - CORS_ENABLED=true
+      - RATE_LIMITING=true
+      - AUTH_REQUIRED=true
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - REDIS_URL=redis://redis:6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - LOG_LEVEL=INFO
+      - HEALTH_CHECK_ENABLED=true
+      - SSL_CERT_PATH=/app/ssl/cert.pem
+      - SSL_KEY_PATH=/app/ssl/key.pem
+      - DOMAIN=omega-api.akash.network
+      - MAX_WORKERS=4
+      - WORKER_CLASS=gevent
+      - WORKER_CONNECTIONS=1000
+      - TIMEOUT=300
+      - KEEPALIVE=30
+    resources:
+      cpu:
+        units: "2.0"
+      memory:
+        size: 4Gi
+      storage:
+        - size: 20Gi
+
+  # GPU inference service (internal only)
+  omega-gpu:
+    image: ghcr.io/omega-pro-ai/omega-gpu:latest
+    expose:
+      - port: 8001
+        to:
+          - service: omega-api
+    depends_on:
+      - redis
+    env:
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - SSL_ENABLED=true
+      - INTERNAL_AUTH=true
+      - REDIS_URL=redis://redis:6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - MAX_CONCURRENT_REQUESTS=5
+      - GPU_MEMORY_LIMIT=90
+      - PROCESSING_TIMEOUT=300
+      - MODEL_CACHE_SIZE=2048
+      - BATCH_SIZE=32
+      - LOG_LEVEL=INFO
+    resources:
+      cpu:
+        units: "6.0"
+      memory:
+        size: 16Gi
+      storage:
+        - size: 100Gi
+      gpu:
+        units: 1
+        attributes:
+          vendor:
+            nvidia:
+              - model: rtx4090
+                ram: "24Gi"
+
+  # Redis cache and session storage
+  redis:
+    image: redis:7.2-alpine
+    command:
+      - redis-server
+      - --requirepass
+      - ${REDIS_PASSWORD}
+      - --maxmemory
+      - 2gb
+      - --maxmemory-policy
+      - allkeys-lru
+      - --save
+      - "900 1"
+      - --save
+      - "300 10"
+      - --save
+      - "60 10000"
+      - --appendonly
+      - "yes"
+      - --appendfsync
+      - everysec
+    expose:
+      - port: 6379
+        to:
+          - service: omega-api
+          - service: omega-gpu
+    env:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    resources:
+      cpu:
+        units: "1.0"
+      memory:
+        size: 2Gi
+      storage:
+        - size: 10Gi
+
+  # Nginx SSL termination and security proxy
+  nginx-security:
+    image: nginx:1.25-alpine
+    expose:
+      - port: 80
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 67108864  # 64MB
+      - port: 443
+        as: 443
+        to:
+          - global: true
+        accept:
+          - "*.omega-pro.ai"
+          - omega-api.akash.network
+        http_options:
+          max_body_size: 67108864  # 64MB
+    depends_on:
+      - omega-api
+    env:
+      - SSL_ENABLED=true
+      - SECURITY_HEADERS=true
+      - RATE_LIMITING=true
+      - DOMAIN=omega-api.akash.network
+      - API_UPSTREAM=omega-api:8000
+      - LOG_LEVEL=warn
+    resources:
+      cpu:
+        units: "1.0"
+      memory:
+        size: 1Gi
+      storage:
+        - size: 2Gi
+
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: "2.0"
+        memory:
+          size: 4Gi
+        storage:
+          - size: 20Gi
+    
+    omega-gpu:
+      resources:
+        cpu:
+          units: "6.0"
+        memory:
+          size: 16Gi
+        storage:
+          - size: 100Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+                  ram: "24Gi"
+    
+    redis:
+      resources:
+        cpu:
+          units: "1.0"
+        memory:
+          size: 2Gi
+        storage:
+          - size: 10Gi
+    
+    nginx-security:
+      resources:
+        cpu:
+          units: "1.0"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 2Gi
+
+  placement:
+    # High-performance provider requirements
+    akash-pro:
+      attributes:
+        # Require signed providers for security
+        host: akash
+        # Prefer US regions for latency
+        region: us-west
+        # Require high-performance infrastructure
+        tier: premium
+        # SSL/TLS support required
+        ssl: required
+        # GPU provider certification
+        gpu-certified: required
+      
+      # Only use certified, audited providers
+      signedBy:
+        anyOf:
+          # Akash Core Team
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+          # Premium GPU Provider 1
+          - akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4
+          # Premium GPU Provider 2 
+          - akash1ccktptfkvdc67msrn57xp3jkw9gn2506lhxvtq
+          # Certified Cloud Provider
+          - akash1f53fp8kpj7ph5hsld6lyf5m3gnvj3w87x4ye5k
+      
+      pricing:
+        omega-api:
+          denom: uakt
+          amount: 750  # ~$0.15/hour
+        
+        omega-gpu:
+          denom: uakt  
+          amount: 2500  # ~$0.50/hour (premium GPU pricing)
+        
+        redis:
+          denom: uakt
+          amount: 250  # ~$0.05/hour
+        
+        nginx-security:
+          denom: uakt
+          amount: 200  # ~$0.04/hour
+
+deployment:
+  omega-api:
+    akash-pro:
+      profile: omega-api
+      count: 1
+  
+  omega-gpu:
+    akash-pro:
+      profile: omega-gpu
+      count: 1
+  
+  redis:
+    akash-pro:
+      profile: redis
+      count: 1
+  
+  nginx-security:
+    akash-pro:
+      profile: nginx-security
+      count: 1
+
+# Deployment metadata for tracking
+metadata:
+  name: omega-pro-ai-secure
+  version: "1.0.0"
+  description: "OMEGA Pro AI - Secure Production Deployment with SSL/TLS"
+  created_by: "OMEGA Deploy System"
+  security_level: "production"
+  compliance: ["SOC2", "GDPR", "CCPA"]
+  tags:
+    - production
+    - ssl-enabled
+    - gpu-accelerated
+    - high-availability
+    - secure
+  contacts:
+    - admin@omega-pro-ai.com
+  documentation: "https://docs.omega-pro.ai"

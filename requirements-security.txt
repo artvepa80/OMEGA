@@ -1,0 +1,58 @@
+# Security-specific requirements for OMEGA PRO AI v10.1
+# These packages are required for the advanced security system
+
+# Authentication & Authorization
+PyJWT==2.10.1
+pyotp==2.8.0
+qrcode==7.4.2
+bcrypt==4.2.1
+
+# Encryption & Security
+cryptography==41.0.7
+safety==3.2.11
+
+# Web Security & Dashboard
+flask==2.1.0
+flask-login==0.6.0
+flask-socketio==5.3.0
+python-socketio==5.8.0
+
+# Security Monitoring & IDS
+psutil==7.0.0
+watchdog==6.0.0
+python-nmap==0.7.1
+
+# Vulnerability Scanning
+requests==2.32.4
+cve-search-api==1.0.0
+
+# Database & Caching for Security
+redis==6.4.0
+
+# Compliance & Auditing
+jsonschema==4.17.0
+pydantic==2.11.7
+
+# Container Security
+docker==6.1.0
+
+# Network Security
+dnspython==2.3.0
+scapy==2.5.0
+
+# Logging & Monitoring
+prometheus-client==0.22.1
+elasticsearch==8.8.0
+
+# Web Dashboard Dependencies
+plotly==5.15.0
+pandas==2.2.3
+jinja2==3.1.6
+werkzeug==3.1.3
+
+# System Security
+fail2ban==1.0.2
+iptables-python==0.15.0
+
+# MFA & 2FA
+segno==1.5.2

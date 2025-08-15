@@ -1,0 +1,114 @@
+# OMEGA PRO AI v10.1 - Production Requirements
+# Optimized dependencies for production deployment
+
+# Core Framework
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+gunicorn==23.0.0
+pydantic==2.11.7
+pydantic-core==2.33.2
+
+# ASGI/WSGI
+starlette==0.47.2
+anyio==4.10.0
+sniffio==1.3.1
+h11==0.16.0
+
+# Authentication & Security
+PyJWT==2.10.1
+bcrypt==4.2.1
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.12
+
+# HTTP Client
+requests==2.32.4
+httpx==0.28.0
+certifi==2025.6.15
+
+# Data Processing & ML
+numpy==2.0.2
+pandas==2.2.3
+scikit-learn==1.5.2
+scipy==1.13.1
+
+# Deep Learning (CPU optimized)
+torch==2.7.1+cpu --find-links https://download.pytorch.org/whl/torch_stable.html
+tensorflow-cpu==2.19.0
+keras==3.10.0
+
+# XGBoost
+xgboost==2.1.4
+
+# Time Series & Statistical Analysis
+statsmodels==0.14.4
+
+# Caching & Session Management
+redis==6.4.0
+hiredis==3.0.0
+
+# Database (Optional)
+sqlalchemy==2.0.36
+alembic==1.14.0
+psycopg2-binary==2.9.10
+
+# Monitoring & Observability
+prometheus-client==0.22.1
+structlog==25.1.0
+loguru==0.7.2
+
+# Configuration Management
+python-dotenv==1.0.1
+pydantic-settings==2.7.0
+
+# Async Support
+asyncio-mqtt==0.16.2
+aioredis==2.0.1
+aiofiles==25.7.1
+
+# Utilities
+click==8.1.8
+rich==14.0.0
+typer==0.15.1
+
+# Validation & Serialization
+marshmallow==3.24.1
+jsonschema==4.24.0
+
+# Date/Time Handling
+python-dateutil==2.9.0.post0
+pytz==2024.2
+pendulum==3.0.0
+
+# Performance & Optimization
+orjson==3.10.12
+ujson==5.10.0
+msgpack==1.1.0
+
+# Development Tools (Production Safe)
+safety==3.2.11
+
+# Communication (Optional)
+twilio==9.3.6
+python-telegram-bot==21.9
+
+# File Processing
+openpyxl==3.1.5
+xlsxwriter==3.2.0
+
+# Containerization Support
+gunicorn==23.0.0
+gevent==25.1.1
+greenlet==3.1.1
+
+# Health Checks & Diagnostics
+psutil==7.0.0
+py-cpuinfo==9.0.0
+
+# Compression
+lz4==4.3.3
+zstandard==0.23.0
+
+# Version Management
+packaging==25.0
+setuptools==75.6.0
+wheel==0.45.1

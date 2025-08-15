@@ -259,7 +259,7 @@ def generar_combinaciones_montecarlo(historial, cantidad=60, logger=None):
     
     # Paso 1: Preparar distribución probabilística
     try:
-        distribucion = generar_distribucion_probabilidades(historial_limpio, logger=log)
+        distribucion = generar_distribucion_probabilidades(historial_limpio, logger=logger)
     except Exception as e:
         log(f"❌ Error en generación de distribución: {str(e)}", 'error')
         distribucion = np.array([1/40] * 40)
@@ -289,7 +289,7 @@ def generar_combinaciones_montecarlo(historial, cantidad=60, logger=None):
                 distribucion, 
                 historial_set, 
                 umbral,
-                logger=log
+                logger=logger
             )
             combo_tup = tuple(combo)
             

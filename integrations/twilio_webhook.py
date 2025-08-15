@@ -62,15 +62,22 @@ def process_twilio_command(command: str, hybrid_system) -> str:
             if not result.get("success", False):
                 return f"❌ Error en predicción: {result.get('errors', ['Unknown error'])}"
             
-            pred = result.get("prediction", {})
-            numbers = pred.get("numbers", [])
-            confidence = pred.get("confidence", 0)
+            # El formato correcto es 'combinations', no 'prediction'
+            combinations = result.get("combinations", [])
             
-            if numbers:
-                nums_str = " ".join(f"{n:02d}" for n in numbers)
-                return f"🎯 OMEGA Predicción\n{nums_str}\nConfianza: {confidence:.1%}"
+            if combinations:
+                # Tomar la primera combinación (mejor puntuada)
+                best_combo = combinations[0]
+                numbers = best_combo.get("numbers", [])
+                confidence = best_combo.get("confidence", 0)
+                
+                if numbers:
+                    nums_str = " ".join(f"{n:02d}" for n in numbers)
+                    return f"🎯 OMEGA Predicción\n{nums_str}\nConfianza: {confidence:.1%}"
+                else:
+                    return "❌ Combinación sin números válidos."
             else:
-                return "❌ No se pudo generar predicción válida."
+                return "❌ No se generaron combinaciones."
                 
         except Exception as e:
             return f"❌ Error interno: {str(e)}"

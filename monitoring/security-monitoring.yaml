@@ -1,0 +1,669 @@
+# OMEGA PRO AI v10.1 - Security Monitoring Infrastructure
+# Comprehensive security monitoring with Prometheus, Grafana, ELK Stack, and alerting
+# Includes threat detection, anomaly detection, and incident response automation
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-security-monitoring
+  namespace: omega-production
+  labels:
+    app: omega-pro-ai
+    component: security-monitoring
+    version: "10.1"
+data:
+  # ===== PROMETHEUS SECURITY RULES =====
+  prometheus-security-rules.yaml: |
+    groups:
+    - name: omega-security-alerts
+      interval: 30s
+      rules:
+      
+      # High CPU usage (potential DoS)
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+          service: omega-api
+        annotations:
+          summary: "High CPU usage detected on {{ $labels.instance }}"
+          description: "CPU usage is above 80% for more than 2 minutes"
+          
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 2m
+        labels:
+          severity: warning
+          service: omega-api
+        annotations:
+          summary: "High memory usage detected on {{ $labels.instance }}"
+          description: "Memory usage is above 85% for more than 2 minutes"
+          
+      # Unusual number of failed authentication attempts
+      - alert: HighFailedAuthAttempts
+        expr: increase(omega_failed_auth_attempts_total[5m]) > 10
+        for: 1m
+        labels:
+          severity: critical
+          service: omega-api
+          attack_type: brute_force
+        annotations:
+          summary: "High number of failed authentication attempts"
+          description: "{{ $value }} failed authentication attempts in the last 5 minutes"
+          
+      # DDoS detection - high request rate
+      - alert: DDoSAttackDetected
+        expr: rate(nginx_http_requests_total[1m]) > 100
+        for: 30s
+        labels:
+          severity: critical
+          service: nginx
+          attack_type: ddos
+        annotations:
+          summary: "Potential DDoS attack detected"
+          description: "Request rate is {{ $value }} requests/second, above normal threshold"
+          
+      # SSL certificate expiration
+      - alert: SSLCertificateExpiring
+        expr: (ssl_certificate_expiry_seconds - time()) / 86400 < 30
+        for: 1h
+        labels:
+          severity: warning
+          service: ssl
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate for {{ $labels.instance }} expires in {{ $value }} days"
+          
+      # GPU temperature too high
+      - alert: GPUOverheating
+        expr: nvidia_gpu_temperature_celsius > 85
+        for: 2m
+        labels:
+          severity: critical
+          service: omega-gpu
+        annotations:
+          summary: "GPU overheating detected"
+          description: "GPU temperature is {{ $value }}°C, above safe threshold"
+          
+      # Unusual API access patterns
+      - alert: AnomalousAPIAccess
+        expr: rate(omega_api_requests_total[5m]) > 5 * rate(omega_api_requests_total[1h] offset 1h)
+        for: 2m
+        labels:
+          severity: warning
+          service: omega-api
+          attack_type: anomaly
+        annotations:
+          summary: "Anomalous API access pattern detected"
+          description: "API request rate is 5x higher than normal"
+          
+      # Database connection failures
+      - alert: DatabaseConnectionFailure
+        expr: omega_database_connection_errors_total > 0
+        for: 1m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "Database connection failures detected"
+          description: "{{ $value }} database connection errors in the last minute"
+          
+      # Vault seal status
+      - alert: VaultSealed
+        expr: vault_core_unsealed == 0
+        for: 0s
+        labels:
+          severity: critical
+          service: vault
+        annotations:
+          summary: "Vault is sealed"
+          description: "HashiCorp Vault is in sealed state, secrets unavailable"
+          
+      # Security scan results
+      - alert: VulnerabilityDetected
+        expr: omega_security_vulnerabilities_total > 0
+        for: 5m
+        labels:
+          severity: warning
+          service: security-scanner
+        annotations:
+          summary: "Security vulnerabilities detected"
+          description: "{{ $value }} security vulnerabilities found in recent scan"
+
+  # ===== GRAFANA SECURITY DASHBOARDS =====
+  grafana-security-dashboard.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "OMEGA PRO AI - Security Dashboard",
+        "tags": ["omega", "security", "monitoring"],
+        "style": "dark",
+        "timezone": "UTC",
+        "panels": [
+          {
+            "id": 1,
+            "title": "Security Events Overview",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "sum(rate(omega_security_events_total[5m]))",
+                "legendFormat": "Security Events/sec"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "thresholds": {
+                  "steps": [
+                    {"color": "green", "value": null},
+                    {"color": "yellow", "value": 5},
+                    {"color": "red", "value": 10}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "id": 2,
+            "title": "Failed Authentication Attempts",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(omega_failed_auth_attempts_total[5m])",
+                "legendFormat": "Failed Attempts/sec"
+              }
+            ],
+            "alert": {
+              "conditions": [
+                {
+                  "query": {"params": ["A", "5m", "now"]},
+                  "reducer": {"params": [], "type": "avg"},
+                  "evaluator": {"params": [10], "type": "gt"}
+                }
+              ],
+              "executionErrorState": "alerting",
+              "for": "1m",
+              "frequency": "10s",
+              "handler": 1,
+              "name": "High Failed Auth Attempts"
+            }
+          },
+          {
+            "id": 3,
+            "title": "Request Rate vs Normal",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(omega_api_requests_total[1m])",
+                "legendFormat": "Current Rate"
+              },
+              {
+                "expr": "avg_over_time(rate(omega_api_requests_total[1m])[1h:1m])",
+                "legendFormat": "Normal Rate"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "title": "SSL Certificate Status",
+            "type": "table",
+            "targets": [
+              {
+                "expr": "ssl_certificate_expiry_seconds",
+                "format": "table",
+                "legendFormat": "Certificate Expiry"
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "title": "GPU Security Status",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "nvidia_gpu_temperature_celsius",
+                "legendFormat": "GPU Temperature"
+              }
+            ],
+            "fieldConfig": {
+              "defaults": {
+                "unit": "celsius",
+                "thresholds": {
+                  "steps": [
+                    {"color": "green", "value": null},
+                    {"color": "yellow", "value": 70},
+                    {"color": "red", "value": 85}
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "id": 6,
+            "title": "Network Security Events",
+            "type": "logs",
+            "targets": [
+              {
+                "expr": "{job=\"omega-security\"} |= \"BLOCKED\" or \"DENIED\"",
+                "legendFormat": "Security Events"
+              }
+            ]
+          }
+        ],
+        "time": {
+          "from": "now-1h",
+          "to": "now"
+        },
+        "refresh": "30s"
+      }
+    }
+
+  # ===== ELASTICSEARCH SECURITY INDEX TEMPLATE =====
+  elasticsearch-security-template.json: |
+    {
+      "index_patterns": ["omega-security-*"],
+      "template": {
+        "settings": {
+          "number_of_shards": 3,
+          "number_of_replicas": 1,
+          "index.lifecycle.name": "omega-security-policy",
+          "index.lifecycle.rollover_alias": "omega-security"
+        },
+        "mappings": {
+          "properties": {
+            "@timestamp": {"type": "date"},
+            "level": {"type": "keyword"},
+            "message": {"type": "text"},
+            "source_ip": {"type": "ip"},
+            "user_agent": {"type": "text"},
+            "endpoint": {"type": "keyword"},
+            "method": {"type": "keyword"},
+            "status_code": {"type": "integer"},
+            "response_time": {"type": "float"},
+            "threat_level": {"type": "keyword"},
+            "event_type": {"type": "keyword"},
+            "blocked": {"type": "boolean"},
+            "geo_location": {
+              "type": "geo_point"
+            },
+            "session_id": {"type": "keyword"},
+            "user_id": {"type": "keyword"}
+          }
+        }
+      }
+    }
+
+  # ===== FILEBEAT SECURITY CONFIGURATION =====
+  filebeat-security.yml: |
+    filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+        - /var/log/omega/*.log
+        - /var/log/nginx/*.log
+        - /var/log/auth.log
+        - /var/log/fail2ban.log
+      fields:
+        service: omega-security
+        environment: production
+      multiline.pattern: '^\d{4}-\d{2}-\d{2}'
+      multiline.negate: true
+      multiline.match: after
+      
+    - type: log
+      enabled: true
+      paths:
+        - /var/log/omega/security.log
+      fields:
+        log_type: security_event
+        service: omega-api
+      json.keys_under_root: true
+      json.add_error_key: true
+      
+    processors:
+    - add_host_metadata:
+        when.not.contains.tags: forwarded
+    - add_docker_metadata: ~
+    - add_kubernetes_metadata: ~
+    - geoip:
+        fields: ["source_ip", "client.ip"]
+        target: "geoip"
+    
+    output.elasticsearch:
+      hosts: ["elasticsearch:9200"]
+      index: "omega-security-%{+yyyy.MM.dd}"
+      template.name: "omega-security"
+      template.pattern: "omega-security-*"
+      
+    setup.kibana:
+      host: "kibana:5601"
+      
+    logging.level: info
+    logging.to_files: true
+    logging.files:
+      path: /var/log/filebeat
+      name: filebeat
+      keepfiles: 7
+      permissions: 0644
+
+  # ===== LOGSTASH SECURITY PIPELINE =====
+  logstash-security-pipeline.conf: |
+    input {
+      beats {
+        port => 5044
+        type => "omega-security"
+      }
+    }
+    
+    filter {
+      if [service] == "omega-security" {
+        grok {
+          match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} - %{WORD:logger} - %{WORD:level} - %{GREEDYDATA:log_message}" }
+        }
+        
+        date {
+          match => [ "timestamp", "ISO8601" ]
+        }
+        
+        # Extract IP addresses
+        if [log_message] =~ "IP:" {
+          grok {
+            match => { "log_message" => "IP: %{IPV4:source_ip}" }
+          }
+        }
+        
+        # Detect threat patterns
+        if [log_message] =~ /(?i)(attack|threat|malicious|blocked|denied|failed|error|unauthorized)/ {
+          mutate {
+            add_field => { "threat_detected" => "true" }
+            add_tag => [ "security_threat" ]
+          }
+          
+          if [log_message] =~ /(?i)(sql injection|xss|csrf|directory traversal)/ {
+            mutate {
+              add_field => { "threat_type" => "web_attack" }
+              add_field => { "threat_level" => "high" }
+            }
+          }
+          
+          if [log_message] =~ /(?i)(brute force|password|login)/ {
+            mutate {
+              add_field => { "threat_type" => "brute_force" }
+              add_field => { "threat_level" => "medium" }
+            }
+          }
+          
+          if [log_message] =~ /(?i)(ddos|flood|rate limit)/ {
+            mutate {
+              add_field => { "threat_type" => "ddos" }
+              add_field => { "threat_level" => "critical" }
+            }
+          }
+        }
+        
+        # GeoIP lookup
+        if [source_ip] {
+          geoip {
+            source => "source_ip"
+            target => "geoip"
+          }
+        }
+      }
+      
+      # Parse nginx logs
+      if [fields][service] == "nginx" {
+        grok {
+          match => { "message" => "%{NGINXACCESS}" }
+        }
+      }
+      
+      # Parse fail2ban logs
+      if [fields][service] == "fail2ban" {
+        grok {
+          match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} fail2ban.actions.*: %{WORD:action} %{IPV4:banned_ip}" }
+        }
+      }
+    }
+    
+    output {
+      elasticsearch {
+        hosts => ["elasticsearch:9200"]
+        index => "omega-security-%{+YYYY.MM.dd}"
+        template_name => "omega-security"
+      }
+      
+      # Send critical alerts to alertmanager
+      if "security_threat" in [tags] and [threat_level] == "critical" {
+        http {
+          url => "http://alertmanager:9093/api/v1/alerts"
+          http_method => "post"
+          format => "json"
+          content_type => "application/json"
+          mapping => {
+            "alerts" => [
+              {
+                "labels" => {
+                  "alertname" => "SecurityThreatDetected"
+                  "severity" => "critical"
+                  "service" => "%{[fields][service]}"
+                  "threat_type" => "%{threat_type}"
+                  "source_ip" => "%{source_ip}"
+                }
+                "annotations" => {
+                  "summary" => "Security threat detected"
+                  "description" => "%{log_message}"
+                }
+                "startsAt" => "%{@timestamp}"
+              }
+            ]
+          }
+        }
+      }
+    }
+
+  # ===== ALERTMANAGER SECURITY CONFIGURATION =====
+  alertmanager-security.yml: |
+    global:
+      smtp_smarthost: 'mail.omega-ai.com:587'
+      smtp_from: 'alerts@omega-ai.com'
+      smtp_auth_username: 'alerts@omega-ai.com'
+      smtp_auth_password_file: '/etc/secrets/smtp_password'
+      
+    route:
+      group_by: ['alertname', 'severity']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'omega-security-team'
+      routes:
+      - match:
+          severity: critical
+        receiver: 'critical-security-alerts'
+        group_wait: 10s
+        repeat_interval: 5m
+      - match:
+          attack_type: ddos
+        receiver: 'ddos-response-team'
+        group_wait: 5s
+        repeat_interval: 1m
+      - match:
+          service: vault
+        receiver: 'vault-security-team'
+        group_wait: 5s
+        repeat_interval: 2m
+        
+    receivers:
+    - name: 'omega-security-team'
+      email_configs:
+      - to: 'security@omega-ai.com'
+        subject: '[OMEGA Security] {{ .GroupLabels.alertname }} - {{ .GroupLabels.severity }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Labels: {{ range .Labels.SortedPairs }} {{ .Name }}={{ .Value }} {{ end }}
+          Starts At: {{ .StartsAt }}
+          {{ end }}
+      slack_configs:
+      - api_url_file: '/etc/secrets/slack_webhook'
+        channel: '#security-alerts'
+        title: 'OMEGA Security Alert'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Severity:* {{ .Labels.severity }}
+          *Service:* {{ .Labels.service }}
+          *Description:* {{ .Annotations.description }}
+          {{ end }}
+        
+    - name: 'critical-security-alerts'
+      email_configs:
+      - to: 'security@omega-ai.com,admin@omega-ai.com'
+        subject: '[CRITICAL] OMEGA Security Alert - {{ .GroupLabels.alertname }}'
+        body: |
+          CRITICAL SECURITY ALERT
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Service: {{ .Labels.service }}
+          Source IP: {{ .Labels.source_ip }}
+          Threat Type: {{ .Labels.threat_type }}
+          Time: {{ .StartsAt }}
+          {{ end }}
+          
+          Immediate action required!
+      pagerduty_configs:
+      - routing_key_file: '/etc/secrets/pagerduty_key'
+        description: 'OMEGA Critical Security Alert: {{ .GroupLabels.alertname }}'
+        
+    - name: 'ddos-response-team'
+      webhook_configs:
+      - url: 'http://omega-security-automation:8080/webhook/ddos-response'
+        send_resolved: true
+        
+    - name: 'vault-security-team'
+      email_configs:
+      - to: 'vault-admin@omega-ai.com'
+        subject: '[VAULT ALERT] {{ .GroupLabels.alertname }}'
+        
+    inhibit_rules:
+    - source_match:
+        severity: 'critical'
+      target_match:
+        severity: 'warning'
+      equal: ['alertname', 'instance']
+
+  # ===== SECURITY AUTOMATION WEBHOOK =====
+  security-automation.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA PRO AI Security Automation Webhook
+    Automated incident response for security events
+    """
+    
+    import json
+    import logging
+    from datetime import datetime
+    from flask import Flask, request, jsonify
+    import requests
+    import subprocess
+    
+    app = Flask(__name__)
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+    
+    # Configuration
+    FAIL2BAN_BAN_COMMAND = "fail2ban-client set {} banip {}"
+    FIREWALL_BLOCK_COMMAND = "iptables -A INPUT -s {} -j DROP"
+    SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+    
+    def block_ip(ip_address, service="omega-api"):
+        """Block IP address using fail2ban and iptables"""
+        try:
+            # Use fail2ban
+            subprocess.run(FAIL2BAN_BAN_COMMAND.format(service, ip_address), 
+                         shell=True, check=True)
+            
+            # Add iptables rule
+            subprocess.run(FIREWALL_BLOCK_COMMAND.format(ip_address), 
+                         shell=True, check=True)
+            
+            logger.info(f"Blocked IP: {ip_address}")
+            return True
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to block IP {ip_address}: {e}")
+            return False
+    
+    def send_slack_notification(message):
+        """Send notification to Slack"""
+        try:
+            response = requests.post(SLACK_WEBHOOK_URL, json={"text": message})
+            response.raise_for_status()
+        except requests.RequestException as e:
+            logger.error(f"Failed to send Slack notification: {e}")
+    
+    @app.route('/webhook/ddos-response', methods=['POST'])
+    def ddos_response():
+        """Handle DDoS attack response"""
+        try:
+            alert_data = request.get_json()
+            
+            for alert in alert_data.get('alerts', []):
+                labels = alert.get('labels', {})
+                source_ip = labels.get('source_ip')
+                
+                if source_ip:
+                    # Block the attacking IP
+                    if block_ip(source_ip):
+                        message = f"🔒 DDoS Response: Blocked IP {source_ip}"
+                        send_slack_notification(message)
+                        
+                        # Scale up infrastructure (if on cloud)
+                        # scale_up_infrastructure()
+            
+            return jsonify({"status": "success"}), 200
+            
+        except Exception as e:
+            logger.error(f"DDoS response error: {e}")
+            return jsonify({"status": "error", "message": str(e)}), 500
+    
+    @app.route('/webhook/security-threat', methods=['POST'])
+    def security_threat_response():
+        """Handle general security threat response"""
+        try:
+            alert_data = request.get_json()
+            
+            for alert in alert_data.get('alerts', []):
+                labels = alert.get('labels', {})
+                threat_type = labels.get('threat_type')
+                source_ip = labels.get('source_ip')
+                severity = labels.get('severity')
+                
+                if severity == 'critical' and source_ip:
+                    # Immediate blocking for critical threats
+                    if block_ip(source_ip):
+                        message = f"⚠️ Critical Threat Blocked: {threat_type} from {source_ip}"
+                        send_slack_notification(message)
+                
+                # Log security event
+                logger.info(f"Security threat: {threat_type}, IP: {source_ip}, Severity: {severity}")
+            
+            return jsonify({"status": "success"}), 200
+            
+        except Exception as e:
+            logger.error(f"Security threat response error: {e}")
+            return jsonify({"status": "error", "message": str(e)}), 500
+    
+    @app.route('/health', methods=['GET'])
+    def health_check():
+        """Health check endpoint"""
+        return jsonify({"status": "healthy", "timestamp": datetime.utcnow().isoformat()})
+    
+    if __name__ == '__main__':
+        app.run(host='0.0.0.0', port=8080, debug=False)

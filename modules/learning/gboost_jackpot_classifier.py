@@ -221,7 +221,7 @@ class GBoostJackpotClassifier(BaseEstimator, ClassifierMixin):
                 valid_indices.append(i)
                 
             except Exception as e:
-            # Manejo silencioso de errores de compatibilidad
+                # Manejo silencioso de errores de compatibilidad
                 discarded += 1
                 error_counts[str(e)] += 1
                 # Log detallado solo para primeros errores
@@ -394,7 +394,7 @@ if __name__ == "__main__":
         description='Entrenamiento de clasificador de jackpot',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument('--data_path', default='data/jackpot_dataset.csv', 
+    parser.add_argument('--data_path', default='data/jackpots_omega.csv', 
                         help='Ruta del dataset')
     parser.add_argument('--model_path', default='models/prod_jackpot_classifier.pkl', 
                         help='Ruta de guardado del modelo')
@@ -415,25 +415,32 @@ if __name__ == "__main__":
     logger.info("🚀 Iniciando GBoostJackpotClassifier - Versión Mejorada")
     
     try:
-        # 1. Carga de datos
-        if os.path.exists(args.data_path):
-            df = pd.read_csv(args.data_path)
-            df['combination'] = df['combination'].apply(eval)
-            X = df['combination'].tolist()
-            y = df['is_jackpot'].astype(int).tolist()
-            logger.info(f"✅ Datos cargados: {len(X)} muestras, {sum(y)} jackpots")
-        else:
-            logger.warning("⚠️ Archivo no encontrado, generando datos de ejemplo...")
-            n_samples = 5000
-            X = [sorted(np.random.choice(range(1, 41), 6, replace=False)) for _ in range(n_samples)]
-            
-            # Generar datos multiclase si se especifica
-            if args.multiclass:
-                y = np.random.randint(0, 3, size=n_samples).tolist()
-                logger.info(f"🧪 Datos multiclase: {n_samples} muestras, 3 clases")
-            else:
-                y = (np.random.rand(n_samples) > 0.98).astype(int).tolist()
-                logger.info(f"🧪 Datos binarios: {n_samples} muestras, {sum(y)} jackpots")
+        # 1. Carga de datos robusta usando el historial completo y los jackpots
+        try:
+            # Cargar historial completo
+            history_path = 'data/historial_kabala_github.csv'
+            df_history = pd.read_csv(history_path)
+            bolilla_cols = [f'Bolilla {i}' for i in range(1, 7)]
+            df_history['combination'] = df_history[bolilla_cols].apply(lambda row: sorted(row.astype(int).tolist()), axis=1)
+
+            # Cargar jackpots
+            jackpots_path = 'data/jackpots_omega.csv'
+            df_jackpots = pd.read_csv(jackpots_path)
+            # Normalizar combinaciones de jackpot para comparación
+            jackpot_combos = df_jackpots['numeros'].apply(lambda x: tuple(sorted(eval(x))))
+            jackpot_set = set(jackpot_combos)
+
+            # Crear columna objetivo (is_jackpot)
+            df_history['is_jackpot'] = df_history['combination'].apply(lambda x: 1 if tuple(x) in jackpot_set else 0)
+
+            X = df_history['combination'].tolist()
+            y = df_history['is_jackpot'].tolist()
+            logger.info(f"✅ Datos procesados: {len(X)} muestras, {sum(y)} jackpots identificados.")
+
+        except FileNotFoundError as e:
+            logger.error(f"🔥 Error crítico: No se encontró el archivo de datos {e.filename}. Abortando entrenamiento.")
+            # Salir si los datos no existen, en lugar de generar datos falsos
+            exit()
         
         # 2. División de datos
         from sklearn.model_selection import train_test_split

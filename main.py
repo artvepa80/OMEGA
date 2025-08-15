@@ -30,7 +30,19 @@ import numpy as np
 from datetime import datetime
 import pathlib
 import random
-from typing import Optional
+from typing import Optional, List, Dict, Tuple
+import importlib
+
+# Importar sistema de monitoreo de rendimiento
+try:
+    from modules.performance_monitor import (
+        get_performance_monitor, initialize_performance_monitoring, 
+        shutdown_performance_monitoring
+    )
+    PERFORMANCE_MONITORING_AVAILABLE = True
+except ImportError:
+    PERFORMANCE_MONITORING_AVAILABLE = False
+    print("⚠️ Sistema de monitoreo de rendimiento no disponible")
 
 # AGENTE: Soporte para configuración de agente
 def load_agent_config():
@@ -58,6 +70,11 @@ except ImportError:
     ERROR_HANDLING_AVAILABLE = False
     print("⚠️ Manejo de errores mejorado no disponible")
 import asyncio
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
+import multiprocessing
+from functools import partial
+import gc
+from typing import Callable, Awaitable
 
 # ---------------------------------------------------------------------------
 # 2.1. Imports de IA Avanzada (Nuevos módulos)
@@ -174,6 +191,7 @@ else:
         raise ImportError("Módulo evaluate_model_performance requerido pero no disponible")
 
 from core.predictor import HybridOmegaPredictor as OmegaPredictor
+from modules.partial_hit_optimizer import optimize_omega_for_partial_hits
 from modules.score_dynamics import clean_combination
 from utils.viabilidad import batch_calcular_svi, cargar_viabilidad, parallel_svi
 from core.consensus_engine import validate_combination
@@ -308,21 +326,221 @@ def print_summary_stats(stats, config, logger):
             logger.info(f"{emojis.get(fuente, '🔹')} {fuente:<12} {bar} {pct:.1f}% ({cantidad})")
 
 # ---------------------------------------------------------------------------
-# 6. FUNCIONES DE IA AVANZADA (NUEVAS)
+# 6. CONFIGURACIÓN OPTIMIZADA DE DATOS HISTÓRICOS (NUEVO)
+# ---------------------------------------------------------------------------
+
+def get_system_resources() -> Dict:
+    """Get current system resource information for optimization"""
+    try:
+        import psutil
+        memory = psutil.virtual_memory()
+        cpu_count = multiprocessing.cpu_count()
+        return {
+            'available_memory_gb': memory.available / (1024**3),
+            'total_memory_gb': memory.total / (1024**3),
+            'memory_percent': memory.percent,
+            'cpu_count': cpu_count,
+            'cpu_percent': psutil.cpu_percent(interval=1)
+        }
+    except ImportError:
+        # Fallback without psutil
+        return {
+            'available_memory_gb': 4.0,  # Conservative estimate
+            'total_memory_gb': 8.0,
+            'memory_percent': 50.0,
+            'cpu_count': multiprocessing.cpu_count(),
+            'cpu_percent': 50.0
+        }
+
+def get_adaptive_config(resources: Dict) -> Dict:
+    """Generate adaptive configuration based on system resources"""
+    config = {
+        'max_parallel_models': min(4, max(2, resources['cpu_count'] // 2)),
+        'batch_size': 16 if resources['available_memory_gb'] > 4 else 8,
+        'epochs': 30 if resources['available_memory_gb'] > 6 else 20,
+        'enable_gpu': resources['available_memory_gb'] > 8,
+        'max_combinations': 500 if resources['available_memory_gb'] > 4 else 200,
+        'use_caching': resources['available_memory_gb'] > 3,
+        'timeout_seconds': 300 if resources['cpu_percent'] < 80 else 180
+    }
+    
+    # Memory-based optimizations
+    if resources['memory_percent'] > 80:
+        config['batch_size'] = max(4, config['batch_size'] // 2)
+        config['max_combinations'] = min(100, config['max_combinations'])
+        config['enable_gc'] = True
+    else:
+        config['enable_gc'] = False
+    
+    return config
+
+def get_optimal_historical_data(df: pd.DataFrame, cols: List[str], 
+                                min_records: int = 800, 
+                                max_records: int = 1000,
+                                component: str = "general") -> Tuple[List, Dict]:
+    """
+    Obtiene la cantidad óptima de datos históricos según el componente.
+    
+    Args:
+        df: DataFrame con datos históricos
+        cols: Columnas de bolillas
+        min_records: Mínimo recomendado de registros
+        max_records: Máximo de registros para eficiencia
+        component: Componente que solicita los datos ('IA', 'Meta-Learning', etc.)
+    
+    Returns:
+        Tuple[List, Dict]: (datos_históricos, metadata)
+    """
+    total_records = len(df)
+    
+    # Configuraciones específicas por componente - OPTIMIZADO PARA 1000 SORTEOS
+    component_configs = {
+        'IA': {'min': 800, 'max': 1000, 'optimal': 1000},
+        'Meta-Learning': {'min': 700, 'max': 1000, 'optimal': 1000}, 
+        'LSTM': {'min': 500, 'max': 1000, 'optimal': 800},
+        'Transformer': {'min': 300, 'max': 1000, 'optimal': 600},
+        'Clustering': {'min': 400, 'max': 1000, 'optimal': 700},
+        'general': {'min': 800, 'max': 1000, 'optimal': 1000}
+    }
+    
+    config = component_configs.get(component, component_configs['general'])
+    
+    # Determinar cantidad a usar
+    if total_records >= config['optimal']:
+        records_to_use = min(config['optimal'], total_records)
+        status = "optimal"
+    elif total_records >= config['min']:
+        records_to_use = total_records
+        status = "good"
+    elif total_records >= 50:
+        records_to_use = total_records
+        status = "limited"
+    else:
+        records_to_use = total_records
+        status = "insufficient"
+    
+    # Extraer datos
+    historical_data = df[cols].values.tolist()[-records_to_use:] if records_to_use > 0 else []
+    
+    # Metadata
+    metadata = {
+        'records_used': len(historical_data),
+        'total_available': total_records,
+        'component': component,
+        'status': status,
+        'recommended_min': config['min'],
+        'optimal_amount': config['optimal'],
+        'efficiency_ratio': len(historical_data) / config['optimal'] if config['optimal'] > 0 else 0
+    }
+    
+    return historical_data, metadata
+
+def log_data_status(metadata: Dict, logger):
+    """Log del estado de los datos históricos"""
+    status_emojis = {
+        'optimal': '🟢',
+        'good': '🟡', 
+        'limited': '🟠',
+        'insufficient': '🔴'
+    }
+    
+    emoji = status_emojis.get(metadata['status'], '⚪')
+    
+    if metadata['status'] == 'optimal':
+        logger.info(f"{emoji} Dataset {metadata['component']}: {metadata['records_used']} registros (ÓPTIMO)")
+    elif metadata['status'] == 'good':
+        logger.info(f"{emoji} Dataset {metadata['component']}: {metadata['records_used']} registros (BUENO)")
+    elif metadata['status'] == 'limited':
+        logger.warning(f"{emoji} Dataset {metadata['component']}: {metadata['records_used']} registros (LIMITADO - Recomendado: {metadata['recommended_min']}+)")
+    else:
+        logger.error(f"{emoji} Dataset {metadata['component']}: {metadata['records_used']} registros (INSUFICIENTE - Mínimo: {metadata['recommended_min']})")
+    
+    logger.info(f"   Eficiencia: {metadata['efficiency_ratio']:.1%} | Total disponible: {metadata['total_available']}")
+
+# ---------------------------------------------------------------------------
+# 7. ASYNC MODEL EXECUTION FUNCTIONS (NEW)
+# ---------------------------------------------------------------------------
+
+async def execute_model_async(model_name: str, model_func: Callable, 
+                             *args, timeout: int = 300, **kwargs) -> Tuple[str, List]:
+    """Execute a model asynchronously with timeout management"""
+    loop = asyncio.get_event_loop()
+    
+    try:
+        # Use ThreadPoolExecutor for I/O bound operations
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = loop.run_in_executor(
+                executor, 
+                partial(model_func, *args, **kwargs)
+            )
+            
+            # Wait with timeout
+            result = await asyncio.wait_for(future, timeout=timeout)
+            return model_name, result if result else []
+            
+    except asyncio.TimeoutError:
+        logger.warning(f"⏰ {model_name} timeout after {timeout}s")
+        return model_name, []
+    except Exception as e:
+        logger.error(f"🚨 {model_name} failed: {e}")
+        return model_name, []
+
+async def execute_models_parallel(model_configs: List[Dict], 
+                                adaptive_config: Dict) -> Dict[str, List]:
+    """Execute multiple models in parallel with resource management"""
+    max_parallel = adaptive_config['max_parallel_models']
+    timeout = adaptive_config['timeout_seconds']
+    
+    # Create semaphore to limit concurrent execution
+    semaphore = asyncio.Semaphore(max_parallel)
+    
+    async def run_with_semaphore(config):
+        async with semaphore:
+            return await execute_model_async(
+                config['name'],
+                config['function'],
+                *config.get('args', []),
+                timeout=timeout,
+                **config.get('kwargs', {})
+            )
+    
+    # Execute models with controlled parallelism
+    tasks = [run_with_semaphore(config) for config in model_configs]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    # Process results
+    model_results = {}
+    for result in results:
+        if isinstance(result, Exception):
+            logger.error(f"🚨 Model execution exception: {result}")
+            continue
+        
+        model_name, model_output = result
+        model_results[model_name] = model_output
+        
+        # Memory management
+        if adaptive_config.get('enable_gc', False):
+            gc.collect()
+    
+    return model_results
+
+# ---------------------------------------------------------------------------
+# 8. FUNCIONES DE IA AVANZADA (OPTIMIZADAS)
 # ---------------------------------------------------------------------------
 
 async def handle_ai_mode(data_path, ai_query, ai_interactive, ai_analyze, top_n):
     """Maneja todos los modos de IA avanzada"""
     logger.info("🤖 Iniciando modo IA avanzada...")
     
-    # Cargar datos históricos para contexto
+    # Cargar datos históricos optimizados para contexto
     historical_data = []
     try:
         df = pd.read_csv(data_path)
         cols = [c for c in df.columns if "bolilla" in c.lower()][:6]
         if len(cols) >= 6:
-            historical_data = df[cols].values.tolist()[-50:]  # Últimas 50 combinaciones
-            logger.info(f"📊 Cargados {len(historical_data)} registros históricos para IA")
+            # MEJORADO: Uso optimizado de datos históricos
+            historical_data, metadata = get_optimal_historical_data(df, cols, component='IA')
+            log_data_status(metadata, logger)
     except Exception as e:
         logger.warning(f"⚠️ No se pudieron cargar datos históricos: {e}")
     
@@ -500,14 +718,15 @@ async def handle_meta_learning_mode(data_path, train_meta, meta_predict, enable_
     """Maneja el modo de meta-learning avanzado"""
     logger.info("🌟 Iniciando modo Meta-Learning avanzado...")
     
-    # Cargar datos históricos
+    # Cargar datos históricos optimizados
     historical_data = []
     try:
         df = pd.read_csv(data_path)
         cols = [c for c in df.columns if "bolilla" in c.lower()][:6]
         if len(cols) >= 6:
-            historical_data = df[cols].values.tolist()
-            logger.info(f"📊 Cargados {len(historical_data)} registros para Meta-Learning")
+            # MEJORADO: Uso optimizado para Meta-Learning
+            historical_data, metadata = get_optimal_historical_data(df, cols, component='Meta-Learning')
+            log_data_status(metadata, logger)
     except Exception as e:
         logger.error(f"❌ Error cargando datos: {e}")
         return {"error": "No se pudieron cargar datos históricos"}
@@ -515,6 +734,16 @@ async def handle_meta_learning_mode(data_path, train_meta, meta_predict, enable_
     if len(historical_data) < 30:
         logger.error("❌ Insuficientes datos históricos para Meta-Learning")
         return {"error": "Mínimo 30 combinaciones históricas requeridas"}
+    
+    # Log adicional del estado del dataset
+    if metadata['status'] == 'optimal':
+        logger.info(f"🚀 Dataset excelente para Meta-Learning: {len(historical_data)} registros")
+    elif metadata['status'] == 'good':
+        logger.info(f"✅ Dataset adecuado para Meta-Learning: {len(historical_data)} registros")
+    elif metadata['status'] == 'limited':
+        logger.warning(f"⚠️ Dataset limitado pero funcional: {len(historical_data)} registros")
+    else:
+        logger.warning(f"🟡 Dataset mínimo: {len(historical_data)} registros - Precisión puede verse afectada")
     
     # Crear sistema de meta-learning
     integrator = create_meta_learning_system(enable_all=True)
@@ -641,6 +870,19 @@ async def handle_meta_learning_mode(data_path, train_meta, meta_predict, enable_
     
     return results
 
+async def execute_parallel_models(predictor, adaptive_config: Dict, logger) -> List[Dict]:
+    """Execute models in parallel using the optimized predictor"""
+    try:
+        # Use the predictor's parallel execution capabilities
+        return await predictor.run_all_models_async(adaptive_config)
+    except AttributeError:
+        # Fallback to sequential if async not available
+        logger.warning("⚠️ Predictor doesn't support async, using sequential")
+        return predictor.run_all_models()
+    except Exception as e:
+        logger.error(f"🚨 Error in parallel execution: {e}")
+        return predictor.run_all_models()
+
 # ---------------------------------------------------------------------------
 # 7. FUNCIÓN PRINCIPAL
 # ---------------------------------------------------------------------------
@@ -648,7 +890,7 @@ async def handle_meta_learning_mode(data_path, train_meta, meta_predict, enable_
     context="Función principal de OMEGA PRO AI",
     fallback_return=[{"combination": [5, 7, 11, 22, 33, 36], "score": 0.5, "source": "fallback_emergency"}]
 )
-def main(
+async def main(
     data_path="data/historial_kabala_github_emergency_clean.csv",
     svi_profile="default",
     top_n=8,  # MODIFICADO: Genera exactamente 8 series finales
@@ -676,13 +918,60 @@ def main(
     regime_rng='moderate',
     dry_run: bool = False,
     limit: Optional[int] = None,
+    partial_hits: bool = False,  # 🎯 NUEVO: Modo optimizado para 4-5 números
+    enable_performance_monitoring: bool = True,  # 🔍 NUEVO: Habilitar monitoreo de rendimiento
 ):
     """Ejecuta el sistema de predicción OMEGA PRO AI."""
     # MODIFICADO: Forzar que TODOS los modelos estén activos para mejor predicción
     enable_models = ["all"]  # Todos los modelos siempre activos
     export_formats = export_formats or ["csv", "json"]
 
+    # -----------------------------------------------------------------------
+    # INICIALIZAR MONITOREO DE RENDIMIENTO
+    # -----------------------------------------------------------------------
+    performance_monitor = None
+    if enable_performance_monitoring and PERFORMANCE_MONITORING_AVAILABLE:
+        try:
+            performance_monitor = initialize_performance_monitoring({
+                'monitor_interval': 1.0,
+                'history_size': 1000,
+                'alert_thresholds': {
+                    'max_execution_time': 35.0,  # Detectar timeouts de 30+ segundos
+                    'max_memory_percent': 85.0,
+                    'max_cpu_percent': 95.0,
+                    'min_success_rate': 0.80,
+                    'memory_growth_rate': 100.0,  # MB por minuto
+                }
+            })
+            logger.info("🔍 Sistema de monitoreo de rendimiento iniciado")
+        except Exception as e:
+            logger.warning(f"⚠️ No se pudo inicializar monitoreo de rendimiento: {e}")
+            performance_monitor = None
+    elif enable_performance_monitoring:
+        logger.warning("⚠️ Monitoreo de rendimiento solicitado pero no disponible")
+
     logger.info(f"🚀 {APP_NAME} {APP_VERSION} arrancando")
+    
+    # INFORMACIÓN DEL DATASET 
+    try:
+        dataset_info = pd.read_csv(data_path)
+        total_records = len(dataset_info)
+        date_cols = [c for c in dataset_info.columns if 'fecha' in c.lower()]
+        if date_cols:
+            first_date = dataset_info[date_cols[0]].iloc[0] if len(dataset_info) > 0 else "N/A"
+            last_date = dataset_info[date_cols[0]].iloc[-1] if len(dataset_info) > 0 else "N/A"
+            logger.info(f"📊 DATASET: {total_records} registros históricos disponibles ({first_date} → {last_date})")
+        else:
+            logger.info(f"📊 DATASET: {total_records} registros históricos disponibles")
+        
+        if total_records >= 1000:
+            logger.info(f"✅ CONFIGURACIÓN ÓPTIMA: Usando los últimos 1000 sorteos para análisis robusto")
+        elif total_records >= 500:
+            logger.info(f"✅ CONFIGURACIÓN BUENA: Usando los últimos {min(total_records, 800)} sorteos")
+        else:
+            logger.warning(f"⚠️ DATASET LIMITADO: Solo {total_records} registros disponibles (recomendado: 1000+)")
+    except Exception as e:
+        logger.warning(f"⚠️ No se pudo obtener información del dataset: {e}")
     
     # -----------------------------------------------------------------------
     # 6.1 MODO IA AVANZADA (NUEVO) – Ejecutar e INTEGRAR sin salir
@@ -859,12 +1148,39 @@ def main(
         return [get_fallback_item(error_info)]
 
     # -----------------------------------------------------------------------
-    # 7.5 EJECUTAR MODELOS
+    # 7.5 EJECUTAR MODELOS CON PARALELIZACIÓN OPTIMIZADA
     # -----------------------------------------------------------------------
     try:
-        logger.info("🧠 Ejecutando modelos …")
+        # Get system resources and adaptive configuration
+        system_resources = get_system_resources()
+        adaptive_config = get_adaptive_config(system_resources)
+        
+        logger.info(f"🔧 Sistema: {adaptive_config['max_parallel_models']} modelos paralelos, "
+                   f"memoria: {system_resources['available_memory_gb']:.1f}GB")
+        
+        logger.info("🧠 Ejecutando modelos con paralelización optimizada y monitoreo de rendimiento …")
         t0 = time.time()
-        combinaciones_finales = predictor.run_all_models()
+        
+        # Ejecutar modelos con seguimiento de rendimiento
+        if performance_monitor:
+            with performance_monitor.track_model_execution("predictor_execution", expected_duration=30.0):
+                # Use async parallel execution if beneficial
+                if adaptive_config['max_parallel_models'] > 2:
+                    combinaciones_finales = await execute_parallel_models(
+                        predictor, adaptive_config, logger
+                    )
+                else:
+                    # Fall back to sequential execution for low-resource systems
+                    combinaciones_finales = predictor.run_all_models()
+        else:
+            # Use async parallel execution if beneficial
+            if adaptive_config['max_parallel_models'] > 2:
+                combinaciones_finales = await execute_parallel_models(
+                    predictor, adaptive_config, logger
+                )
+            else:
+                # Fall back to sequential execution for low-resource systems
+                combinaciones_finales = predictor.run_all_models()
         
         # NUEVO: Sistema de aprendizaje automático integrado
         try:
@@ -966,7 +1282,13 @@ def main(
         
         if limit is not None:
             combinaciones_finales = combinaciones_finales[: max(0, int(limit))]
+        # Memory cleanup after model execution
+        if adaptive_config.get('enable_gc', False):
+            gc.collect()
+            
         logger.info(f"✅ {len(combinaciones_finales)} combinaciones totales en {time.time() - t0:.2f}s")
+        logger.info(f"📊 Memoria post-ejecución: {get_system_resources()['available_memory_gb']:.1f}GB")
+        
     except Exception as exc:
         error_info = {
             "error_type": "prediction_error",
@@ -1486,6 +1808,48 @@ def main(
     logger.info("🍀 ¡BUENA SUERTE CON TUS 8 SERIES!")
     logger.info(f"{'='*60}")
     
+    # -----------------------------------------------------------------------
+    # REPORTE FINAL DE RENDIMIENTO
+    # -----------------------------------------------------------------------
+    if performance_monitor:
+        try:
+            logger.info(f"\n{'🔍'*20}")
+            logger.info("🔍 REPORTE FINAL DE RENDIMIENTO")
+            logger.info(f"{'🔍'*20}")
+            
+            # Mostrar resumen de rendimiento
+            performance_monitor.print_performance_summary()
+            
+            # Exportar reporte detallado
+            report_path = performance_monitor.export_performance_report()
+            logger.info(f"📊 Reporte completo exportado: {report_path}")
+            
+            # Verificar si hay alertas críticas
+            summary = performance_monitor.get_performance_summary()
+            critical_alerts = [a for a in summary['recent_alerts'] if a['severity'] == 'critical']
+            if critical_alerts:
+                logger.warning(f"🚨 {len(critical_alerts)} alertas críticas detectadas")
+                for alert in critical_alerts[-3:]:  # Mostrar las 3 más recientes
+                    logger.warning(f"   🚨 {alert['message']}")
+                    if alert.get('recommendation'):
+                        logger.warning(f"      💡 {alert['recommendation']}")
+            
+            # Mostrar recomendaciones principales
+            recommendations = summary.get('optimization_recommendations', [])
+            high_priority_recs = [r for r in recommendations if r.get('priority') == 'high']
+            if high_priority_recs:
+                logger.info("\n🔥 RECOMENDACIONES PRIORITARIAS DE OPTIMIZACIÓN:")
+                for rec in high_priority_recs[:3]:
+                    logger.info(f"   🔥 {rec['recommendation']}")
+            
+            logger.info(f"{'🔍'*20}")
+            
+        except Exception as e:
+            logger.error(f"❌ Error generando reporte de rendimiento: {e}")
+        finally:
+            # Detener monitoreo
+            shutdown_performance_monitoring()
+    
     # Mostrar estadísticas de errores si está disponible
     if ERROR_HANDLING_AVAILABLE:
         log_error_statistics()
@@ -1541,10 +1905,19 @@ if __name__ == "__main__":
     
     parser.add_argument("--dry-run", action="store_true", help="No exporta archivos; sólo ejecuta pipeline")
     parser.add_argument("--limit", type=int, help="Limita cantidad de combinaciones en salida")
+    parser.add_argument("--partial-hits", action="store_true",
+                        help="🎯 Modo especializado: Optimizar para 4-5 números (no jackpot)")
+    
+    # Argumentos de monitoreo de rendimiento
+    parser.add_argument("--enable-performance-monitoring", action="store_true", default=True,
+                        help="🔍 Habilitar monitoreo de rendimiento (por defecto activo)")
+    parser.add_argument("--disable-performance-monitoring", action="store_true",
+                        help="🚫 Deshabilitar monitoreo de rendimiento")
+    
     args = parser.parse_args()
 
     try:
-        resultado = main(
+        resultado = asyncio.run(main(
             data_path=args.data_path,
             svi_profile=args.svi_profile,
             top_n=args.top_n,
@@ -1572,7 +1945,8 @@ if __name__ == "__main__":
             regime_rng=args.regime_rng,
             dry_run=args.dry_run,
             limit=args.limit,
-        )
+            enable_performance_monitoring=args.enable_performance_monitoring and not args.disable_performance_monitoring,
+        ))
         if len(resultado) == 1 and resultado[0]["source"] == "fallback":
             logger.warning("⚠️ Se devolvió fallback – revisar logs")
             sys.exit(0)
@@ -1589,7 +1963,11 @@ if __name__ == '__main__':
     multiprocessing.freeze_support()
     
     # Configurar multiprocessing para evitar warnings
-    multiprocessing.set_start_method('spawn', force=True)
+    try:
+        multiprocessing.set_start_method('spawn', force=True)
+    except RuntimeError:
+        # Already set, ignore
+        pass
     
-    # Ejecutar función principal
-    main()
+    # Ejecutar función principal con async support
+    asyncio.run(main())

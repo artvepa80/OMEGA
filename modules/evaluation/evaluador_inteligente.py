@@ -27,7 +27,7 @@ class EvaluadorInteligente:
 
     def __init__(
         self, 
-        model_path: str = "models/gboost_model.pkl", 
+        model_path: str = "models/prod_jackpot_classifier.pkl", 
         profiler_config: Optional[Dict] = None,
         verbose: bool = True
     ):

@@ -144,9 +144,10 @@ def validar_historial(df: pd.DataFrame) -> bool:
 def generar_reporte_consenso(combinaciones, perf_metrics, retro_tracker):
     """Opcional: genera reporte HTML si el módulo está disponible."""
     try:
-        from modules.reporting.html_reporter import generar_reporte_completo
-        generar_reporte_completo(
+        from modules.reporting.html_reporter import generar_reporte_html
+        generar_reporte_html(
             {
+                "titulo": "Reporte de Consenso",
                 "combinations": combinaciones,
                 "eval_metrics": perf_metrics,
                 "retro_results": retro_tracker.get_results() if retro_tracker else {}

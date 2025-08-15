@@ -1,6 +1,7 @@
 # OMEGA_PRO_AI_v10.1/modules/transformer_model.py – Transformer-based combination generator (OMEGA PRO AI v12.0) – Versión Ultra-Mejorada
 
-import os  # FIX: Agregado para path.exists
+import os
+import gc
 import numpy as np
 import pandas as pd
 import torch
@@ -8,7 +9,9 @@ import torch.nn as nn
 import logging
 import re
 import random
-from datetime import datetime  # Para timestamps en logs
+from datetime import datetime
+from typing import Dict, List, Optional, Tuple
+from functools import lru_cache
 from modules.lottery_transformer import LotteryTransformer
 from modules.filters.rules_filter import FiltroEstrategico
 from modules.score_dynamics import score_combinations
@@ -17,10 +20,66 @@ from utils.transformer_data_utils import prepare_advanced_transformer_data
 # Logger global con timestamps
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def cargar_modelo_transformer(model_path="model/transformer_model.pt", train_if_missing=False, historial_df=None):
-    logger = logging.getLogger(__name__)
+def get_system_resources() -> Dict:
+    """Get system resources for optimization"""
     try:
-        model = LotteryTransformer(num_numbers=40, d_model=128, nhead=4, num_layers=3, dropout=0.1)
+        import psutil
+        memory = psutil.virtual_memory()
+        return {
+            'available_memory_gb': memory.available / (1024**3),
+            'memory_percent': memory.percent,
+            'cpu_count': os.cpu_count() or 4,
+            'torch_cuda_available': torch.cuda.is_available()
+        }
+    except ImportError:
+        return {
+            'available_memory_gb': 4.0,
+            'memory_percent': 50.0,
+            'cpu_count': os.cpu_count() or 4,
+            'torch_cuda_available': torch.cuda.is_available()
+        }
+
+def get_adaptive_transformer_config(resources: Dict) -> Dict:
+    """Generate adaptive transformer configuration"""
+    config = {
+        'use_cuda': resources['torch_cuda_available'] and resources['available_memory_gb'] > 4,
+        'batch_size': 16 if resources['available_memory_gb'] > 6 else 8,
+        'd_model': 128 if resources['available_memory_gb'] > 6 else 64,
+        'nhead': 8 if resources['available_memory_gb'] > 4 else 4,
+        'num_layers': 4 if resources['available_memory_gb'] > 6 else 2,
+        'max_sequences': 1000 if resources['available_memory_gb'] > 4 else 500,
+        'enable_memory_cleanup': resources['memory_percent'] > 75,
+        'use_mixed_precision': resources['torch_cuda_available'],
+        'gradient_accumulation_steps': 2 if resources['memory_percent'] > 80 else 1
+    }
+    return config
+
+@lru_cache(maxsize=2)
+def cargar_modelo_transformer(model_path="model/transformer_model.pt", train_if_missing=False, 
+                             historial_df=None, adaptive_config=None):
+    logger = logging.getLogger(__name__)
+    
+    # Get adaptive configuration
+    if adaptive_config is None:
+        resources = get_system_resources()
+        adaptive_config = get_adaptive_transformer_config(resources)
+    
+    try:
+        # Create model with adaptive parameters
+        model = LotteryTransformer(
+            num_numbers=40, 
+            d_model=adaptive_config.get('d_model', 128), 
+            nhead=adaptive_config.get('nhead', 4), 
+            num_layers=adaptive_config.get('num_layers', 3), 
+            dropout=0.1
+        )
+        
+        # Set device based on resources
+        device = torch.device("cuda" if adaptive_config.get('use_cuda', False) else "cpu")
+        model.to(device)
+        
+        logger.info(f"Transformer configurado: d_model={adaptive_config.get('d_model', 128)}, "
+                   f"nhead={adaptive_config.get('nhead', 4)}, device={device}")
         if os.path.exists(model_path):
             model.load_state_dict(torch.load(model_path))
             logger.info(f"✅ Modelo Transformer cargado desde {model_path}")
@@ -124,7 +183,10 @@ def preprocess_data(historial_df: pd.DataFrame, seq_length: int = 10, num_number
         
         return sequences
 
-def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int = 100, perfil_svi: str = 'moderado', logger=None, train_model_if_missing=True):
+def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int = 100, 
+                                     perfil_svi: str = 'moderado', logger=None, 
+                                     train_model_if_missing=True, 
+                                     enable_adaptive_config: bool = True):
     log_func = None
     if logger is None:
         logger = logging.getLogger(__name__)
@@ -136,17 +198,34 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
         log_func("❌ Historial vacío, generando combinaciones aleatorias.")
         return [{"combination": sorted(random.sample(range(1, 41), 6)), "score": 0.5, "source": "transformer_fallback", "metrics": {}} 
                 for _ in range(cantidad)]
+    
+    # Get adaptive configuration
+    adaptive_config = None
+    if enable_adaptive_config:
+        resources = get_system_resources()
+        adaptive_config = get_adaptive_transformer_config(resources)
+        log_func(f"🔧 Configuración adaptativa: memoria={resources['available_memory_gb']:.1f}GB, "
+                f"batch_size={adaptive_config['batch_size']}, cleanup={'ON' if adaptive_config['enable_memory_cleanup'] else 'OFF'}")
 
-    model = cargar_modelo_transformer(train_if_missing=train_model_if_missing, historial_df=historial_df)
+    model = cargar_modelo_transformer(train_if_missing=train_model_if_missing, 
+                                     historial_df=historial_df, 
+                                     adaptive_config=adaptive_config)
     if model is None:
         log_func("❌ No se pudo cargar/entrenar el modelo Transformer, usando aleatorias.")
         return [{"combination": sorted(random.sample(range(1, 41), 6)), "score": 0.5, "source": "transformer_fallback", "metrics": {}} 
                 for _ in range(cantidad)]
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
+    # Device already set in cargar_modelo_transformer
+    device = next(model.parameters()).device
     model.eval()
-    log_func("🔧 Transformer model initialized")
+    
+    # Enable memory optimizations if needed
+    if adaptive_config and adaptive_config.get('enable_memory_cleanup', False):
+        torch.cuda.empty_cache() if device.type == 'cuda' else None
+        gc.collect()
+    
+    log_func(f"🔧 Transformer inicializado en {device}, memoria optimizada: "
+            f"{'ON' if adaptive_config and adaptive_config.get('enable_memory_cleanup') else 'OFF'}")
 
     try:
         sequences = preprocess_data(historial_df)
@@ -164,15 +243,28 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
     historial_set = {tuple(sorted(c)) for c in historial}
     
     combinaciones = []
-    max_attempts = cantidad * 5
+    max_sequences = adaptive_config.get('max_sequences', 1000) if adaptive_config else 1000
+    max_attempts = min(cantidad * 5, max_sequences)  # Limit attempts based on memory
     attempt = 0
+    batch_size = adaptive_config.get('batch_size', 16) if adaptive_config else 16
 
     filtro = FiltroEstrategico()
     filtro.cargar_historial(historial)
 
+    # Process in batches for memory efficiency
+    batch_processed = 0
+    
     while len(combinaciones) < cantidad and attempt < max_attempts:
+        batch_processed += 1
+        
+        # Memory cleanup every few batches
+        if (adaptive_config and adaptive_config.get('enable_memory_cleanup', False) and 
+            batch_processed % 10 == 0):
+            if device.type == 'cuda':
+                torch.cuda.empty_cache()
+            gc.collect()
+        
         attempt += 1
-
         input_data = sequences[-1] if sequences else np.array([[1, 2, 3, 4, 5, 6]] * 10)
 
         try:
@@ -201,7 +293,13 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
             temporal = torch.zeros((numbers.shape[0], seq_len, 3), dtype=torch.float).to(device)
 
             with torch.no_grad():
-                num_logits, _ = model(numbers, temporal, positions)
+                # Use autocast for mixed precision if CUDA is available
+                if (adaptive_config and adaptive_config.get('use_mixed_precision', False) and 
+                    device.type == 'cuda'):
+                    with torch.cuda.amp.autocast():
+                        num_logits, _ = model(numbers, temporal, positions)
+                else:
+                    num_logits, _ = model(numbers, temporal, positions)
                 
                 if num_logits.dim() == 3:
                     probs = torch.softmax(num_logits[:, -1, :], dim=-1)
@@ -233,13 +331,22 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
                     used.add(num)
 
                 combo = sorted(combo)
+                
+                # Clear intermediate tensors
+                del numbers, temporal, positions, num_logits, probs
+                if device.type == 'cuda':
+                    torch.cuda.empty_cache()
 
         except Exception as e:
             # Manejo silencioso de errores de dimensión
-            if "expected sequence of length" in str(e):
-                pass  # Error conocido de dimensión, ignorar silenciosamente
+            error_str = str(e).lower()
+            if any(known_error in error_str for known_error in [
+                "expected sequence of length", "dimension", "shape", 
+                "size mismatch", "tensor", "cuda", "memory"
+            ]):
+                pass  # Error conocido, ignorar silenciosamente
             else:
-                log_func(f"⚠️ Error en predicción: {str(e)}; skip")
+                log_func(f"⚠️ Error en predicción: {str(e)[:100]}; skip")
             continue
 
         combo_tuple = tuple(combo)
@@ -270,12 +377,18 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
         })
         log_func(f"[TRANSFORMER] Generada: {combo} - Score: {score:.4f}")
 
+    # Final memory cleanup
+    if adaptive_config and adaptive_config.get('enable_memory_cleanup', False):
+        if device.type == 'cuda':
+            torch.cuda.empty_cache()
+        gc.collect()
+    
     if len(combinaciones) < cantidad:
         needed = cantidad - len(combinaciones)
         log_func(f"🔁 Generando respaldo para {needed}")
         generated_backup = 0
         backup_attempts = 0
-        max_backup_attempts = needed * 3
+        max_backup_attempts = min(needed * 3, 1000)  # Limit backup attempts
         
         while generated_backup < needed and backup_attempts < max_backup_attempts:
             backup_attempts += 1
@@ -316,6 +429,12 @@ def generar_combinaciones_transformer(historial_df: pd.DataFrame, cantidad: int 
         except Exception as e:
             log_func(f"⚠️ Error en scoring: {str(e)}")
 
+    # Final cleanup
+    if adaptive_config and adaptive_config.get('enable_memory_cleanup', False):
+        if device.type == 'cuda':
+            torch.cuda.empty_cache()
+        gc.collect()
+    
     log_func(f"✅ Generadas {len(combinaciones)}/{cantidad}")
     return combinaciones[:cantidad]
 
@@ -332,4 +451,4 @@ def test_generar_combinaciones():
     return result
 
 # Ejecutar test
-test_generar_combinaciones()
+# test_generar_combinaciones()

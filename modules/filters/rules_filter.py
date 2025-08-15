@@ -181,6 +181,8 @@ class FiltroEstrategico:
 
     def __init__(self, config: Optional[Dict] = None, token_autenticacion: Optional[str] = None, 
                  modo_rendimiento: bool = False, seed_refresh_interval: int = 3600):
+        # Caché de resultados para evitar reprocesar combinaciones
+        self.cache_resultados = {}
         """Inicializa el filtro estratégico con configuración y autenticación."""
         if token_autenticacion and not autenticar_usuario(token_autenticacion):
             raise ValueError("Token de autenticación inválido")
@@ -470,6 +472,8 @@ class FiltroEstrategico:
 
     def aplicar_filtros(self, comb, return_score=False, return_reasons=False, contexto="normal", perfil_svi="moderado"):
         """Aplica filtros a una combinación individual."""
+        import sys
+        print(f"DEBUG: applying filter to {comb}", file=sys.stderr)
         start_time = time.time()
         
         # Convertir combinación a enteros (corrección principal)
@@ -567,7 +571,7 @@ class FiltroEstrategico:
                 return aprobado
             
         except Exception as e:
-            log_error(f"Error crítico en aplicar_filtros: {str(e)}")
+            log_error(f"Error crítico en aplicar_filtros: {str(e)}", exc_info=True)
             if return_score and return_reasons:
                 return False, 0.0, ["Error interno"]
             elif return_score:
@@ -586,9 +590,17 @@ class FiltroEstrategico:
         
         def procesar_combinacion(comb):
             try:
-                # Convertir a enteros antes de procesar
-                comb_int = [int(round(x)) for x in comb]
-                res = self.aplicar_filtros(comb_int, return_score, return_reasons, contexto, perfil_svi)
+                # Convertir a enteros y normalizar antes de procesar
+                comb_int = tuple(sorted(int(round(x)) for x in comb))
+                # Usar caché para evitar reprocesar
+                if comb_int in self.cache_resultados:
+                    return comb_int, self.cache_resultados[comb_int]
+                
+                comb_list = list(comb_int)
+                res = self.aplicar_filtros(comb_list, return_score, return_reasons, contexto, perfil_svi)
+                
+                # Cachear resultado
+                self.cache_resultados[comb_int] = res
                 return comb_int, res
             except Exception as e:
                 log_error(f"Error procesando combinación {comb}: {str(e)}")

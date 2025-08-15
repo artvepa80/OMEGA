@@ -193,7 +193,18 @@ def score_combinations(
     if filtro and rows > 0:
         try:
             def calc_score(row):
-                return filtro.aplicar_filtros(row, return_score=True, perfil_svi=perfil_svi)[0]
+                try:
+                    result = filtro.aplicar_filtros(row, return_score=True, perfil_svi=perfil_svi)
+                    # Handle different return formats
+                    if isinstance(result, tuple) and len(result) >= 2:
+                        return result[1]  # Return score (second element)
+                    elif isinstance(result, (int, float)):
+                        return result
+                    else:
+                        return 0.5  # Default score
+                except Exception as e:
+                    logger.warning(f"Error en calc_score: {e}")
+                    return 0.5
             
             # Use sequential processing to avoid multiprocessing issues
             # Ensure we have valid numeric data for historical scores

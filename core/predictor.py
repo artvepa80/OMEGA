@@ -8,7 +8,7 @@ import logging
 import json
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Callable
 
 import pandas as pd
 import numpy as np
@@ -25,6 +25,13 @@ try:
     PSUTIL_AVAILABLE = True
 except ImportError:
     PSUTIL_AVAILABLE = False
+
+# Importar sistema de monitoreo de rendimiento
+try:
+    from modules.performance_monitor import get_performance_monitor
+    PERFORMANCE_MONITORING_AVAILABLE = True
+except ImportError:
+    PERFORMANCE_MONITORING_AVAILABLE = False
 
 # Intentar carga de cryptography para autenticación
 try:
@@ -92,6 +99,10 @@ class HybridOmegaPredictor:
         self.data_path = data_path
         self.cantidad_final = cantidad_final
         self.logger = get_logger("OmegaPredictor")
+        
+        # Implementar caché de combinaciones para evitar cálculos redundantes
+        self._combination_cache = {}
+        self._cache_max_size = 1000  # Límite de tamaño de caché
         
         # Cargar y limpiar datos usando DataManager
         try:
@@ -384,8 +395,13 @@ class HybridOmegaPredictor:
         return results
     
     def _run_consensus(self, max_comb: int) -> List[Dict[str, Any]]:
-        """Ejecuta modelo de consenso"""
+        """Ejecuta modelo de consenso con caché integrado"""
         try:
+            # Verificar caché de combinaciones
+            cache_key = f'consensus_{hash(str(self.data.values.tobytes()))}_{max_comb}'
+            if cache_key in self._combination_cache:
+                return self._combination_cache[cache_key]
+            
             df = self.data.select_dtypes(include='number')
             if df.shape[1] < 6:
                 raise RuntimeError("Historial sin al menos 6 columnas numéricas para consenso")
@@ -409,6 +425,20 @@ class HybridOmegaPredictor:
                         "metrics": item.get("metrics", {}),
                         "normalized": 0.0
                     })
+            
+            # Actualizar caché
+            self._combination_cache[cache_key] = results
+            
+            # Limpiar caché si supera el límite
+            if len(self._combination_cache) > self._cache_max_size:
+                # Eliminar las entradas más antiguas
+                oldest_keys = sorted(
+                    self._combination_cache.keys(), 
+                    key=lambda k: self._combination_cache[k][0]['score'] if self._combination_cache[k] else 0
+                )[:len(self._combination_cache) - self._cache_max_size]
+                for key in oldest_keys:
+                    del self._combination_cache[key]
+            
             return results
             
         except Exception as e:
@@ -613,8 +643,18 @@ class HybridOmegaPredictor:
             return []
     
     def run_all_models(self) -> List[Dict[str, Any]]:
-        """Ejecuta todos los modelos y genera predicciones finales"""
-        self.logger.info("🚀 Iniciando pipeline de predicción")
+        """Ejecuta todos los modelos y genera predicciones finales con monitoreo de rendimiento"""
+        self.logger.info("🚀 Iniciando pipeline de predicción con monitoreo")
+        
+        # Obtener monitor de rendimiento si está disponible
+        performance_monitor = None
+        if PERFORMANCE_MONITORING_AVAILABLE:
+            try:
+                performance_monitor = get_performance_monitor()
+            except Exception as e:
+                self.logger.warning(f"⚠️ No se pudo obtener monitor de rendimiento: {e}")
+        
+        core_set = []  # Inicializar core_set para evitar NameError
         
         # Ajustar max_comb según memoria disponible
         max_comb = 500
@@ -639,51 +679,122 @@ class HybridOmegaPredictor:
         
         combinaciones = []
         
-        # Ejecutar modelos principales
+        # Ejecutar modelos principales con monitoreo
         for name, fn, cnt in models:
             if self.usar_modelos.get(name, True):
                 self.logger.info(f"⚙️ Ejecutando modelo: {name}")
-                try:
-                    model_results = fn(cnt)
-                    if isinstance(model_results, list):
-                        combinaciones.extend(model_results)
-                    del model_results  # Liberar memoria
-                except Exception as e:
-                    self.logger.error(f"🚨 {name} falló: {e}")
+                
+                # Usar monitoreo de rendimiento si está disponible
+                if performance_monitor:
+                    try:
+                        with performance_monitor.track_model_execution(name, expected_duration=15.0):
+                            model_results = fn(cnt)
+                            if isinstance(model_results, list):
+                                combinaciones.extend(model_results)
+                            del model_results  # Liberar memoria
+                    except TimeoutError:
+                        self.logger.error(f"⏰ TIMEOUT: {name} excedió tiempo límite")
+                        if performance_monitor:
+                            performance_monitor.record_fallback_usage(name, "timeout")
+                        # Usar fallback simple para este modelo
+                        fallback_combo = {
+                            "combination": sorted(random.sample(range(1, 41), 6)),
+                            "source": f"{name}_fallback_timeout",
+                            "score": 0.3,
+                            "svi_score": 0.3,
+                            "metrics": {"timeout": True},
+                            "normalized": 0.0
+                        }
+                        combinaciones.append(fallback_combo)
+                    except Exception as e:
+                        self.logger.error(f"🚨 {name} falló: {e}")
+                        if performance_monitor:
+                            performance_monitor.record_fallback_usage(name, f"error: {str(e)[:50]}")
+                else:
+                    # Ejecución sin monitoreo (método original)
+                    try:
+                        model_results = fn(cnt)
+                        if isinstance(model_results, list):
+                            combinaciones.extend(model_results)
+                        del model_results  # Liberar memoria
+                    except Exception as e:
+                        self.logger.error(f"🚨 {name} falló: {e}")
         
-        # Ghost RNG
+        # Ghost RNG con monitoreo
         if self.usar_modelos.get("ghost_rng", True):
-            try:
-                if self._cached_rng_seeds is None:
-                    self._cached_rng_seeds = get_seeds(
-                        historial_csv_path=self.data_path,
-                        sorteos_reales_path=None,
-                        perfil_svi=self._map_svi_profile(self.perfil_svi),
-                        max_seeds=self.ghost_rng_params['max_seeds'],
-                        training_mode=self.ghost_rng_params['training_mode']
-                    )
-                
-                # Validar seeds
-                if not self._cached_rng_seeds or not isinstance(self._cached_rng_seeds, list):
-                    self.logger.warning("⚠️ Seeds RNG inválidas, generando alternativas")
-                    self._cached_rng_seeds = [{
-                        'seed': random.randint(1000, 9999),
-                        'draw': random.sample(range(1, 41), 6),
-                        'composite_score': random.uniform(0.7, 0.95)
-                    } for _ in range(self.ghost_rng_params['max_seeds'])]
-                
-                combinaciones.extend(self.aplicar_ghost_rng(self._cached_rng_seeds))
-                
-            except Exception as e:
-                self.logger.error(f"🚨 Error generando Ghost RNG: {e}")
+            if performance_monitor:
+                try:
+                    with performance_monitor.track_model_execution("ghost_rng", expected_duration=10.0):
+                        if self._cached_rng_seeds is None:
+                            self._cached_rng_seeds = get_seeds(
+                                historial_csv_path=self.data_path,
+                                sorteos_reales_path=None,
+                                perfil_svi=self._map_svi_profile(self.perfil_svi),
+                                max_seeds=self.ghost_rng_params['max_seeds'],
+                                training_mode=self.ghost_rng_params['training_mode']
+                            )
+                        
+                        # Validar seeds
+                        if not self._cached_rng_seeds or not isinstance(self._cached_rng_seeds, list):
+                            self.logger.warning("⚠️ Seeds RNG inválidas, generando alternativas")
+                            self._cached_rng_seeds = [{
+                                'seed': random.randint(1000, 9999),
+                                'draw': random.sample(range(1, 41), 6),
+                                'composite_score': random.uniform(0.7, 0.95)
+                            } for _ in range(self.ghost_rng_params['max_seeds'])]
+                        
+                        combinaciones.extend(self.aplicar_ghost_rng(self._cached_rng_seeds))
+                        
+                except TimeoutError:
+                    self.logger.error("⏰ TIMEOUT: Ghost RNG excedió tiempo límite")
+                    performance_monitor.record_fallback_usage("ghost_rng", "timeout")
+                except Exception as e:
+                    self.logger.error(f"🚨 Error generando Ghost RNG: {e}")
+                    performance_monitor.record_fallback_usage("ghost_rng", f"error: {str(e)[:50]}")
+            else:
+                try:
+                    if self._cached_rng_seeds is None:
+                        self._cached_rng_seeds = get_seeds(
+                            historial_csv_path=self.data_path,
+                            sorteos_reales_path=None,
+                            perfil_svi=self._map_svi_profile(self.perfil_svi),
+                            max_seeds=self.ghost_rng_params['max_seeds'],
+                            training_mode=self.ghost_rng_params['training_mode']
+                        )
+                    
+                    # Validar seeds
+                    if not self._cached_rng_seeds or not isinstance(self._cached_rng_seeds, list):
+                        self.logger.warning("⚠️ Seeds RNG inválidas, generando alternativas")
+                        self._cached_rng_seeds = [{
+                            'seed': random.randint(1000, 9999),
+                            'draw': random.sample(range(1, 41), 6),
+                            'composite_score': random.uniform(0.7, 0.95)
+                        } for _ in range(self.ghost_rng_params['max_seeds'])]
+                    
+                    combinaciones.extend(self.aplicar_ghost_rng(self._cached_rng_seeds))
+                    
+                except Exception as e:
+                    self.logger.error(f"🚨 Error generando Ghost RNG: {e}")
         
-        # Minado inverso
+        # Minado inverso con monitoreo
         if self.usar_modelos.get("inverse_mining", True):
-            try:
-                ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
-                combinaciones.extend(self.aplicar_minado_inverso(ultima))
-            except Exception as e:
-                self.logger.error(f"🚨 Error generando minado inverso: {e}")
+            if performance_monitor:
+                try:
+                    with performance_monitor.track_model_execution("inverse_mining", expected_duration=5.0):
+                        ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                        combinaciones.extend(self.aplicar_minado_inverso(ultima))
+                except TimeoutError:
+                    self.logger.error("⏰ TIMEOUT: Minado inverso excedió tiempo límite")
+                    performance_monitor.record_fallback_usage("inverse_mining", "timeout")
+                except Exception as e:
+                    self.logger.error(f"🚨 Error generando minado inverso: {e}")
+                    performance_monitor.record_fallback_usage("inverse_mining", f"error: {str(e)[:50]}")
+            else:
+                try:
+                    ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                    combinaciones.extend(self.aplicar_minado_inverso(ultima))
+                except Exception as e:
+                    self.logger.error(f"🚨 Error generando minado inverso: {e}")
         
         # Verificar que tenemos combinaciones
         if not combinaciones:
@@ -869,4 +980,355 @@ class HybridOmegaPredictor:
                 pass
         
         self.logger.info(f"🏁 Pipeline completado: {len(final)} combos finales")
+        
+        # Final memory cleanup
+        if adaptive_config.get('enable_gc', False):
+            gc.collect()
+            
         return final
+    
+    def _get_system_resources(self) -> Dict:
+        """Get current system resource information"""
+        try:
+            if PSUTIL_AVAILABLE:
+                memory = psutil.virtual_memory()
+                return {
+                    'available_memory_gb': memory.available / (1024**3),
+                    'total_memory_gb': memory.total / (1024**3),
+                    'memory_percent': memory.percent,
+                    'cpu_count': os.cpu_count() or 4,
+                    'cpu_percent': psutil.cpu_percent(interval=0.1)
+                }
+        except Exception:
+            pass
+        
+        # Fallback
+        return {
+            'available_memory_gb': 4.0,
+            'total_memory_gb': 8.0, 
+            'memory_percent': 50.0,
+            'cpu_count': os.cpu_count() or 4,
+            'cpu_percent': 50.0
+        }
+    
+    def _get_adaptive_config(self, resources: Dict) -> Dict:
+        """Generate adaptive configuration based on system resources"""
+        config = {
+            'max_parallel_models': min(6, max(2, resources['cpu_count'] // 2)),
+            'max_combinations': 500 if resources['available_memory_gb'] > 4 else 200,
+            'batch_size': 32 if resources['available_memory_gb'] > 6 else 16,
+            'use_caching': resources['available_memory_gb'] > 3,
+            'timeout_seconds': 180 if resources['cpu_percent'] < 80 else 120,
+            'enable_gc': resources['memory_percent'] > 75,
+            'parallel_threshold': 3  # Minimum models to justify parallel execution
+        }
+        
+        # Conservative adjustments for high memory usage
+        if resources['memory_percent'] > 80:
+            config['max_combinations'] = min(100, config['max_combinations'])
+            config['max_parallel_models'] = max(2, config['max_parallel_models'] // 2)
+            config['enable_gc'] = True
+            
+        return config
+    
+    async def run_all_models_async(self, adaptive_config: Optional[Dict] = None) -> List[Dict[str, Any]]:
+        """Async version of run_all_models with parallel execution"""
+        if adaptive_config is None:
+            system_resources = self._get_system_resources()
+            adaptive_config = self._get_adaptive_config(system_resources)
+        
+        self.logger.info("🚀 Iniciando pipeline asíncrono de predicción")
+        
+        # Prepare model configurations for parallel execution
+        max_comb_per_model = adaptive_config['max_combinations'] // 8
+        
+        model_configs = [
+            {
+                'name': 'consensus',
+                'function': self._run_consensus,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('consensus', True)
+            },
+            {
+                'name': 'lstm_v2', 
+                'function': self._run_lstm,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('lstm_v2', True)
+            },
+            {
+                'name': 'montecarlo',
+                'function': self._run_montecarlo,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('montecarlo', True)
+            },
+            {
+                'name': 'transformer_deep',
+                'function': self._run_transformer,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('transformer_deep', True)
+            },
+            {
+                'name': 'clustering',
+                'function': self._run_clustering,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('clustering', True)
+            },
+            {
+                'name': 'genetico',
+                'function': self._run_genetico,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('genetico', True)
+            }
+        ]
+        
+        # Filter enabled models
+        enabled_models = [config for config in model_configs if config['enabled']]
+        
+        # Execute models in parallel if we have enough models and resources
+        if (len(enabled_models) >= adaptive_config['parallel_threshold'] and 
+            adaptive_config['max_parallel_models'] > 2):
+            
+            model_results = await self._execute_models_parallel(
+                enabled_models, adaptive_config
+            )
+        else:
+            # Sequential execution for small model sets or low resources
+            model_results = self._execute_models_sequential(enabled_models)
+        
+        # Combine all results
+        combinaciones = []
+        for model_name, results in model_results.items():
+            if results:
+                combinaciones.extend(results)
+                self.logger.info(f"⚙️ {model_name}: {len(results)} combinaciones")
+        
+        # Continue with Ghost RNG and Inverse Mining (these are typically fast)
+        if self.usar_modelos.get("ghost_rng", True):
+            try:
+                if self._cached_rng_seeds is None:
+                    self._cached_rng_seeds = get_seeds(
+                        historial_csv_path=self.data_path,
+                        sorteos_reales_path=None,
+                        perfil_svi=self._map_svi_profile(self.perfil_svi),
+                        max_seeds=8,
+                        training_mode=False
+                    )
+                
+                if self._cached_rng_seeds:
+                    combinaciones.extend(self.aplicar_ghost_rng(self._cached_rng_seeds))
+                    
+            except Exception as e:
+                self.logger.error(f"🚨 Error generando Ghost RNG: {e}")
+        
+        if self.usar_modelos.get("inverse_mining", True):
+            try:
+                ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                combinaciones.extend(self.aplicar_minado_inverso(ultima))
+            except Exception as e:
+                self.logger.error(f"🚨 Error generando minado inverso: {e}")
+        
+        # Continue with rest of pipeline (SVI, scoring, filtering, etc.)
+        return self._finalize_combinations(combinaciones, adaptive_config)
+    
+    async def _execute_models_parallel(self, model_configs: List[Dict], 
+                                     adaptive_config: Dict) -> Dict[str, List]:
+        """Execute models in parallel with resource management"""
+        max_parallel = adaptive_config['max_parallel_models']
+        timeout = adaptive_config['timeout_seconds']
+        
+        # Create semaphore to limit concurrent execution
+        semaphore = asyncio.Semaphore(max_parallel)
+        
+        async def run_model_with_semaphore(config):
+            async with semaphore:
+                return await self._execute_model_async(
+                    config['name'],
+                    config['function'],
+                    config['args'],
+                    timeout
+                )
+        
+        # Execute models with controlled parallelism
+        tasks = [run_model_with_semaphore(config) for config in model_configs]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Process results
+        model_results = {}
+        for result in results:
+            if isinstance(result, Exception):
+                self.logger.error(f"🚨 Model execution exception: {result}")
+                continue
+            
+            model_name, model_output = result
+            model_results[model_name] = model_output if model_output else []
+            
+            # Memory management
+            if adaptive_config.get('enable_gc', False):
+                gc.collect()
+        
+        return model_results
+    
+    def _execute_models_sequential(self, model_configs: List[Dict]) -> Dict[str, List]:
+        """Sequential model execution fallback"""
+        model_results = {}
+        
+        for config in model_configs:
+            model_name = config['name']
+            try:
+                self.logger.info(f"⚙️ Ejecutando modelo: {model_name}")
+                results = config['function'](*config['args'])
+                model_results[model_name] = results if results else []
+            except Exception as e:
+                self.logger.error(f"🚨 {model_name} falló: {e}")
+                model_results[model_name] = []
+                
+        return model_results
+    
+    async def _execute_model_async(self, model_name: str, model_func: Callable,
+                                  args: List, timeout: int) -> Tuple[str, List]:
+        """Execute a single model asynchronously with timeout"""
+        loop = asyncio.get_event_loop()
+        
+        try:
+            # Use ThreadPoolExecutor for CPU-bound operations
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = loop.run_in_executor(
+                    executor,
+                    partial(model_func, *args)
+                )
+                
+                # Wait with timeout
+                result = await asyncio.wait_for(future, timeout=timeout)
+                return model_name, result if result else []
+                
+        except asyncio.TimeoutError:
+            self.logger.warning(f"⏰ {model_name} timeout after {timeout}s")
+            return model_name, []
+        except Exception as e:
+            self.logger.error(f"🚨 {model_name} failed: {e}")
+            return model_name, []
+    
+    def _finalize_combinations(self, combinaciones: List[Dict], 
+                              adaptive_config: Dict) -> List[Dict[str, Any]]:
+        """Finalize combination processing (SVI, scoring, filtering)"""
+        # Check if we have any combinations
+        if not combinaciones:
+            self.logger.warning("⚠️ No se generaron combinaciones; retornando fallback")
+            return [{
+                "combination": sorted(random.sample(range(1, 41), 6)),
+                "source": "fallback",
+                "score": 0.5,
+                "svi_score": 0.5,
+                "metrics": {},
+                "normalized": 0.0
+            }]
+        
+        # Continue with existing pipeline logic
+        # SVI calculation
+        combinaciones = self.calcular_svi_para_combinaciones(combinaciones)
+        
+        # Dynamic scoring with memory management
+        try:
+            scored = score_combinations(
+                combinations=combinaciones,
+                historial=self.data,
+                cluster_data=None,
+                perfil_svi=self._map_svi_profile(self.perfil_svi),
+                logger=self.logger
+            )
+            
+            # Combine scores: 60% SVI + 40% dinámico
+            for c in scored:
+                dyn_score = c.get("score", 0.0)
+                svi_score = c.get("svi_score", 0.5)
+                
+                c.setdefault("metrics", {})["dynamic_score"] = dyn_score
+                c["score"] = 0.6 * svi_score + 0.4 * (dyn_score / 5.0)
+                c["normalized"] = 0.0
+            
+            combinaciones = scored
+            self.logger.info("✅ Dynamic scoring aplicado")
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error en dynamic scoring: {e}")
+            # Continue with basic scoring
+        
+        # Apply filters
+        combinaciones = self.filtrar_combinaciones(combinaciones)
+        
+        if not combinaciones:
+            self.logger.warning("⚠️ Todos los combos filtrados; usando fallback")
+            return [{
+                "combination": sorted(random.sample(range(1, 41), 6)),
+                "source": "fallback",
+                "score": 0.5,
+                "svi_score": 0.5,
+                "metrics": {},
+                "normalized": 0.0
+            }]
+        
+        # Final processing
+        combinaciones.sort(key=lambda x: x["score"], reverse=True)
+        unique = {}
+        for c in combinaciones:
+            tup = tuple(sorted(c["combination"]))
+            if tup not in unique:
+                unique[tup] = c
+        
+        final = list(unique.values())[:self.cantidad_final]
+        
+        # Normalize scores
+        max_score = max(c["score"] for c in final) if final else 1.0
+        for c in final:
+            c["normalized"] = c["score"] / max_score
+        
+        return final
+    
+    def generar_combinaciones_adicionales(self, cantidad_faltante: int) -> List[Dict[str, Any]]:
+        """Generate additional combinations when needed"""
+        combinaciones_extra = []
+        
+        try:
+            # Use the best performing model to generate extras
+            if self.usar_modelos.get('lstm_v2', True):
+                extras = self._run_lstm(cantidad_faltante)
+            elif self.usar_modelos.get('consensus', True):
+                extras = self._run_consensus(cantidad_faltante)
+            else:
+                # Fallback to random generation
+                for i in range(cantidad_faltante):
+                    combo = sorted(random.sample(range(1, 41), 6))
+                    combinaciones_extra.append({
+                        "combination": combo,
+                        "score": 0.4,
+                        "svi_score": 0.4, 
+                        "source": "fallback_additional",
+                        "original_score": 0.4
+                    })
+                return combinaciones_extra
+            
+            # Process the generated extras
+            for extra in extras[:cantidad_faltante]:
+                if 'combination' in extra:
+                    combinaciones_extra.append({
+                        "combination": extra['combination'],
+                        "score": extra.get('score', 0.4),
+                        "svi_score": extra.get('score', 0.4),
+                        "source": f"additional_{extra.get('source', 'model')}",
+                        "original_score": extra.get('score', 0.4)
+                    })
+                    
+        except Exception as e:
+            self.logger.error(f"Error generating additional combinations: {e}")
+            # Final fallback
+            for i in range(cantidad_faltante):
+                combo = sorted(random.sample(range(1, 41), 6))
+                combinaciones_extra.append({
+                    "combination": combo,
+                    "score": 0.4,
+                    "svi_score": 0.4,
+                    "source": "fallback_error",
+                    "original_score": 0.4
+                })
+                
+        return combinaciones_extra[:cantidad_faltante]

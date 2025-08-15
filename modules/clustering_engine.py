@@ -42,7 +42,7 @@ def cargar_datos_jackpots(jackpot_path="data/jackpots_omega.csv", logger=None):
         logger.error(f"❌ Error cargando datos de jackpots: {str(e)}")
         return set()
 
-def generar_combinaciones_clustering(historial_df, cantidad=30, jackpot_path="data/jackpots_omega.csv", logger=None):
+def generar_combinaciones_clustering(historial_df, cantidad=30, logger=None, jackpot_path="data/jackpots_omega.csv"):
     """Genera combinaciones usando clustering"""
     logger = logger or module_logger
     try:

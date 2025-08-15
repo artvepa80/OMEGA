@@ -343,9 +343,12 @@ class EnsembleCalibrator:
             if len(data) < 50:
                 return 0.5
                 
-            # Comparar últimos 50 vs anteriores 50
-            recent = data.tail(50)
-            previous = data.iloc[-100:-50] if len(data) >= 100 else data.head(50)
+            # MEJORADO: Comparar últimos 500 vs anteriores 500 para análisis robusto con 1000 sorteos
+            analysis_size = min(500, len(data) // 2)  # Usar 500 o la mitad de los datos disponibles
+            recent = data.tail(analysis_size)
+            previous_start = max(0, len(data) - (analysis_size * 2))
+            previous_end = len(data) - analysis_size
+            previous = data.iloc[previous_start:previous_end] if len(data) >= analysis_size * 2 else data.head(analysis_size)
             
             recent_freq = Counter(recent.values.flatten())
             prev_freq = Counter(previous.values.flatten())

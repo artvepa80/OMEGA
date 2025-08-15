@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Security
+import LocalAuthentication
 
 @MainActor
 class AuthManager: ObservableObject {
@@ -8,241 +9,362 @@ class AuthManager: ObservableObject {
     @Published var user: User?
     @Published var isLoading = false
     @Published var error: AuthError?
+    @Published var biometricAuthAvailable = false
     
     static let shared = AuthManager()
     
-    private let keychainService = "com.omega.OmegaApp"
-    private let tokenKey = "auth_token"
-    private let userKey = "user_data"
+    private let securityManager = SecurityManager.shared
+    private var failedAttempts = 0
+    private var lockoutExpiration: Date?
     
     var token: String? {
-        return getTokenFromKeychain()
+        return securityManager.getToken()
+    }
+    
+    var isTokenValid: Bool {
+        return securityManager.isTokenValid()
     }
     
     init() {
-        checkAuthStatus()
+        Task {
+            await initializeAuth()
+        }
+    }
+    
+    private func initializeAuth() async {
+        // Check app integrity first
+        guard securityManager.validateAppIntegrity() else {
+            await MainActor.run {
+                self.error = AuthError.securityCheckFailed
+            }
+            return
+        }
+        
+        // Check biometric availability
+        await MainActor.run {
+            self.biometricAuthAvailable = securityManager.isBiometricAuthenticationAvailable()
+        }
+        
+        // Check existing auth status
+        await checkAuthStatus()
     }
     
     // MARK: - Authentication Methods
     
     func login(username: String, password: String) async {
+        // Validate input
+        guard validateLoginInput(username: username, password: password) else {
+            return
+        }
+        
+        // Check lockout status
+        if isLockedOut() {
+            error = AuthError.accountLocked(getRemainingLockoutTime())
+            return
+        }
+        
         isLoading = true
         error = nil
         
         do {
             let apiClient = OmegaAPIClient()
-            apiClient.configure(baseURL: "http://127.0.0.1:8000")
-            
             let authResponse = try await apiClient.login(username: username, password: password)
             
-            // Guardar token en keychain
-            saveTokenToKeychain(authResponse.accessToken)
+            // Validate and store token
+            try securityManager.storeToken(authResponse.accessToken)
             
-            // Crear usuario
+            // Create and store user
             let user = User(
+                id: extractUserIdFromToken(authResponse.accessToken),
                 username: username,
-                role: "admin", // Por ahora hardcodeado
+                role: extractRoleFromToken(authResponse.accessToken),
                 tokenType: authResponse.tokenType
             )
             
-            // Guardar usuario
-            saveUserToKeychain(user)
+            try await storeUserSecurely(user)
             
-            // Actualizar estado
+            // Update state
             self.user = user
             self.isAuthenticated = true
+            self.failedAttempts = 0
+            
+            // Log successful authentication
+            AppLogger.shared.info("User authenticated successfully", category: .auth, metadata: [
+                "username": username,
+                "biometric_available": biometricAuthAvailable
+            ])
             
         } catch {
-            self.error = AuthError.loginFailed(error.localizedDescription)
+            await handleAuthenticationError(error)
         }
         
         isLoading = false
     }
     
-    func logout() {
-        // Limpiar keychain
-        deleteTokenFromKeychain()
-        deleteUserFromKeychain()
+    func logout() async {
+        do {
+            try securityManager.clearAllSecureData()
+        } catch {
+            AppLogger.shared.error("Failed to clear secure data during logout", category: .auth, error: error)
+        }
         
-        // Limpiar estado
+        // Clear state
         user = nil
         isAuthenticated = false
         error = nil
+        failedAttempts = 0
+        lockoutExpiration = nil
+        
+        AppLogger.shared.info("User logged out successfully", category: .auth)
     }
     
-    func checkAuthStatus() {
-        if let token = getTokenFromKeychain(),
-           let user = getUserFromKeychain(),
-           !isTokenExpired(token) {
-            self.user = user
-            self.isAuthenticated = true
-        } else {
-            logout()
+    func checkAuthStatus() async {
+        guard securityManager.isTokenValid() else {
+            await logout()
+            return
+        }
+        
+        do {
+            if let userData = try securityManager.retrieve(key: AppConfig.Auth.userDataKey),
+               let user = try JSONDecoder().decode(User.self, from: userData) {
+                
+                await MainActor.run {
+                    self.user = user
+                    self.isAuthenticated = true
+                }
+            } else {
+                await logout()
+            }
+        } catch {
+            AppLogger.shared.error("Failed to retrieve user data", category: .auth, error: error)
+            await logout()
         }
     }
     
     // MARK: - Biometric Authentication
     
     func authenticateWithBiometrics() async -> Bool {
-        guard isBiometricsAvailable() else {
+        guard biometricAuthAvailable else {
             error = AuthError.biometricsNotAvailable
             return false
         }
         
+        guard !isLockedOut() else {
+            error = AuthError.accountLocked(getRemainingLockoutTime())
+            return false
+        }
+        
         do {
-            let success = try await performBiometricAuthentication()
+            let reason = "Accede a OMEGA con \(getBiometricTypeString())"
+            let success = try await securityManager.authenticateWithBiometrics(reason: reason)
+            
             if success {
-                checkAuthStatus()
+                await checkAuthStatus()
+                failedAttempts = 0
+                AppLogger.shared.info("Biometric authentication successful", category: .auth)
+                return true
+            } else {
+                await handleBiometricFailure()
+                return false
             }
-            return success
         } catch {
+            await handleBiometricFailure()
             self.error = AuthError.biometricsFailed(error.localizedDescription)
             return false
         }
     }
     
-    private func isBiometricsAvailable() -> Bool {
-        // Implementar verificación de Face ID/Touch ID
-        // Por ahora retornamos true como placeholder
+    func getBiometricTypeString() -> String {
+        switch securityManager.biometricType() {
+        case .faceID:
+            return "Face ID"
+        case .touchID:
+            return "Touch ID"
+        default:
+            return "autenticación biométrica"
+        }
+    }
+    
+    // MARK: - Private Helper Methods
+    
+    private func validateLoginInput(username: String, password: String) -> Bool {
+        guard !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            error = AuthError.invalidCredentials
+            return false
+        }
+        
+        guard password.count >= 6 else {
+            error = AuthError.invalidCredentials
+            return false
+        }
+        
         return true
     }
     
-    private func performBiometricAuthentication() async throws -> Bool {
-        // Implementar autenticación biométrica real
-        // Por ahora simulamos éxito
-        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 segundo
-        return true
+    private func isLockedOut() -> Bool {
+        guard let lockoutExpiration = lockoutExpiration else {
+            return false
+        }
+        return Date() < lockoutExpiration
     }
     
-    // MARK: - Token Management
-    
-    private func isTokenExpired(_ token: String) -> Bool {
-        // Decodificar JWT y verificar expiración
-        // Por simplicidad, asumimos que los tokens no expiran en desarrollo
-        return false
+    private func getRemainingLockoutTime() -> TimeInterval {
+        guard let lockoutExpiration = lockoutExpiration else {
+            return 0
+        }
+        return max(0, lockoutExpiration.timeIntervalSince(Date()))
     }
     
-    private func saveTokenToKeychain(_ token: String) {
-        let data = token.data(using: .utf8)!
+    private func handleAuthenticationError(_ error: Error) async {
+        failedAttempts += 1
         
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: tokenKey,
-            kSecValueData as String: data
-        ]
-        
-        // Eliminar token existente
-        SecItemDelete(query as CFDictionary)
-        
-        // Agregar nuevo token
-        SecItemAdd(query as CFDictionary, nil)
-    }
-    
-    private func getTokenFromKeychain() -> String? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: tokenKey,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-        
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
-        guard status == errSecSuccess,
-              let data = result as? Data,
-              let token = String(data: data, encoding: .utf8) else {
-            return nil
+        if failedAttempts >= AppConfig.Security.maxFailedAttempts {
+            lockoutExpiration = Date().addingTimeInterval(
+                TimeInterval(AppConfig.Security.lockoutDurationMinutes * 60)
+            )
+            await MainActor.run {
+                self.error = AuthError.accountLocked(getRemainingLockoutTime())
+            }
+            AppLogger.shared.warning("Account locked due to failed attempts", category: .auth, metadata: [
+                "failed_attempts": failedAttempts
+            ])
+        } else {
+            await MainActor.run {
+                self.error = AuthError.loginFailed(error.localizedDescription)
+            }
         }
         
-        return token
+        AppLogger.shared.error("Authentication failed", category: .auth, error: error, metadata: [
+            "attempt": failedAttempts
+        ])
     }
     
-    private func deleteTokenFromKeychain() {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: tokenKey
-        ]
+    private func handleBiometricFailure() async {
+        failedAttempts += 1
         
-        SecItemDelete(query as CFDictionary)
-    }
-    
-    // MARK: - User Management
-    
-    private func saveUserToKeychain(_ user: User) {
-        guard let data = try? JSONEncoder().encode(user) else { return }
-        
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: userKey,
-            kSecValueData as String: data
-        ]
-        
-        // Eliminar usuario existente
-        SecItemDelete(query as CFDictionary)
-        
-        // Agregar nuevo usuario
-        SecItemAdd(query as CFDictionary, nil)
-    }
-    
-    private func getUserFromKeychain() -> User? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: userKey,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-        
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
-        guard status == errSecSuccess,
-              let data = result as? Data,
-              let user = try? JSONDecoder().decode(User.self, from: data) else {
-            return nil
+        if failedAttempts >= AppConfig.Security.maxFailedAttempts {
+            lockoutExpiration = Date().addingTimeInterval(
+                TimeInterval(AppConfig.Security.lockoutDurationMinutes * 60)
+            )
         }
         
-        return user
+        AppLogger.shared.warning("Biometric authentication failed", category: .auth, metadata: [
+            "attempt": failedAttempts
+        ])
     }
     
-    private func deleteUserFromKeychain() {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: keychainService,
-            kSecAttrAccount as String: userKey
-        ]
+    private func extractUserIdFromToken(_ token: String) -> String {
+        do {
+            let jwtToken = try JWTDecoder.decode(token)
+            return jwtToken.userID ?? "unknown"
+        } catch {
+            return "unknown"
+        }
+    }
+    
+    private func extractRoleFromToken(_ token: String) -> String {
+        do {
+            let jwtToken = try JWTDecoder.decode(token)
+            return jwtToken.roles.first ?? "user"
+        } catch {
+            return "user"
+        }
+    }
+    
+    private func storeUserSecurely(_ user: User) async throws {
+        let userData = try JSONEncoder().encode(user)
+        let encryptedData = try securityManager.encrypt(userData)
+        try securityManager.store(encryptedData, forKey: AppConfig.Auth.userDataKey)
+    }
+    
+    // MARK: - Token Refresh
+    
+    func refreshTokenIfNeeded() async {
+        guard isAuthenticated, let token = securityManager.getToken() else {
+            return
+        }
         
-        SecItemDelete(query as CFDictionary)
+        do {
+            let jwtToken = try JWTDecoder.decode(token)
+            
+            // Check if token expires within buffer time
+            let bufferTime = AppConfig.Auth.tokenExpirationBuffer
+            guard let expirationDate = jwtToken.expirationDate,
+                  Date().addingTimeInterval(bufferTime) >= expirationDate else {
+                return
+            }
+            
+            // Attempt token refresh
+            let apiClient = OmegaAPIClient()
+            let refreshResponse = try await apiClient.refreshToken()
+            try securityManager.storeToken(refreshResponse.accessToken)
+            
+            AppLogger.shared.info("Token refreshed successfully", category: .auth)
+            
+        } catch {
+            AppLogger.shared.error("Token refresh failed", category: .auth, error: error)
+            await logout()
+        }
+    }
+    
+    // MARK: - Session Management
+    
+    func validateSession() async -> Bool {
+        guard isAuthenticated else {
+            return false
+        }
+        
+        // Check token validity
+        guard securityManager.isTokenValid() else {
+            await logout()
+            return false
+        }
+        
+        // Refresh token if needed
+        await refreshTokenIfNeeded()
+        
+        return isAuthenticated
     }
 }
 
 // MARK: - Models
 
-struct User: Codable {
+struct User: Codable, Identifiable {
+    let id: String
     let username: String
     let role: String
     let tokenType: String
+    let createdAt: Date
+    let lastLoginAt: Date
+    
+    init(id: String, username: String, role: String, tokenType: String) {
+        self.id = id
+        self.username = username
+        self.role = role
+        self.tokenType = tokenType
+        self.createdAt = Date()
+        self.lastLoginAt = Date()
+    }
     
     private enum CodingKeys: String, CodingKey {
-        case username, role
+        case id, username, role
         case tokenType = "token_type"
+        case createdAt = "created_at"
+        case lastLoginAt = "last_login_at"
     }
 }
 
 // MARK: - Error Types
 
-enum AuthError: LocalizedError {
+enum AuthError: LocalizedError, Equatable {
     case loginFailed(String)
     case logoutFailed(String)
     case biometricsNotAvailable
     case biometricsFailed(String)
     case tokenExpired
     case invalidCredentials
+    case accountLocked(TimeInterval)
+    case securityCheckFailed
     case networkError
     case unknown(String)
     
@@ -260,6 +382,11 @@ enum AuthError: LocalizedError {
             return "La sesión ha expirado"
         case .invalidCredentials:
             return "Credenciales inválidas"
+        case .accountLocked(let remainingTime):
+            let minutes = Int(remainingTime / 60)
+            return "Cuenta bloqueada por \(minutes) minutos debido a múltiples intentos fallidos"
+        case .securityCheckFailed:
+            return "Verificación de seguridad falló. La app no puede ejecutarse en este dispositivo."
         case .networkError:
             return "Error de conexión"
         case .unknown(let message):
@@ -277,10 +404,108 @@ enum AuthError: LocalizedError {
             return "Intenta nuevamente o usa tu contraseña"
         case .tokenExpired:
             return "Inicia sesión nuevamente"
+        case .accountLocked:
+            return "Espera antes de intentar nuevamente o contacta soporte"
+        case .securityCheckFailed:
+            return "Reinstala la app desde la App Store oficial"
         case .networkError:
             return "Verifica tu conexión a internet"
         default:
             return "Intenta nuevamente o contacta soporte"
+        }
+    }
+    
+    static func == (lhs: AuthError, rhs: AuthError) -> Bool {
+        switch (lhs, rhs) {
+        case (.loginFailed(let lhs), .loginFailed(let rhs)),
+             (.logoutFailed(let lhs), .logoutFailed(let rhs)),
+             (.biometricsFailed(let lhs), .biometricsFailed(let rhs)),
+             (.unknown(let lhs), .unknown(let rhs)):
+            return lhs == rhs
+        case (.accountLocked(let lhs), .accountLocked(let rhs)):
+            return lhs == rhs
+        case (.biometricsNotAvailable, .biometricsNotAvailable),
+             (.tokenExpired, .tokenExpired),
+             (.invalidCredentials, .invalidCredentials),
+             (.securityCheckFailed, .securityCheckFailed),
+             (.networkError, .networkError):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+// MARK: - Support Classes Placeholders
+
+extension AppConfig {
+    struct Auth {
+        static let userDataKey = "user_data"
+        static let tokenExpirationBuffer: TimeInterval = 300
+    }
+    
+    struct Security {
+        static let maxFailedAttempts = 5
+        static let lockoutDurationMinutes = 15
+    }
+    
+    struct API {
+        static let baseURL = "http://127.0.0.1:8001"
+        static let login = "/auth/login"
+        static let refresh = "/auth/refresh"
+        static let requestTimeout: TimeInterval = 30
+        static let resourceTimeout: TimeInterval = 60
+    }
+}
+
+class SecurityManager {
+    static let shared = SecurityManager()
+    
+    func validateAppIntegrity() -> Bool { return true }
+    func isBiometricAuthenticationAvailable() -> Bool { return false }
+    func getToken() -> String? { return nil }
+    func isTokenValid() -> Bool { return false }
+    func storeToken(_ token: String) throws { }
+    func clearAllSecureData() throws { }
+    func retrieve(key: String) throws -> Data? { return nil }
+    func encrypt(_ data: Data) throws -> Data { return data }
+    func store(_ data: Data, forKey key: String) throws { }
+    func authenticateWithBiometrics(reason: String) async throws -> Bool { return false }
+    func biometricType() -> LABiometryType { return .none }
+}
+
+class AppLogger {
+    static let shared = AppLogger()
+    
+    enum Category {
+        case auth
+    }
+    
+    func info(_ message: String, category: Category, metadata: [String: Any] = [:]) { }
+    func error(_ message: String, category: Category, error: Error, metadata: [String: Any] = [:]) { }
+    func warning(_ message: String, category: Category, metadata: [String: Any] = [:]) { }
+}
+
+struct JWTDecoder {
+    static func decode(_ token: String) throws -> JWTToken {
+        return JWTToken(userID: "test", roles: ["user"], expirationDate: Date().addingTimeInterval(3600))
+    }
+}
+
+struct JWTToken {
+    let userID: String?
+    let roles: [String]
+    let expirationDate: Date?
+}
+
+struct AppConfig {
+    static let currentEnvironment = Environment.development
+    
+    enum Environment {
+        case development
+        
+        var displayName: String {
+            return "Desarrollo"
         }
     }
 }

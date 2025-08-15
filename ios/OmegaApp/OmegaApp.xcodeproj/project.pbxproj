@@ -7,22 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1234567890123456789012A /* OmegaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012B /* OmegaAppApp.swift */; };
-		A1234567890123456789012C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012D /* ContentView.swift */; };
-		A1234567890123456789012E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012F /* Assets.xcassets */; };
-		A1234567890123456789013A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789013B /* Preview Assets.xcassets */; };
+		3D4B1A2C2C7D8F1E00123456 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B1A2B2C7D8F1E00123456 /* AuthManager.swift */; };
+		3D4B1A2E2C7D8F1E00123456 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B1A2D2C7D8F1E00123456 /* LoginView.swift */; };
+		3D4B1A302C7D8F1E00123456 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B1A2F2C7D8F1E00123456 /* ContentView.swift */; };
+		3D4B1A322C7D8F1E00123456 /* OmegaAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B1A312C7D8F1E00123456 /* OmegaAPIClient.swift */; };
+		3D4B1A342C7D8F1E00123456 /* OmegaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B1A332C7D8F1E00123456 /* OmegaApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1234567890123456789013C /* OmegaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OmegaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1234567890123456789012B /* OmegaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmegaAppApp.swift; sourceTree = "<group>"; };
-		A1234567890123456789012D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A1234567890123456789012F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1234567890123456789013B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3D4B1A2B2C7D8F1E00123456 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		3D4B1A2D2C7D8F1E00123456 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3D4B1A2F2C7D8F1E00123456 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D4B1A312C7D8F1E00123456 /* OmegaAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmegaAPIClient.swift; sourceTree = "<group>"; };
+		3D4B1A332C7D8F1E00123456 /* OmegaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmegaApp.swift; sourceTree = "<group>"; };
+		3D4B1A352C7D8F1E00123456 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D4B1A362C7D8F1E00123456 /* OmegaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OmegaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1234567890123456789013D /* Frameworks */ = {
+		3D4B1A372C7D8F1E00123456 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -32,43 +35,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1234567890123456789013E /* Products */ = {
+		3D4B1A382C7D8F1E00123456 = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789013C /* OmegaApp.app */,
+				3D4B1A392C7D8F1E00123456 /* OmegaApp */,
+				3D4B1A3A2C7D8F1E00123456 /* Products */,
 			);
-			name = Products;
 			sourceTree = "<group>";
 		};
-		A1234567890123456789013F /* OmegaApp */ = {
+		3D4B1A392C7D8F1E00123456 /* OmegaApp */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789012B /* OmegaAppApp.swift */,
-				A1234567890123456789012D /* ContentView.swift */,
-				A1234567890123456789012F /* Assets.xcassets */,
-				A1234567890123456789014A /* Preview Content */,
+				3D4B1A2B2C7D8F1E00123456 /* AuthManager.swift */,
+				3D4B1A2D2C7D8F1E00123456 /* LoginView.swift */,
+				3D4B1A2F2C7D8F1E00123456 /* ContentView.swift */,
+				3D4B1A312C7D8F1E00123456 /* OmegaAPIClient.swift */,
+				3D4B1A332C7D8F1E00123456 /* OmegaApp.swift */,
+				3D4B1A352C7D8F1E00123456 /* Info.plist */,
 			);
 			path = OmegaApp;
 			sourceTree = "<group>";
 		};
-		A1234567890123456789014A /* Preview Content */ = {
+		3D4B1A3A2C7D8F1E00123456 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789013B /* Preview Assets.xcassets */,
+				3D4B1A362C7D8F1E00123456 /* OmegaApp.app */,
 			);
-			path = "Preview Content";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1234567890123456789014B /* OmegaApp */ = {
+		3D4B1A3B2C7D8F1E00123456 /* OmegaApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1234567890123456789014C /* Build configuration list for PBXNativeTarget "OmegaApp" */;
+			buildConfigurationList = 3D4B1A3C2C7D8F1E00123456 /* Build configuration list for PBXNativeTarget "OmegaApp" */;
 			buildPhases = (
-				A1234567890123456789014D /* Sources */,
-				A1234567890123456789013D /* Frameworks */,
-				A1234567890123456789014E /* Resources */,
+				3D4B1A3D2C7D8F1E00123456 /* Sources */,
+				3D4B1A372C7D8F1E00123456 /* Frameworks */,
+				3D4B1A3E2C7D8F1E00123456 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -76,25 +81,25 @@
 			);
 			name = OmegaApp;
 			productName = OmegaApp;
-			productReference = A1234567890123456789013C /* OmegaApp.app */;
+			productReference = 3D4B1A362C7D8F1E00123456 /* OmegaApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A1234567890123456789014F /* Project object */ = {
+		3D4B1A3F2C7D8F1E00123456 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A1234567890123456789014B = {
+					3D4B1A3B2C7D8F1E00123456 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A123456789012345678901A0 /* Build configuration list for PBXProject "OmegaApp" */;
+			buildConfigurationList = 3D4B1A402C7D8F1E00123456 /* Build configuration list for PBXProject "OmegaApp" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -102,42 +107,43 @@
 				en,
 				Base,
 			);
-			mainGroup = A123456789012345678901A1;
-			productRefGroup = A1234567890123456789013E /* Products */;
+			mainGroup = 3D4B1A382C7D8F1E00123456;
+			productRefGroup = 3D4B1A3A2C7D8F1E00123456 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1234567890123456789014B /* OmegaApp */,
+				3D4B1A3B2C7D8F1E00123456 /* OmegaApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1234567890123456789014E /* Resources */ = {
+		3D4B1A3E2C7D8F1E00123456 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1234567890123456789013A /* Preview Assets.xcassets in Resources */,
-				A1234567890123456789012E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1234567890123456789014D /* Sources */ = {
+		3D4B1A3D2C7D8F1E00123456 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1234567890123456789012C /* ContentView.swift in Sources */,
-				A1234567890123456789012A /* OmegaAppApp.swift in Sources */,
+				3D4B1A2C2C7D8F1E00123456 /* AuthManager.swift in Sources */,
+				3D4B1A2E2C7D8F1E00123456 /* LoginView.swift in Sources */,
+				3D4B1A302C7D8F1E00123456 /* ContentView.swift in Sources */,
+				3D4B1A322C7D8F1E00123456 /* OmegaAPIClient.swift in Sources */,
+				3D4B1A342C7D8F1E00123456 /* OmegaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A123456789012345678901A2 /* Debug */ = {
+		3D4B1A412C7D8F1E00123456 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -174,8 +180,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -189,18 +194,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		A123456789012345678901A3 /* Release */ = {
+		3D4B1A422C7D8F1E00123456 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -237,8 +241,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -246,94 +249,104 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		A123456789012345678901A4 /* Debug */ = {
+		3D4B1A432C7D8F1E00123456 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"OmegaApp/Preview Content\"";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.omega.OmegaApp;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omega.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				
+				// OMEGA Specific Build Settings
+				OMEGA_ENVIRONMENT = development;
+				OMEGA_API_BASE_URL = "http://127.0.0.1:8001";
 			};
 			name = Debug;
 		};
-		A123456789012345678901A5 /* Release */ = {
+		3D4B1A442C7D8F1E00123456 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"OmegaApp/Preview Content\"";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.omega.OmegaApp;
+				MARKETING_VERSION = 4.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omega.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				
+				// OMEGA Specific Build Settings
+				OMEGA_ENVIRONMENT = production;
+				OMEGA_API_BASE_URL = "https://api.omega.ai";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A123456789012345678901A0 /* Build configuration list for PBXProject "OmegaApp" */ = {
+		3D4B1A3C2C7D8F1E00123456 /* Build configuration list for PBXNativeTarget "OmegaApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A123456789012345678901A2 /* Debug */,
-				A123456789012345678901A3 /* Release */,
+				3D4B1A432C7D8F1E00123456 /* Debug */,
+				3D4B1A442C7D8F1E00123456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1234567890123456789014C /* Build configuration list for PBXNativeTarget "OmegaApp" */ = {
+		3D4B1A402C7D8F1E00123456 /* Build configuration list for PBXProject "OmegaApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A123456789012345678901A4 /* Debug */,
-				A123456789012345678901A5 /* Release */,
+				3D4B1A412C7D8F1E00123456 /* Debug */,
+				3D4B1A422C7D8F1E00123456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A1234567890123456789014F /* Project object */;
+	rootObject = 3D4B1A3F2C7D8F1E00123456 /* Project object */;
 }

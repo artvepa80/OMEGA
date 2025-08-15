@@ -6,25 +6,34 @@ class OmegaAPIClient: ObservableObject {
     @Published var isLoading = false
     @Published var error: APIError?
     
-    private var baseURL: String = ""
-    private let session = URLSession.shared
+    private var baseURL: String = "http://127.0.0.1:8001"
     private let decoder = JSONDecoder()
     
+    private lazy var session: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 30
+        configuration.timeoutIntervalForResource = 60
+        return URLSession(configuration: configuration)
+    }()
+    
     init() {
-        // Configurar decoder para fechas ISO
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
         decoder.dateDecodingStrategy = .formatted(formatter)
     }
     
-    func configure(baseURL: String) {
-        self.baseURL = baseURL
+    func configure(baseURL: String? = nil) {
+        self.baseURL = baseURL ?? "http://127.0.0.1:8001"
+        print("🔧 API configurada para: \(self.baseURL)")
     }
     
     // MARK: - Auth Methods
     
     func login(username: String, password: String) async throws -> AuthResponse {
-        let url = URL(string: "\(baseURL)/auth/login")!
+        guard let url = URL(string: "\(baseURL)/auth/login") else {
+            throw APIError.invalidURL
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -32,17 +41,69 @@ class OmegaAPIClient: ObservableObject {
         let bodyData = "username=\(username)&password=\(password)".data(using: .utf8)
         request.httpBody = bodyData
         
-        let (data, response) = try await session.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIError.invalidResponse
+        do {
+            let (data, response) = try await session.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw APIError.invalidResponse
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                throw APIError.serverError(httpResponse.statusCode)
+            }
+            
+            let authResponse = try decoder.decode(AuthResponse.self, from: data)
+            return authResponse
+            
+        } catch {
+            if error is URLError {
+                throw APIError.networkError(error)
+            } else if error is DecodingError {
+                throw APIError.decodingError(error)
+            } else {
+                throw error
+            }
+        }
+    }
+    
+    func refreshToken() async throws -> RefreshTokenResponse {
+        guard let url = URL(string: "\(baseURL)/auth/refresh") else {
+            throw APIError.invalidURL
         }
         
-        guard httpResponse.statusCode == 200 else {
-            throw APIError.serverError(httpResponse.statusCode)
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let token = AuthManager.shared.token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        return try decoder.decode(AuthResponse.self, from: data)
+        do {
+            let (data, response) = try await session.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw APIError.invalidResponse
+            }
+            
+            guard httpResponse.statusCode == 200 else {
+                if httpResponse.statusCode == 401 {
+                    throw APIError.unauthorized
+                }
+                throw APIError.serverError(httpResponse.statusCode)
+            }
+            
+            return try decoder.decode(RefreshTokenResponse.self, from: data)
+            
+        } catch {
+            if error is URLError {
+                throw APIError.networkError(error)
+            } else if error is DecodingError {
+                throw APIError.decodingError(error)
+            } else {
+                throw error
+            }
+        }
     }
     
     // MARK: - System Status
@@ -73,71 +134,6 @@ class OmegaAPIClient: ObservableObject {
         return response.predictions
     }
     
-    func createPrediction(parameters: PredictionParameters) async throws -> Prediction {
-        let url = URL(string: "\(baseURL)/predictions")!
-        var request = createAuthenticatedRequest(for: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let encoder = JSONEncoder()
-        request.httpBody = try encoder.encode(parameters)
-        
-        let (data, response) = try await session.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIError.invalidResponse
-        }
-        
-        guard httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {
-            throw APIError.serverError(httpResponse.statusCode)
-        }
-        
-        return try decoder.decode(Prediction.self, from: data)
-    }
-    
-    // MARK: - Agent Operations
-    
-    func startAgent() async throws -> AgentResponse {
-        let url = URL(string: "\(baseURL)/agent/start")!
-        var request = createAuthenticatedRequest(for: url)
-        request.httpMethod = "POST"
-        
-        let (data, _) = try await session.data(for: request)
-        return try decoder.decode(AgentResponse.self, from: data)
-    }
-    
-    func stopAgent() async throws -> AgentResponse {
-        let url = URL(string: "\(baseURL)/agent/stop")!
-        var request = createAuthenticatedRequest(for: url)
-        request.httpMethod = "POST"
-        
-        let (data, _) = try await session.data(for: request)
-        return try decoder.decode(AgentResponse.self, from: data)
-    }
-    
-    func getAgentStatus() async throws -> AgentStatus {
-        let url = URL(string: "\(baseURL)/agent/status")!
-        let request = createAuthenticatedRequest(for: url)
-        
-        let (data, _) = try await session.data(for: request)
-        return try decoder.decode(AgentStatus.self, from: data)
-    }
-    
-    // MARK: - Training
-    
-    func trainModel(modelType: String, parameters: TrainingParameters) async throws -> TrainingResponse {
-        let url = URL(string: "\(baseURL)/train/\(modelType)")!
-        var request = createAuthenticatedRequest(for: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let encoder = JSONEncoder()
-        request.httpBody = try encoder.encode(parameters)
-        
-        let (data, _) = try await session.data(for: request)
-        return try decoder.decode(TrainingResponse.self, from: data)
-    }
-    
     // MARK: - Helper Methods
     
     private func createAuthenticatedRequest(for url: URL) -> URLRequest {
@@ -148,16 +144,6 @@ class OmegaAPIClient: ObservableObject {
         }
         
         return request
-    }
-    
-    private func handleHTTPResponse(_ response: URLResponse) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIError.invalidResponse
-        }
-        
-        guard 200...299 ~= httpResponse.statusCode else {
-            throw APIError.serverError(httpResponse.statusCode)
-        }
     }
 }
 
@@ -303,10 +289,12 @@ struct HealthResponse: Codable {
 struct AuthResponse: Codable {
     let accessToken: String
     let tokenType: String
+    let message: String?
     
     private enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case tokenType = "token_type"
+        case message = "message"
     }
 }
 
@@ -316,12 +304,24 @@ struct Prediction: Codable, Identifiable {
     let numbers: [Int]
     let confidence: Double
     let modelUsed: String
-    let parameters: [String: AnyCodable]
+    
+    init(
+        id: String = UUID().uuidString,
+        timestamp: Date = Date(),
+        numbers: [Int],
+        confidence: Double,
+        modelUsed: String
+    ) {
+        self.id = id
+        self.timestamp = timestamp
+        self.numbers = numbers
+        self.confidence = confidence
+        self.modelUsed = modelUsed
+    }
     
     private enum CodingKeys: String, CodingKey {
         case id, timestamp, numbers, confidence
         case modelUsed = "model_used"
-        case parameters
     }
 }
 
@@ -332,77 +332,15 @@ struct PredictionsResponse: Codable {
     let limit: Int
 }
 
-struct PredictionParameters: Codable {
-    let modelType: String?
-    let customParams: [String: AnyCodable]?
+struct RefreshTokenResponse: Codable {
+    let accessToken: String
+    let tokenType: String
+    let expiresIn: Int?
     
     private enum CodingKeys: String, CodingKey {
-        case modelType = "model_type"
-        case customParams = "custom_params"
-    }
-}
-
-struct AgentResponse: Codable {
-    let success: Bool
-    let message: String
-    let agentStatus: String?
-    
-    private enum CodingKeys: String, CodingKey {
-        case success, message
-        case agentStatus = "agent_status"
-    }
-}
-
-struct AgentStatus: Codable {
-    let isRunning: Bool
-    let currentTask: String?
-    let lastExecution: String?
-    let performance: AgentPerformance
-    
-    private enum CodingKeys: String, CodingKey {
-        case isRunning = "is_running"
-        case currentTask = "current_task"
-        case lastExecution = "last_execution"
-        case performance
-    }
-}
-
-struct AgentPerformance: Codable {
-    let successRate: Double
-    let averageExecutionTime: Double
-    let totalExecutions: Int
-    
-    private enum CodingKeys: String, CodingKey {
-        case successRate = "success_rate"
-        case averageExecutionTime = "average_execution_time"
-        case totalExecutions = "total_executions"
-    }
-}
-
-struct TrainingParameters: Codable {
-    let epochs: Int?
-    let learningRate: Double?
-    let batchSize: Int?
-    let validationSplit: Double?
-    
-    private enum CodingKeys: String, CodingKey {
-        case epochs
-        case learningRate = "learning_rate"
-        case batchSize = "batch_size"
-        case validationSplit = "validation_split"
-    }
-}
-
-struct TrainingResponse: Codable {
-    let success: Bool
-    let message: String
-    let trainingId: String?
-    let estimatedCompletionTime: String?
-    
-    private enum CodingKeys: String, CodingKey {
-        case success, message
-        case trainingId = "training_id"
-        case estimatedCompletionTime = "estimated_completion_time"
+        case accessToken = "access_token"
+        case tokenType = "token_type"
+        case expiresIn = "expires_in"
     }
 }
 
@@ -437,55 +375,274 @@ enum APIError: LocalizedError {
     }
 }
 
-// MARK: - Helper for Any Codable
+// MARK: - UI Components
 
-struct AnyCodable: Codable {
-    let value: Any
+struct StatusIndicator: View {
+    let isHealthy: Bool
     
-    init<T>(_ value: T?) {
-        self.value = value ?? ()
+    var body: some View {
+        HStack(spacing: 8) {
+            Circle()
+                .fill(isHealthy ? Color.green : Color.red)
+                .frame(width: 12, height: 12)
+            
+            Text(isHealthy ? "Activo" : "Error")
+                .font(.caption)
+                .fontWeight(.medium)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(
+            Capsule()
+                .fill(Color(.systemGray6))
+        )
     }
 }
 
-extension AnyCodable {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        
-        if let bool = try? container.decode(Bool.self) {
-            value = bool
-        } else if let int = try? container.decode(Int.self) {
-            value = int
-        } else if let double = try? container.decode(Double.self) {
-            value = double
-        } else if let string = try? container.decode(String.self) {
-            value = string
-        } else if let array = try? container.decode([AnyCodable].self) {
-            value = array.map { $0.value }
-        } else if let dictionary = try? container.decode([String: AnyCodable].self) {
-            value = dictionary.mapValues { $0.value }
-        } else {
-            value = ()
-        }
-    }
+struct MetricsGrid: View {
+    let status: SystemStatus
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        
-        switch value {
-        case let bool as Bool:
-            try container.encode(bool)
-        case let int as Int:
-            try container.encode(int)
-        case let double as Double:
-            try container.encode(double)
-        case let string as String:
-            try container.encode(string)
-        case let array as [Any]:
-            try container.encode(array.map { AnyCodable($0) })
-        case let dictionary as [String: Any]:
-            try container.encode(dictionary.mapValues { AnyCodable($0) })
-        default:
-            try container.encodeNil()
+    var body: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
+            MetricCard(
+                title: "Predicciones",
+                value: "\(status.statistics.totalPredictions)",
+                icon: "brain.head.profile",
+                color: .blue
+            )
+            
+            MetricCard(
+                title: "Precisión",
+                value: "\(Int(status.performance * 100))%",
+                icon: "target",
+                color: .green
+            )
+            
+            MetricCard(
+                title: "Uptime",
+                value: status.uptime.formatted,
+                icon: "clock",
+                color: .orange
+            )
+            
+            MetricCard(
+                title: "Modo",
+                value: status.currentMode.capitalized,
+                icon: "gear",
+                color: .purple
+            )
+        }
+        .padding(.horizontal)
+    }
+}
+
+struct MetricCard: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                    .font(.title2)
+                
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(value)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        )
+    }
+}
+
+struct RecentPredictionsCard: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Predicciones Recientes")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                Button("Ver todas") {
+                    // Navegar a vista completa
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            VStack(spacing: 12) {
+                PredictionRow(
+                    prediction: "Predicción #001",
+                    confidence: 0.85,
+                    timestamp: Date()
+                )
+                
+                PredictionRow(
+                    prediction: "Predicción #002",
+                    confidence: 0.92,
+                    timestamp: Date().addingTimeInterval(-3600)
+                )
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        )
+        .padding(.horizontal)
+    }
+}
+
+struct PredictionRow: View {
+    let prediction: String
+    let confidence: Double
+    let timestamp: Date
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(prediction)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                
+                Text(timestamp.formatted(date: .omitted, time: .shortened))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            VStack(alignment: .trailing, spacing: 4) {
+                Text("\(Int(confidence * 100))%")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(confidence > 0.8 ? .green : .orange)
+                
+                Text("confianza")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+struct PredictionCell: View {
+    let prediction: Prediction
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Predicción \(prediction.id)")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                Text("\(Int(prediction.confidence * 100))%")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(prediction.confidence > 0.8 ? .green : .orange)
+            }
+            
+            Text("Números: \(prediction.numbers.map { String($0) }.joined(separator: ", "))")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            HStack {
+                Text("Modelo: \(prediction.modelUsed)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                Spacer()
+                
+                Text(prediction.timestamp.formatted(date: .abbreviated, time: .shortened))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+struct QuickActionsCard: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Acciones Rápidas")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            HStack(spacing: 16) {
+                QuickActionButton(
+                    title: "Nueva Predicción",
+                    icon: "plus.circle.fill",
+                    color: .blue
+                ) {
+                    // Acción nueva predicción
+                }
+                
+                QuickActionButton(
+                    title: "Entrenar Modelo",
+                    icon: "brain.head.profile",
+                    color: .green
+                ) {
+                    // Acción entrenar
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+        )
+        .padding(.horizontal)
+    }
+}
+
+struct QuickActionButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundColor(color)
+                
+                Text(title)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(.systemGray6))
+            )
         }
     }
 }

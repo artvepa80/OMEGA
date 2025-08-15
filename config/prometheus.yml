@@ -1,0 +1,139 @@
+# Prometheus Configuration for OMEGA PRO AI v10.1
+# Comprehensive monitoring setup for production environment
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+  external_labels:
+    cluster: 'omega-production'
+    environment: 'production'
+    version: '10.1'
+
+rule_files:
+  - "rules/*.yml"
+  - "alerts/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+      timeout: 10s
+      api_version: v2
+
+scrape_configs:
+  # OMEGA API Primary Instance
+  - job_name: 'omega-api-primary'
+    static_configs:
+      - targets: ['omega_api_primary:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    honor_labels: true
+    params:
+      format: ['prometheus']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance_type
+        replacement: 'primary'
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'omega-api'
+    
+  # OMEGA API Secondary Instance
+  - job_name: 'omega-api-secondary'
+    static_configs:
+      - targets: ['omega_api_secondary:8001']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    honor_labels: true
+    params:
+      format: ['prometheus']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance_type
+        replacement: 'secondary'
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'omega-api'
+
+  # HAProxy Load Balancer Stats
+  - job_name: 'haproxy'
+    static_configs:
+      - targets: ['loadbalancer:8404']
+    metrics_path: '/stats?stats;csv'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'haproxy'
+
+  # Redis Metrics
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'redis'
+
+  # Prometheus Self-Monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 30s
+    metrics_path: '/metrics'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'prometheus'
+
+  # Grafana Metrics
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'grafana'
+
+  # ElasticSearch Metrics
+  - job_name: 'elasticsearch'
+    static_configs:
+      - targets: ['elasticsearch:9200']
+    metrics_path: '/_prometheus/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service
+        replacement: 'elasticsearch'
+
+  # Health Check Endpoints
+  - job_name: 'omega-health'
+    static_configs:
+      - targets:
+        - 'omega_api_primary:8000'
+        - 'omega_api_secondary:8001'
+        - 'redis:6379'
+        - 'grafana:3000'
+    metrics_path: '/health'
+    scrape_interval: 15s
+    scrape_timeout: 5s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: health_check
+        replacement: 'enabled'
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'up'
+        target_label: metric_type
+        replacement: 'health'

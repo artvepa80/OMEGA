@@ -48,8 +48,10 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            apiClient.configure(baseURL: "http://127.0.0.1:8000")
-            authManager.checkAuthStatus()
+            // Configuración automática según ambiente
+            print("🚀🚀🚀 OMEGA APP INICIANDO 🚀🚀🚀")
+            apiClient.configure()
+            print("🚀🚀🚀 CONFIGURACION COMPLETA 🚀🚀🚀")
         }
     }
 }
@@ -116,235 +118,98 @@ struct DashboardView: View {
     }
 }
 
-struct StatusIndicator: View {
-    let isHealthy: Bool
+struct PredictionsView: View {
+    @EnvironmentObject var apiClient: OmegaAPIClient
+    @State private var predictions: [Prediction] = []
+    @State private var isLoading = false
     
     var body: some View {
-        HStack(spacing: 8) {
-            Circle()
-                .fill(isHealthy ? Color.green : Color.red)
-                .frame(width: 12, height: 12)
-            
-            Text(isHealthy ? "Activo" : "Error")
-                .font(.caption)
-                .fontWeight(.medium)
+        NavigationView {
+            List(predictions) { prediction in
+                PredictionCell(prediction: prediction)
+            }
+            .navigationTitle("Predicciones")
+            .refreshable {
+                await loadPredictions()
+            }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
-        .background(
-            Capsule()
-                .fill(Color(.systemGray6))
-        )
+        .task {
+            await loadPredictions()
+        }
+    }
+    
+    private func loadPredictions() async {
+        isLoading = true
+        do {
+            predictions = try await apiClient.getPredictions()
+        } catch {
+            print("Error loading predictions: \(error)")
+        }
+        isLoading = false
     }
 }
 
-struct MetricsGrid: View {
-    let status: SystemStatus
-    
+struct ResultsView: View {
     var body: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
-            MetricCard(
-                title: "Predicciones",
-                value: "\(status.statistics.totalPredictions)",
-                icon: "brain.head.profile",
-                color: .blue
-            )
-            
-            MetricCard(
-                title: "Precisión",
-                value: "\(Int(status.performance * 100))%",
-                icon: "target",
-                color: .green
-            )
-            
-            MetricCard(
-                title: "Uptime",
-                value: status.uptime.formatted,
-                icon: "clock",
-                color: .orange
-            )
-            
-            MetricCard(
-                title: "Modo",
-                value: status.currentMode.capitalized,
-                icon: "gear",
-                color: .purple
-            )
-        }
-        .padding(.horizontal)
-    }
-}
-
-struct MetricCard: View {
-    let title: String
-    let value: String
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Image(systemName: icon)
-                    .foregroundColor(color)
-                    .font(.title2)
+        NavigationView {
+            VStack {
+                Text("Resultados")
+                    .font(.title)
+                    .padding()
+                
+                Text("Próximamente...")
+                    .foregroundColor(.secondary)
                 
                 Spacer()
             }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(value)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            .navigationTitle("Resultados")
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-        )
     }
 }
 
-struct RecentPredictionsCard: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Predicciones Recientes")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                
-                Spacer()
-                
-                Button("Ver todas") {
-                    // Navegar a vista completa
-                }
-                .font(.caption)
-                .foregroundColor(.blue)
-            }
-            
-            // Lista de predicciones (placeholder)
-            VStack(spacing: 12) {
-                PredictionRow(
-                    prediction: "Predicción #001",
-                    confidence: 0.85,
-                    timestamp: Date()
-                )
-                
-                PredictionRow(
-                    prediction: "Predicción #002",
-                    confidence: 0.92,
-                    timestamp: Date().addingTimeInterval(-3600)
-                )
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-        )
-        .padding(.horizontal)
-    }
-}
-
-struct PredictionRow: View {
-    let prediction: String
-    let confidence: Double
-    let timestamp: Date
+struct SettingsView: View {
+    @EnvironmentObject var authManager: AuthManager
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(prediction)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                
-                Text(timestamp.formatted(date: .omitted, time: .shortened))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .trailing, spacing: 4) {
-                Text("\(Int(confidence * 100))%")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(confidence > 0.8 ? .green : .orange)
-                
-                Text("confianza")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding(.vertical, 8)
-    }
-}
-
-struct QuickActionsCard: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Acciones Rápidas")
-                .font(.headline)
-                .fontWeight(.semibold)
-            
-            HStack(spacing: 16) {
-                QuickActionButton(
-                    title: "Nueva Predicción",
-                    icon: "plus.circle.fill",
-                    color: .blue
-                ) {
-                    // Acción nueva predicción
+        NavigationView {
+            List {
+                Section("Cuenta") {
+                    if let user = authManager.user {
+                        HStack {
+                            Text("Usuario")
+                            Spacer()
+                            Text(user.username)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        HStack {
+                            Text("Rol")
+                            Spacer()
+                            Text(user.role.capitalized)
+                                .foregroundColor(.secondary)
+                        }
+                    }
                 }
                 
-                QuickActionButton(
-                    title: "Entrenar Modelo",
-                    icon: "brain.head.profile",
-                    color: .green
-                ) {
-                    // Acción entrenar
+                Section("Configuración") {
+                    HStack {
+                        Text("Ambiente")
+                        Spacer()
+                        Text(AppConfig.currentEnvironment.displayName)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Section {
+                    Button("Cerrar Sesión") {
+                        Task {
+                            await authManager.logout()
+                        }
+                    }
+                    .foregroundColor(.red)
                 }
             }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-        )
-        .padding(.horizontal)
-    }
-}
-
-struct QuickActionButton: View {
-    let title: String
-    let icon: String
-    let color: Color
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .foregroundColor(color)
-                
-                Text(title)
-                    .font(.caption)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.primary)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.systemGray6))
-            )
+            .navigationTitle("Configuración")
         }
     }
 }
