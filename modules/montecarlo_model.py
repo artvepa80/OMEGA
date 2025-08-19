@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import random
 from collections import Counter, defaultdict
+from modules.type_utils import safe_int_conversion, safe_int_list_conversion
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from multiprocessing import cpu_count
 from modules.filters.rules_filter import FiltroEstrategico
@@ -16,7 +17,7 @@ import sys
 _FILTRO_CACHE = defaultdict(dict)
 
 def asegurar_enteros(comb):
-    return [int(round(x)) if isinstance(x, (float, np.float64)) else x for x in comb]
+    return safe_int_list_conversion(comb)
 
 def limpiar_historial(historial, logger=None):
     """Limpieza optimizada con vectorización y fallback mejorado"""
@@ -30,18 +31,51 @@ def limpiar_historial(historial, logger=None):
     mask_valido = np.ones(len(historial_arr), dtype=bool)
     
     for i, combo in enumerate(historial_arr):
-        if not isinstance(combo, (list, tuple)) or len(combo) != 6:
+        # FIX: Also accept numpy arrays, not just list/tuple
+        if not isinstance(combo, (list, tuple, np.ndarray)) or len(combo) != 6:
             mask_valido[i] = False
             continue
             
         try:
-            combo_arr = np.array(combo, dtype=int)
-            if np.any((combo_arr < 1) | (combo_arr > 40)):
+            # FIX: Handle float values properly by converting to int first
+            combo_clean = []
+            for val in combo:
+                if isinstance(val, (int, float, np.number)):
+                    # Convert float to int, handling potential float precision issues
+                    int_val = int(round(float(val)))
+                    combo_clean.append(int_val)
+                elif isinstance(val, str) and val.replace('.', '').replace('-', '').isdigit():
+                    # Handle string numbers
+                    int_val = int(round(float(val)))
+                    combo_clean.append(int_val)
+                else:
+                    # Invalid data type
+                    raise ValueError(f"Invalid data type: {type(val)}")
+            
+            # Validate range and uniqueness
+            combo_arr = np.array(combo_clean, dtype=int)
+            if len(set(combo_clean)) != 6:  # Check for duplicates
                 mask_valido[i] = False
-        except (TypeError, ValueError):
+            elif np.any((combo_arr < 1) | (combo_arr > 40)):  # Check range
+                mask_valido[i] = False
+                
+        except (TypeError, ValueError, AttributeError) as e:
             mask_valido[i] = False
+            if logger:
+                logger.debug(f"Invalid combination at index {i}: {combo}, error: {e}")
     
-    historial_valido = [sorted(map(int, c)) for c in historial_arr[mask_valido]]
+    # FIX: Process valid combinations properly, ensuring float to int conversion
+    historial_valido = []
+    for combo in historial_arr[mask_valido]:
+        try:
+            # Convert each value to int, handling floats properly
+            combo_ints = [int(round(float(val))) for val in combo]
+            historial_valido.append(sorted(combo_ints))
+        except (ValueError, TypeError) as e:
+            if logger:
+                logger.debug(f"Error converting valid combo to ints: {combo}, error: {e}")
+            continue
+    
     count_invalidos = len(historial) - len(historial_valido)
     
     if logger and count_invalidos:

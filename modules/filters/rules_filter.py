@@ -17,6 +17,7 @@ from fastapi import FastAPI, HTTPException
 import sqlite3
 import matplotlib.pyplot as plt
 from functools import lru_cache
+from modules.type_utils import safe_int_conversion, safe_int_list_conversion
 import psutil
 from tenacity import retry, stop_after_attempt, wait_exponential
 import redis
@@ -44,12 +45,12 @@ class CoberturaCore:
     penalizar : bool, default = False 
         Si True aplica un factor de penalización; si False descarta por completo. 
     """ 
-    def __init__(self, core_set: Set[int], min_hits: int = 4, penalizar: bool = False, factor_penalizacion: float = 0.85): 
+    def __init__(self, core_set: Set[int], min_hits: int = 3, penalizar: bool = True, factor_penalizacion: float = 0.90): 
         self.core_set = core_set 
         self.min_hits = min_hits 
         self.penalizar = penalizar 
         self.factor_penalizacion = factor_penalizacion 
-    # ------------- interfaz tipo “filtro callable” ----------------- 
+    # ------------- interfaz tipo "filtro callable" ----------------- 
     def __call__(self, comb: Tuple[int, ...], score_actual: float = 0.0) -> Tuple[bool, float]: 
         """ 
         Devuelve (aceptar, nuevo_score). 
@@ -63,6 +64,11 @@ class CoberturaCore:
                 return True, score_actual * self.factor_penalizacion 
             return False, score_actual  # descartada 
         return True, score_actual  # combinación válida
+    
+    def apply(self, comb) -> Tuple[bool, float]:
+        """Compatibility method for existing predictor usage"""
+        combo_tuple = tuple(sorted(comb)) if isinstance(comb, (list, tuple)) else tuple(sorted([comb]))
+        return self.__call__(combo_tuple, 1.0)
 
 # Configuración de logging
 LOG_DIR = f"logs/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
@@ -188,40 +194,40 @@ class FiltroEstrategico:
             raise ValueError("Token de autenticación inválido")
 
         self.config = {
-            'suma_min': 100,  # Relaxed from 105
-            'suma_max': 150,  # Relaxed from 145
-            'saltos_min': 20,
-            'saltos_max': 40,
-            'pares_min': 2,
-            'pares_max': 4,
-            'decadas_min': 2,  # Relaxed from 3
-            'max_por_decada': 4,  # Relaxed from 3
-            'repetidos_ultimo': 3,  # Relaxed from 2
+            'suma_min': 80,  # More relaxed
+            'suma_max': 160,  # More relaxed
+            'saltos_min': 10,  # Lower minimum jump
+            'saltos_max': 50,  # Wider jump range
+            'pares_min': 1,  # More flexible on even/odd
+            'pares_max': 5,  # More flexible on even/odd
+            'decadas_min': 1,  # Very flexible decade distribution
+            'max_por_decada': 5,  # More slots per decade
+            'repetidos_ultimo': 4,  # Allow more repeats from last draw
             'patrones_prohibidos': [
-                tuple(sorted([1, 2, 3, 4, 5, 6])),
+                tuple(sorted([1, 2, 3, 4, 5, 6])),  # Still block obvious sequences
                 tuple(sorted([35, 36, 37, 38, 39, 40]))
             ],
-            'umbral_asalto': 0.4,  # Relaxed from 0.65
-            'umbral_custom': 0.7,  # Relaxed from 0.85
-            'umbral_minimo': 0.5,  # Relaxed from 0.65
+            'umbral_asalto': 0.3,  # More lenient during low approval
+            'umbral_custom': 0.6,  # More lenient custom threshold
+            'umbral_minimo': 0.4,  # Lower minimum threshold
             'relajaciones': {
-                'saltos_min': 15,
-                'saltos_max': 45,
-                'repetidos_ultimo': 4
+                'saltos_min': 10,  # Even more relaxed jump range
+                'saltos_max': 55,
+                'repetidos_ultimo': 5  # More repeats allowed
             },
             'pesos_filtros': {
-                'suma_total': 0.15,
-                'saltos': 0.15,
-                'paridad': 0.10,
-                'historial': 0.20,
-                'decadas': 0.10,
-                'repetidos': 0.10,
-                'patrones': 0.10,
-                'posiciones': 0.05,
-                'visual': 0.05,
-                'rng_sospechoso': 0.10
+                'suma_total': 0.10,  # Reduced weight
+                'saltos': 0.10,  # Reduced weight
+                'paridad': 0.08,  # Slightly reduced
+                'historial': 0.15,  # Reduced historical constraint
+                'decadas': 0.08,  # Slightly reduced
+                'repetidos': 0.12,  # Increased flexibility
+                'patrones': 0.08,  # Slightly reduced
+                'posiciones': 0.04,  # Less strict
+                'visual': 0.04,  # Less strict
+                'rng_sospechoso': 0.08  # Slightly reduced
             },
-            'zonas_frias': {15, 16, 17, 18, 19}
+            'zonas_frias': {10, 11, 12, 38, 39, 40}  # Adjust cold zones
         }
 
         if config:
@@ -372,7 +378,7 @@ class FiltroEstrategico:
                 historial = [tuple(sorted(row.values.astype(int))) for _, row in df_numeric.iterrows()]
             else:
                 # Convertir cada combinación a enteros
-                historial = [tuple(sorted(int(round(x)) for x in comb)) for comb in data]
+                historial = [tuple(sorted(safe_int_conversion(x) for x in comb)) for comb in data]
 
             self.historial_set = set(historial)
             if not historial:
@@ -478,7 +484,7 @@ class FiltroEstrategico:
         
         # Convertir combinación a enteros (corrección principal)
         try:
-            comb = [int(round(x)) for x in comb]
+            comb = safe_int_list_conversion(comb)
         except Exception as e:
             log_error(f"Error convirtiendo combinación a enteros: {comb}, error: {str(e)}")
             if return_score and return_reasons:
@@ -533,11 +539,13 @@ class FiltroEstrategico:
             if not aprobado:
                 self.ultimos_rechazos.append((comb, razones, score))
                 prom_rechazos.labels(perfil_svi=perfil_svi, contexto=contexto).inc()
-                log_info(f"Combinación rechazada: {comb}, Score: {score:.3f}, Razones: {razones}")
+                detalles_pruebas = "\n".join(f"- {key}: {'✅ PASS' if prueba['fn'](self, comb) else '❌ FAIL'}" for key, prueba in self.PRUEBAS_CONFIG.items() if prueba.get('fn', None))
+                log_warning(f"COMBO FILTRADO: {comb}, Score: {score:.3f}, Razones DETALLADAS: {razones}, Detalles de pruebas:\n{detalles_pruebas}")
             else:
                 self.contador_aprobados += 1
                 prom_aprobaciones.labels(perfil_svi=perfil_svi, contexto=contexto).inc()
-                log_info(f"Combinación aprobada: {comb}, Score: {score:.3f}")
+                detalles_pruebas = "\n".join(f"- {key}: {'✅ PASS' if prueba['fn'](self, comb) else '❌ FAIL'}" for key, prueba in self.PRUEBAS_CONFIG.items() if prueba.get('fn', None))
+                log_info(f"🟢 COMBO APROBADO: {comb}, Score: {score:.3f}, Detalle de pruebas:\n{detalles_pruebas}")
 
             prom_tasa_aprobacion.labels(perfil_svi=perfil_svi, contexto=contexto).set(self.tasa_aprobacion())
 
