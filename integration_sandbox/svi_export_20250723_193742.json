@@ -1,0 +1,17 @@
+[
+    {
+        "rank": 1,
+        "source": "fallback",
+        "combination": [
+            1,
+            13,
+            25,
+            28,
+            29,
+            38
+        ],
+        "score": 0.5,
+        "svi_score": 0.5,
+        "original_score": 0.5
+    }
+]

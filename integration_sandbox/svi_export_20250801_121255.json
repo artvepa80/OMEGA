@@ -1,0 +1,475 @@
+{
+    "metadata": {
+        "app_name": "OMEGA PRO AI",
+        "version": "v12.0",
+        "export_date": "2025-08-01T12:12:55.130548",
+        "parameters": {
+            "data_path": "data/historial_kabala_github.csv",
+            "svi_profile": "default",
+            "top_n": 30,
+            "enable_models": [
+                "consensus",
+                "ghost_rng",
+                "inverse_mining",
+                "lstm_v2",
+                "montecarlo",
+                "apriori",
+                "transformer_deep",
+                "clustering",
+                "genetico"
+            ]
+        }
+    },
+    "combinations": [
+        {
+            "rank": 1,
+            "source": "clustering",
+            "combination": [
+                7,
+                13,
+                14,
+                24,
+                28,
+                36
+            ],
+            "score": 3.538725032,
+            "svi_score": 0.5,
+            "original_score": 4.8410357600000005
+        },
+        {
+            "rank": 2,
+            "source": "clustering",
+            "combination": [
+                2,
+                3,
+                12,
+                13,
+                14,
+                37
+            ],
+            "score": 0.925952352,
+            "svi_score": 0.5,
+            "original_score": 1.10850336
+        },
+        {
+            "rank": 3,
+            "source": "transformer_deep",
+            "combination": [
+                7,
+                13,
+                16,
+                22,
+                26,
+                36
+            ],
+            "score": 0.713137008,
+            "svi_score": 0.5,
+            "original_score": 0.80448144
+        },
+        {
+            "rank": 4,
+            "source": "transformer_deep",
+            "combination": [
+                9,
+                12,
+                18,
+                28,
+                29,
+                35
+            ],
+            "score": 0.712917096,
+            "svi_score": 0.5,
+            "original_score": 0.8041672799999999
+        },
+        {
+            "rank": 5,
+            "source": "apriori",
+            "combination": [
+                10,
+                13,
+                21,
+                22,
+                24,
+                39
+            ],
+            "score": 0.46647677600000004,
+            "svi_score": 0.5,
+            "original_score": 0.4521096800000001
+        },
+        {
+            "rank": 6,
+            "source": "montecarlo",
+            "combination": [
+                8,
+                13,
+                21,
+                22,
+                27,
+                39
+            ],
+            "score": 0.46613058399999996,
+            "svi_score": 0.5,
+            "original_score": 0.45161512000000004
+        },
+        {
+            "rank": 7,
+            "source": "apriori",
+            "combination": [
+                7,
+                9,
+                10,
+                27,
+                32,
+                36
+            ],
+            "score": 0.458599984,
+            "svi_score": 0.5,
+            "original_score": 0.44085712000000005
+        },
+        {
+            "rank": 8,
+            "source": "clustering",
+            "combination": [
+                2,
+                20,
+                23,
+                26,
+                27,
+                29
+            ],
+            "score": 0.45772834399999995,
+            "svi_score": 0.5,
+            "original_score": 0.43961192
+        },
+        {
+            "rank": 9,
+            "source": "transformer",
+            "combination": [
+                7,
+                10,
+                11,
+                21,
+                22,
+                29
+            ],
+            "score": 0.44580935999999993,
+            "svi_score": 0.5,
+            "original_score": 0.4225848
+        },
+        {
+            "rank": 10,
+            "source": "transformer_deep",
+            "combination": [
+                5,
+                7,
+                16,
+                29,
+                30,
+                36
+            ],
+            "score": 0.43168845599999994,
+            "svi_score": 0.5,
+            "original_score": 0.40241208
+        },
+        {
+            "rank": 11,
+            "source": "apriori",
+            "combination": [
+                2,
+                11,
+                14,
+                23,
+                24,
+                25
+            ],
+            "score": 0.422960688,
+            "svi_score": 0.5,
+            "original_score": 0.38994384000000004
+        },
+        {
+            "rank": 12,
+            "source": "apriori",
+            "combination": [
+                16,
+                17,
+                21,
+                28,
+                35,
+                36
+            ],
+            "score": 0.40334820000000005,
+            "svi_score": 0.5,
+            "original_score": 0.361926
+        },
+        {
+            "rank": 13,
+            "source": "clustering",
+            "combination": [
+                6,
+                18,
+                29,
+                30,
+                31,
+                34
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 14,
+            "source": "montecarlo",
+            "combination": [
+                4,
+                5,
+                17,
+                21,
+                30,
+                33
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 15,
+            "source": "montecarlo",
+            "combination": [
+                8,
+                25,
+                28,
+                34,
+                37,
+                38
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 16,
+            "source": "apriori",
+            "combination": [
+                1,
+                12,
+                15,
+                23,
+                25,
+                27
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 17,
+            "source": "clustering",
+            "combination": [
+                7,
+                10,
+                20,
+                21,
+                23,
+                25
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 18,
+            "source": "ghost_rng",
+            "combination": [
+                4,
+                8,
+                11,
+                17,
+                26,
+                36
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 19,
+            "source": "ghost_rng",
+            "combination": [
+                4,
+                13,
+                30,
+                34,
+                35,
+                40
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 20,
+            "source": "transformer",
+            "combination": [
+                1,
+                6,
+                9,
+                13,
+                25,
+                40
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 21,
+            "source": "montecarlo",
+            "combination": [
+                2,
+                7,
+                15,
+                24,
+                30,
+                39
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 22,
+            "source": "montecarlo",
+            "combination": [
+                1,
+                25,
+                29,
+                34,
+                35,
+                39
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 23,
+            "source": "montecarlo",
+            "combination": [
+                6,
+                12,
+                15,
+                19,
+                25,
+                32
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 24,
+            "source": "montecarlo",
+            "combination": [
+                2,
+                7,
+                8,
+                21,
+                24,
+                25
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 25,
+            "source": "montecarlo",
+            "combination": [
+                3,
+                4,
+                13,
+                28,
+                33,
+                39
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 26,
+            "source": "montecarlo",
+            "combination": [
+                2,
+                5,
+                11,
+                18,
+                20,
+                37
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 27,
+            "source": "montecarlo",
+            "combination": [
+                4,
+                24,
+                32,
+                36,
+                37,
+                38
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 28,
+            "source": "montecarlo",
+            "combination": [
+                2,
+                8,
+                11,
+                13,
+                16,
+                34
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 29,
+            "source": "montecarlo",
+            "combination": [
+                3,
+                6,
+                12,
+                15,
+                22,
+                33
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 30,
+            "source": "montecarlo",
+            "combination": [
+                1,
+                8,
+                29,
+                32,
+                33,
+                40
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "genetico",
+      "montecarlo",
+      "default"
+    ],
+    "datasets": [
+      {
+        "label": "Number of Combinations",
+        "data": [
+          12,
+          10,
+          8
+        ],
+        "backgroundColor": [
+          "rgba(200, 100, 100, 0.5)",
+          "rgba(153, 102, 255, 0.5)",
+          "rgba(199, 199, 199, 0.5)"
+        ],
+        "borderColor": [
+          "rgba(200, 100, 100, 1.0)",
+          "rgba(153, 102, 255, 1.0)",
+          "rgba(199, 199, 199, 1.0)"
+        ],
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "title": {
+          "display: True, text": "Number of Combinations"
+        }
+      }
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Combinations by Source"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "data_path": "data/historial_kabala_github_fixed.csv",
+  "models": [
+    "consensus",
+    "omega_pipeline",
+    "omega_hybrid"
+  ],
+  "windows": "rolling_50",
+  "top_n": 5,
+  "seed": 42,
+  "out_dir": "results/accuracy_analysis/run_test/run_20250807_190703"
+}

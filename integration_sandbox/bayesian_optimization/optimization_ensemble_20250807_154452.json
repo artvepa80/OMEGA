@@ -1,0 +1,26 @@
+{
+  "best_trial_number": 1,
+  "best_reward": 0.7114499999999999,
+  "best_config": {
+    "ensemble_weights": {
+      "neural_enhanced": 0.5686858812511207,
+      "transformer_deep": 0.18771616570345734,
+      "genetico": 0.07497047658365943,
+      "analizador_200": 0.06281067743292303,
+      "montecarlo": 0.02594654727774407,
+      "lstm_v2": 0.03824998111451235,
+      "clustering": 0.04162027063658287
+    },
+    "svi_profile": "aggressive",
+    "optimization_target": "ensemble",
+    "trial_number": 1,
+    "timestamp": "2025-08-07T15:44:52.305210"
+  },
+  "optimization_target": "ensemble",
+  "completed_trials": 3,
+  "failed_trials": 0,
+  "total_duration_seconds": 0.269596,
+  "trials_per_second": 11.127761539488716,
+  "study_name": "test_study_phase2",
+  "timestamp": "2025-08-07T15:44:52.378027"
+}

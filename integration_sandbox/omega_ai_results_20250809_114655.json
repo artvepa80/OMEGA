@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Advanced Mode",
+    "timestamp": "20250809_114655",
+    "total_combinations": 3,
+    "ai_systems_used": [
+      "Redes Neuronales Avanzadas",
+      "Procesamiento de Lenguaje Natural",
+      "Ensemble de IAs Especializadas"
+    ]
+  },
+  "combinations": [
+    {
+      "rank": 1,
+      "combination": [
+        5,
+        12,
+        13,
+        14,
+        21,
+        24
+      ],
+      "confidence": 0.6470654973941514,
+      "ai_source": "ai_ensemble",
+      "method": "weighted_voting",
+      "timestamp": "2025-08-09T11:46:55.367177"
+    },
+    {
+      "rank": 2,
+      "combination": [
+        5,
+        12,
+        13,
+        14,
+        19,
+        21
+      ],
+      "confidence": 0.6470654973941514,
+      "ai_source": "ai_ensemble",
+      "method": "consensus",
+      "timestamp": "2025-08-09T11:46:55.367182"
+    },
+    {
+      "rank": 3,
+      "combination": [
+        4,
+        5,
+        8,
+        12,
+        13,
+        14
+      ],
+      "confidence": 0.6303988307274848,
+      "ai_source": "ai_ensemble",
+      "method": "hybrid",
+      "timestamp": "2025-08-09T11:46:55.367185"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Meta-Learning",
+    "timestamp": "20250816_160419",
+    "total_predictions": 2,
+    "components_used": 4,
+    "data_size": 1000
+  },
+  "predictions": [
+    {
+      "combination": [
+        "8",
+        "12",
+        "16",
+        "22",
+        "29",
+        "32"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 1.1990961940195768,
+        "transformer": 1.1990961940195768,
+        "clustering": 1.1990961940195768,
+        "montecarlo": 1.1990961940195768,
+        "genetic": 1.1990961940195768,
+        "gboost": 1.1990961940195768,
+        "ensemble_ai": 1.7986442910293652
+      },
+      "timestamp": "2025-08-16T16:04:19.630790"
+    },
+    {
+      "combination": [
+        "8",
+        "14",
+        "21",
+        "23",
+        "26",
+        "36"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 1.1990961940195768,
+        "transformer": 1.1990961940195768,
+        "clustering": 1.1990961940195768,
+        "montecarlo": 1.1990961940195768,
+        "genetic": 1.1990961940195768,
+        "gboost": 1.1990961940195768,
+        "ensemble_ai": 1.7986442910293652
+      },
+      "timestamp": "2025-08-16T16:04:19.630978"
+    }
+  ],
+  "meta_analysis": {
+    "regime": "moderate_balanced",
+    "entropy": 0.9993522647601708,
+    "variance": 5.590811084823207,
+    "trend_strength": 1.806450744229655e-05,
+    "optimal_weights": {
+      "lstm_v2": 1.0,
+      "transformer": 1.0,
+      "clustering": 1.0,
+      "montecarlo": 1.0,
+      "genetic": 1.0,
+      "gboost": 1.0,
+      "ensemble_ai": 1.5
+    }
+  },
+  "component_results": {
+    "profiler": {
+      "profile": "moderate_mixed",
+      "confidence": 0.5,
+      "probability_distribution": {
+        "moderate_mixed": 0.5
+      }
+    },
+    "reinforcement": {
+      "action_type": "ADJUST_THRESHOLD",
+      "model_adjusted": "montecarlo",
+      "adjustment_value": 0.19909619401957673,
+      "epsilon": 1.0
+    }
+  },
+  "integration_metrics": {
+    "processing_time": 0.018782,
+    "components_used": 4,
+    "predictions_generated": 2,
+    "weights_optimized": 7,
+    "confidence_avg": 0.6
+  }
+}
