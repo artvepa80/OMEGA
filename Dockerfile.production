@@ -2,7 +2,7 @@
 # Optimized for high-performance AI predictions with minimal resource usage
 
 # Use Python 3.11 slim image for optimal performance and size
-FROM python:3.11-slim-bookworm
+FROM python:3.13-slim-bookworm
 
 # Set metadata
 LABEL maintainer="OMEGA PRO AI Team"

@@ -6,7 +6,7 @@
 FROM aquasec/trivy:latest AS security-scanner
 
 # === STAGE 2: Build Stage ===
-FROM python:3.11-slim-bookworm AS builder
+FROM python:3.13-slim-bookworm AS builder
 
 # Security labels
 LABEL maintainer="OMEGA PRO AI Security Team"
@@ -91,7 +91,7 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip cache purge
 
 # === STAGE 3: Runtime Stage ===
-FROM python:3.11-slim-bookworm AS runtime
+FROM python:3.13-slim-bookworm AS runtime
 
 # Copy security tools from builder
 COPY --from=builder /usr/bin/fail2ban* /usr/bin/

@@ -1,6 +1,6 @@
 # OMEGA PRO AI v10.1 - BUILD MULTI-ARQUITECTURA
 # Compatible con AMD64 y ARM64
-FROM --platform=$TARGETPLATFORM python:3.11-slim
+FROM --platform=$TARGETPLATFORM python:3.13-slim
 
 # Build arguments
 ARG TARGETPLATFORM

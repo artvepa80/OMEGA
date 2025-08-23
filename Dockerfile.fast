@@ -1,5 +1,5 @@
 # OMEGA PRO AI v10.1 - Fast Build Docker
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 # Build info
 ENV OMEGA_VERSION=v10.1

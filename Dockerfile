@@ -1,7 +1,7 @@
 # OMEGA PRO AI v10.1 - Multi-Stage Multi-Arch Build (Optimized 2025)
 
 # Etapa 1: Builder (instala dependencias, compatible multi-arch)
-FROM --platform=$BUILDPLATFORM python:3.11-slim AS builder
+FROM --platform=$BUILDPLATFORM python:3.13-slim AS builder
 
 # Build arguments
 ARG BUILDPLATFORM
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get autoremove -y && apt-get clean
 
 # Etapa 2: Runtime final (copia solo lo necesario)
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 # Build arguments for runtime
 ARG OMEGA_VERSION=v10.1

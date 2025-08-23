@@ -1,6 +1,6 @@
 # OMEGA PRO AI v10.1 - Simple Railway Deployment (Optimized)
 # Etapa 1: Builder (instala dependencias con cache Railway)
-FROM python:3.11-slim AS builder
+FROM python:3.13-slim AS builder
 
 ARG OMEGA_VERSION=v10.1
 ARG RAILWAY_SERVICE_ID  # Para cache mount
@@ -21,7 +21,7 @@ RUN --mount=type=cache,id=s/${RAILWAY_SERVICE_ID}-/root/cache/pip,target=/root/.
     apt-get autoremove -y && apt-get clean
 
 # Etapa 2: Runtime
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 ARG OMEGA_VERSION
 ARG BUILD_DATE
