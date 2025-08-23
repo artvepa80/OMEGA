@@ -1,5 +1,5 @@
 # Dockerfile optimizado para GPU Cloud
-FROM nvidia/cuda:11.8-devel-ubuntu20.04
+FROM nvidia/cuda:12.9.1-devel-ubuntu20.04
 
 # Evitar prompts interactivos
 ENV DEBIAN_FRONTEND=noninteractive

@@ -3,7 +3,7 @@
 # Optimized for GPU workloads with comprehensive security controls
 
 # === STAGE 1: NVIDIA Base with Security Tools ===
-FROM nvidia/cuda:12.2-devel-ubuntu22.04 AS gpu-builder
+FROM nvidia/cuda:13.0.0-devel-ubuntu22.04 AS gpu-builder
 
 # Security labels
 LABEL maintainer="OMEGA PRO AI Security Team"
@@ -96,7 +96,7 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel && \
     python3 -m pip cache purge
 
 # === STAGE 2: Secure Runtime Stage ===
-FROM nvidia/cuda:12.2-runtime-ubuntu22.04 AS gpu-runtime
+FROM nvidia/cuda:13.0.0-runtime-ubuntu22.04 AS gpu-runtime
 
 # Copy from builder
 COPY --from=gpu-builder /usr/local /usr/local
