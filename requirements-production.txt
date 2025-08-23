@@ -22,7 +22,7 @@ python-multipart==0.0.12
 
 # HTTP Client
 requests==2.32.4
-httpx==0.28.0
+httpx==0.28.1
 certifi==2025.6.15
 
 # Data Processing & ML
