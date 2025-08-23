@@ -27,4 +27,4 @@ gettext==0.1
 
 # Additional Data Processing
 selenium==4.15.2  # Web scraping for odds
-beautifulsoup4==4.12.2
+beautifulsoup4==4.13.4

@@ -17,7 +17,7 @@ python-telegram-bot==20.7
 email-validator==2.1.0
 
 # Web scraping (optional)
-beautifulsoup4==4.12.2
+beautifulsoup4==4.13.4
 lxml==4.9.3
 
 # Data processing

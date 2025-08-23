@@ -110,6 +110,6 @@ markdown-it-py==3.0.0
 bleach==6.1.0
 apscheduler==3.10.4
 twilio==9.2.4
-beautifulsoup4==4.12.3
+beautifulsoup4==4.13.4
 pyyaml==6.0.1
 aiofiles==23.2.0
