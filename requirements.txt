@@ -75,7 +75,7 @@ requests==2.32.4
 rich==14.0.0
 schedule==1.2.2
 scikit-learn==1.5.2
-aiosmtplib==3.0.1
+aiosmtplib==4.0.1
 scipy==1.13.1
 seaborn==0.13.2
 six==1.16.0
