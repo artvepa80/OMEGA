@@ -1,0 +1,1538 @@
+{
+  "timestamp": "2025-08-16T17:00:15.752860",
+  "model_weights": {
+    "lstm_v2": {
+      "weight": 1.0266612261666261,
+      "specialty": "temporal_patterns"
+    },
+    "transformer": {
+      "weight": 1.033493279674424,
+      "specialty": "attention_patterns"
+    },
+    "clustering": {
+      "weight": 1.0355310200591568,
+      "specialty": "group_patterns"
+    },
+    "montecarlo": {
+      "weight": 1.0283877876328464,
+      "specialty": "probabilistic"
+    },
+    "genetic": {
+      "weight": 1.029193312319006,
+      "specialty": "evolutionary"
+    },
+    "gboost": {
+      "weight": 1.0309548167724758,
+      "specialty": "gradient_boosting"
+    },
+    "ensemble_ai": {
+      "weight": 1.535710606337875,
+      "specialty": "meta_ensemble"
+    }
+  },
+  "performance_history": [
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.5123202550303627,
+      "timestamp": "2025-08-16T16:59:24.576332",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.5752581582039984,
+      "timestamp": "2025-08-16T16:59:24.576344",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.70654997022961,
+      "timestamp": "2025-08-16T16:59:24.576356",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.571936207747221,
+      "timestamp": "2025-08-16T16:59:24.576367",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6914811781530051,
+      "timestamp": "2025-08-16T16:59:24.576378",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.7190117949685456,
+      "timestamp": "2025-08-16T16:59:24.576389",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.5360493943416926,
+      "timestamp": "2025-08-16T16:59:24.576400",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.5934239928173882,
+      "timestamp": "2025-08-16T16:59:24.576411",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7290093269011733,
+      "timestamp": "2025-08-16T16:59:24.576422",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.6949321047928291,
+      "timestamp": "2025-08-16T16:59:24.576434",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.5782680870025142,
+      "timestamp": "2025-08-16T16:59:24.576445",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6618132345200187,
+      "timestamp": "2025-08-16T16:59:24.576456",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.7832754791375502,
+      "timestamp": "2025-08-16T16:59:24.576467",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.7031505027148945,
+      "timestamp": "2025-08-16T16:59:24.576478",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.7461918427231866,
+      "timestamp": "2025-08-16T16:59:24.576489",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.5620053079630236,
+      "timestamp": "2025-08-16T16:59:24.576500",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.51168893969307,
+      "timestamp": "2025-08-16T16:59:24.576512",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.6156189862896695,
+      "timestamp": "2025-08-16T16:59:24.576523",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6488112362880218,
+      "timestamp": "2025-08-16T16:59:24.576534",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.5117558980026938,
+      "timestamp": "2025-08-16T16:59:24.576545",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.6270412826924356,
+      "timestamp": "2025-08-16T16:59:24.576556",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.5383069188267396,
+      "timestamp": "2025-08-16T16:59:24.576567",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.6685600076431322,
+      "timestamp": "2025-08-16T16:59:24.576578",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5714708457211939,
+      "timestamp": "2025-08-16T16:59:24.576590",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.616885425865761,
+      "timestamp": "2025-08-16T16:59:24.576601",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.7875624490649595,
+      "timestamp": "2025-08-16T16:59:24.576614",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.703030971327291,
+      "timestamp": "2025-08-16T16:59:24.576625",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.5275112441775444,
+      "timestamp": "2025-08-16T16:59:24.576636",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.783858362864507,
+      "timestamp": "2025-08-16T16:59:24.576647",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7922744625603231,
+      "timestamp": "2025-08-16T16:59:24.576658",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.6637747310494967,
+      "timestamp": "2025-08-16T16:59:24.576670",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7510891622712121,
+      "timestamp": "2025-08-16T16:59:24.576681",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.5667729252713092,
+      "timestamp": "2025-08-16T16:59:24.576692",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.6539978506077179,
+      "timestamp": "2025-08-16T16:59:24.576704",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.7641079905915251,
+      "timestamp": "2025-08-16T16:59:24.576715",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.605065474010094,
+      "timestamp": "2025-08-16T16:59:24.576726",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7115253092889979,
+      "timestamp": "2025-08-16T16:59:24.576737",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5761046521619416,
+      "timestamp": "2025-08-16T16:59:24.576750",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7301584559325716,
+      "timestamp": "2025-08-16T16:59:24.576761",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.571251941387741,
+      "timestamp": "2025-08-16T16:59:24.576772",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.6585110363891628,
+      "timestamp": "2025-08-16T16:59:24.576783",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.6668015115927755,
+      "timestamp": "2025-08-16T16:59:24.576794",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.7757347145835979,
+      "timestamp": "2025-08-16T16:59:24.576805",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.5498646295727759,
+      "timestamp": "2025-08-16T16:59:24.576816",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.7090775167591445,
+      "timestamp": "2025-08-16T16:59:24.576828",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7876107222223538,
+      "timestamp": "2025-08-16T16:59:24.576839",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.600698019439089,
+      "timestamp": "2025-08-16T16:59:24.576849",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.5688184237114849,
+      "timestamp": "2025-08-16T16:59:24.576892",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.6359722540486493,
+      "timestamp": "2025-08-16T16:59:24.576904",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.6808345646069895,
+      "timestamp": "2025-08-16T16:59:24.576915",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7821595481406151,
+      "timestamp": "2025-08-16T16:59:24.576926",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5248245260105918,
+      "timestamp": "2025-08-16T16:59:24.576940",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.6233765349756107,
+      "timestamp": "2025-08-16T16:59:24.576951",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6130216909813823,
+      "timestamp": "2025-08-16T16:59:24.576962",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.6707244407497244,
+      "timestamp": "2025-08-16T16:59:24.576973",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.5041015894480992,
+      "timestamp": "2025-08-16T16:59:24.576984",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.7249732248409916,
+      "timestamp": "2025-08-16T16:59:24.576995",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7271243606127368,
+      "timestamp": "2025-08-16T16:59:24.577005",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5754327318535395,
+      "timestamp": "2025-08-16T16:59:24.577018",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7270997396516686,
+      "timestamp": "2025-08-16T16:59:24.577029",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6494495559937679,
+      "timestamp": "2025-08-16T16:59:24.577624",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.7449157205639187,
+      "timestamp": "2025-08-16T16:59:24.577681",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.6769867691412909,
+      "timestamp": "2025-08-16T16:59:24.577710",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.6918084070922728,
+      "timestamp": "2025-08-16T16:59:24.577767",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7941388175277134,
+      "timestamp": "2025-08-16T16:59:24.577781",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5273006273153991,
+      "timestamp": "2025-08-16T16:59:24.577796",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7731413835209819,
+      "timestamp": "2025-08-16T16:59:24.577808",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.7389415327021632,
+      "timestamp": "2025-08-16T16:59:24.577819",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.5198707933555597,
+      "timestamp": "2025-08-16T16:59:24.577830",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.5627392373235542,
+      "timestamp": "2025-08-16T16:59:24.577843",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.6380357476950717,
+      "timestamp": "2025-08-16T16:59:24.577855",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.5540201817047896,
+      "timestamp": "2025-08-16T16:59:24.577866",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.6545708164592633,
+      "timestamp": "2025-08-16T16:59:24.577879",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7465371910533348,
+      "timestamp": "2025-08-16T16:59:24.577891",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.6646145927622227,
+      "timestamp": "2025-08-16T16:59:24.577902",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.5386245194898932,
+      "timestamp": "2025-08-16T16:59:24.577913",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.644343618216888,
+      "timestamp": "2025-08-16T16:59:24.577925",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.6131857895726218,
+      "timestamp": "2025-08-16T16:59:24.577939",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.6791834246766292,
+      "timestamp": "2025-08-16T16:59:24.577951",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5708349599352213,
+      "timestamp": "2025-08-16T16:59:24.577964",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.5187024087533725,
+      "timestamp": "2025-08-16T16:59:24.577975",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.7533322017900886,
+      "timestamp": "2025-08-16T16:59:24.577987",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.6062440012379376,
+      "timestamp": "2025-08-16T16:59:24.577998",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.5546851635427874,
+      "timestamp": "2025-08-16T16:59:24.578009",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.6606006692046571,
+      "timestamp": "2025-08-16T16:59:24.578020",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.6065312909837914,
+      "timestamp": "2025-08-16T16:59:24.578722",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.7210467426184739,
+      "timestamp": "2025-08-16T16:59:24.578751",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.6136317877853869,
+      "timestamp": "2025-08-16T16:59:24.578765",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.5733059466393964,
+      "timestamp": "2025-08-16T16:59:24.578778",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.5022603089402224,
+      "timestamp": "2025-08-16T16:59:24.578792",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.755245255350844,
+      "timestamp": "2025-08-16T16:59:24.578804",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.7526942105894545,
+      "timestamp": "2025-08-16T16:59:24.578815",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.7991766604305184,
+      "timestamp": "2025-08-16T16:59:24.578827",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "lstm_v2",
+      "regime": "unknown",
+      "f1_score": 0.5015900019192816,
+      "timestamp": "2025-08-16T16:59:24.578840",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "transformer",
+      "regime": "unknown",
+      "f1_score": 0.7462584419460058,
+      "timestamp": "2025-08-16T16:59:24.578851",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "clustering",
+      "regime": "unknown",
+      "f1_score": 0.7515747676107875,
+      "timestamp": "2025-08-16T16:59:24.578863",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "montecarlo",
+      "regime": "unknown",
+      "f1_score": 0.559852078201496,
+      "timestamp": "2025-08-16T16:59:24.578874",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "genetic",
+      "regime": "unknown",
+      "f1_score": 0.7303338504328517,
+      "timestamp": "2025-08-16T16:59:24.578885",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "gboost",
+      "regime": "unknown",
+      "f1_score": 0.5961926576478543,
+      "timestamp": "2025-08-16T16:59:24.578896",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    },
+    {
+      "model_name": "ensemble_ai",
+      "regime": "unknown",
+      "f1_score": 0.664580935381446,
+      "timestamp": "2025-08-16T16:59:24.578907",
+      "context_features": {
+        "entropy": 0.5,
+        "variance": 0.5,
+        "trend_strength": 0.0,
+        "cycle_phase": 0.0,
+        "recent_volatility": 0.5,
+        "seasonal_factor": 1.0,
+        "regime_index": 3.0
+      }
+    }
+  ],
+  "regime_history": [],
+  "is_trained": false,
+  "learning_rate": 0.01
+}

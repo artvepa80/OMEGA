@@ -1,0 +1,2 @@
+timestamp,total_combinations,scored_combinations,rejected_combinations,average_score,average_svi_score,max_score,min_score,sources,perfil_svi,threshold,arima_score
+2025-08-13 18:09:06.219489,3,3,0,3.0796666666666668,0.5,3.449,2.736,Counter({'transformer_fallback': 3}),<Logger OmegaPredictor (INFO)>,0.7,0.5787467442905242

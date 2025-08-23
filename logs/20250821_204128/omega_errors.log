@@ -1,0 +1,4 @@
+2025-08-21 20:49:13 [ERROR   ] [logger.py:74] 🚨 Filtros estructurales demasiado restrictivos, usando combinaciones válidas sin filtro estructural
+2025-08-21 20:49:13 [ERROR   ] [logger.py:74] 🚨 No valid combinations after final filtering, using fallback
+2025-08-21 20:49:26 [ERROR   ] [logger.py:74] 🚨 Filtros estructurales demasiado restrictivos, usando combinaciones válidas sin filtro estructural
+2025-08-21 20:49:26 [ERROR   ] [logger.py:74] 🚨 No valid combinations after final filtering, using fallback

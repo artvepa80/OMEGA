@@ -1,0 +1,84 @@
+version: '3.8'
+
+# Specialized Asian Markets Deployment
+services:
+  # Redis optimized for Asian markets
+  redis-asian:
+    image: redis:7-alpine
+    container_name: omega-redis-asian
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_asian_data:/data
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-omega_asian_2024}
+    networks:
+      - omega-asian-network
+    restart: unless-stopped
+
+  # Asian Markets API Service
+  omega-asian-api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.asian
+    container_name: omega-asian-api
+    ports:
+      - "8001:8001"
+    environment:
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-omega_asian_2024}@redis-asian:6379
+      - ASIAN_MARKETS_ENABLED=true
+      - BETINASIA_API_KEY=${BETINASIA_API_KEY}
+      - ISPORTS_API_KEY=${ISPORTS_API_KEY}
+      - SBOBET_API_KEY=${SBOBET_API_KEY}
+      - DEFAULT_LANGUAGE=zh
+      - SUPPORTED_LANGUAGES=en,zh,ja,ko,th,hi
+      - CRYPTO_PAYMENTS_ENABLED=true
+      - ENVIRONMENT=production
+    depends_on:
+      - redis-asian
+    volumes:
+      - ./asian_data:/app/data
+      - ./asian_logs:/app/logs
+    networks:
+      - omega-asian-network
+    restart: unless-stopped
+
+  # Asian Markets WebSocket Service
+  omega-asian-ws:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.asian
+    container_name: omega-asian-ws
+    ports:
+      - "8002:8002"
+    environment:
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-omega_asian_2024}@redis-asian:6379
+      - WEBSOCKET_MODE=true
+      - PORT=8002
+    depends_on:
+      - redis-asian
+    networks:
+      - omega-asian-network
+    restart: unless-stopped
+    command: ["python", "-m", "uvicorn", "app.websocket_server:app", "--host", "0.0.0.0", "--port", "8002"]
+
+  # Nginx for Asian markets
+  nginx-asian:
+    image: nginx:alpine
+    container_name: omega-nginx-asian
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx-asian.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - omega-asian-api
+      - omega-asian-ws
+    networks:
+      - omega-asian-network
+    restart: unless-stopped
+
+volumes:
+  redis_asian_data:
+
+networks:
+  omega-asian-network:
+    driver: bridge

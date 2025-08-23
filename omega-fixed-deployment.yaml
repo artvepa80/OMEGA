@@ -1,0 +1,48 @@
+version: "2.0"
+
+services:
+  omegaproaiv10:
+    image: artvepa80/omega-ai:latest
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 104857600
+    env:
+      - OMEGA_ENV=production
+      - PERFORMANCE_MODE=cpu_optimized
+      - CPU_CORES=8
+      - MEMORY_LIMIT=12GB
+    resources:
+      cpu:
+        units: "8.0"
+      memory:
+        size: 12Gi
+      storage:
+        - size: 40Gi
+
+profiles:
+  compute:
+    omegaproaiv10:
+      resources:
+        cpu:
+          units: "8.0"
+        memory:
+          size: 12Gi
+        storage:
+          - size: 40Gi
+
+  placement:
+    dcloud:
+      pricing:
+        omegaproaiv10:
+          denom: uakt
+          amount: 150
+
+deployment:
+  omegaproaiv10:
+    dcloud:
+      profile: omegaproaiv10
+      count: 1

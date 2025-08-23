@@ -1,0 +1,51 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "montecarlo",
+      "default",
+      "clustering",
+      "transformer_deep"
+    ],
+    "datasets": [
+      {
+        "label": "Number of Combinations",
+        "data": [
+          7,
+          13,
+          6,
+          4
+        ],
+        "backgroundColor": [
+          "rgba(153, 102, 255, 0.5)",
+          "rgba(199, 199, 199, 0.5)",
+          "rgba(100, 100, 100, 0.5)",
+          "rgba(75, 192, 192, 0.5)"
+        ],
+        "borderColor": [
+          "rgba(153, 102, 255, 1.0)",
+          "rgba(199, 199, 199, 1.0)",
+          "rgba(100, 100, 100, 1.0)",
+          "rgba(75, 192, 192, 1.0)"
+        ],
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "title": {
+          "display: True, text": "Number of Combinations"
+        }
+      }
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Combinations by Source"
+      }
+    }
+  }
+}

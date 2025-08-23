@@ -1,0 +1,13 @@
+SHORTCUT SIMPLE OMEGA iPhone:
+
+1. Shortcuts App → "+"
+2. "Get Contents of URL"
+   URL: https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/api/v1/predictions
+   Method: POST
+   Headers: Content-Type = application/json
+   Body: {"count": 10}
+
+3. "Show Result"
+
+Nombre: "OMEGA Predicciones"
+¡Listo!

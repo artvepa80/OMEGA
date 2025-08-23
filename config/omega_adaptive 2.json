@@ -1,0 +1,26 @@
+{
+  "configuracion_dinamica": {
+    "score_minimo": 26.0,
+    "filtro_agresividad": 1.0,
+    "modo_asalto": false,
+    "ghost_rng_activo": true,
+    "refuerzo_clustering": true,
+    "boost_frecuencias": true
+  },
+  "pesos_modelos": {
+    "lstm_v2": 0.94,
+    "transformer": 0.81,
+    "clustering": 0.9,
+    "montecarlo": 0.81,
+    "genetic": 0.77,
+    "gboost": 0.64,
+    "ensemble_ai": 0.85,
+    "apriori": 0.71,
+    "fallback": 0.64
+  },
+  "patrones_refuerzos": {},
+  "patrones_penalizados": {
+    "perfil:C": 1.0
+  },
+  "ultima_actualizacion": "2025-08-08T17:37:48.743316"
+}

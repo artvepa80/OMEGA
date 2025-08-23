@@ -1,0 +1,54 @@
+version: "2.0"
+
+services:
+  omega-terminal:
+    image: artvepa80/omega-ai:latest
+    command:
+      - "python3"
+      - "omega_akash_terminal.py"
+      - "server"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 104857600  # 100MB
+    env:
+      - OMEGA_ENV=production
+      - SERVER_MODE=terminal
+      - ENABLE_EXECUTE=true
+      - ENABLE_PREDICT=true
+      - MAX_EXECUTION_TIME=300
+      - LOG_LEVEL=INFO
+    resources:
+      cpu:
+        units: "2.0"
+      memory:
+        size: 4Gi
+      storage:
+        - size: 20Gi
+
+profiles:
+  compute:
+    omega-terminal:
+      resources:
+        cpu:
+          units: "2.0"
+        memory:
+          size: 4Gi
+        storage:
+          - size: 20Gi
+
+  placement:
+    akash:
+      pricing:
+        omega-terminal:
+          denom: uakt
+          amount: 1000
+
+deployment:
+  omega-terminal:
+    akash:
+      profile: omega-terminal
+      count: 1

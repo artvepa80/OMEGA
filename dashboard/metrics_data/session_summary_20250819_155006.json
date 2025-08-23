@@ -1,0 +1,46 @@
+{
+  "session_id": "session_1755636306",
+  "start_time": 1755636306.509269,
+  "current_time": 1755636606.514409,
+  "predictions_made": 0,
+  "rare_detections": 1,
+  "insights": {
+    "rare_numbers": {
+      "period_hours": 24,
+      "total_detections": 1,
+      "unique_rare_numbers": 2,
+      "most_detected_rare": [
+        [
+          14,
+          1
+        ],
+        [
+          35,
+          1
+        ]
+      ],
+      "avg_boost": 0.3,
+      "boost_percentiles": {
+        "p50": 0.3,
+        "p90": 0.3,
+        "p95": 0.3
+      },
+      "model_effectiveness": {
+        "core_predictor": {
+          "detections": 1,
+          "avg_boost": 0.3,
+          "max_boost": 0.3
+        }
+      },
+      "detection_methods": {
+        "frequency_analysis_enhanced": 1
+      },
+      "timestamp": 1755636606.523537
+    },
+    "exploration": {
+      "no_data": true
+    },
+    "model_performance": {},
+    "filter_efficiency": {}
+  }
+}

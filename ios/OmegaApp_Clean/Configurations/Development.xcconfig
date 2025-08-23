@@ -1,0 +1,67 @@
+//
+//  Development.xcconfig
+//  OMEGA Pro AI - Development Configuration
+//
+//  Development environment configuration with debugging enabled
+//  and relaxed security settings for testing
+//
+
+// MARK: - App Configuration
+PRODUCT_BUNDLE_IDENTIFIER = com.omega.OmegaApp.dev
+PRODUCT_NAME = OMEGA DEV
+CFBundleDisplayName = OMEGA PRO AI (DEV)
+MARKETING_VERSION = 1.0.0
+CURRENT_PROJECT_VERSION = 1
+
+// MARK: - Development Team & Code Signing
+DEVELOPMENT_TEAM = PSXDB5A2NN
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGN_STYLE = Automatic
+PROVISIONING_PROFILE_SPECIFIER = 
+
+// MARK: - Deployment
+IPHONEOS_DEPLOYMENT_TARGET = 15.0
+TARGETED_DEVICE_FAMILY = 1,2
+SUPPORTS_MACCATALYST = NO
+
+// MARK: - Compiler Settings
+SWIFT_VERSION = 5.9
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG DEVELOPMENT $(inherited)
+SWIFT_EMIT_LOC_STRINGS = YES
+ENABLE_TESTABILITY = YES
+
+// MARK: - Debug Settings
+DEBUG_INFORMATION_FORMAT = dwarf
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 DEVELOPMENT=1 $(inherited)
+ENABLE_NS_ASSERTIONS = YES
+ONLY_ACTIVE_ARCH = YES
+
+// MARK: - Security Settings (Relaxed for Development)
+ENABLE_HARDENED_RUNTIME = NO
+ENABLE_BITCODE = NO
+
+// MARK: - SSL/TLS Configuration (Development)
+// Allow insecure connections for local development
+OMEGA_API_BASE_URL = http://127.0.0.1:8001
+OMEGA_ALLOW_INSECURE_HTTP = YES
+OMEGA_SSL_PINNING_ENABLED = NO
+OMEGA_ENVIRONMENT = development
+
+// MARK: - Build Settings
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon-Dev
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor-Dev
+
+// MARK: - Other Linker Flags
+OTHER_LDFLAGS = $(inherited) -ObjC
+
+// MARK: - Info.plist Preprocessing
+INFOPLIST_PREPROCESS = YES
+INFOPLIST_PREFIX_HEADER = Configurations/Development-Info.pch
+
+// MARK: - Custom Build Settings for OMEGA
+OMEGA_ANALYTICS_ENABLED = NO
+OMEGA_LOGGING_LEVEL = debug
+OMEGA_DEBUG_MENU_ENABLED = YES
+OMEGA_CRASH_REPORTING = NO

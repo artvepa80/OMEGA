@@ -1,0 +1,56 @@
+{
+  "prediction_id": "hybrid_1754669617",
+  "timestamp": "2025-08-08T11:13:37.710919",
+  "mode_used": "hybrid",
+  "success": true,
+  "combinations": [
+    {
+      "numbers": [
+        16,
+        20,
+        26,
+        27,
+        33,
+        35
+      ],
+      "score": 0.85,
+      "source": "agentic_v4.0",
+      "model": "neural_enhanced_optimized",
+      "confidence": 0.87,
+      "hybrid_weight": 0.4,
+      "hybrid_source": "agentic_weighted"
+    },
+    {
+      "numbers": [
+        3,
+        8,
+        23,
+        29,
+        31,
+        37
+      ],
+      "score": 0.78,
+      "source": "agentic_v4.0",
+      "model": "meta_learning_controller",
+      "confidence": 0.81,
+      "hybrid_weight": 0.4,
+      "hybrid_source": "agentic_weighted"
+    }
+  ],
+  "sources": {
+    "agentic": "Generated 3 optimized combinations"
+  },
+  "confidence": {
+    "hybrid": 0.628
+  },
+  "performance": {
+    "duration_seconds": 8.640934,
+    "combinations_generated": 2
+  },
+  "explanation": {
+    "hybrid": "Ensemble ponderado: 60% Pipeline + 40% Ag\u00e9ntico"
+  },
+  "errors": [
+    "Sistema pipeline no disponible"
+  ]
+}

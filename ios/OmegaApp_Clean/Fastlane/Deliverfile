@@ -1,0 +1,117 @@
+# Deliverfile - App Store Metadata Configuration
+# OMEGA Pro AI iOS Application
+
+# App identifier
+app_identifier("com.omega.OmegaApp")
+
+# Apple ID username
+username("developer@omega-ai.com")
+
+# Team ID
+team_id("PSXDB5A2NN")
+
+# Platform
+platform("ios")
+
+# App metadata
+app_name("OMEGA PRO AI")
+
+# App description
+description({
+  "en-US" => "OMEGA PRO AI is an advanced lottery prediction system that utilizes cutting-edge artificial intelligence and machine learning algorithms to analyze historical patterns and generate intelligent number predictions. Features include real-time predictions, statistical analysis, pattern recognition, and secure cloud synchronization.",
+  
+  "es-ES" => "OMEGA PRO AI es un sistema avanzado de predicción de lotería que utiliza inteligencia artificial de vanguardia y algoritmos de aprendizaje automático para analizar patrones históricos y generar predicciones inteligentes de números. Incluye predicciones en tiempo real, análisis estadístico, reconocimiento de patrones y sincronización segura en la nube."
+})
+
+# Keywords
+keywords({
+  "en-US" => "lottery,prediction,AI,machine learning,statistics,numbers,analysis,pattern recognition,artificial intelligence,predictions",
+  "es-ES" => "lotería,predicción,IA,aprendizaje automático,estadísticas,números,análisis,reconocimiento de patrones,inteligencia artificial,predicciones"
+})
+
+# Marketing URL
+marketing_url("https://omega-ai.com")
+
+# Support URL
+support_url("https://omega-ai.com/support")
+
+# Privacy policy URL
+privacy_url("https://omega-ai.com/privacy")
+
+# Copyright
+copyright("2024 OMEGA AI Systems. All rights reserved.")
+
+# Primary category
+primary_category("PRODUCTIVITY")
+
+# Secondary category
+secondary_category("UTILITIES")
+
+# Age rating
+app_rating_config_path("./metadata/age_rating.json")
+
+# Release notes
+release_notes({
+  "en-US" => "• Enhanced AI prediction algorithms\n• Improved SSL security for Akash Network integration\n• Advanced statistical analysis features\n• Performance optimizations\n• Bug fixes and stability improvements",
+  
+  "es-ES" => "• Algoritmos de predicción IA mejorados\n• Seguridad SSL mejorada para integración con Akash Network\n• Características avanzadas de análisis estadístico\n• Optimizaciones de rendimiento\n• Corrección de errores y mejoras de estabilidad"
+})
+
+# Promotional text
+promotional_text({
+  "en-US" => "Revolutionary AI-powered lottery prediction system with advanced machine learning algorithms and secure cloud integration.",
+  "es-ES" => "Sistema revolucionario de predicción de lotería impulsado por IA con algoritmos avanzados de aprendizaje automático e integración segura en la nube."
+})
+
+# App review information
+app_review_information({
+  first_name: "OMEGA",
+  last_name: "AI Review Team",
+  phone_number: "+1-800-OMEGA-AI",
+  email_address: "review@omega-ai.com",
+  demo_user: "omega_reviewer",
+  demo_password: "OmegaReview2024!",
+  notes: "OMEGA Pro AI is a sophisticated lottery prediction application that uses advanced AI algorithms. Please use the provided demo credentials to access all features. The app connects to our secure Akash Network deployment for real-time predictions and data synchronization."
+})
+
+# Submission information
+submission_information({
+  export_compliance_platform: "ios",
+  export_compliance_compliance_required: false,
+  export_compliance_encryption_updated: false,
+  export_compliance_uses_encryption: false,
+  export_compliance_is_exempt: true,
+  add_id_info_limits_tracking: false,
+  add_id_info_serves_ads: false,
+  add_id_info_tracks_action: false,
+  add_id_info_tracks_install: true,
+  add_id_info_uses_idfa: false,
+  content_rights_has_rights: true,
+  content_rights_contains_third_party_content: false
+})
+
+# Pricing
+price_tier(0) # Free app
+
+# Available in all territories
+skip_binary_upload(false)
+skip_screenshots(false)
+skip_metadata(false)
+
+# Automatic release after approval
+automatic_release(true)
+
+# Phased release
+phased_release(true)
+
+# Version release type
+version_release_type("AFTER_APPROVAL")
+
+# Reject if possible (for updates)
+reject_if_possible(true)
+
+# Force overwrite existing metadata
+force(true)
+
+# Include in-app purchases in precheck
+precheck_include_in_app_purchases(false)

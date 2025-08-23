@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>OMEGA AI - Interactive Performance Dashboard</title>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+    
+    <!-- Bootstrap CSS for responsive design -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --omega-primary: #667eea;
+            --omega-secondary: #764ba2;
+            --omega-success: #28a745;
+            --omega-warning: #ffc107;
+            --omega-danger: #dc3545;
+            --omega-info: #17a2b8;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--omega-primary) 0%, var(--omega-secondary) 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--omega-primary);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--omega-primary);
+        }
+        
+        .metric-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .alert-panel {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .alert-item {
+            border-left: 4px solid;
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .alert-critical {
+            border-color: var(--omega-danger);
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .alert-warning {
+            border-color: var(--omega-warning);
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+        
+        .alert-info {
+            border-color: var(--omega-info);
+            background-color: rgba(23, 162, 184, 0.1);
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-excellent { background-color: var(--omega-success); }
+        .status-good { background-color: var(--omega-warning); }
+        .status-critical { background-color: var(--omega-danger); }
+        
+        .refresh-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--omega-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .refresh-indicator.show {
+            opacity: 1;
+        }
+        
+        .export-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .filter-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        @media (max-width: 768px) {
+            .metric-value {
+                font-size: 1.8rem;
+            }
+            
+            .chart-container {
+                padding: 1rem;
+            }
+            
+            .dashboard-header {
+                padding: 1rem 0;
+            }
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--omega-primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Refresh Indicator -->
+    <div id="refreshIndicator" class="refresh-indicator">
+        <i class="fas fa-sync-alt fa-spin"></i> Updating...
+    </div>
+    
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0">🚀 OMEGA AI Performance Dashboard</h1>
+                    <p class="mb-0 opacity-75">Real-time performance monitoring and analytics</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="text-white">
+                        <small>Generated: {{ generation_time }}</small><br>
+                        <small>Last Update: <span id="lastUpdateTime">{{ last_update_time }}</span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="timeRange" class="form-label">Time Range</label>
+                    <select id="timeRange" class="form-select">
+                        <option value="1h">Last Hour</option>
+                        <option value="6h">Last 6 Hours</option>
+                        <option value="24h" selected>Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="modelFilter" class="form-label">Model Filter</label>
+                    <select id="modelFilter" class="form-select">
+                        <option value="all">All Models</option>
+                        {% for model in model_names %}
+                        <option value="{{ model|e }}">{{ model|e }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="metricType" class="form-label">Metric Focus</label>
+                    <select id="metricType" class="form-select">
+                        <option value="performance">Performance</option>
+                        <option value="resources">Resources</option>
+                        <option value="errors">Errors & Issues</option>
+                        <option value="accuracy">ML Accuracy</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button id="refreshData" class="btn btn-primary me-2">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="autoRefresh" checked>
+                        <label class="form-check-label" for="autoRefresh">Auto-refresh</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Export Controls -->
+        <div class="export-controls">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h6 class="mb-0">Export Dashboard</h6>
+                    <small class="text-muted">Download current dashboard data in various formats</small>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-outline-primary btn-sm me-1" onclick="exportDashboard('pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm me-1" onclick="exportDashboard('excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm me-1" onclick="exportDashboard('csv')">
+                        <i class="fas fa-file-csv"></i> CSV
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportDashboard('png')">
+                        <i class="fas fa-image"></i> PNG
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Metrics Row -->
+        <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ session_info.total_models_executed }}</div>
+                    <div class="metric-label">Models Executed</div>
+                    <small class="text-success">+{{ session_info.models_last_hour }} last hour</small>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ "%.1f"|format(session_info.avg_success_rate * 100) }}%</div>
+                    <div class="metric-label">Success Rate</div>
+                    <div class="status-indicator {% if session_info.avg_success_rate >= 0.9 %}status-excellent{% elif session_info.avg_success_rate >= 0.7 %}status-good{% else %}status-critical{% endif %}"></div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ "%.1f"|format(session_info.avg_execution_time) }}s</div>
+                    <div class="metric-label">Avg Execution Time</div>
+                    <div class="status-indicator {% if session_info.avg_execution_time < 15 %}status-excellent{% elif session_info.avg_execution_time < 30 %}status-good{% else %}status-critical{% endif %}"></div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ current_resources.cpu_percent|round(1) }}%</div>
+                    <div class="metric-label">CPU Usage</div>
+                    <div class="status-indicator {% if current_resources.cpu_percent < 70 %}status-excellent{% elif current_resources.cpu_percent < 85 %}status-good{% else %}status-critical{% endif %}"></div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ current_resources.memory_percent|round(1) }}%</div>
+                    <div class="metric-label">Memory Usage</div>
+                    <div class="status-indicator {% if current_resources.memory_percent < 70 %}status-excellent{% elif current_resources.memory_percent < 85 %}status-good{% else %}status-critical{% endif %}"></div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                <div class="metric-card">
+                    <div class="metric-value">{{ session_info.total_timeouts }}</div>
+                    <div class="metric-label">Total Timeouts</div>
+                    <div class="status-indicator {% if session_info.total_timeouts == 0 %}status-excellent{% elif session_info.total_timeouts < 5 %}status-good{% else %}status-critical{% endif %}"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Charts Row -->
+        <div class="row">
+            <!-- Model Performance Chart -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="mb-3">📊 Model Performance Overview</h5>
+                    <div id="modelPerformanceChart" style="height: 400px;"></div>
+                </div>
+            </div>
+            
+            <!-- LSTM Accuracy Trending -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="mb-3">🎯 LSTM Accuracy Trending</h5>
+                    <div id="lstmAccuracyChart" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resource Monitoring Row -->
+        <div class="row">
+            <!-- System Resources Timeline -->
+            <div class="col-lg-8">
+                <div class="chart-container">
+                    <h5 class="mb-3">💻 System Resources Timeline</h5>
+                    <div id="resourceTimelineChart" style="height: 350px;"></div>
+                </div>
+            </div>
+            
+            <!-- Alerts Panel -->
+            <div class="col-lg-4">
+                <div class="alert-panel">
+                    <div class="p-3">
+                        <h5 class="mb-3">⚠️ Recent Alerts</h5>
+                        <div id="alertsContainer">
+                            {% for alert in recent_alerts[:5] %}
+                            <div class="alert-item alert-{{ alert.severity }}">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong>
+                                            {% if alert.severity == 'critical' %}🚨
+                                            {% elif alert.severity == 'warning' %}⚠️
+                                            {% else %}ℹ️
+                                            {% endif %}
+                                            {{ alert.severity|upper }}
+                                        </strong>
+                                    </div>
+                                    <small class="text-muted">{{ alert.timestamp }}</small>
+                                </div>
+                                <p class="mb-1">{{ alert.message|e }}</p>
+                                {% if alert.recommendation %}
+                                <small class="text-muted">💡 {{ alert.recommendation|e }}</small>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            <p class="text-muted text-center">No recent alerts</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Analytics Row -->
+        <div class="row">
+            <!-- Execution Time Distribution -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="mb-3">⏱️ Execution Time Distribution</h5>
+                    <div id="executionDistributionChart" style="height: 300px;"></div>
+                </div>
+            </div>
+            
+            <!-- Model Comparison Radar -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="mb-3">📈 Model Performance Comparison</h5>
+                    <div id="modelComparisonChart" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottleneck Analysis -->
+        <div class="row">
+            <div class="col-12">
+                <div class="chart-container">
+                    <h5 class="mb-3">🚧 Performance Bottleneck Analysis</h5>
+                    <div id="bottleneckChart" style="height: 250px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chart Data (JSON) -->
+    <script id="chartData" type="application/json">{{ chart_data|tojson|safe }}</script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Global variables
+        let chartData = JSON.parse(document.getElementById('chartData').textContent);
+        let websocket = null;
+        let autoRefreshEnabled = true;
+        let refreshInterval = null;
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            setupWebSocket();
+            setupEventListeners();
+            startAutoRefresh();
+        });
+        
+        // Chart initialization
+        function initializeCharts() {
+            createModelPerformanceChart();
+            createLSTMAccuracyChart();
+            createResourceTimelineChart();
+            createExecutionDistributionChart();
+            createModelComparisonChart();
+            createBottleneckChart();
+        }
+        
+        // Model Performance Chart
+        function createModelPerformanceChart() {
+            const trace = {
+                x: chartData.models.map(m => m.name),
+                y: chartData.models.map(m => m.avg_execution_time),
+                type: 'bar',
+                marker: {
+                    color: chartData.models.map(m => 
+                        m.avg_execution_time > 20 ? '#dc3545' :
+                        m.avg_execution_time < 10 ? '#28a745' : '#ffc107'
+                    )
+                },
+                text: chartData.models.map(m => `${m.avg_execution_time.toFixed(1)}s`),
+                textposition: 'auto',
+                hovertemplate: '<b>%{x}</b><br>' +
+                              'Avg Time: %{y:.1f}s<br>' +
+                              'Success Rate: %{customdata:.1%}<br>' +
+                              'Executions: %{meta}<extra></extra>',
+                customdata: chartData.models.map(m => m.success_rate),
+                meta: chartData.models.map(m => m.execution_count)
+            };
+            
+            const layout = {
+                title: {
+                    text: 'Average Execution Time by Model',
+                    font: { size: 16 }
+                },
+                xaxis: { title: 'Model' },
+                yaxis: { title: 'Time (seconds)' },
+                margin: { l: 60, r: 30, t: 60, b: 100 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)'
+            };
+            
+            const config = {
+                displayModeBar: true,
+                modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d'],
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('modelPerformanceChart', [trace], layout, config);
+        }
+        
+        // LSTM Accuracy Trending Chart
+        function createLSTMAccuracyChart() {
+            const trace = {
+                x: chartData.lstm_accuracy.timestamps,
+                y: chartData.lstm_accuracy.values,
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'LSTM Accuracy',
+                line: { color: '#667eea', width: 3 },
+                marker: { size: 6, color: '#667eea' },
+                hovertemplate: '<b>LSTM Accuracy</b><br>' +
+                              'Time: %{x}<br>' +
+                              'Accuracy: %{y:.2%}<extra></extra>'
+            };
+            
+            // Target line at 65-70%
+            const targetTrace = {
+                x: chartData.lstm_accuracy.timestamps,
+                y: Array(chartData.lstm_accuracy.timestamps.length).fill(0.675),
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Target (67.5%)',
+                line: { color: '#28a745', width: 2, dash: 'dash' },
+                hovertemplate: 'Target: 67.5%<extra></extra>'
+            };
+            
+            const layout = {
+                title: {
+                    text: 'LSTM Model Accuracy Over Time',
+                    font: { size: 16 }
+                },
+                xaxis: { title: 'Time' },
+                yaxis: { 
+                    title: 'Accuracy (%)',
+                    tickformat: '.1%',
+                    range: [0.5, 0.8]
+                },
+                margin: { l: 60, r: 30, t: 60, b: 80 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: true
+            };
+            
+            const config = {
+                displayModeBar: true,
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('lstmAccuracyChart', [trace, targetTrace], layout, config);
+        }
+        
+        // Resource Timeline Chart
+        function createResourceTimelineChart() {
+            const cpuTrace = {
+                x: chartData.resource_timeline.timestamps,
+                y: chartData.resource_timeline.cpu,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'CPU %',
+                line: { color: '#ff6b6b', width: 2 },
+                yaxis: 'y'
+            };
+            
+            const memoryTrace = {
+                x: chartData.resource_timeline.timestamps,
+                y: chartData.resource_timeline.memory,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Memory %',
+                line: { color: '#4ecdc4', width: 2 },
+                yaxis: 'y2'
+            };
+            
+            const layout = {
+                title: {
+                    text: 'System Resources Over Time',
+                    font: { size: 16 }
+                },
+                xaxis: { title: 'Time' },
+                yaxis: {
+                    title: 'CPU Usage (%)',
+                    side: 'left',
+                    color: '#ff6b6b'
+                },
+                yaxis2: {
+                    title: 'Memory Usage (%)',
+                    side: 'right',
+                    overlaying: 'y',
+                    color: '#4ecdc4'
+                },
+                margin: { l: 60, r: 60, t: 60, b: 80 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                showlegend: true
+            };
+            
+            const config = {
+                displayModeBar: true,
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('resourceTimelineChart', [cpuTrace, memoryTrace], layout, config);
+        }
+        
+        // Execution Distribution Chart
+        function createExecutionDistributionChart() {
+            const trace = {
+                x: chartData.execution_distribution.times,
+                type: 'histogram',
+                marker: { color: '#667eea', opacity: 0.7 },
+                nbinsx: 20,
+                hovertemplate: 'Execution Time: %{x:.1f}s<br>Count: %{y}<extra></extra>'
+            };
+            
+            const layout = {
+                title: {
+                    text: 'Execution Time Distribution',
+                    font: { size: 16 }
+                },
+                xaxis: { title: 'Execution Time (seconds)' },
+                yaxis: { title: 'Frequency' },
+                margin: { l: 60, r: 30, t: 60, b: 60 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)'
+            };
+            
+            const config = {
+                displayModeBar: true,
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('executionDistributionChart', [trace], layout, config);
+        }
+        
+        // Model Comparison Radar Chart
+        function createModelComparisonChart() {
+            const models = chartData.models.slice(0, 5); // Top 5 models
+            const traces = models.map((model, index) => ({
+                type: 'scatterpolar',
+                r: [
+                    model.success_rate * 100,
+                    (30 - model.avg_execution_time) / 30 * 100, // Inverted speed score
+                    (1000 - model.peak_memory) / 1000 * 100, // Memory efficiency
+                    model.reliability_score * 100,
+                    model.accuracy_score * 100
+                ],
+                theta: ['Success Rate', 'Speed', 'Memory Efficiency', 'Reliability', 'Accuracy'],
+                fill: 'toself',
+                name: model.name,
+                line: { width: 2 }
+            }));
+            
+            const layout = {
+                polar: {
+                    radialaxis: {
+                        visible: true,
+                        range: [0, 100]
+                    }
+                },
+                title: {
+                    text: 'Model Performance Comparison',
+                    font: { size: 16 }
+                },
+                margin: { l: 60, r: 60, t: 60, b: 60 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)'
+            };
+            
+            const config = {
+                displayModeBar: true,
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('modelComparisonChart', traces, layout, config);
+        }
+        
+        // Bottleneck Analysis Chart
+        function createBottleneckChart() {
+            const trace = {
+                x: chartData.bottlenecks.map(b => b.impact_score),
+                y: chartData.bottlenecks.map(b => b.name),
+                type: 'bar',
+                orientation: 'h',
+                marker: {
+                    color: chartData.bottlenecks.map(b => 
+                        b.severity === 'high' ? '#dc3545' :
+                        b.severity === 'medium' ? '#ffc107' : '#28a745'
+                    )
+                },
+                text: chartData.bottlenecks.map(b => `${b.impact_score.toFixed(1)}`),
+                textposition: 'auto',
+                hovertemplate: '<b>%{y}</b><br>' +
+                              'Impact Score: %{x:.1f}<br>' +
+                              'Severity: %{customdata}<extra></extra>',
+                customdata: chartData.bottlenecks.map(b => b.severity)
+            };
+            
+            const layout = {
+                title: {
+                    text: 'Performance Bottleneck Impact Analysis',
+                    font: { size: 16 }
+                },
+                xaxis: { title: 'Impact Score' },
+                yaxis: { title: 'Bottleneck Type' },
+                margin: { l: 150, r: 30, t: 60, b: 60 },
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                paper_bgcolor: 'rgba(0,0,0,0)'
+            };
+            
+            const config = {
+                displayModeBar: true,
+                displaylogo: false,
+                responsive: true
+            };
+            
+            Plotly.newPlot('bottleneckChart', [trace], layout, config);
+        }
+        
+        // WebSocket setup for real-time updates
+        function setupWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/performance`;
+            
+            websocket = new WebSocket(wsUrl);
+            
+            websocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                updateDashboard(data);
+                showRefreshIndicator();
+            };
+            
+            websocket.onerror = function(error) {
+                console.log('WebSocket error:', error);
+            };
+            
+            websocket.onclose = function() {
+                // Attempt to reconnect after 5 seconds
+                setTimeout(setupWebSocket, 5000);
+            };
+        }
+        
+        // Event listeners
+        function setupEventListeners() {
+            document.getElementById('refreshData').addEventListener('click', refreshDashboard);
+            document.getElementById('autoRefresh').addEventListener('change', function(e) {
+                autoRefreshEnabled = e.target.checked;
+                if (autoRefreshEnabled) {
+                    startAutoRefresh();
+                } else {
+                    stopAutoRefresh();
+                }
+            });
+            
+            // Filter change listeners
+            document.getElementById('timeRange').addEventListener('change', applyFilters);
+            document.getElementById('modelFilter').addEventListener('change', applyFilters);
+            document.getElementById('metricType').addEventListener('change', applyFilters);
+        }
+        
+        // Auto-refresh functionality
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(refreshDashboard, 30000); // 30 seconds
+        }
+        
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
+        }
+        
+        // Dashboard refresh
+        async function refreshDashboard() {
+            try {
+                showRefreshIndicator();
+                const response = await fetch('/api/performance/refresh', {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    updateDashboard(data);
+                    document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString();
+                }
+            } catch (error) {
+                console.error('Error refreshing dashboard:', error);
+            } finally {
+                hideRefreshIndicator();
+            }
+        }
+        
+        // Update dashboard with new data
+        function updateDashboard(data) {
+            chartData = data;
+            
+            // Update metric cards
+            updateMetricCards(data);
+            
+            // Update charts
+            updateCharts(data);
+            
+            // Update alerts
+            updateAlerts(data.recent_alerts);
+        }
+        
+        // Update metric cards
+        function updateMetricCards(data) {
+            const cards = document.querySelectorAll('.metric-card .metric-value');
+            // Update each metric card with new values
+            // Implementation would update DOM elements with new data
+        }
+        
+        // Update all charts
+        function updateCharts(data) {
+            // Update each chart with new data using Plotly.restyle()
+            // This is more efficient than recreating charts
+        }
+        
+        // Update alerts panel
+        function updateAlerts(alerts) {
+            const container = document.getElementById('alertsContainer');
+            container.innerHTML = '';
+            
+            if (alerts && alerts.length > 0) {
+                alerts.slice(0, 5).forEach(alert => {
+                    const alertElement = createAlertElement(alert);
+                    container.appendChild(alertElement);
+                });
+            } else {
+                container.innerHTML = '<p class="text-muted text-center">No recent alerts</p>';
+            }
+        }
+        
+        // Create alert DOM element
+        function createAlertElement(alert) {
+            const div = document.createElement('div');
+            div.className = `alert-item alert-${alert.severity}`;
+            
+            const severity_emoji = alert.severity === 'critical' ? '🚨' : 
+                                 alert.severity === 'warning' ? '⚠️' : 'ℹ️';
+            
+            div.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <div><strong>${severity_emoji} ${alert.severity.toUpperCase()}</strong></div>
+                    <small class="text-muted">${alert.timestamp}</small>
+                </div>
+                <p class="mb-1">${escapeHtml(alert.message)}</p>
+                ${alert.recommendation ? `<small class="text-muted">💡 ${escapeHtml(alert.recommendation)}</small>` : ''}
+            `;
+            
+            return div;
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            const timeRange = document.getElementById('timeRange').value;
+            const modelFilter = document.getElementById('modelFilter').value;
+            const metricType = document.getElementById('metricType').value;
+            
+            // Filter data and update charts
+            const filteredData = filterChartData(chartData, timeRange, modelFilter, metricType);
+            updateCharts(filteredData);
+        }
+        
+        // Filter chart data based on selections
+        function filterChartData(data, timeRange, modelFilter, metricType) {
+            // Implementation would filter the data based on user selections
+            return data; // Placeholder
+        }
+        
+        // Export functions
+        function exportDashboard(format) {
+            const exportUrl = `/api/performance/export/${format}`;
+            
+            fetch(exportUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    timeRange: document.getElementById('timeRange').value,
+                    modelFilter: document.getElementById('modelFilter').value,
+                    metricType: document.getElementById('metricType').value
+                })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = `omega_performance_dashboard.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error('Export error:', error));
+        }
+        
+        // Utility functions
+        function showRefreshIndicator() {
+            document.getElementById('refreshIndicator').classList.add('show');
+        }
+        
+        function hideRefreshIndicator() {
+            setTimeout(() => {
+                document.getElementById('refreshIndicator').classList.remove('show');
+            }, 2000);
+        }
+        
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+        
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('Dashboard error:', e.error);
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (websocket) {
+                websocket.close();
+            }
+            stopAutoRefresh();
+        });
+    </script>
+</body>
+</html>

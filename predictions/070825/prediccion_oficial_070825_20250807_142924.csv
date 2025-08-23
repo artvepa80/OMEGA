@@ -1,0 +1,8 @@
+ranking,fecha_prediccion,combination,source,score,confidence,high_numbers_count,has_recent_winners,neural_boost,priority
+1,07/08/2025,14-16-20-33-35-36,200_analyzer_v2,1.312,0.7,3,False,0,2
+2,07/08/2025,14-19-20-23-31-37,200_analyzer_v2,1.25,0.7,2,False,0,2
+3,07/08/2025,01-16-31-38-39-40,200_analyzer_v2,1.25,0.7,4,False,0,2
+4,07/08/2025,19-20-27-33-35-37,200_analyzer_v2,1.188,0.7,3,False,0,2
+5,07/08/2025,16-19-23-30-31-39,200_analyzer_v2,1.188,0.7,3,False,0,2
+6,07/08/2025,14-16-19-20-22-36,200_analyzer_v2,1.188,0.7,1,False,0,2
+7,07/08/2025,16-19-22-27-33-40,200_analyzer_v2,1.125,0.7,2,False,0,2

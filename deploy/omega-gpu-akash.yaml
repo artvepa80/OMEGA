@@ -1,0 +1,48 @@
+---
+version: "2.0"
+
+services:
+  omega-cpu:
+    # Replace with your Docker Hub username
+    image: artvepa80/omega-ai:latest
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+    env:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+    command:
+      - "/bin/bash"
+    args: []
+
+profiles:
+  compute:
+    omega-cpu:
+      resources:
+        cpu:
+          units: 4.0
+        memory:
+          size: 8Gi
+        storage:
+          size: 50Gi
+  placement:
+    akash:
+      attributes:
+        host: akash
+        datacenter: us-west
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+          - akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4
+      pricing:
+        omega-cpu:
+          denom: uakt
+          amount: 1000  # CPU resources
+
+deployment:
+  omega-cpu:
+    akash:
+      profile: omega-cpu
+      count: 1

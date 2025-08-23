@@ -1,0 +1,422 @@
+# Fastfile for OMEGA Pro AI iOS Application
+# Automated deployment pipeline for TestFlight and App Store
+
+default_platform(:ios)
+
+# MARK: - Platform Configuration
+platform :ios do
+  
+  # MARK: - Global Variables
+  xcodeproj = "Omega/Omega.xcodeproj"
+  scheme = "Omega"
+  workspace = "Omega/Omega.xcworkspace"
+  
+  # Bundle identifiers for different environments
+  dev_bundle_id = "com.omega.OmegaApp.dev"
+  staging_bundle_id = "com.omega.OmegaApp.staging"
+  prod_bundle_id = "com.omega.OmegaApp"
+  
+  # MARK: - Pre-flight Checks
+  before_all do
+    ensure_git_status_clean unless ENV["SKIP_GIT_CHECK"]
+    
+    # Verify Xcode version
+    ensure_xcode_version(version: "15.0")
+    
+    # Update fastlane tools
+    update_fastlane
+    
+    # Setup environment
+    setup_ci if ENV["CI"]
+  end
+  
+  # MARK: - Development Lane
+  desc "Build and test development version"
+  lane :dev do
+    # Clear derived data for clean build
+    clear_derived_data
+    
+    # Run tests
+    test_dev
+    
+    # Build for development
+    build_dev
+    
+    # Optional: Install on connected device
+    if ENV["INSTALL_ON_DEVICE"]
+      install_on_device(
+        skip_codesigning: false,
+        device_id: ENV["DEVICE_ID"]
+      )
+    end
+  end
+  
+  # MARK: - Testing Lanes
+  desc "Run unit and UI tests for development"
+  lane :test_dev do
+    run_tests(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Debug",
+      devices: ["iPhone 15 Pro", "iPad Air (5th generation)"],
+      clean: true,
+      code_coverage: true,
+      xcargs: "-configuration Development"
+    )
+  end
+  
+  desc "Run tests for staging"
+  lane :test_staging do
+    run_tests(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Staging",
+      devices: ["iPhone 15 Pro"],
+      clean: true,
+      code_coverage: true,
+      xcargs: "-configuration Staging"
+    )
+  end
+  
+  # MARK: - Build Lanes
+  desc "Build development version"
+  lane :build_dev do
+    gym(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Development",
+      clean: true,
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: {
+          dev_bundle_id => "OMEGA Development Profile"
+        }
+      },
+      output_directory: "./builds/development",
+      output_name: "OMEGA_Dev_#{get_version_number}.ipa"
+    )
+  end
+  
+  desc "Build staging version for TestFlight"
+  lane :build_staging do
+    # Increment build number
+    increment_build_number(
+      xcodeproj: xcodeproj,
+      build_number: number_of_commits
+    )
+    
+    # Build for TestFlight
+    gym(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Staging",
+      clean: true,
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          staging_bundle_id => "OMEGA Staging Profile"
+        }
+      },
+      output_directory: "./builds/staging",
+      output_name: "OMEGA_Staging_#{get_version_number}_#{get_build_number}.ipa"
+    )
+  end
+  
+  desc "Build production version for App Store"
+  lane :build_production do
+    # Ensure we're on the right branch
+    ensure_git_branch(branch: 'main')
+    
+    # Increment build number
+    increment_build_number(
+      xcodeproj: xcodeproj,
+      build_number: number_of_commits
+    )
+    
+    # Build for App Store
+    gym(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Production",
+      clean: true,
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          prod_bundle_id => "OMEGA Production Profile"
+        }
+      },
+      output_directory: "./builds/production",
+      output_name: "OMEGA_Production_#{get_version_number}_#{get_build_number}.ipa"
+    )
+  end
+  
+  # MARK: - Deployment Lanes
+  desc "Deploy to TestFlight (Staging)"
+  lane :beta do
+    # Run tests first
+    test_staging
+    
+    # Build staging version
+    build_staging
+    
+    # Upload to TestFlight
+    upload_to_testflight(
+      ipa: lane_context[SharedValues::IPA_OUTPUT_PATH],
+      skip_waiting_for_build_processing: false,
+      changelog: generate_changelog,
+      groups: ["Internal Testers", "Beta Testers"],
+      notify_external_testers: true,
+      beta_app_feedback_email: "feedback@omega-ai.com",
+      beta_app_description: "OMEGA Pro AI - Advanced Lottery Prediction System"
+    )
+    
+    # Send notification
+    notify_deployment_success("TestFlight")
+    
+    # Commit version bump
+    commit_version_bump(
+      message: "Version bump for TestFlight build",
+      xcodeproj: xcodeproj
+    )
+    
+    # Create git tag
+    add_git_tag(
+      tag: "testflight/#{get_version_number}-#{get_build_number}",
+      message: "TestFlight build #{get_version_number} (#{get_build_number})"
+    )
+  end
+  
+  desc "Deploy to App Store"
+  lane :release do
+    # Ensure we're ready for release
+    ensure_git_branch(branch: 'main')
+    ensure_git_status_clean
+    
+    # Run production tests
+    run_tests(
+      workspace: workspace,
+      scheme: scheme,
+      configuration: "Production",
+      devices: ["iPhone 15 Pro"],
+      clean: true
+    )
+    
+    # Build production version
+    build_production
+    
+    # Upload to App Store
+    upload_to_app_store(
+      ipa: lane_context[SharedValues::IPA_OUTPUT_PATH],
+      force: true,
+      reject_if_possible: true,
+      skip_metadata: false,
+      skip_screenshots: false,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: true,
+      automatic_release: false,
+      app_review_information: {
+        first_name: "OMEGA",
+        last_name: "AI Team",
+        phone_number: "+1-800-OMEGA-AI",
+        email_address: "support@omega-ai.com",
+        demo_user: "omega_reviewer",
+        demo_password: "OmegaReview2024!",
+        notes: "OMEGA Pro AI utilizes advanced machine learning algorithms for lottery number prediction. Please use the demo credentials provided for review."
+      },
+      submission_information: {
+        add_id_info_limits_tracking: false,
+        add_id_info_serves_ads: false,
+        add_id_info_tracks_action: false,
+        add_id_info_tracks_install: true,
+        add_id_info_uses_idfa: false,
+        content_rights_has_rights: true,
+        content_rights_contains_third_party_content: false,
+        export_compliance_platform: "ios",
+        export_compliance_compliance_required: false,
+        export_compliance_encryption_updated: false,
+        export_compliance_app_type: nil,
+        export_compliance_uses_encryption: false,
+        export_compliance_is_exempt: true,
+        export_compliance_contains_third_party_cryptography: false,
+        export_compliance_contains_proprietary_cryptography: false,
+        export_compliance_available_on_french_store: true
+      }
+    )
+    
+    # Send notification
+    notify_deployment_success("App Store")
+    
+    # Commit version bump
+    commit_version_bump(
+      message: "Version bump for App Store release",
+      xcodeproj: xcodeproj
+    )
+    
+    # Create release tag
+    add_git_tag(
+      tag: "release/#{get_version_number}",
+      message: "App Store release #{get_version_number}"
+    )
+  end
+  
+  # MARK: - Certificate Management
+  desc "Setup development certificates and profiles"
+  lane :certificates_dev do
+    match(
+      type: "development",
+      app_identifier: [dev_bundle_id],
+      readonly: false,
+      force_for_new_devices: true
+    )
+  end
+  
+  desc "Setup staging certificates and profiles"
+  lane :certificates_staging do
+    match(
+      type: "appstore",
+      app_identifier: [staging_bundle_id],
+      readonly: false
+    )
+  end
+  
+  desc "Setup production certificates and profiles"
+  lane :certificates_production do
+    match(
+      type: "appstore",
+      app_identifier: [prod_bundle_id],
+      readonly: false
+    )
+  end
+  
+  desc "Setup all certificates and profiles"
+  lane :certificates do
+    certificates_dev
+    certificates_staging
+    certificates_production
+  end
+  
+  # MARK: - SSL Certificate Management
+  desc "Update SSL certificates from Akash deployment"
+  lane :update_ssl_certificates do
+    # Download certificates from Akash Network
+    akash_domain = "a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online"
+    
+    # Create certificates directory
+    sh("mkdir -p ../ssl_certificates")
+    
+    # Download SSL certificate from Akash deployment
+    begin
+      certificate_data = sh("openssl s_client -showcerts -connect #{akash_domain}:443 -servername #{akash_domain} </dev/null 2>/dev/null | openssl x509 -outform PEM")
+      
+      # Write certificate to file
+      File.write("../ssl_certificates/akash_cert.pem", certificate_data)
+      
+      UI.success("SSL certificate downloaded and saved to ssl_certificates/akash_cert.pem")
+      
+      # Extract public key
+      public_key = sh("openssl x509 -in ../ssl_certificates/akash_cert.pem -pubkey -noout")
+      File.write("../ssl_certificates/akash_public_key.pem", public_key)
+      
+      UI.success("Public key extracted and saved to ssl_certificates/akash_public_key.pem")
+      
+    rescue => ex
+      UI.error("Failed to download SSL certificate: #{ex}")
+      next
+    end
+    
+    # Copy certificates to app bundle
+    sh("cp -r ../ssl_certificates ../PinnedCertificates.bundle")
+    
+    UI.success("SSL certificates updated successfully!")
+  end
+  
+  # MARK: - Utility Lanes
+  desc "Generate changelog from git commits"
+  private_lane :generate_changelog do
+    changelog_from_git_commits(
+      between: [git_previous_tag, "HEAD"],
+      pretty: "- %s",
+      date_format: "short",
+      match_lightweight_tag: false,
+      merge_commit_filtering: "exclude_merges"
+    )
+  end
+  
+  desc "Send deployment success notification"
+  private_lane :notify_deployment_success do |options|
+    platform = options[:platform] || "Unknown"
+    version = get_version_number
+    build = get_build_number
+    
+    # Slack notification
+    slack(
+      message: "🚀 OMEGA Pro AI v#{version} (#{build}) successfully deployed to #{platform}!",
+      channel: "#releases",
+      success: true,
+      payload: {
+        "Build Date" => Time.new.to_s,
+        "Built by" => "Fastlane",
+        "Environment" => platform
+      },
+      default_payloads: [:git_branch, :git_author]
+    ) if ENV["SLACK_URL"]
+    
+    # Teams notification (alternative)
+    microsoft_teams(
+      webhook_url: ENV["TEAMS_WEBHOOK_URL"],
+      title: "OMEGA Pro AI Deployment Success",
+      summary: "Version #{version} deployed to #{platform}",
+      theme_color: "00FF00",
+      sections: [
+        {
+          "activityTitle" => "Deployment Complete",
+          "activitySubtitle" => "OMEGA Pro AI v#{version} (#{build})",
+          "facts" => [
+            {
+              "name" => "Platform",
+              "value" => platform
+            },
+            {
+              "name" => "Version",
+              "value" => version
+            },
+            {
+              "name" => "Build",
+              "value" => build
+            },
+            {
+              "name" => "Branch",
+              "value" => git_branch
+            }
+          ]
+        }
+      ]
+    ) if ENV["TEAMS_WEBHOOK_URL"]
+  end
+  
+  # MARK: - Error Handling
+  error do |lane, exception, options|
+    # Send error notification
+    slack(
+      message: "❌ OMEGA Pro AI deployment failed in lane '#{lane}'",
+      success: false,
+      channel: "#releases",
+      payload: {
+        "Error" => exception.to_s,
+        "Lane" => lane.to_s
+      }
+    ) if ENV["SLACK_URL"]
+    
+    # Clean up
+    clear_derived_data
+  end
+  
+  # MARK: - Post Actions
+  after_all do |lane, options|
+    # Clean up
+    clean_build_artifacts
+    
+    # Notify success
+    UI.success("Lane '#{lane}' completed successfully! 🎉")
+  end
+end

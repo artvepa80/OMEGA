@@ -1,0 +1,70 @@
+{
+  "prediction_id": "hybrid_1754659235",
+  "timestamp": "2025-08-08T08:20:35.820335",
+  "mode_used": "hybrid",
+  "success": true,
+  "combinations": [
+    {
+      "numbers": [
+        2,
+        11,
+        20,
+        28,
+        34,
+        39
+      ],
+      "score": 0.675,
+      "source": "hybrid_combination",
+      "model": "pipeline_agentic_fusion",
+      "confidence": 0.83,
+      "hybrid_source": "fusion"
+    },
+    {
+      "numbers": [
+        19,
+        20,
+        26,
+        28,
+        37,
+        39
+      ],
+      "score": 0.85,
+      "source": "agentic_v4.0",
+      "model": "neural_enhanced_optimized",
+      "confidence": 0.87,
+      "hybrid_weight": 0.4,
+      "hybrid_source": "agentic_weighted"
+    },
+    {
+      "numbers": [
+        8,
+        17,
+        25,
+        31,
+        32,
+        38
+      ],
+      "score": 0.78,
+      "source": "agentic_v4.0",
+      "model": "meta_learning_controller",
+      "confidence": 0.81,
+      "hybrid_weight": 0.4,
+      "hybrid_source": "agentic_weighted"
+    }
+  ],
+  "sources": {
+    "pipeline": "Generated 2 combinations",
+    "agentic": "Generated 3 optimized combinations"
+  },
+  "confidence": {
+    "hybrid": 0.748
+  },
+  "performance": {
+    "duration_seconds": 1172.427787,
+    "combinations_generated": 3
+  },
+  "explanation": {
+    "hybrid": "Ensemble ponderado: 60% Pipeline + 40% Ag\u00e9ntico"
+  },
+  "errors": []
+}

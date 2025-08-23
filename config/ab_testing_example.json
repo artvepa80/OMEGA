@@ -1,0 +1,62 @@
+{
+  "test_id": "rare_number_detection_enhancement_001",
+  "name": "Rare Number Detection Enhancement Test",
+  "description": "A/B test to validate improvements in rare number prediction accuracy, focusing on edge cases like [12, 27, 1, 10, 13, 22]",
+  "test_type": "rare_number_detection",
+  
+  "traffic_split": 0.5,
+  "min_sample_size": 200,
+  "max_duration_days": 45,
+  "significance_level": 0.05,
+  "power": 0.8,
+  
+  "control_config": {
+    "algorithm_version": "standard",
+    "use_exploratory_consensus": false,
+    "rare_number_boost": false,
+    "enhanced_scoring": false,
+    "clustering_weight": 0.2,
+    "transformer_weight": 0.3
+  },
+  
+  "variant_config": {
+    "algorithm_version": "enhanced_rare_detection",
+    "use_exploratory_consensus": true,
+    "rare_number_boost": true,
+    "enhanced_scoring": true,
+    "clustering_weight": 0.25,
+    "transformer_weight": 0.35,
+    "rare_number_threshold": 0.15
+  },
+  
+  "metrics": [
+    "accuracy",
+    "rare_number_detection", 
+    "confidence_score",
+    "latency_ms",
+    "partial_matches",
+    "exact_matches"
+  ],
+  "primary_metric": "rare_number_detection",
+  
+  "user_segments": [],
+  "geographic_restrictions": [],
+  "time_windows": [],
+  
+  "feature_flags": [
+    "enhanced_consensus_engine",
+    "rare_number_boost_system"
+  ],
+  
+  "alerts_enabled": true,
+  "alert_thresholds": {
+    "performance_degradation": -0.05,
+    "rare_number_improvement": 0.1,
+    "latency_increase": 0.2,
+    "accuracy_drop": -0.03
+  },
+  
+  "enabled": false,
+  "created_at": "2025-08-16T10:00:00Z",
+  "created_by": "omega_system"
+}

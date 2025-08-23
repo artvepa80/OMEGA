@@ -1,0 +1,62 @@
+version: "2.0"
+
+services:
+  omegaproaiv10:
+    image: artvepa80/omega-ai:latest
+    command:
+      - "python3"
+      - "omega_akash_terminal.py"
+      - "server"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 104857600  # 100MB
+    env:
+      - OMEGA_ENV=production
+      - OMEGA_VERSION=v10.1-optimized
+      - PERFORMANCE_MODE=cpu_optimized
+      - SERVER_MODE=terminal
+      - ENABLE_EXECUTE=true
+      - ENABLE_PREDICT=true
+      - MAX_EXECUTION_TIME=300
+      - LOG_LEVEL=INFO
+      - CPU_CORES=8
+      - MEMORY_LIMIT=12GB
+      - CACHE_ENABLED=true
+      - PARALLEL_PROCESSING=true
+      - BATCH_SIZE=16
+      - WORKERS=6
+    resources:
+      cpu:
+        units: "8.0"
+      memory:
+        size: 12Gi
+      storage:
+        - size: 40Gi
+
+profiles:
+  compute:
+    omegaproaiv10:
+      resources:
+        cpu:
+          units: "8.0"
+        memory:
+          size: 12Gi
+        storage:
+          - size: 40Gi
+
+  placement:
+    dcloud:
+      pricing:
+        omegaproaiv10:
+          denom: uakt
+          amount: 150  # 0.15 AKT per block for optimized CPU
+
+deployment:
+  omegaproaiv10:
+    dcloud:
+      profile: omegaproaiv10
+      count: 1

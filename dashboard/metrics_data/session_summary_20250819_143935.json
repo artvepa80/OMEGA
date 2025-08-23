@@ -1,0 +1,18 @@
+{
+  "session_id": "session_1755632375",
+  "start_time": 1755632375.06492,
+  "current_time": 1755632375.06675,
+  "predictions_made": 0,
+  "rare_detections": 0,
+  "insights": {
+    "rare_numbers": {
+      "no_data": true
+    },
+    "exploration": {
+      "no_data": true
+    },
+    "model_performance": {},
+    "filter_efficiency": {}
+  }
+}
+}

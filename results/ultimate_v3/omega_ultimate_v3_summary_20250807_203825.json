@@ -1,0 +1,183 @@
+{
+  "version": "3.0",
+  "timestamp": "20250807_203825",
+  "major_improvements": [
+    "Analizador 500+ con detecci\u00f3n de reg\u00edmenes",
+    "Series temporales ARIMA/GARCH",
+    "Clustering din\u00e1mico ML",
+    "Diversificaci\u00f3n avanzada",
+    "Ranking multi-criterio"
+  ],
+  "configuration_v3": {
+    "analyzer_500_weight": 0.35,
+    "neural_enhanced_weight": 0.3,
+    "traditional_weight": 0.2,
+    "experimental_weight": 0.15,
+    "analysis_window": 500,
+    "min_confidence": 0.6,
+    "regime_sensitivity": 0.8,
+    "volatility_adjustment": true,
+    "backtesting_enabled": true,
+    "num_final_predictions": 12
+  },
+  "final_combinations": [
+    {
+      "combination": [
+        15,
+        16,
+        17,
+        36,
+        37,
+        38
+      ],
+      "source": "analyzer_500_v3",
+      "priority": 1,
+      "score": 1.4256000000000002,
+      "confidence": 0.85,
+      "regime_based": true,
+      "weight": 0.35,
+      "v3_feature": "regime_analysis",
+      "diversity_boost": true,
+      "final_score_v3": 1.5328764000000004
+    }
+  ],
+  "analysis_summary": {
+    "analysis_500_v3": {
+      "success": true,
+      "analysis_results": "AnalysisResults500(total_analyzed=3646, analysis_window=500, regimes_detected=[RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(13), end_idx=np.int64(31), duration=14, mean_numbers=[40.0, 40.0, 39.285714285714285, 39.285714285714285, 40.0, 40.0], volatility=np.float64(0.5832118435198035), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.7), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(35), end_idx=np.int64(51), duration=14, mean_numbers=[39.285714285714285, 39.285714285714285, 38.57142857142857, 40.0, 40.0, 39.285714285714285], volatility=np.float64(0.7985957062499238), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.7), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(54), end_idx=np.int64(90), duration=27, mean_numbers=[40.0, 40.0, 39.629629629629626, 40.0, 40.0, 39.629629629629626], volatility=np.float64(0.43648566739910283), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(118), end_idx=np.int64(128), duration=10, mean_numbers=[39.0, 40.0, 40.0, 40.0, 39.0, 39.0], volatility=np.float64(0.7637626158259722), trend='down', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.5), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(131), end_idx=np.int64(143), duration=12, mean_numbers=[38.333333333333336, 40.0, 40.0, 40.0, 40.0, 39.166666666666664], volatility=np.float64(0.7216878364870312), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.6), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(173), end_idx=np.int64(192), duration=16, mean_numbers=[40.0, 39.375, 40.0, 40.0, 40.0, 40.0], volatility=np.float64(0.4034357652299387), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.8), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(209), end_idx=np.int64(239), duration=26, mean_numbers=[40.0, 40.0, 40.0, 40.0, 39.61538461538461, 39.23076923076923], volatility=np.float64(0.5324758886485939), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(242), end_idx=np.int64(282), duration=32, mean_numbers=[39.6875, 39.6875, 40.0, 39.375, 40.0, 39.6875], volatility=np.float64(0.605153647844908), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(285), end_idx=np.int64(308), duration=20, mean_numbers=[40.0, 40.0, 39.5, 40.0, 40.0, 39.5], volatility=np.float64(0.4999999999999992), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(313), end_idx=np.int64(327), duration=11, mean_numbers=[40.0, 40.0, 39.09090909090909, 40.0, 40.0, 39.09090909090909], volatility=np.float64(0.6428243465332242), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.55), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(330), end_idx=np.int64(341), duration=12, mean_numbers=[40.0, 40.0, 39.166666666666664, 40.0, 40.0, 40.0], volatility=np.float64(0.4606423319938049), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.6), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(344), end_idx=np.int64(395), duration=45, mean_numbers=[39.77777777777778, 40.0, 40.0, 39.77777777777778, 39.333333333333336, 40.0], volatility=np.float64(0.5237828008789234), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(398), end_idx=np.int64(451), duration=44, mean_numbers=[39.77272727272727, 39.54545454545455, 39.77272727272727, 39.54545454545455, 39.31818181818182, 40.0], volatility=np.float64(0.6722817935340464), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=1.0), RegimeCharacteristics(regime_id=np.int32(0), start_idx=np.int64(454), end_idx=np.int64(474), duration=17, mean_numbers=[40.0, 40.0, 39.411764705882355, 40.0, 40.0, 40.0], volatility=np.float64(0.3921568627450975), trend='stable', dominant_patterns=['high_numbers_dominant', 'low_variability', 'stable_means'], confidence=0.85)], trend_forecast={'method': 'ARIMA_GARCH', 'arima_forecast': [38.35447911189823, 38.4531064771927, 38.45615779024594, 38.456252191138844, 38.45625511169417], 'volatility_forecast': [61458.69322621616, 86088.16580244158, 98770.22334329401, 105300.39092896711, 108662.86492497372], 'trend_direction': 'down', 'confidence': -1.243161910263562, 'model_summary': {'arima_aic': 2243.161910263562, 'garch_loglik': -3576.5551838440597}}, recommended_numbers=[36, 37, 38], avoid_numbers=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], confidence_score=0.24990856977807424, pattern_strength=0.8876666666666667, volatility_forecast=2.098670572234557, next_regime_probability={'stable_to_stable': 0.8461538461538461, 'stable_to_down': 0.07692307692307693, 'down_to_stable': 0.07692307692307693})",
+      "combinations": [
+        {
+          "combination": [
+            15,
+            16,
+            17,
+            36,
+            37,
+            38
+          ],
+          "source": "regime_current",
+          "confidence": 0.85,
+          "regime_id": "0",
+          "score": 0.9
+        },
+        {
+          "combination": [
+            15,
+            16,
+            17,
+            36,
+            37,
+            38
+          ],
+          "source": "regime_current",
+          "confidence": 0.85,
+          "regime_id": "0",
+          "score": 0.92
+        },
+        {
+          "combination": [
+            15,
+            16,
+            17,
+            36,
+            37,
+            38
+          ],
+          "source": "regime_current",
+          "confidence": 0.85,
+          "regime_id": "0",
+          "score": 0.9400000000000001
+        },
+        {
+          "combination": [
+            15,
+            16,
+            17,
+            36,
+            37,
+            38
+          ],
+          "source": "regime_current",
+          "confidence": 0.85,
+          "regime_id": "0",
+          "score": 0.96
+        },
+        {
+          "combination": [
+            20,
+            21,
+            22,
+            33,
+            34,
+            35
+          ],
+          "source": "trend_down",
+          "confidence": -1.243161910263562,
+          "trend": "down",
+          "score": 0.8
+        },
+        {
+          "combination": [
+            20,
+            21,
+            22,
+            33,
+            34,
+            35
+          ],
+          "source": "trend_down",
+          "confidence": -1.243161910263562,
+          "trend": "down",
+          "score": 0.8300000000000001
+        },
+        {
+          "combination": [
+            20,
+            21,
+            22,
+            33,
+            34,
+            35
+          ],
+          "source": "trend_down",
+          "confidence": -1.243161910263562,
+          "trend": "down",
+          "score": 0.8600000000000001
+        }
+      ],
+      "confidence": 0.24990856977807424,
+      "pattern_strength": 0.8876666666666667,
+      "volatility_forecast": 2.098670572234557
+    },
+    "neural_v3": {
+      "success": false,
+      "error": "train_enhanced_model() got an unexpected keyword argument 'batch_size'"
+    },
+    "total_data_points": 3646,
+    "analysis_window": 500,
+    "components_used": {
+      "analyzer_500": true,
+      "neural_v3": false,
+      "calibrator": true
+    },
+    "v3_innovations": [
+      "Detecci\u00f3n de reg\u00edmenes temporales",
+      "Series temporales ARIMA/GARCH",
+      "Clustering din\u00e1mico ML",
+      "Diversificaci\u00f3n avanzada",
+      "Ranking multi-criterio"
+    ],
+    "optimization_level": "V3.0"
+  },
+  "model_distribution": {
+    "analyzer_500": 1,
+    "neural_enhanced": 0,
+    "diversified": 1,
+    "regime_based": 1
+  },
+  "advanced_metrics": {
+    "avg_confidence": 0.85,
+    "avg_final_score": 1.5328764000000004,
+    "distribution_diversity": 1
+  }
+}

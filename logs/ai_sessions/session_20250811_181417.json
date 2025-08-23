@@ -1,0 +1,375 @@
+{
+  "interactions": [
+    {
+      "timestamp": "2025-08-11T18:14:19.073120",
+      "user_input": "Genera 8 combinaciones usando toda tu inteligencia artificial",
+      "intent": "generate_combinations",
+      "confidence": 0.8360655737704918,
+      "ai_results": {
+        "combinations": [
+          {
+            "combination": [
+              14,
+              21,
+              25,
+              26,
+              30,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084593"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084624"
+          },
+          {
+            "combination": [
+              1,
+              3,
+              14,
+              20,
+              21,
+              26
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "hybrid",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084637"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              30
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084663"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084684"
+          },
+          {
+            "combination": [
+              1,
+              3,
+              14,
+              20,
+              21,
+              26
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "hybrid",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084695"
+          },
+          {
+            "combination": [
+              14,
+              21,
+              25,
+              26,
+              30,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084717"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084737"
+          }
+        ],
+        "analysis": {
+          "ensemble_used": true,
+          "neural_used": true,
+          "pattern_intelligence": {
+            "pattern_complexity": "1.4832109e-05",
+            "attention_focus": "[[0.16666913 0.16667981 0.16668426 0.16667844 0.16666138 0.16662702]\n [0.1666698  0.16668102 0.16668507 0.16667886 0.16666047 0.1666248 ]\n [0.16667    0.16668154 0.16668533 0.16667889 0.16666022 0.16662428]\n [0.16667004 0.16668166 0.16668527 0.16667865 0.16665988 0.16662475]\n [0.16667072 0.16668169 0.1666848  0.166678   0.16665938 0.16662589]\n [0.16667263 0.16668148 0.1666838  0.16667649 0.16665861 0.16662714]]",
+            "sequence_importance": "3.5203218e-12",
+            "ai_confidence": 0.4826354384422302,
+            "predicted_trend": "ascending",
+            "intelligence_score": 0.5014775395393372,
+            "recommendations": []
+          }
+        }
+      },
+      "processing_time": 0.251403
+    }
+  ],
+  "learning_data": [
+    {
+      "timestamp": "2025-08-11T18:14:19.324455",
+      "user_input": "Genera 8 combinaciones usando toda tu inteligencia artificial",
+      "intent": "generate_combinations",
+      "confidence": 0.8360655737704918,
+      "ai_results": {
+        "combinations": [
+          {
+            "combination": [
+              14,
+              21,
+              25,
+              26,
+              30,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084593"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084624"
+          },
+          {
+            "combination": [
+              1,
+              3,
+              14,
+              20,
+              21,
+              26
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "hybrid",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084637"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              30
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084663"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084684"
+          },
+          {
+            "combination": [
+              1,
+              3,
+              14,
+              20,
+              21,
+              26
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "hybrid",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084695"
+          },
+          {
+            "combination": [
+              14,
+              21,
+              25,
+              26,
+              30,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "weighted_voting",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084717"
+          },
+          {
+            "combination": [
+              14,
+              20,
+              21,
+              25,
+              26,
+              33
+            ],
+            "confidence": 0.6284230459171554,
+            "source": "ai_ensemble",
+            "individual_predictions": [
+              "AIPrediction(ai_id='pattern_ai', specialty=<AISpecialty.PATTERN_RECOGNITION: 'pattern_recognition'>, prediction=[20, 21, 25, 26, 30, 33], confidence=0.95, reasoning='Patr\u00f3n dominante identificado con fuerza 1.000. Secuencias analizadas: 1000. Patrones \u00fanicos encontrados: 1015.', metadata={'patterns_found': 1015, 'strongest_pattern_strength': 1.0, 'pattern_type': 'sum_range_6'}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 78599))",
+              "AIPrediction(ai_id='trend_ai', specialty=<AISpecialty.TREND_PREDICTION: 'trend_prediction'>, prediction=[14, 21, 26, 29, 39, 40], confidence=0.8, reasoning='An\u00e1lisis de tendencias en 1000 secuencias. Tendencia de suma: 5.41. Tendencia de rango: -0.71. Momentum detectado: True.', metadata={'trends_analyzed': ['sum_trend', 'range_trend', 'high_low_trend', 'momentum'], 'strongest_trend': ('momentum', 31.0), 'trend_consistency': 0.8}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84127))",
+              "AIPrediction(ai_id='frequency_ai', specialty=<AISpecialty.FREQUENCY_ANALYSIS: 'frequency_analysis'>, prediction=[1, 3, 11, 14, 22, 34], confidence=0.3003844825020951, reasoning='An\u00e1lisis de 1000 secuencias. N\u00fameros m\u00e1s frecuentes: [16, 22, 27]. Distribuci\u00f3n de frecuencias estable: False.', metadata={'total_sequences': 1000, 'top_frequent': [16, 22, 27, 29, 9], 'frequency_variance': 125.5}, timestamp=datetime.datetime(2025, 8, 11, 18, 14, 19, 84342))"
+            ],
+            "method": "consensus",
+            "specialists_used": 3,
+            "timestamp": "2025-08-11T18:14:19.084737"
+          }
+        ],
+        "analysis": {
+          "ensemble_used": true,
+          "neural_used": true,
+          "pattern_intelligence": {
+            "pattern_complexity": "1.4832109e-05",
+            "attention_focus": "[[0.16666913 0.16667981 0.16668426 0.16667844 0.16666138 0.16662702]\n [0.1666698  0.16668102 0.16668507 0.16667886 0.16666047 0.1666248 ]\n [0.16667    0.16668154 0.16668533 0.16667889 0.16666022 0.16662428]\n [0.16667004 0.16668166 0.16668527 0.16667865 0.16665988 0.16662475]\n [0.16667072 0.16668169 0.1666848  0.166678   0.16665938 0.16662589]\n [0.16667263 0.16668148 0.1666838  0.16667649 0.16665861 0.16662714]]",
+            "sequence_importance": "3.5203218e-12",
+            "ai_confidence": 0.4826354384422302,
+            "predicted_trend": "ascending",
+            "intelligence_score": 0.5014775395393372,
+            "recommendations": []
+          }
+        }
+      }
+    }
+  ],
+  "performance_metrics": {},
+  "user_preferences": {}
+}

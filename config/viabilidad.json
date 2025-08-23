@@ -1,0 +1,52 @@
+{
+    "combo_length": 6,
+    "combo_range_min": 1,
+    "combo_range_max": 40,
+    "svi_batch_size": 100,
+    "watch_changes": true,
+    "export_csv": true,
+    "export_json": true,
+    "export_charts": true,
+    "chart_types": ["pie", "bar", "scatter"],
+    "output_dir": "results",
+    "visualize_summary": true,
+    "max_bar_length": 50,
+    "progress_bar_style": {"desc": "Procesando combinaciones", "unit": "combo"},
+    "score_historico_base": 3.0,
+    "prediction_weight": 0.7,
+    "svi_weight": 0.3,
+    "top_n_combinations": 8,
+    "preferencia_rangos": "B",
+    "score_thresholds": {"high": 0.9, "medium": 0.6},
+    "color_fuente": {
+        "consensus": "\033[94m",
+        "clustering": "\033[96m",
+        "genetico": "\033[95m",
+        "montecarlo": "\033[93m",
+        "rng_emulado": "\033[91m",
+        "lstm_v2": "\033[92m",
+        "transformer_deep": "\033[94m",
+        "apriori": "\033[96m",
+        "ghost_rng": "\033[95m",
+        "inverse_mining": "\033[93m",
+        "hybrid": "\033[92m"
+    },
+    "emojis": {
+        "consensus": "🤖",
+        "clustering": "🔁",
+        "genetico": "🧬",
+        "montecarlo": "🎲",
+        "rng_emulado": "🎰",
+        "lstm_v2": "🔢",
+        "transformer_deep": "🧠",
+        "apriori": "📊",
+        "ghost_rng": "👻",
+        "inverse_mining": "⛏️",
+        "hybrid": "🌐"
+    },
+    "paths": {
+        "models_gboost": "models/gboost_model.pkl",
+        "models_jackpot_profiler": "models/jackpot_profiler.pkl",
+        "models_jackpot_mlb": "models/jackpot_profiler_mlb.pkl"
+    }
+}

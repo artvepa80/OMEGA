@@ -1,0 +1,17 @@
+[
+  {
+    "combination": [
+      2,
+      3,
+      14,
+      21,
+      36,
+      39
+    ],
+    "source": "fallback",
+    "score": 0.5,
+    "svi_score": 0.5,
+    "metrics": {},
+    "normalized": 0.0
+  }
+]

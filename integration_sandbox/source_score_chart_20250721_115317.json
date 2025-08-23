@@ -1,0 +1,40 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "fallback"
+    ],
+    "datasets": [
+      {
+        "label": "Average Score",
+        "data": [
+          0.187
+        ],
+        "backgroundColor": [
+          "rgba(199, 199, 199, 0.5)"
+        ],
+        "borderColor": [
+          "rgba(199, 199, 199, 1.0)"
+        ],
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "title": {
+          "display": true,
+          "text": "Average Score"
+        }
+      }
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Average Scores by Source"
+      }
+    }
+  }
+}

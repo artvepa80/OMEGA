@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "fecha_sorteo": "2025-08-08",
+    "timestamp_procesamiento": "2025-08-08T17:37:48.740887",
+    "version_sistema": "OMEGA v2.0"
+  },
+  "resultado_sorteo": {
+    "combinacion": [
+      7,
+      22,
+      23,
+      29,
+      33,
+      37
+    ],
+    "perfil_real": "B",
+    "perfil_calculado": "C",
+    "patron": {
+      "decadas": {
+        "0": 1,
+        "2": 3,
+        "3": 2
+      },
+      "pares": 1,
+      "impares": 5,
+      "suma": 151,
+      "rango": 30,
+      "gap_promedio": 6.0,
+      "gap_max": 15,
+      "zona_baja": 1,
+      "zona_media": 2,
+      "zona_alta": 3,
+      "perfil": "C"
+    },
+    "regime_rng": "moderate"
+  },
+  "rendimiento_predicciones": {
+    "total_combinaciones": 8,
+    "promedio_aciertos": 1.0,
+    "maximo_aciertos": 2,
+    "total_aciertos": 8,
+    "combinaciones_exitosas": 0,
+    "tasa_exito": 0.0
+  },
+  "aprendizaje_realizado": {
+    "patrones_reforzados": 0,
+    "patrones_penalizados": 2,
+    "modelos_ajustados": 9,
+    "modo_asalto_activo": false,
+    "configuracion_modificada": true
+  },
+  "detalles_refuerzos": [],
+  "detalles_penalizaciones": [
+    {
+      "patron": {
+        "decadas": {
+          "0": 1,
+          "1": 3,
+          "3": 2
+        },
+        "pares": 4,
+        "impares": 2,
+        "suma": 120,
+        "rango": 35,
+        "gap_promedio": 7.0,
+        "gap_max": 14,
+        "zona_baja": 2,
+        "zona_media": 2,
+        "zona_alta": 2,
+        "perfil": "C"
+      },
+      "severidad": 0.5
+    },
+    {
+      "patron": {
+        "decadas": {
+          "0": 2,
+          "1": 2,
+          "2": 1,
+          "3": 1
+        },
+        "pares": 3,
+        "impares": 3,
+        "suma": 101,
+        "rango": 36,
+        "gap_promedio": 7.2,
+        "gap_max": 12,
+        "zona_baja": 3,
+        "zona_media": 2,
+        "zona_alta": 1,
+        "perfil": "C"
+      },
+      "severidad": 0.5
+    }
+  ],
+  "pesos_modelos_actualizados": {
+    "lstm_v2": 0.9408000000000002,
+    "transformer": 0.8148000000000001,
+    "clustering": 0.8988000000000002,
+    "montecarlo": 0.8148000000000001,
+    "genetic": 0.7728000000000002,
+    "gboost": 0.6400000000000001,
+    "ensemble_ai": 0.8484,
+    "apriori": 0.7056,
+    "fallback": 0.6400000000000001
+  },
+  "configuracion_actual": {
+    "score_minimo": 26.0,
+    "filtro_agresividad": 1.0,
+    "modo_asalto": false,
+    "ghost_rng_activo": true,
+    "refuerzo_clustering": true,
+    "boost_frecuencias": true
+  },
+  "rendimiento_por_fuente": {
+    "balanced_range": {
+      "count": 4,
+      "promedio": 0.75,
+      "maximo": 2,
+      "total": 3
+    },
+    "ai_ensemble": {
+      "count": 1,
+      "promedio": 1.0,
+      "maximo": 1,
+      "total": 1
+    },
+    "meta_learning": {
+      "count": 3,
+      "promedio": 1.33,
+      "maximo": 2,
+      "total": 4
+    }
+  }
+}

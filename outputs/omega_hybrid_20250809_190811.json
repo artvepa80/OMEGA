@@ -1,0 +1,73 @@
+{
+  "prediction_id": "hybrid_1754783382",
+  "timestamp": "2025-08-09T18:49:42.963944",
+  "mode_used": "hybrid",
+  "success": true,
+  "combinations": [
+    {
+      "numbers": [
+        8,
+        14,
+        19,
+        30,
+        34,
+        39
+      ],
+      "score": 0.85,
+      "source": "hybrid_combination",
+      "model": "pipeline_agentic_fusion",
+      "confidence": 0.83,
+      "hybrid_source": "fusion",
+      "hybrid_confidence": 0.83
+    },
+    {
+      "numbers": [
+        8,
+        13,
+        14,
+        27,
+        34,
+        38
+      ],
+      "score": 0.85,
+      "source": "pipeline_v10.1",
+      "model": "balanced_predictor",
+      "confidence": 1.0,
+      "hybrid_weight": 0.6,
+      "hybrid_source": "pipeline_weighted",
+      "hybrid_confidence": 1.0
+    },
+    {
+      "numbers": [
+        5,
+        6,
+        16,
+        25,
+        31,
+        39
+      ],
+      "score": 0.85,
+      "source": "pipeline_v10.1",
+      "model": "balanced_range",
+      "confidence": 1.0,
+      "hybrid_weight": 0.6,
+      "hybrid_source": "pipeline_weighted",
+      "hybrid_confidence": 1.0
+    }
+  ],
+  "sources": {
+    "pipeline": "Generated 3 combinations",
+    "agentic": "Generated 3 optimized combinations"
+  },
+  "confidence": {
+    "hybrid": 0.9279999999999999
+  },
+  "performance": {
+    "duration_seconds": 1108.902705,
+    "combinations_generated": 3
+  },
+  "explanation": {
+    "hybrid": "Ensemble ponderado: 60% Pipeline + 40% Ag\u00e9ntico con filtro de diversidad"
+  },
+  "errors": []
+}

@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Meta-Learning",
+    "timestamp": "20250809_152145",
+    "total_predictions": 8,
+    "components_used": 4,
+    "data_size": 3647
+  },
+  "predictions": [
+    {
+      "combination": [
+        "1",
+        "8",
+        "15",
+        "21",
+        "23",
+        "32"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.213208"
+    },
+    {
+      "combination": [
+        "9",
+        "23",
+        "24",
+        "31",
+        "33",
+        "35"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.213424"
+    },
+    {
+      "combination": [
+        "2",
+        "4",
+        "9",
+        "21",
+        "32",
+        "40"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.213630"
+    },
+    {
+      "combination": [
+        "7",
+        "8",
+        "12",
+        "14",
+        "21",
+        "35"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.213894"
+    },
+    {
+      "combination": [
+        "7",
+        "9",
+        "18",
+        "22",
+        "33",
+        "38"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.214114"
+    },
+    {
+      "combination": [
+        "4",
+        "5",
+        "22",
+        "23",
+        "30",
+        "38"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.214435"
+    },
+    {
+      "combination": [
+        "16",
+        "32",
+        "34",
+        "36",
+        "37",
+        "39"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.214681"
+    },
+    {
+      "combination": [
+        "7",
+        "12",
+        "19",
+        "27",
+        "32",
+        "35"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.8956629551693345,
+        "transformer": 1.6260222689839927,
+        "clustering": 0.8956629551693345,
+        "montecarlo": 0.8956629551693345,
+        "genetic": 0.8956629551693345,
+        "gboost": 0.8956629551693345,
+        "ensemble_ai": 1.3956629551693345
+      },
+      "timestamp": "2025-08-09T15:21:45.214902"
+    }
+  ],
+  "meta_analysis": {
+    "regime": "moderate_balanced",
+    "entropy": 0.9998027850351673,
+    "variance": 5.631341344608194,
+    "trend_strength": 1.0185868629137079e-06,
+    "optimal_weights": {
+      "lstm_v2": 1.0,
+      "transformer": 1.0,
+      "clustering": 1.0,
+      "montecarlo": 1.0,
+      "genetic": 1.0,
+      "gboost": 1.0,
+      "ensemble_ai": 1.5
+    }
+  },
+  "component_results": {
+    "profiler": {
+      "profile": "moderate_mixed",
+      "confidence": 0.5,
+      "probability_distribution": {
+        "moderate_mixed": 0.5
+      }
+    },
+    "reinforcement": {
+      "action_type": "CHANGE_STRATEGY",
+      "model_adjusted": "transformer",
+      "adjustment_value": 0.08346963586453238,
+      "epsilon": 1.0
+    }
+  },
+  "integration_metrics": {
+    "processing_time": 0.097087,
+    "components_used": 4,
+    "predictions_generated": 8,
+    "weights_optimized": 7,
+    "confidence_avg": 0.6
+  }
+}

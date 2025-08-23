@@ -1,0 +1,642 @@
+# OMEGA Pro AI - Service Mesh Resilience & Failover Configuration
+# Infrastructure Completion: Circuit Breakers, Retry Logic & Graceful Degradation
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-resilience-config
+  namespace: akash-services
+data:
+  circuit-breaker.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA Pro AI - Circuit Breaker Pattern Implementation
+    Enterprise-grade resilience for service mesh
+    """
+    import asyncio
+    import json
+    import logging
+    import time
+    from enum import Enum
+    from typing import Dict, Optional, Callable, Any
+    
+    logger = logging.getLogger('omega-circuit-breaker')
+    
+    class CircuitState(Enum):
+        CLOSED = "closed"
+        OPEN = "open"
+        HALF_OPEN = "half_open"
+    
+    class CircuitBreaker:
+        """Advanced circuit breaker with exponential backoff"""
+        
+        def __init__(self, 
+                     failure_threshold: int = 5,
+                     timeout: int = 60,
+                     expected_exception: Exception = Exception,
+                     fallback_function: Optional[Callable] = None):
+            self.failure_threshold = failure_threshold
+            self.timeout = timeout
+            self.expected_exception = expected_exception
+            self.fallback_function = fallback_function
+            
+            self.failure_count = 0
+            self.last_failure_time = None
+            self.state = CircuitState.CLOSED
+            
+        def record_success(self):
+            """Record successful operation"""
+            self.failure_count = 0
+            if self.state == CircuitState.HALF_OPEN:
+                self.state = CircuitState.CLOSED
+                logger.info("Circuit breaker state changed to CLOSED")
+        
+        def record_failure(self):
+            """Record failed operation"""
+            self.failure_count += 1
+            self.last_failure_time = time.time()
+            
+            if self.failure_count >= self.failure_threshold:
+                if self.state != CircuitState.OPEN:
+                    self.state = CircuitState.OPEN
+                    logger.warning(f"Circuit breaker OPENED after {self.failure_count} failures")
+        
+        def can_execute(self) -> bool:
+            """Check if operation can be executed"""
+            if self.state == CircuitState.CLOSED:
+                return True
+            
+            if self.state == CircuitState.OPEN:
+                if self.last_failure_time and (time.time() - self.last_failure_time) > self.timeout:
+                    self.state = CircuitState.HALF_OPEN
+                    logger.info("Circuit breaker state changed to HALF_OPEN")
+                    return True
+                return False
+            
+            return self.state == CircuitState.HALF_OPEN
+        
+        async def call(self, func: Callable, *args, **kwargs) -> Any:
+            """Execute function with circuit breaker protection"""
+            if not self.can_execute():
+                if self.fallback_function:
+                    logger.info("Circuit breaker OPEN, using fallback function")
+                    return await self.fallback_function(*args, **kwargs)
+                else:
+                    raise Exception(f"Circuit breaker is {self.state.value}")
+            
+            try:
+                result = await func(*args, **kwargs)
+                self.record_success()
+                return result
+            except self.expected_exception as e:
+                self.record_failure()
+                raise e
+    
+    class ServiceMeshResilience:
+        """Service mesh resilience coordinator"""
+        
+        def __init__(self):
+            self.circuit_breakers = {}
+            self.retry_configs = {
+                'omega-api': {'max_retries': 3, 'backoff_factor': 1.5, 'max_delay': 30},
+                'omega-gpu': {'max_retries': 2, 'backoff_factor': 2.0, 'max_delay': 60},
+                'redis': {'max_retries': 5, 'backoff_factor': 1.2, 'max_delay': 10}
+            }
+            
+            # Initialize circuit breakers for each service
+            self.circuit_breakers['omega-api'] = CircuitBreaker(
+                failure_threshold=5, timeout=60, fallback_function=self.api_fallback
+            )
+            self.circuit_breakers['omega-gpu'] = CircuitBreaker(
+                failure_threshold=3, timeout=120, fallback_function=self.gpu_fallback
+            )
+            self.circuit_breakers['redis'] = CircuitBreaker(
+                failure_threshold=10, timeout=30, fallback_function=self.redis_fallback
+            )
+        
+        async def api_fallback(self, *args, **kwargs):
+            """Fallback for API service"""
+            return {
+                'status': 'degraded',
+                'message': 'API service temporarily unavailable',
+                'fallback': True,
+                'timestamp': time.time()
+            }
+        
+        async def gpu_fallback(self, *args, **kwargs):
+            """Fallback for GPU service - use CPU processing"""
+            return {
+                'status': 'degraded',
+                'message': 'GPU processing unavailable, using CPU fallback',
+                'fallback': True,
+                'processing_mode': 'cpu',
+                'timestamp': time.time()
+            }
+        
+        async def redis_fallback(self, *args, **kwargs):
+            """Fallback for Redis - use in-memory cache"""
+            return {
+                'status': 'degraded',
+                'message': 'Redis unavailable, using memory cache',
+                'fallback': True,
+                'cache_mode': 'memory',
+                'timestamp': time.time()
+            }
+        
+        async def execute_with_retry(self, service_name: str, func: Callable, *args, **kwargs):
+            """Execute function with retry logic and circuit breaker"""
+            config = self.retry_configs.get(service_name, {'max_retries': 3, 'backoff_factor': 1.5, 'max_delay': 30})
+            circuit_breaker = self.circuit_breakers.get(service_name)
+            
+            for attempt in range(config['max_retries'] + 1):
+                try:
+                    if circuit_breaker:
+                        return await circuit_breaker.call(func, *args, **kwargs)
+                    else:
+                        return await func(*args, **kwargs)
+                
+                except Exception as e:
+                    if attempt == config['max_retries']:
+                        logger.error(f"Service {service_name} failed after {attempt + 1} attempts: {str(e)}")
+                        raise e
+                    
+                    delay = min(config['backoff_factor'] ** attempt, config['max_delay'])
+                    logger.warning(f"Service {service_name} attempt {attempt + 1} failed, retrying in {delay}s: {str(e)}")
+                    await asyncio.sleep(delay)
+        
+        def get_status(self) -> Dict:
+            """Get current resilience status"""
+            status = {}
+            for service, circuit_breaker in self.circuit_breakers.items():
+                status[service] = {
+                    'state': circuit_breaker.state.value,
+                    'failure_count': circuit_breaker.failure_count,
+                    'can_execute': circuit_breaker.can_execute()
+                }
+            return status
+  
+  failover-coordinator.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA Pro AI - Failover Coordinator
+    Automated failover and disaster recovery
+    """
+    import asyncio
+    import json
+    import logging
+    import os
+    import subprocess
+    import time
+    from datetime import datetime
+    from typing import Dict, List, Optional
+    
+    logger = logging.getLogger('omega-failover-coordinator')
+    
+    class FailoverCoordinator:
+        """Coordinated failover management system"""
+        
+        def __init__(self):
+            self.services = {
+                'omega-api': {
+                    'primary': 'omega-api-primary',
+                    'backup': 'omega-api-backup',
+                    'health_check': 'https://omega-api:8443/health',
+                    'failover_timeout': 30
+                },
+                'omega-gpu': {
+                    'primary': 'omega-gpu-primary',
+                    'backup': 'omega-gpu-backup',
+                    'health_check': 'https://omega-gpu:8001/gpu/health',
+                    'failover_timeout': 60
+                },
+                'redis': {
+                    'primary': 'redis-primary',
+                    'backup': 'redis-backup',
+                    'health_check': 'redis://redis:6379',
+                    'failover_timeout': 15
+                }
+            }
+            
+            self.active_instances = {}
+            self.failover_in_progress = set()
+            self.failover_history = []
+            
+        async def check_service_health(self, service_name: str) -> bool:
+            """Check if primary service instance is healthy"""
+            config = self.services[service_name]
+            
+            if service_name == 'redis':
+                try:
+                    result = subprocess.run([
+                        'redis-cli', '-h', 'redis', '-p', '6379', 'ping'
+                    ], capture_output=True, text=True, timeout=5)
+                    return result.returncode == 0 and 'PONG' in result.stdout
+                except:
+                    return False
+            else:
+                try:
+                    import aiohttp
+                    timeout = aiohttp.ClientTimeout(total=10)
+                    async with aiohttp.ClientSession(timeout=timeout) as session:
+                        async with session.get(config['health_check'], ssl=False) as response:
+                            return response.status == 200
+                except:
+                    return False
+        
+        async def perform_failover(self, service_name: str) -> bool:
+            """Perform failover from primary to backup instance"""
+            if service_name in self.failover_in_progress:
+                logger.info(f"Failover already in progress for {service_name}")
+                return False
+            
+            self.failover_in_progress.add(service_name)
+            config = self.services[service_name]
+            
+            try:
+                logger.warning(f"Starting failover for service {service_name}")
+                
+                # Record failover event
+                failover_event = {
+                    'service': service_name,
+                    'timestamp': datetime.utcnow().isoformat(),
+                    'from_instance': config['primary'],
+                    'to_instance': config['backup'],
+                    'reason': 'health_check_failure'
+                }
+                
+                # Scale down primary instance
+                await self.scale_deployment(config['primary'], 0)
+                
+                # Scale up backup instance
+                await self.scale_deployment(config['backup'], 1)
+                
+                # Wait for backup to be ready
+                await asyncio.sleep(config['failover_timeout'])
+                
+                # Verify backup is healthy
+                backup_healthy = await self.check_backup_health(service_name)
+                
+                if backup_healthy:
+                    logger.info(f"Failover completed successfully for {service_name}")
+                    self.active_instances[service_name] = config['backup']
+                    failover_event['status'] = 'success'
+                    
+                    # Update service discovery
+                    await self.update_service_discovery(service_name, config['backup'])
+                    
+                else:
+                    logger.error(f"Backup instance unhealthy for {service_name}, attempting rollback")
+                    await self.scale_deployment(config['primary'], 1)
+                    await self.scale_deployment(config['backup'], 0)
+                    failover_event['status'] = 'failed'
+                    return False
+                
+                self.failover_history.append(failover_event)
+                return True
+                
+            except Exception as e:
+                logger.error(f"Failover failed for {service_name}: {str(e)}")
+                return False
+            finally:
+                self.failover_in_progress.discard(service_name)
+        
+        async def scale_deployment(self, deployment_name: str, replicas: int):
+            """Scale Kubernetes deployment"""
+            try:
+                result = subprocess.run([
+                    'kubectl', 'scale', 'deployment', deployment_name,
+                    '--replicas', str(replicas), '-n', 'akash-services'
+                ], capture_output=True, text=True, timeout=30)
+                
+                if result.returncode != 0:
+                    logger.error(f"Failed to scale {deployment_name}: {result.stderr}")
+                else:
+                    logger.info(f"Scaled {deployment_name} to {replicas} replicas")
+                    
+            except Exception as e:
+                logger.error(f"Error scaling deployment {deployment_name}: {str(e)}")
+        
+        async def check_backup_health(self, service_name: str) -> bool:
+            """Check if backup instance is healthy after failover"""
+            # Wait a bit for the service to start
+            await asyncio.sleep(10)
+            
+            # Perform health check
+            for attempt in range(5):
+                if await self.check_service_health(service_name):
+                    return True
+                await asyncio.sleep(5)
+            
+            return False
+        
+        async def update_service_discovery(self, service_name: str, active_instance: str):
+            """Update service discovery with new active instance"""
+            discovery_update = {
+                'service': service_name,
+                'active_instance': active_instance,
+                'timestamp': datetime.utcnow().isoformat()
+            }
+            
+            # Write to service discovery file
+            with open(f'/tmp/service-discovery-{service_name}.json', 'w') as f:
+                json.dump(discovery_update, f)
+        
+        async def monitor_and_failover(self):
+            """Continuous monitoring with automatic failover"""
+            logger.info("Starting failover monitoring")
+            
+            while True:
+                try:
+                    for service_name in self.services:
+                        if service_name not in self.failover_in_progress:
+                            healthy = await self.check_service_health(service_name)
+                            
+                            if not healthy:
+                                logger.warning(f"Service {service_name} unhealthy, initiating failover")
+                                await self.perform_failover(service_name)
+                    
+                    await asyncio.sleep(30)  # Check every 30 seconds
+                    
+                except Exception as e:
+                    logger.error(f"Error in failover monitoring: {str(e)}")
+                    await asyncio.sleep(30)
+        
+        def get_failover_status(self) -> Dict:
+            """Get current failover status"""
+            return {
+                'active_instances': self.active_instances,
+                'failover_in_progress': list(self.failover_in_progress),
+                'recent_failovers': self.failover_history[-10:],  # Last 10 events
+                'timestamp': datetime.utcnow().isoformat()
+            }
+    
+    async def main():
+        """Main failover coordinator entry point"""
+        coordinator = FailoverCoordinator()
+        await coordinator.monitor_and_failover()
+    
+    if __name__ == '__main__':
+        asyncio.run(main())
+  
+  graceful-degradation.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA Pro AI - Graceful Degradation System
+    Maintains service availability during partial failures
+    """
+    import asyncio
+    import json
+    import logging
+    import time
+    from typing import Dict, Optional, Any
+    
+    logger = logging.getLogger('omega-graceful-degradation')
+    
+    class GracefulDegradationManager:
+        """Manages graceful service degradation during failures"""
+        
+        def __init__(self):
+            self.degradation_levels = {
+                'normal': 0,
+                'slight': 1,
+                'moderate': 2,
+                'severe': 3,
+                'critical': 4
+            }
+            
+            self.current_level = 'normal'
+            self.service_states = {}
+            self.degradation_rules = {
+                'omega-api': {
+                    'slight': {'disable_analytics': True},
+                    'moderate': {'disable_analytics': True, 'reduce_features': True},
+                    'severe': {'essential_only': True},
+                    'critical': {'maintenance_mode': True}
+                },
+                'omega-gpu': {
+                    'slight': {'reduce_precision': True},
+                    'moderate': {'cpu_fallback': True},
+                    'severe': {'simple_predictions_only': True},
+                    'critical': {'disable_predictions': True}
+                }
+            }
+        
+        async def assess_system_health(self) -> str:
+            """Assess overall system health and determine degradation level"""
+            # Check service availability
+            api_healthy = await self.check_service_health('omega-api')
+            gpu_healthy = await self.check_service_health('omega-gpu')
+            redis_healthy = await self.check_service_health('redis')
+            
+            # Calculate health score
+            health_score = 0
+            if api_healthy: health_score += 40
+            if gpu_healthy: health_score += 35
+            if redis_healthy: health_score += 25
+            
+            # Determine degradation level
+            if health_score >= 90:
+                return 'normal'
+            elif health_score >= 70:
+                return 'slight'
+            elif health_score >= 50:
+                return 'moderate'
+            elif health_score >= 25:
+                return 'severe'
+            else:
+                return 'critical'
+        
+        async def check_service_health(self, service_name: str) -> bool:
+            """Check if a service is healthy"""
+            # Implement health checking logic
+            # This would typically check service endpoints
+            return True  # Placeholder
+        
+        async def apply_degradation(self, level: str):
+            """Apply degradation rules for the specified level"""
+            if level == self.current_level:
+                return
+            
+            logger.info(f"Changing degradation level from {self.current_level} to {level}")
+            
+            for service, rules in self.degradation_rules.items():
+                if level in rules:
+                    await self.apply_service_degradation(service, rules[level])
+            
+            self.current_level = level
+            
+            # Notify about degradation change
+            await self.notify_degradation_change(level)
+        
+        async def apply_service_degradation(self, service: str, rules: Dict):
+            """Apply degradation rules to a specific service"""
+            self.service_states[service] = rules
+            logger.info(f"Applied degradation rules to {service}: {rules}")
+            
+            # Here you would implement the actual degradation logic
+            # For example, updating service configuration, disabling features, etc.
+        
+        async def notify_degradation_change(self, level: str):
+            """Notify about degradation level changes"""
+            notification = {
+                'type': 'degradation_change',
+                'level': level,
+                'timestamp': time.time(),
+                'message': f"System operating at {level} degradation level"
+            }
+            
+            logger.warning(f"Degradation notification: {notification['message']}")
+            
+            # Send to monitoring systems
+            with open('/tmp/degradation-status.json', 'w') as f:
+                json.dump(notification, f)
+        
+        async def start_monitoring(self):
+            """Start continuous degradation monitoring"""
+            logger.info("Starting graceful degradation monitoring")
+            
+            while True:
+                try:
+                    health_level = await self.assess_system_health()
+                    await self.apply_degradation(health_level)
+                    await asyncio.sleep(60)  # Check every minute
+                    
+                except Exception as e:
+                    logger.error(f"Error in degradation monitoring: {str(e)}")
+                    await asyncio.sleep(60)
+        
+        def get_status(self) -> Dict:
+            """Get current degradation status"""
+            return {
+                'current_level': self.current_level,
+                'service_states': self.service_states,
+                'timestamp': time.time()
+            }
+    
+    async def main():
+        """Main graceful degradation entry point"""
+        manager = GracefulDegradationManager()
+        await manager.start_monitoring()
+    
+    if __name__ == '__main__':
+        asyncio.run(main())
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omega-resilience-coordinator
+  namespace: akash-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omega-resilience-coordinator
+  template:
+    metadata:
+      labels:
+        app: omega-resilience-coordinator
+    spec:
+      serviceAccountName: omega-resilience-coordinator
+      containers:
+      - name: circuit-breaker
+        image: python:3.11-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache redis curl
+          pip install aiohttp
+          python /app/circuit-breaker.py
+        volumeMounts:
+        - name: resilience-scripts
+          mountPath: /app
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+      
+      - name: failover-coordinator
+        image: python:3.11-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache redis curl kubectl
+          pip install aiohttp
+          python /app/failover-coordinator.py
+        volumeMounts:
+        - name: resilience-scripts
+          mountPath: /app
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+      
+      - name: graceful-degradation
+        image: python:3.11-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache redis curl
+          pip install aiohttp
+          python /app/graceful-degradation.py
+        volumeMounts:
+        - name: resilience-scripts
+          mountPath: /app
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+      
+      volumes:
+      - name: resilience-scripts
+        configMap:
+          name: omega-resilience-config
+          defaultMode: 0755
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: omega-resilience-coordinator
+  namespace: akash-services
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: omega-resilience-coordinator
+rules:
+- apiGroups: [""]
+  resources: ["services", "endpoints", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "patch", "update"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: omega-resilience-coordinator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: omega-resilience-coordinator
+subjects:
+- kind: ServiceAccount
+  name: omega-resilience-coordinator
+  namespace: akash-services

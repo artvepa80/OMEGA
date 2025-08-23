@@ -1,0 +1,173 @@
+{
+  "_comment": "OMEGA AI MCP Configuration - Production Ready",
+  "_version": "1.0.0",
+  "_last_updated": "2025-08-19",
+  
+  "mcp_enabled": true,
+  "auto_start": false,
+  
+  "services": {
+    "lottery_data": {
+      "enabled": true,
+      "data_dir": "data/lottery_ingestion",
+      "cache_enabled": true,
+      "cache_dir": "data/mcp_cache",
+      "timeout_seconds": 30,
+      "retry_attempts": 3,
+      "retry_delay_seconds": 5,
+      "supported_lotteries": [
+        "kabala_pe",
+        "mega_millions",
+        "powerball",
+        "euro_millions"
+      ],
+      "rate_limiting": {
+        "requests_per_minute": 20,
+        "requests_per_hour": 200
+      }
+    },
+    
+    "notifications": {
+      "enabled": true,
+      "channels": {
+        "console": true,
+        "email": false,
+        "whatsapp": false,
+        "telegram": false,
+        "discord": false,
+        "slack": false
+      },
+      "rate_limiting": {
+        "max_per_minute": 10,
+        "max_per_hour": 100,
+        "max_per_day": 1000
+      },
+      "message_settings": {
+        "max_length": 1600,
+        "truncate_on_overflow": true,
+        "include_timestamp": true,
+        "include_source": true
+      },
+      "retry_settings": {
+        "max_retries": 3,
+        "backoff_seconds": 1.5,
+        "timeout_seconds": 10
+      }
+    },
+    
+    "workflow_automation": {
+      "enabled": true,
+      "scheduler_timezone": "America/Lima",
+      "monitoring_interval": 60,
+      "default_lotteries": ["kabala_pe"],
+      "execution_settings": {
+        "max_concurrent_workflows": 3,
+        "workflow_timeout_minutes": 30,
+        "retry_failed_workflows": true,
+        "max_workflow_retries": 2
+      },
+      "schedules": {
+        "kabala_pe": {
+          "cron": "0 23 * * TUE,THU,SAT",
+          "timezone": "America/Lima",
+          "enabled": true
+        },
+        "health_check": {
+          "cron": "*/15 * * * *",
+          "timezone": "UTC",
+          "enabled": true
+        },
+        "daily_summary": {
+          "cron": "0 9 * * *",
+          "timezone": "America/Lima",
+          "enabled": true
+        }
+      }
+    }
+  },
+  
+  "integration": {
+    "omega_api_base": "http://localhost:8000",
+    "prediction_integration": true,
+    "result_caching": true,
+    "cache_ttl_minutes": 60,
+    "error_notifications": true,
+    "api_timeout_seconds": 30,
+    "api_retry_attempts": 3,
+    "fallback_to_local": true
+  },
+  
+  "health_checks": {
+    "enabled": true,
+    "interval_seconds": 300,
+    "alert_on_failure": true,
+    "alert_channels": ["email", "whatsapp"],
+    "failure_threshold": 3,
+    "recovery_notification": true,
+    "checks": {
+      "mcp_services": true,
+      "api_connectivity": true,
+      "data_integrity": true,
+      "scheduler_health": true,
+      "notification_delivery": true
+    }
+  },
+  
+  "security": {
+    "enable_rate_limiting": true,
+    "enable_input_validation": true,
+    "enable_output_sanitization": true,
+    "max_request_size_mb": 10,
+    "allowed_origins": ["localhost", "127.0.0.1"],
+    "require_api_key": false,
+    "encrypt_sensitive_data": true
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file_path": "logs/omega_mcp_integration.log",
+    "max_file_size_mb": 100,
+    "backup_count": 5,
+    "structured_logging": true,
+    "log_performance_metrics": true
+  },
+  
+  "data_management": {
+    "retention_policy": {
+      "logs_days": 30,
+      "cache_days": 7,
+      "predictions_days": 90,
+      "notifications_days": 30
+    },
+    "backup_settings": {
+      "enabled": true,
+      "interval_hours": 24,
+      "retain_backups": 7,
+      "backup_path": "data/backups"
+    },
+    "cleanup_settings": {
+      "auto_cleanup": true,
+      "cleanup_interval_hours": 24,
+      "temp_file_retention_hours": 24
+    }
+  },
+  
+  "performance": {
+    "enable_profiling": false,
+    "enable_metrics_collection": true,
+    "memory_limit_mb": 1024,
+    "cpu_limit_percent": 80,
+    "connection_pool_size": 10,
+    "request_timeout_seconds": 30
+  },
+  
+  "features": {
+    "experimental_features": false,
+    "beta_features": false,
+    "debug_mode": false,
+    "verbose_logging": false,
+    "performance_monitoring": true,
+    "error_tracking": true
+  }
+}

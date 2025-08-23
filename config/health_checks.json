@@ -1,0 +1,102 @@
+{
+  "health_checks": {
+    "omega-api": {
+      "http": {
+        "url": "https://localhost:8443/health",
+        "method": "GET",
+        "timeout": 10,
+        "interval": 30,
+        "retries": 3,
+        "expected_status": 200,
+        "verify_ssl": false
+      },
+      "dependencies": [
+        "redis"
+      ],
+      "custom_checks": [
+        {
+          "name": "database_connection",
+          "command": [
+            "python",
+            "-c",
+            "import redis; r=redis.Redis(host='redis', port=6379); r.ping()"
+          ],
+          "timeout": 5
+        }
+      ]
+    },
+    "omega-gpu": {
+      "http": {
+        "url": "https://localhost:8001/gpu/health",
+        "method": "GET",
+        "timeout": 20,
+        "interval": 45,
+        "retries": 3,
+        "expected_status": 200,
+        "verify_ssl": false
+      },
+      "dependencies": [
+        "redis"
+      ],
+      "custom_checks": [
+        {
+          "name": "gpu_availability",
+          "command": [
+            "python",
+            "-c",
+            "import torch; assert torch.cuda.is_available()"
+          ],
+          "timeout": 10
+        },
+        {
+          "name": "gpu_memory",
+          "command": [
+            "nvidia-smi",
+            "--query-gpu=memory.free",
+            "--format=csv,noheader,nounits"
+          ],
+          "timeout": 5,
+          "min_value": 1000
+        }
+      ]
+    },
+    "redis": {
+      "tcp": {
+        "host": "localhost",
+        "port": 6379,
+        "timeout": 5,
+        "interval": 30
+      },
+      "custom_checks": [
+        {
+          "name": "redis_ping",
+          "command": [
+            "redis-cli",
+            "ping"
+          ],
+          "timeout": 3,
+          "expected_output": "PONG"
+        },
+        {
+          "name": "redis_memory",
+          "command": [
+            "redis-cli",
+            "info",
+            "memory"
+          ],
+          "timeout": 5
+        }
+      ]
+    }
+  },
+  "global_settings": {
+    "failure_threshold": 3,
+    "success_threshold": 1,
+    "check_timeout": 30,
+    "notification": {
+      "enabled": true,
+      "webhook_url": "${HEALTH_WEBHOOK_URL}",
+      "slack_channel": "${SLACK_CHANNEL}"
+    }
+  }
+}

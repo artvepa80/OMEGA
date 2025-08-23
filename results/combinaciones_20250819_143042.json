@@ -1,0 +1,387 @@
+{
+    "metadata": {
+        "app": "OMEGA PRO AI",
+        "version": "v12.4",
+        "export_date": "2025-08-19T14:30:42.900207",
+        "parameters": {
+            "data_path": "data/historial_kabala_github_emergency_clean.csv",
+            "svi_profile": "default",
+            "top_n": 8,
+            "enable_models": [
+                "consensus",
+                "ghost_rng",
+                "inverse_mining",
+                "lstm_v2",
+                "montecarlo",
+                "apriori",
+                "transformer_deep",
+                "clustering",
+                "genetico"
+            ],
+            "config": {
+                "combo_length": 6,
+                "combo_range_min": 1,
+                "combo_range_max": 40,
+                "log_duplicates": true,
+                "watch_changes": true,
+                "svi_batch_size": 100,
+                "chart_types": [
+                    "pie",
+                    "bar",
+                    "scatter"
+                ],
+                "progress_bar_style": {
+                    "desc": "Procesando combinaciones",
+                    "unit": "combo"
+                },
+                "output_dir": "results",
+                "export_csv": true,
+                "export_json": true,
+                "export_charts": true,
+                "visualize_summary": true,
+                "max_bar_length": 50,
+                "preferencia_rangos": "B",
+                "score_historico_base": 3.0,
+                "prediction_weight": 0.7,
+                "svi_weight": 0.3,
+                "score_thresholds": {
+                    "high": 0.9,
+                    "medium": 0.8
+                },
+                "color_fuente": {
+                    "clustering": "\u001b[96m",
+                    "genetico": "\u001b[95m",
+                    "montecarlo": "\u001b[93m",
+                    "rng_emulado": "\u001b[91m",
+                    "lstm_v2": "\u001b[92m",
+                    "transformer_deep": "\u001b[94m",
+                    "apriori": "\u001b[96m",
+                    "ghost_rng": "\u001b[95m",
+                    "inverse_mining": "\u001b[93m",
+                    "consensus": "\u001b[94m",
+                    "hybrid": "\u001b[92m"
+                },
+                "emojis": {
+                    "clustering": "🔁",
+                    "genetico": "🧬",
+                    "montecarlo": "🎲",
+                    "rng_emulado": "🎰",
+                    "lstm_v2": "🔢",
+                    "transformer_deep": "🧠",
+                    "apriori": "📊",
+                    "ghost_rng": "👻",
+                    "inverse_mining": "⛏️",
+                    "consensus": "🤖",
+                    "hybrid": "🌐"
+                },
+                "svi_weights": {
+                    "sum": 0.25,
+                    "parity": 0.2,
+                    "consec": 0.2,
+                    "range": 0.2,
+                    "ghost": 0.1,
+                    "hist": 0.1
+                }
+            }
+        }
+    },
+    "combinations": [
+        {
+            "combination": [
+                12,
+                13,
+                17,
+                24,
+                36,
+                38
+            ],
+            "score": 0.85,
+            "svi_score": 0.5,
+            "source": "balanced_predictor",
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 2,
+                    "alto": 2
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        12,
+                        13
+                    ],
+                    "medio": [
+                        17,
+                        24
+                    ],
+                    "alto": [
+                        36,
+                        38
+                    ]
+                },
+                "balance_score": 1.0
+            },
+            "original_score": 1.0,
+            "tag": "master_plus"
+        },
+        {
+            "combination": [
+                8,
+                13,
+                19,
+                24,
+                32,
+                36
+            ],
+            "score": 0.85,
+            "svi_score": 0.5,
+            "source": "balanced_predictor",
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 2,
+                    "alto": 2
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        13,
+                        8
+                    ],
+                    "medio": [
+                        24,
+                        19
+                    ],
+                    "alto": [
+                        36,
+                        32
+                    ]
+                },
+                "balance_score": 1.0
+            },
+            "original_score": 1.0,
+            "tag": "base"
+        },
+        {
+            "combination": [
+                2,
+                4,
+                17,
+                19,
+                32,
+                39
+            ],
+            "score": 0.85,
+            "svi_score": 0.5,
+            "source": "balanced_predictor",
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 2,
+                    "alto": 2
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        2,
+                        4
+                    ],
+                    "medio": [
+                        19,
+                        17
+                    ],
+                    "alto": [
+                        39,
+                        32
+                    ]
+                },
+                "balance_score": 1.0
+            },
+            "original_score": 1.0,
+            "tag": "base"
+        },
+        {
+            "combination": [
+                5,
+                8,
+                15,
+                27,
+                28,
+                35
+            ],
+            "source": "balanced_range",
+            "score": 0.85,
+            "svi_score": 0.5,
+            "original_score": 1.0,
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 2,
+                    "alto": 2
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        5,
+                        8
+                    ],
+                    "medio": [
+                        27,
+                        15
+                    ],
+                    "alto": [
+                        35,
+                        28
+                    ]
+                },
+                "balance_score": 1.0
+            },
+            "tag": "master_plus"
+        },
+        {
+            "combination": [
+                2,
+                8,
+                16,
+                18,
+                25,
+                39
+            ],
+            "score": 0.6866666666666666,
+            "svi_score": 0.5,
+            "source": "balanced_predictor",
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 3,
+                    "alto": 1
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        2,
+                        8
+                    ],
+                    "medio": [
+                        16,
+                        25,
+                        18
+                    ],
+                    "alto": [
+                        39
+                    ]
+                },
+                "balance_score": 0.7666666666666666
+            },
+            "original_score": 0.7666666666666666,
+            "tag": "base"
+        },
+        {
+            "combination": [
+                1,
+                6,
+                10,
+                22,
+                30,
+                38
+            ],
+            "score": 0.6749999999999999,
+            "svi_score": 0.5,
+            "source": "ai_system",
+            "original_score": 0.75,
+            "tag": "base"
+        },
+        {
+            "combination": [
+                2,
+                5,
+                6,
+                13,
+                26,
+                30
+            ],
+            "score": 0.6749999999999999,
+            "svi_score": 0.5,
+            "source": "ai_system",
+            "original_score": 0.75,
+            "tag": "base"
+        },
+        {
+            "combination": [
+                3,
+                9,
+                28,
+                31,
+                34,
+                37
+            ],
+            "score": 0.6749999999999999,
+            "svi_score": 0.5,
+            "source": "ai_system",
+            "original_score": 0.75,
+            "tag": "base"
+        }
+    ],
+    "master_plus": [
+        {
+            "combination": [
+                5,
+                8,
+                15,
+                27,
+                28,
+                35
+            ],
+            "source": "balanced_range",
+            "score": 0.85,
+            "svi_score": 0.5,
+            "original_score": 1.0,
+            "balance_info": {
+                "distribucion": {
+                    "bajo": 2,
+                    "medio": 2,
+                    "alto": 2
+                },
+                "numeros_por_rango": {
+                    "bajo": [
+                        5,
+                        8
+                    ],
+                    "medio": [
+                        27,
+                        15
+                    ],
+                    "alto": [
+                        35,
+                        28
+                    ]
+                },
+                "balance_score": 1.0
+            },
+            "tag": "master_plus"
+        },
+        {
+            "combination": [
+                6,
+                14,
+                17,
+                19,
+                29,
+                36
+            ],
+            "score": 0.6742701882352942,
+            "svi_score": 0.5,
+            "source": "genetico",
+            "metrics": {
+                "combination": [
+                    6,
+                    14,
+                    17,
+                    19,
+                    29,
+                    36
+                ],
+                "score": 4.149559706189924,
+                "svi_score": 0.6949290196078431,
+                "source": "genetico",
+                "sum_total": 121,
+                "even_count": 3,
+                "diff_sum": 30,
+                "repeats": 1,
+                "decades": {
+                    

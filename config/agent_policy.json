@@ -1,0 +1,19 @@
+{
+  "schedule_seconds": 86400,
+  "max_experiments_per_cycle": 3,
+  "safe_rollback_drop_pct": 0.05,
+  "min_quality_threshold": 0.60,
+  "diversity_min_jaccard": 0.25,
+  "reward_weights": {
+    "svi": 0.5,
+    "diversity": 0.2,
+    "jackpot_profile": 0.2,
+    "filters_pass_rate": 0.1
+  },
+  "guardrails": {
+    "max_weight_change_per_day": 0.10,
+    "enable_kill_switch": true
+  },
+  "baseline_profile": "default",
+  "bandit_policy": "thompson"
+}

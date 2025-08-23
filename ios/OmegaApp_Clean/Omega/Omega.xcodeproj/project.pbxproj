@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		CE7EB2E02E4A4C2E009C566B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE7EB2CA2E4A4C2C009C566B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE7EB2D12E4A4C2C009C566B;
+			remoteInfo = Omega;
+		};
+		CE7EB2EA2E4A4C2F009C566B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE7EB2CA2E4A4C2C009C566B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE7EB2D12E4A4C2C009C566B;
+			remoteInfo = Omega;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CE7EB2D22E4A4C2C009C566B /* Omega.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Omega.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE7EB2DF2E4A4C2E009C566B /* OmegaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OmegaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE7EB2E92E4A4C2F009C566B /* OmegaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OmegaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CEE8216C2E4E7FAC0080D3A2 /* Exceptions for "Omega" folder in "Omega" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CE7EB2D12E4A4C2C009C566B /* Omega */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE7EB2D42E4A4C2C009C566B /* Omega */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CEE8216C2E4E7FAC0080D3A2 /* Exceptions for "Omega" folder in "Omega" target */,
+			);
+			path = Omega;
+			sourceTree = "<group>";
+		};
+		CE7EB2E22E4A4C2E009C566B /* OmegaTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OmegaTests;
+			sourceTree = "<group>";
+		};
+		CE7EB2EC2E4A4C2F009C566B /* OmegaUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OmegaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE7EB2CF2E4A4C2C009C566B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2DC2E4A4C2E009C566B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2E62E4A4C2F009C566B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE7EB2C92E4A4C2C009C566B = {
+			isa = PBXGroup;
+			children = (
+				CE7EB2D42E4A4C2C009C566B /* Omega */,
+				CE7EB2E22E4A4C2E009C566B /* OmegaTests */,
+				CE7EB2EC2E4A4C2F009C566B /* OmegaUITests */,
+				CE7EB2D32E4A4C2C009C566B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CE7EB2D32E4A4C2C009C566B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE7EB2D22E4A4C2C009C566B /* Omega.app */,
+				CE7EB2DF2E4A4C2E009C566B /* OmegaTests.xctest */,
+				CE7EB2E92E4A4C2F009C566B /* OmegaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE7EB2D12E4A4C2C009C566B /* Omega */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE7EB2F32E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "Omega" */;
+			buildPhases = (
+				CE7EB2CE2E4A4C2C009C566B /* Sources */,
+				CE7EB2CF2E4A4C2C009C566B /* Frameworks */,
+				CE7EB2D02E4A4C2C009C566B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CE7EB2D42E4A4C2C009C566B /* Omega */,
+			);
+			name = Omega;
+			packageProductDependencies = (
+			);
+			productName = Omega;
+			productReference = CE7EB2D22E4A4C2C009C566B /* Omega.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE7EB2DE2E4A4C2E009C566B /* OmegaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE7EB2F62E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "OmegaTests" */;
+			buildPhases = (
+				CE7EB2DB2E4A4C2E009C566B /* Sources */,
+				CE7EB2DC2E4A4C2E009C566B /* Frameworks */,
+				CE7EB2DD2E4A4C2E009C566B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE7EB2E12E4A4C2E009C566B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE7EB2E22E4A4C2E009C566B /* OmegaTests */,
+			);
+			name = OmegaTests;
+			packageProductDependencies = (
+			);
+			productName = OmegaTests;
+			productReference = CE7EB2DF2E4A4C2E009C566B /* OmegaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CE7EB2E82E4A4C2F009C566B /* OmegaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE7EB2F92E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "OmegaUITests" */;
+			buildPhases = (
+				CE7EB2E52E4A4C2F009C566B /* Sources */,
+				CE7EB2E62E4A4C2F009C566B /* Frameworks */,
+				CE7EB2E72E4A4C2F009C566B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE7EB2EB2E4A4C2F009C566B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE7EB2EC2E4A4C2F009C566B /* OmegaUITests */,
+			);
+			name = OmegaUITests;
+			packageProductDependencies = (
+			);
+			productName = OmegaUITests;
+			productReference = CE7EB2E92E4A4C2F009C566B /* OmegaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE7EB2CA2E4A4C2C009C566B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					CE7EB2D12E4A4C2C009C566B = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					CE7EB2DE2E4A4C2E009C566B = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = CE7EB2D12E4A4C2C009C566B;
+					};
+					CE7EB2E82E4A4C2F009C566B = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = CE7EB2D12E4A4C2C009C566B;
+					};
+				};
+			};
+			buildConfigurationList = CE7EB2CD2E4A4C2C009C566B /* Build configuration list for PBXProject "Omega" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CE7EB2C92E4A4C2C009C566B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CE7EB2D32E4A4C2C009C566B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE7EB2D12E4A4C2C009C566B /* Omega */,
+				CE7EB2DE2E4A4C2E009C566B /* OmegaTests */,
+				CE7EB2E82E4A4C2F009C566B /* OmegaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE7EB2D02E4A4C2C009C566B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2DD2E4A4C2E009C566B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2E72E4A4C2F009C566B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE7EB2CE2E4A4C2C009C566B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2DB2E4A4C2E009C566B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE7EB2E52E4A4C2F009C566B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE7EB2E12E4A4C2E009C566B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE7EB2D12E4A4C2C009C566B /* Omega */;
+			targetProxy = CE7EB2E02E4A4C2E009C566B /* PBXContainerItemProxy */;
+		};
+		CE7EB2EB2E4A4C2F009C566B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE7EB2D12E4A4C2C009C566B /* Omega */;
+			targetProxy = CE7EB2EA2E4A4C2F009C566B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CE7EB2F12E4A4C2F009C566B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CE7EB2F22E4A4C2F009C566B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE7EB2F42E4A4C2F009C566B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Omega/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.Omega;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE7EB2F52E4A4C2F009C566B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Omega/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.Omega;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CE7EB2F72E4A4C2F009C566B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.OmegaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Omega.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Omega";
+			};
+			name = Debug;
+		};
+		CE7EB2F82E4A4C2F009C566B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.OmegaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Omega.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Omega";
+			};
+			name = Release;
+		};
+		CE7EB2FA2E4A4C2F009C566B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.OmegaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Omega;
+			};
+			name = Debug;
+		};
+		CE7EB2FB2E4A4C2F009C566B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PSXDB5A2NN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arturo.OmegaApp.OmegaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Omega;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE7EB2CD2E4A4C2C009C566B /* Build configuration list for PBXProject "Omega" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE7EB2F12E4A4C2F009C566B /* Debug */,
+				CE7EB2F22E4A4C2F009C566B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE7EB2F32E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "Omega" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE7EB2F42E4A4C2F009C566B /* Debug */,
+				CE7EB2F52E4A4C2F009C566B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE7EB2F62E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "OmegaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE7EB2F72E4A4C2F009C566B /* Debug */,
+				CE7EB2F82E4A4C2F009C566B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE7EB2F92E4A4C2F009C566B /* Build configuration list for PBXNativeTarget "OmegaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE7EB2FA2E4A4C2F009C566B /* Debug */,
+				CE7EB2FB2E4A4C2F009C566B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE7EB2CA2E4A4C2C009C566B /* Project object */;
+}

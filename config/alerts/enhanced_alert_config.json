@@ -1,0 +1,151 @@
+{
+  "alert_rules": [
+    {
+      "name": "model_timeout_critical",
+      "condition": "threshold",
+      "metric": "execution_time",
+      "threshold_value": 30.0,
+      "comparison": "gt",
+      "severity": "critical",
+      "cooldown_minutes": 2,
+      "enabled": true,
+      "description": "Model exceeded 30 seconds execution time",
+      "action": "secure_email",
+      "ml_sensitivity": 0.1,
+      "security_level": "high",
+      "encrypted": false
+    },
+    {
+      "name": "lstm_accuracy_critical",
+      "condition": "threshold", 
+      "metric": "lstm_accuracy",
+      "threshold_value": 0.65,
+      "comparison": "lt",
+      "severity": "critical",
+      "cooldown_minutes": 5,
+      "enabled": true,
+      "description": "LSTM accuracy below critical 65% threshold",
+      "action": "secure_email",
+      "ml_sensitivity": 0.05,
+      "security_level": "high",
+      "encrypted": true
+    },
+    {
+      "name": "ml_anomaly_execution_time",
+      "condition": "ml_anomaly",
+      "metric": "execution_time", 
+      "threshold_value": 0.1,
+      "comparison": "gt",
+      "severity": "warning",
+      "cooldown_minutes": 10,
+      "enabled": true,
+      "description": "ML anomaly detection: unusual execution time pattern",
+      "action": "secure_email",
+      "ml_sensitivity": 0.1,
+      "security_level": "standard",
+      "encrypted": false
+    },
+    {
+      "name": "model_accuracy_degradation",
+      "condition": "accuracy_drop",
+      "metric": "model_accuracy",
+      "threshold_value": 0.1,
+      "comparison": "gt", 
+      "severity": "warning",
+      "cooldown_minutes": 15,
+      "enabled": true,
+      "description": "Model accuracy degradation detected (10% drop)",
+      "action": "secure_email",
+      "ml_sensitivity": 0.05,
+      "security_level": "standard",
+      "encrypted": false
+    },
+    {
+      "name": "memory_usage_anomaly",
+      "condition": "ml_anomaly",
+      "metric": "memory_percent",
+      "threshold_value": 0.15,
+      "comparison": "gt",
+      "severity": "warning", 
+      "cooldown_minutes": 5,
+      "enabled": true,
+      "description": "ML anomaly: unusual memory usage pattern detected",
+      "action": "log",
+      "ml_sensitivity": 0.15,
+      "security_level": "standard",
+      "encrypted": false
+    },
+    {
+      "name": "security_incident_critical",
+      "condition": "threshold",
+      "metric": "security_violations",
+      "threshold_value": 1.0,
+      "comparison": "gte",
+      "severity": "critical",
+      "cooldown_minutes": 1,
+      "enabled": true,
+      "description": "Security incident detected - immediate attention required",
+      "action": "secure_email",
+      "ml_sensitivity": 0.01,
+      "security_level": "critical",
+      "encrypted": true
+    },
+    {
+      "name": "transformer_accuracy_warning",
+      "condition": "threshold",
+      "metric": "transformer_accuracy", 
+      "threshold_value": 0.70,
+      "comparison": "lt",
+      "severity": "warning",
+      "cooldown_minutes": 10,
+      "enabled": true,
+      "description": "Transformer model accuracy below 70% target",
+      "action": "secure_email",
+      "ml_sensitivity": 0.05,
+      "security_level": "standard",
+      "encrypted": false
+    },
+    {
+      "name": "api_response_anomaly",
+      "condition": "ml_anomaly",
+      "metric": "api_response_time",
+      "threshold_value": 0.2,
+      "comparison": "gt",
+      "severity": "info",
+      "cooldown_minutes": 15,
+      "enabled": true,
+      "description": "Unusual API response time pattern detected",
+      "action": "log",
+      "ml_sensitivity": 0.2,
+      "security_level": "standard",
+      "encrypted": false
+    }
+  ],
+  "email_config": {
+    "enabled": false,
+    "note": "DEPRECATED: Use environment variables for secure email configuration"
+  },
+  "ml_config": {
+    "anomaly_detection_enabled": true,
+    "training_window_size": 50,
+    "model_retrain_frequency": 10,
+    "contamination_rates": {
+      "default": 0.1,
+      "memory_usage": 0.15,
+      "api_performance": 0.2,
+      "security_metrics": 0.01
+    }
+  },
+  "security_config": {
+    "default_security_level": "standard",
+    "encryption_enabled": false,
+    "audit_all_alerts": true,
+    "secure_transport_only": true
+  },
+  "performance_config": {
+    "thread_pool_workers": 4,
+    "max_alert_history": 1000,
+    "max_metric_history": 100,
+    "alert_confidence_threshold": 0.5
+  }
+}

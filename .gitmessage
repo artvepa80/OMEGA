@@ -1,0 +1,18 @@
+feat({scope}): {cambio específico}  – refs #{ticket?}
+
+Contexto:
+- ¿Qué problema resuelve? (1–2 líneas)
+
+Cambios:
+- Punto 1
+- Punto 2
+- Punto 3
+
+Verificación:
+- pytest -m smoke: OK (adjuntaste salida en el PR)
+- main --dry-run --limit 5: OK
+
+Breaking changes:
+- (Si hay, explica el shim/deprecation; si no, “none”)
+
+

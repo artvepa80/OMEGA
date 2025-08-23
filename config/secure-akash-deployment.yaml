@@ -1,0 +1,198 @@
+version: '2.0'
+services:
+  omega-api:
+    image: ghcr.io/omega-pro-ai/omega-api:latest
+    expose:
+    - port: 8000
+      as: 80
+      to:
+      - global: true
+    - port: 8443
+      as: 443
+      to:
+      - global: true
+    env:
+    - OMEGA_ENV=production
+    - SSL_ENABLED=true
+    - SECURITY_HEADERS=true
+    - CORS_ENABLED=true
+    - RATE_LIMITING=true
+    - AUTH_REQUIRED=true
+    - JWT_SECRET=${JWT_SECRET}
+    - REDIS_URL=redis://redis:6379
+    - REDIS_PASSWORD=${REDIS_PASSWORD}
+    - LOG_LEVEL=INFO
+    - HEALTH_CHECK_ENABLED=true
+    resources:
+      cpu:
+        units: 2.0
+      memory:
+        size: 4Gi
+      storage:
+      - size: 20Gi
+  omega-gpu:
+    image: ghcr.io/omega-pro-ai/omega-gpu:latest
+    expose:
+    - port: 8001
+      to:
+      - service: omega-api
+    env:
+    - CUDA_VISIBLE_DEVICES=0
+    - NVIDIA_VISIBLE_DEVICES=all
+    - SSL_ENABLED=true
+    - INTERNAL_AUTH=true
+    - REDIS_URL=redis://redis:6379
+    - REDIS_PASSWORD=${REDIS_PASSWORD}
+    - MAX_CONCURRENT_REQUESTS=5
+    - GPU_MEMORY_LIMIT=90
+    - PROCESSING_TIMEOUT=300
+    - LOG_LEVEL=INFO
+    resources:
+      cpu:
+        units: 4.0
+      memory:
+        size: 8Gi
+      storage:
+      - size: 100Gi
+      gpu:
+        units: 1
+        attributes:
+          vendor:
+            nvidia:
+            - model: rtx4090
+              ram: 24Gi
+  redis:
+    image: redis:7-alpine
+    command:
+    - redis-server
+    - --requirepass
+    - ${REDIS_PASSWORD}
+    - --maxmemory
+    - 1gb
+    - --maxmemory-policy
+    - allkeys-lru
+    - --save
+    - '900'
+    - '1'
+    - --save
+    - '300'
+    - '10'
+    - --save
+    - '60'
+    - '10000'
+    expose:
+    - port: 6379
+      to:
+      - service: omega-api
+      - service: omega-gpu
+    env:
+    - REDIS_PASSWORD=${REDIS_PASSWORD}
+    resources:
+      cpu:
+        units: 0.5
+      memory:
+        size: 1Gi
+      storage:
+      - size: 10Gi
+  nginx-security:
+    image: nginx:alpine
+    expose:
+    - port: 80
+      as: 80
+      to:
+      - global: true
+    - port: 443
+      as: 443
+      to:
+      - global: true
+    env:
+    - SSL_ENABLED=true
+    - SECURITY_HEADERS=true
+    - RATE_LIMITING=true
+    resources:
+      cpu:
+        units: 0.5
+      memory:
+        size: 512Mi
+      storage:
+      - size: 1Gi
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+        - size: 20Gi
+    omega-gpu:
+      resources:
+        cpu:
+          units: 4.0
+        memory:
+          size: 8Gi
+        storage:
+        - size: 100Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+              - model: rtx4090
+                ram: 24Gi
+    redis:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+        - size: 10Gi
+    nginx-security:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 512Mi
+        storage:
+        - size: 1Gi
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+        region: us-west
+      signedBy:
+        anyOf:
+        - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+        - akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4
+      pricing:
+        omega-api:
+          denom: uakt
+          amount: 500
+        omega-gpu:
+          denom: uakt
+          amount: 1000
+        redis:
+          denom: uakt
+          amount: 100
+        nginx-security:
+          denom: uakt
+          amount: 100
+deployment:
+  omega-api:
+    dcloud:
+      profile: omega-api
+      count: 1
+  omega-gpu:
+    dcloud:
+      profile: omega-gpu
+      count: 1
+  redis:
+    dcloud:
+      profile: redis
+      count: 1
+  nginx-security:
+    dcloud:
+      profile: nginx-security
+      count: 1

@@ -1,0 +1,50 @@
+version: "2.0"
+
+services:
+  omegaproaiv101:
+    image: artvepa80/omega-ai:latest
+    command:
+      - "bash"
+      - "-c"
+      - "cd /app && python3 main.py --server-mode --port 8000"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+    env:
+      - OMEGA_ENV=production
+      - PYTHONPATH=/app
+      - CPU_CORES=8
+      - MEMORY_LIMIT=17GB
+    resources:
+      cpu:
+        units: "8.0"
+      memory:
+        size: 17Gi
+      storage:
+        - size: 107Gi
+
+profiles:
+  compute:
+    omegaproaiv101:
+      resources:
+        cpu:
+          units: "8.0"
+        memory:
+          size: 17Gi
+        storage:
+          - size: 107Gi
+
+  placement:
+    dcloud:
+      pricing:
+        omegaproaiv101:
+          denom: uakt
+          amount: 300
+
+deployment:
+  omegaproaiv101:
+    dcloud:
+      profile: omegaproaiv101
+      count: 1

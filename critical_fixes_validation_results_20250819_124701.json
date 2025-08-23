@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-08-19T12:46:45.359799",
+  "version": "OMEGA PRO AI v10.1",
+  "validation_type": "Critical Fixes Validation",
+  "tests": {
+    "transformer_fix": {
+      "status": "PASS",
+      "expected_d_model": 128,
+      "actual_d_model": 128,
+      "message": "Transformer architecture alignment successful"
+    },
+    "lstm_integration": {
+      "status": "PASS",
+      "combinations_generated": 5,
+      "execution_time": 4.660501718521118,
+      "first_combination": [
+        8,
+        11,
+        12,
+        14,
+        15,
+        31
+      ],
+      "average_score": 6.6484000000000005,
+      "message": "LSTM integration working correctly"
+    },
+    "genetic_optimization": {
+      "status": "PASS",
+      "combinations_generated": 5,
+      "execution_time": 1.5634398460388184,
+      "timeout_seconds": 10,
+      "timeout_compliant": true,
+      "config_used": {
+        "pop_size": 20,
+        "generations": 5,
+        "timeout_seconds": 10
+      },
+      "message": "Genetic algorithm optimization working correctly"
+    },
+    "consensus_dataframe": {
+      "status": "PASS",
+      "test_results": [
+        {
+          "description": "None DataFrame",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        },
+        {
+          "description": "Empty DataFrame",
+          "expected": false,
+          "actual": false,
+          "passed": true
+        },
+        {
+          "description": "Non-empty DataFrame",
+          "expected": true,
+          "actual": true,
+          "passed": true
+        }
+      ],
+      "message": "All DataFrame boolean context fixes validated"
+    },
+    "ensemble_accuracy": {
+      "status": "ERROR",
+      "error": "'HybridOmegaPredictor' object has no attribute 'predecir'",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/validate_critical_fixes.py\", line 348, in test_ensemble_accuracy\n    predictions = predictor.predecir(\nAttributeError: 'HybridOmegaPredictor' object has no attribute 'predecir'\n",
+      "message": "Ensemble accuracy test encountered error"
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed": 4,
+    "failed": 0,
+    "errors": 1,
+    "success_rate": 80.0,
+    "overall_status": "FAIL"
+  }
+}

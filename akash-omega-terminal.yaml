@@ -1,0 +1,104 @@
+---
+version: "2.0"
+
+services:
+  omega-ai:
+    image: python:3.11-slim
+    command:
+      - "bash"
+      - "-c"
+      - |
+        echo "🚀 OMEGA PRO AI v10.1 - FULL REMOTE ACCESS"
+        echo "💻 Resources: 16 CPU cores, 32GB RAM, 200GB Storage"
+        
+        # Install system dependencies + SSH server
+        apt-get update && apt-get install -y \
+          curl git wget build-essential \
+          python3-dev libffi-dev libssl-dev \
+          htop nano vim tmux procps \
+          openssh-server sudo \
+          code-server && \
+        
+        echo "📥 Cloning OMEGA from GitHub..."
+        git clone https://github.com/artvepa80/OMEGA.git /app && \
+        cd /app && \
+        
+        echo "🐍 Installing Python dependencies..."
+        pip install --no-cache-dir --upgrade pip && \
+        pip install --no-cache-dir \
+          torch torchvision --index-url https://download.pytorch.org/whl/cpu && \
+        pip install --no-cache-dir tensorflow-cpu && \
+        pip install --no-cache-dir -r requirements.txt && \
+        
+        echo "🔧 Setting up remote access..."
+        # Configure SSH (optional, for advanced users)
+        echo 'omega:omega2025' | chpasswd
+        echo 'root:omegaadmin2025' | chpasswd
+        useradd -m -s /bin/bash omega
+        echo 'omega:omega2025' | chpasswd
+        usermod -aG sudo omega
+        
+        # Configure code-server (VS Code in browser)
+        mkdir -p /home/omega/.config/code-server
+        cat > /home/omega/.config/code-server/config.yaml << 'EOF'
+bind-addr: 0.0.0.0:8080
+auth: password
+password: omega-vscode-2025
+cert: false
+EOF
+        
+        chown -R omega:omega /home/omega /app
+        
+        echo "🌐 Starting services..."
+        echo "✅ OMEGA API: Port 8000"
+        echo "✅ VS Code Web: Port 8080 (password: omega-vscode-2025)"
+        echo "✅ Terminal access available"
+        
+        # Start code-server in background
+        sudo -u omega code-server --bind-addr 0.0.0.0:8080 --auth password /app &
+        
+        # Start OMEGA
+        export PYTHONPATH=/app
+        cd /app
+        python3 omega_server.py
+        
+    env:
+      - "OMEGA_VERSION=v10.1"
+      - "PYTHONPATH=/app"
+      - "PORT=8000"
+      
+    expose:
+      - port: 8000  # OMEGA API
+        as: 80
+        to:
+          - global: true
+      - port: 8080  # VS Code Web
+        as: 8080
+        to:
+          - global: true
+        accept:
+          - "*.akash.pro"
+          
+profiles:
+  compute:
+    omega-ai:
+      resources:
+        cpu:
+          units: 16000m  # 16 CPU cores
+        memory:
+          size: 32Gi    # 32GB RAM
+        storage:
+          - size: 200Gi # 200GB storage
+            
+  placement:
+    akash:
+      pricing:
+        omega-ai:
+          denom: uakt
+          amount: 2500000
+
+deployment:
+  omega-ai:
+    akash:
+      profile: omega-ai
+      count: 1

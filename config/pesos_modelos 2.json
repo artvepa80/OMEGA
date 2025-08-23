@@ -1,0 +1,11 @@
+{
+    "ghost_rng": 1.2,
+    "clustering": 1.1,
+    "montecarlo": 1.0,
+    "lstm_v2": 1.0,
+    "transformer": 1.0,
+    "inverse_mining": 1.0,
+    "genetico": 1.0,
+    "apriori": 1.0,
+    "consensus": 1.0
+}

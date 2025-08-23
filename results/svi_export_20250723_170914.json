@@ -1,0 +1,452 @@
+[
+    {
+        "rank": 1,
+        "source": "montecarlo",
+        "combination": [
+            3,
+            5,
+            11,
+            28,
+            32,
+            35
+        ],
+        "score": 31.8008192,
+        "svi_score": 0.5,
+        "original_score": 45.215456
+    },
+    {
+        "rank": 2,
+        "source": "montecarlo",
+        "combination": [
+            7,
+            10,
+            12,
+            27,
+            31,
+            33
+        ],
+        "score": 31.7748856,
+        "svi_score": 0.5,
+        "original_score": 45.178408000000005
+    },
+    {
+        "rank": 3,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            12,
+            14,
+            29,
+            30,
+            36
+        ],
+        "score": 31.762134400000004,
+        "svi_score": 0.5,
+        "original_score": 45.16019200000001
+    },
+    {
+        "rank": 4,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            8,
+            9,
+            24,
+            30,
+            37
+        ],
+        "score": 31.76158,
+        "svi_score": 0.5,
+        "original_score": 45.159400000000005
+    },
+    {
+        "rank": 5,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            5,
+            24,
+            26,
+            28,
+            30
+        ],
+        "score": 31.5831864,
+        "svi_score": 0.5,
+        "original_score": 44.904552
+    },
+    {
+        "rank": 6,
+        "source": "montecarlo",
+        "combination": [
+            3,
+            11,
+            18,
+            24,
+            37,
+            38
+        ],
+        "score": 30.3617928,
+        "svi_score": 0.5,
+        "original_score": 43.159704000000005
+    },
+    {
+        "rank": 7,
+        "source": "montecarlo",
+        "combination": [
+            5,
+            8,
+            19,
+            22,
+            27,
+            33
+        ],
+        "score": 30.3370968,
+        "svi_score": 0.5,
+        "original_score": 43.124424000000005
+    },
+    {
+        "rank": 8,
+        "source": "montecarlo",
+        "combination": [
+            3,
+            8,
+            17,
+            18,
+            22,
+            35
+        ],
+        "score": 30.336508799999997,
+        "svi_score": 0.5,
+        "original_score": 43.123584
+    },
+    {
+        "rank": 9,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            15,
+            24,
+            26,
+            29,
+            37
+        ],
+        "score": 30.3359796,
+        "svi_score": 0.5,
+        "original_score": 43.122828000000005
+    },
+    {
+        "rank": 10,
+        "source": "montecarlo",
+        "combination": [
+            4,
+            16,
+            26,
+            27,
+            29,
+            33
+        ],
+        "score": 30.3266304,
+        "svi_score": 0.5,
+        "original_score": 43.109472000000004
+    },
+    {
+        "rank": 11,
+        "source": "montecarlo",
+        "combination": [
+            12,
+            13,
+            18,
+            25,
+            32,
+            34
+        ],
+        "score": 30.326159999999998,
+        "svi_score": 0.5,
+        "original_score": 43.1088
+    },
+    {
+        "rank": 12,
+        "source": "montecarlo",
+        "combination": [
+            12,
+            17,
+            21,
+            24,
+            32,
+            39
+        ],
+        "score": 30.326042400000002,
+        "svi_score": 0.5,
+        "original_score": 43.10863200000001
+    },
+    {
+        "rank": 13,
+        "source": "montecarlo",
+        "combination": [
+            5,
+            9,
+            12,
+            18,
+            32,
+            38
+        ],
+        "score": 30.325865999999994,
+        "svi_score": 0.5,
+        "original_score": 43.10838
+    },
+    {
+        "rank": 14,
+        "source": "montecarlo",
+        "combination": [
+            14,
+            16,
+            17,
+            21,
+            33,
+            36
+        ],
+        "score": 30.268183199999996,
+        "svi_score": 0.5,
+        "original_score": 43.025976
+    },
+    {
+        "rank": 15,
+        "source": "default",
+        "combination": [
+            3,
+            19,
+            21,
+            22,
+            24,
+            31
+        ],
+        "score": 29.876751600000002,
+        "svi_score": 0.5,
+        "original_score": 42.46678800000001
+    },
+    {
+        "rank": 16,
+        "source": "default",
+        "combination": [
+            9,
+            15,
+            23,
+            25,
+            30,
+            34
+        ],
+        "score": 29.8300056,
+        "svi_score": 0.5,
+        "original_score": 42.40000800000001
+    },
+    {
+        "rank": 17,
+        "source": "default",
+        "combination": [
+            5,
+            13,
+            18,
+            31,
+            35,
+            36
+        ],
+        "score": 29.776027199999998,
+        "svi_score": 0.5,
+        "original_score": 42.322896
+    },
+    {
+        "rank": 18,
+        "source": "default",
+        "combination": [
+            3,
+            12,
+            17,
+            24,
+            33,
+            38
+        ],
+        "score": 29.728634399999997,
+        "svi_score": 0.5,
+        "original_score": 42.255192
+    },
+    {
+        "rank": 19,
+        "source": "default",
+        "combination": [
+            10,
+            11,
+            16,
+            19,
+            20,
+            33
+        ],
+        "score": 29.543120399999996,
+        "svi_score": 0.5,
+        "original_score": 41.990172
+    },
+    {
+        "rank": 20,
+        "source": "default",
+        "combination": [
+            3,
+            7,
+            16,
+            24,
+            30,
+            39
+        ],
+        "score": 29.256470399999998,
+        "svi_score": 0.5,
+        "original_score": 41.580672
+    },
+    {
+        "rank": 21,
+        "source": "default",
+        "combination": [
+            6,
+            12,
+            15,
+            19,
+            25,
+            32
+        ],
+        "score": 29.224600799999997,
+        "svi_score": 0.5,
+        "original_score": 41.535144
+    },
+    {
+        "rank": 22,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            11,
+            27,
+            33,
+            35,
+            38
+        ],
+        "score": 28.888527999999994,
+        "svi_score": 0.5,
+        "original_score": 41.05504
+    },
+    {
+        "rank": 23,
+        "source": "montecarlo",
+        "combination": [
+            11,
+            21,
+            23,
+            26,
+            31,
+            37
+        ],
+        "score": 28.879175999999998,
+        "svi_score": 0.5,
+        "original_score": 41.04168
+    },
+    {
+        "rank": 24,
+        "source": "montecarlo",
+        "combination": [
+            12,
+            21,
+            25,
+            31,
+            32,
+            35
+        ],
+        "score": 27.399678399999996,
+        "svi_score": 0.5,
+        "original_score": 38.928112
+    },
+    {
+        "rank": 25,
+        "source": "default",
+        "combination": [
+            9,
+            10,
+            20,
+            21,
+            24,
+            25
+        ],
+        "score": 27.240025199999994,
+        "svi_score": 0.5,
+        "original_score": 38.700036
+    },
+    {
+        "rank": 26,
+        "source": "default",
+        "combination": [
+            2,
+            7,
+            8,
+            21,
+            24,
+            25
+        ],
+        "score": 26.072551199999996,
+        "svi_score": 0.5,
+        "original_score": 37.032216
+    },
+    {
+        "rank": 27,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            4,
+            11,
+            18,
+            24,
+            37
+        ],
+        "score": 25.9861488,
+        "svi_score": 0.5,
+        "original_score": 36.908784000000004
+    },
+    {
+        "rank": 28,
+        "source": "montecarlo",
+        "combination": [
+            6,
+            9,
+            10,
+            12,
+            13,
+            38
+        ],
+        "score": 25.965787199999998,
+        "svi_score": 0.5,
+        "original_score": 36.879696
+    },
+    {
+        "rank": 29,
+        "source": "montecarlo",
+        "combination": [
+            5,
+            7,
+            8,
+            10,
+            30,
+            37
+        ],
+        "score": 25.9501632,
+        "svi_score": 0.5,
+        "original_score": 36.857376
+    },
+    {
+        "rank": 30,
+        "source": "montecarlo",
+        "combination": [
+            1,
+            3,
+            4,
+            9,
+            20,
+            32
+        ],
+        "score": 25.920981599999998,
+        "svi_score": 0.5,
+        "original_score": 36.815688
+    }
+]

@@ -1,0 +1,14 @@
+[build]
+builder = "DOCKERFILE"
+dockerfile = "Dockerfile.railway"
+
+[deploy]
+startCommand = "python3 omega_server.py"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+
+[environments.production.variables]
+OMEGA_VERSION = "v10.1"
+OMEGA_COMPLETE = "true"
+PYTHONUNBUFFERED = "1"
+PYTHONPATH = "/app"

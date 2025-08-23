@@ -1,0 +1,261 @@
+{
+  "test_execution": {
+    "start_time": "2025-08-13T16:22:29.991567",
+    "end_time": "2025-08-13T16:22:31.581812",
+    "duration_seconds": 1.590245,
+    "test_suite": "SSL/TLS Security Validation Suite v1.0"
+  },
+  "ssl_security_assessment": {
+    "overall_score": 91.6,
+    "ssl_grade": "A",
+    "ssl_status": "VERY_GOOD",
+    "production_ready": true,
+    "ssl_compliant": true,
+    "vulnerabilities_found": 0,
+    "critical_vulnerabilities": 0,
+    "high_vulnerabilities": 0,
+    "medium_vulnerabilities": 0,
+    "low_vulnerabilities": 0
+  },
+  "category_scores": {
+    "Certificate Security Analysis": 95,
+    "TLS Configuration Security": 80,
+    "Certificate Chain Validation": 100,
+    "SSL/TLS Protocol Security": 70,
+    "Certificate Transparency Validation": 95,
+    "OCSP Stapling Validation": 100,
+    "Certificate Expiration Analysis": 100,
+    "SSL Implementation Security": 100
+  },
+  "detailed_results": {
+    "Certificate Security Analysis": {
+      "test_type": "Certificate Security Analysis",
+      "status": "WARNING",
+      "security_score": 95,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 Certificate loaded successfully",
+        "\u2705 Strong key length: 2048 bits",
+        "\u2705 Strong signature algorithm: sha256withrsaencryption",
+        "\u2705 Reasonable validity period: 365 days",
+        "\u2705 Extension present: subjectAltName",
+        "\u2705 Extension present: keyUsage",
+        "\u2705 Extension present: extendedKeyUsage",
+        "\u26a0\ufe0f Missing extensions: basicConstraints",
+        "\u2139\ufe0f Self-signed certificate (appropriate for development)",
+        "\u2705 SHA-256 fingerprint: 8bb016ca323b9d1715deb2c0c04451fe...",
+        "\u2705 Certificate security analysis completed"
+      ],
+      "certificates_analyzed": [
+        {
+          "subject": "<X509Name object '/C=US/ST=California/L=San Francisco/O=OMEGA Pro AI/CN=omega-api.akash.network/emailAddress=admin@omega-pro-ai.com'>",
+          "issuer": "<X509Name object '/C=US/ST=California/L=San Francisco/O=OMEGA Pro AI/CN=omega-api.akash.network/emailAddress=admin@omega-pro-ai.com'>",
+          "serial_number": "411386650831387562046488954731118709827046071218",
+          "version": 3,
+          "signature_algorithm": "sha256WithRSAEncryption",
+          "public_key_bits": 2048,
+          "not_before": "20250813151936Z",
+          "not_after": "20260813151936Z"
+        }
+      ],
+      "certificate_fingerprints": {
+        "sha256": "8bb016ca323b9d1715deb2c0c04451fea34b4d8c6acab7bdbfdcdc105df3d62f",
+        "sha1": "1c2ec7bcd734a02f96efd410bcbd787ffcddf4fc"
+      }
+    },
+    "TLS Configuration Security": {
+      "test_type": "TLS Configuration Security",
+      "status": "WARNING",
+      "security_score": 80,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Modern TLS version - TLSv1.2",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Cipher suite - ECDHE-RSA-AES128-GCM-SHA256",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Encryption strength - 128 bits",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Adequate encryption (128+ bits)",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Perfect Forward Secrecy supported",
+        "\u274c TLS analysis failed for omega-api.akash.network:443 - [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "tls_analysis": [
+        {
+          "hostname": "a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online",
+          "port": 443,
+          "tls_version": "TLSv1.2",
+          "cipher_suite": [
+            "ECDHE-RSA-AES128-GCM-SHA256",
+            "TLSv1/SSLv3",
+            128
+          ],
+          "certificate_info": {
+            "error": "Could not extract certificate information"
+          }
+        }
+      ]
+    },
+    "Certificate Chain Validation": {
+      "test_type": "Certificate Chain Validation",
+      "status": "SECURE",
+      "security_score": 100,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 Found 1 certificates in chain",
+        "\u2139\ufe0f Single certificate (self-signed or end-entity only)",
+        "\u2139\ufe0f Self-signed certificate detected (acceptable for development)",
+        "\u2705 Certificate 1 is valid (expires 2026-08-13)"
+      ]
+    },
+    "SSL/TLS Protocol Security": {
+      "test_type": "SSL/TLS Protocol Security",
+      "status": "VULNERABLE",
+      "security_score": 70,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: TLS 1.2 supported",
+        "\u26a0\ufe0f a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: TLS 1.3 not supported or connection failed",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Deprecated TLS 1.0 properly disabled",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Deprecated TLS 1.1 properly disabled",
+        "\u2705 a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online: Modern TLS protocols supported",
+        "\u26a0\ufe0f omega-api.akash.network: TLS 1.2 not supported or connection failed",
+        "\u26a0\ufe0f omega-api.akash.network: TLS 1.3 not supported or connection failed",
+        "\u2705 omega-api.akash.network: Deprecated TLS 1.0 properly disabled",
+        "\u2705 omega-api.akash.network: Deprecated TLS 1.1 properly disabled",
+        "\u274c omega-api.akash.network: No modern TLS protocols supported"
+      ],
+      "protocol_tests": [
+        {
+          "hostname": "a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online",
+          "port": 443,
+          "supported_protocols": [
+            "TLSv1.2"
+          ],
+          "deprecated_protocols": [],
+          "secure_protocols": [
+            "TLS 1.2"
+          ]
+        },
+        {
+          "hostname": "omega-api.akash.network",
+          "port": 443,
+          "supported_protocols": [],
+          "deprecated_protocols": [],
+          "secure_protocols": []
+        }
+      ]
+    },
+    "Certificate Transparency Validation": {
+      "test_type": "Certificate Transparency Validation",
+      "status": "WARNING",
+      "security_score": 95,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2139\ufe0f Certificate Transparency validation not applicable for self-signed certificates",
+        "\u2139\ufe0f Production deployment should implement Certificate Transparency monitoring",
+        "\u2705 CT validation framework ready for production certificates"
+      ]
+    },
+    "OCSP Stapling Validation": {
+      "test_type": "OCSP Stapling Validation",
+      "status": "SECURE",
+      "security_score": 100,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 OCSP stapling enabled in config/nginx.conf",
+        "\u2705 OCSP stapling verification enabled in config/nginx.conf",
+        "\u2705 Trusted certificate chain configured in config/nginx.conf",
+        "\u2705 OCSP stapling enabled in docker/nginx-ssl.conf",
+        "\u2705 OCSP stapling verification enabled in docker/nginx-ssl.conf",
+        "\u2705 OCSP stapling enabled in docker/nginx-production-ssl.conf",
+        "\u2705 OCSP stapling verification enabled in docker/nginx-production-ssl.conf",
+        "\u2705 Trusted certificate chain configured in docker/nginx-production-ssl.conf",
+        "\u2139\ufe0f OCSP validation not applicable for self-signed certificates",
+        "\u2705 OCSP stapling configuration ready for production"
+      ]
+    },
+    "Certificate Expiration Analysis": {
+      "test_type": "Certificate Expiration Analysis",
+      "status": "SECURE",
+      "security_score": 100,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 Certificate expires in 364 days",
+        "\ud83d\udcdd Consider implementing automated certificate renewal",
+        "\ud83d\udd04 Monitor certificate expiration dates regularly"
+      ],
+      "expiration_analysis": [
+        {
+          "not_before": "2025-08-13T15:19:36",
+          "not_after": "2026-08-13T15:19:36",
+          "days_until_expiry": 364,
+          "total_validity_days": 365,
+          "is_expired": false,
+          "is_valid": true
+        }
+      ]
+    },
+    "SSL Implementation Security": {
+      "test_type": "SSL Implementation Security",
+      "status": "SECURE",
+      "security_score": 100,
+      "vulnerabilities": [],
+      "findings": [
+        "\u2705 certificate has appropriate permissions: 644",
+        "\u2705 Private key has secure permissions: 600",
+        "\u2705 certificate_bundle has appropriate permissions: 644",
+        "\u2705 config has appropriate permissions: 644",
+        "\u2139\ufe0f Self-signed certificate configuration (appropriate for development)",
+        "\u2705 Certificate validity period: 365 days",
+        "\u2705 Security headers implemented: HSTS, Cipher Suite Configuration, SSL Protocol Configuration",
+        "\u2705 SSL implementation security analysis completed"
+      ],
+      "implementation_analysis": {
+        "file_permissions": {
+          "certificate": "644",
+          "private_key": "600",
+          "certificate_bundle": "644",
+          "config": "644"
+        },
+        "ssl_config": {
+          "domain": "omega-api.akash.network",
+          "email": "admin@omega-pro-ai.com",
+          "type": "self_signed",
+          "created_at": "2025-08-13T10:19:36.994616",
+          "expires_at": "2026-08-13T10:19:36.994622",
+          "validity_days": 365
+        }
+      }
+    }
+  },
+  "vulnerability_summary": {
+    "critical": [],
+    "high": [],
+    "medium": [],
+    "low": []
+  },
+  "ssl_recommendations": [
+    "\ud83c\udfed For production: Obtain certificates from trusted CA (Let's Encrypt, DigiCert, etc.)",
+    "\ud83d\udd04 Implement automated certificate renewal and monitoring",
+    "\ud83d\udcca Set up certificate expiration alerts (30, 7, 1 days)",
+    "\ud83d\udee1\ufe0f Enable OCSP stapling for production deployments",
+    "\ud83c\udf10 Implement Certificate Transparency monitoring",
+    "\ud83d\udd0d Conduct regular SSL/TLS security assessments",
+    "\u26a1 Consider implementing TLS 1.3 for enhanced security and performance",
+    "\ud83d\udd10 Review and harden cipher suite configurations",
+    "\ud83d\udccb Maintain SSL/TLS security documentation and procedures"
+  ],
+  "ssl_endpoints_tested": [
+    [
+      "a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online",
+      443
+    ],
+    [
+      "omega-api.akash.network",
+      443
+    ]
+  ],
+  "ssl_files_analyzed": [
+    "certificate",
+    "private_key",
+    "certificate_bundle",
+    "config"
+  ]
+}

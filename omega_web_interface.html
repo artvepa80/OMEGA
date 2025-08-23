@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMEGA AI - Control Panel</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 20px; min-height: 100vh;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .card { 
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            border-radius: 15px; padding: 25px; margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .btn { 
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none; color: white; padding: 15px 30px;
+            border-radius: 25px; cursor: pointer; font-size: 16px;
+            margin: 10px; transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .input-group { margin: 15px 0; }
+        .input-group label { display: block; margin-bottom: 5px; }
+        .input-group input, select { 
+            width: 100%; padding: 10px; border-radius: 8px;
+            border: none; background: rgba(255,255,255,0.2);
+            color: white; font-size: 16px;
+        }
+        .input-group input::placeholder { color: rgba(255,255,255,0.7); }
+        .results { 
+            background: rgba(0,0,0,0.3); padding: 20px;
+            border-radius: 10px; margin: 20px 0;
+            font-family: monospace; max-height: 400px; overflow-y: auto;
+        }
+        .status { padding: 10px; border-radius: 5px; margin: 10px 0; }
+        .success { background: rgba(46,204,113,0.3); }
+        .error { background: rgba(231,76,60,0.3); }
+        .loading { background: rgba(52,152,219,0.3); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 OMEGA PRO AI v10.1</h1>
+            <p>Control Panel - Akash Network</p>
+        </div>
+
+        <div class="card">
+            <h2>⚡ Ejecución Rápida</h2>
+            <button class="btn" onclick="quickRun()">Generar 8 Predicciones (Aggressive)</button>
+            <button class="btn" onclick="conservativeRun()">Generar 5 Predicciones (Conservative)</button>
+            <button class="btn" onclick="checkStatus()">Ver Estado del Sistema</button>
+        </div>
+
+        <div class="card">
+            <h2>🎯 Configuración Personalizada</h2>
+            <div class="input-group">
+                <label>Número de Combinaciones:</label>
+                <input type="number" id="topN" value="8" min="1" max="20">
+            </div>
+            <div class="input-group">
+                <label>Perfil SVI:</label>
+                <select id="sviProfile">
+                    <option value="conservative">Conservative</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="aggressive" selected>Aggressive</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>JWT Token (opcional):</label>
+                <input type="password" id="jwtToken" placeholder="Tu token JWT">
+            </div>
+            <button class="btn" onclick="customRun()">Ejecutar Personalizada</button>
+        </div>
+
+        <div class="card">
+            <h2>📊 Resultados</h2>
+            <div id="status"></div>
+            <div id="results" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        const AKASH_URL = 'https://omega-api.akash.network';
+        
+        function showStatus(message, type = 'loading') {
+            document.getElementById('status').innerHTML = 
+                `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function showResults(data) {
+            document.getElementById('results').innerHTML = 
+                `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+        
+        async function makeRequest(endpoint, data = null) {
+            const token = document.getElementById('jwtToken').value;
+            const options = {
+                method: data ? 'POST' : 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(token && { 'Authorization': `Bearer ${token}` })
+                },
+                ...(data && { body: JSON.stringify(data) })
+            };
+            
+            try {
+                const response = await fetch(`${AKASH_URL}${endpoint}`, options);
+                const result = await response.json();
+                return { success: response.ok, data: result };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+        
+        async function quickRun() {
+            showStatus('🚀 Ejecutando predicción rápida...', 'loading');
+            const result = await makeRequest('/predict', {
+                top_n: 8,
+                svi_profile: 'aggressive',
+                enable_models: ['consensus', 'lstm', 'genetic', 'clustering'],
+                enable_performance_monitoring: true,
+                export_formats: ['json']
+            });
+            
+            if (result.success) {
+                showStatus('✅ Predicción completada exitosamente!', 'success');
+                showResults(result.data);
+            } else {
+                showStatus(`❌ Error: ${result.error || 'Falló la predicción'}`, 'error');
+                showResults(result.data || result.error);
+            }
+        }
+        
+        async function conservativeRun() {
+            showStatus('🛡️ Ejecutando predicción conservadora...', 'loading');
+            const result = await makeRequest('/predict', {
+                top_n: 5,
+                svi_profile: 'conservative',
+                enable_models: ['consensus', 'lstm'],
+                enable_performance_monitoring: true,
+                export_formats: ['json']
+            });
+            
+            if (result.success) {
+                showStatus('✅ Predicción conservadora completada!', 'success');
+                showResults(result.data);
+            } else {
+                showStatus(`❌ Error: ${result.error || 'Falló la predicción'}`, 'error');
+                showResults(result.data || result.error);
+            }
+        }
+        
+        async function customRun() {
+            const topN = parseInt(document.getElementById('topN').value);
+            const sviProfile = document.getElementById('sviProfile').value;
+            
+            showStatus(`🎯 Ejecutando ${topN} predicciones (${sviProfile})...`, 'loading');
+            const result = await makeRequest('/predict', {
+                top_n: topN,
+                svi_profile: sviProfile,
+                enable_models: ['consensus', 'lstm', 'genetic', 'clustering'],
+                enable_performance_monitoring: true,
+                export_formats: ['json', 'csv']
+            });
+            
+            if (result.success) {
+                showStatus('✅ Predicción personalizada completada!', 'success');
+                showResults(result.data);
+            } else {
+                showStatus(`❌ Error: ${result.error || 'Falló la predicción'}`, 'error');
+                showResults(result.data || result.error);
+            }
+        }
+        
+        async function checkStatus() {
+            showStatus('🔍 Verificando estado del sistema...', 'loading');
+            const health = await makeRequest('/health');
+            const metrics = await makeRequest('/metrics');
+            
+            if (health.success) {
+                showStatus('✅ Sistema funcionando correctamente!', 'success');
+                showResults({
+                    health: health.data,
+                    ...(metrics.success && { metrics: metrics.data })
+                });
+            } else {
+                showStatus(`❌ Sistema no disponible: ${health.error}`, 'error');
+                showResults(health.data || health.error);
+            }
+        }
+        
+        // Auto-check status on load
+        window.addEventListener('load', checkStatus);
+    </script>
+</body>
+</html>

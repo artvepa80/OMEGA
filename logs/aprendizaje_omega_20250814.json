@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "fecha_sorteo": "2025-08-14",
+    "timestamp_procesamiento": "2025-08-14T09:59:34.389598",
+    "version_sistema": "OMEGA v2.0"
+  },
+  "resultado_sorteo": {
+    "combinacion": [
+      11,
+      23,
+      24,
+      28,
+      29,
+      39
+    ],
+    "perfil_real": "B",
+    "perfil_calculado": "C",
+    "patron": {
+      "decadas": {
+        "1": 1,
+        "2": 4,
+        "3": 1
+      },
+      "pares": 2,
+      "impares": 4,
+      "suma": 154,
+      "rango": 28,
+      "gap_promedio": 5.6,
+      "gap_max": 12,
+      "zona_baja": 1,
+      "zona_media": 2,
+      "zona_alta": 3,
+      "perfil": "C"
+    },
+    "regime_rng": "moderate"
+  },
+  "rendimiento_predicciones": {
+    "total_combinaciones": 8,
+    "promedio_aciertos": 0.5,
+    "maximo_aciertos": 2,
+    "total_aciertos": 4,
+    "combinaciones_exitosas": 0,
+    "tasa_exito": 0.0
+  },
+  "aprendizaje_realizado": {
+    "patrones_reforzados": 0,
+    "patrones_penalizados": 5,
+    "modelos_ajustados": 9,
+    "modo_asalto_activo": false,
+    "configuracion_modificada": true
+  },
+  "detalles_refuerzos": [],
+  "detalles_penalizaciones": [
+    {
+      "patron": {
+        "decadas": {
+          "0": 1,
+          "1": 2,
+          "2": 1,
+          "3": 1,
+          "4": 1
+        },
+        "pares": 2,
+        "impares": 4,
+        "suma": 130,
+        "rango": 37,
+        "gap_promedio": 7.4,
+        "gap_max": 10,
+        "zona_baja": 2,
+        "zona_media": 1,
+        "zona_alta": 3,
+        "perfil": "C"
+      },
+      "severidad": 0.5
+    },
+    {
+      "patron": {
+        "decadas": {
+          "0": 2,
+          "1": 1,
+          "2": 1,
+          "3": 2
+        },
+        "pares": 5,
+        "impares": 1,
+        "suma": 115,
+        "rango": 32,
+        "gap_promedio": 6.4,
+        "gap_max": 13,
+        "zona_baja": 2,
+        "zona_media": 2,
+        "zona_alta": 2,
+        "perfil": "C"
+      },
+      "severidad": 0.5
+    },
+    {
+      "patron": {
+        "decadas": {
+          "0": 1,
+          "1": 3,
+          "2": 1,
+          "3": 1
+        },
+        "pares": 2,
+        "impares": 4,
+        "suma": 94,
+        "rango": 34,
+        "gap_promedio": 6.8,
+        "gap_max": 14,
+        "zona_baja": 3,
+        "zona_media": 2,
+        "zona_alta": 1,
+        "perfil": "C"
+      },
+      "severidad": 0.5
+    }
+  ],
+  "pesos_modelos_actualizados": {
+    "lstm_v2": 0.3,
+    "transformer": 0.3,
+    "clustering": 0.3,
+    "montecarlo": 0.3,
+    "genetic": 0.3,
+    "gboost": 0.3,
+    "ensemble_ai": 0.3,
+    "apriori": 0.3,
+    "fallback": 0.3
+  },
+  "configuracion_actual": {
+    "score_minimo": 23.0,
+    "filtro_agresividad": 0.7,
+    "modo_asalto": false,
+    "ghost_rng_activo": true,
+    "refuerzo_clustering": true,
+    "boost_frecuencias": true
+  },
+  "rendimiento_por_fuente": {
+    "balanced_range": {
+      "count": 4,
+      "promedio": 0.5,
+      "maximo": 1,
+      "total": 2
+    },
+    "balanced_predictor": {
+      "count": 1,
+      "promedio": 0.0,
+      "maximo": 0,
+      "total": 0
+    },
+    "meta_learning": {
+      "count": 3,
+      "promedio": 0.67,
+      "maximo": 2,
+      "total": 2
+    }
+  }
+}

@@ -1,0 +1,75 @@
+version: "2.0"
+
+services:
+  omegaproaiv10:
+    image: artvepa80/omega-ai:latest
+    command:
+      - "python3"
+      - "omega_akash_terminal.py"
+      - "server"
+      - "--gpu"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 104857600  # 100MB
+    env:
+      - OMEGA_ENV=production
+      - OMEGA_VERSION=v10.1-gpu
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - GPU_ENABLED=true
+      - PERFORMANCE_MODE=gpu_accelerated
+      - SERVER_MODE=terminal
+      - ENABLE_EXECUTE=true
+      - ENABLE_PREDICT=true
+      - MAX_EXECUTION_TIME=300
+      - LOG_LEVEL=INFO
+    resources:
+      cpu:
+        units: "4.0"
+      memory:
+        size: 16Gi
+      storage:
+        - size: 20Gi
+      gpu:
+        units: 1
+        attributes:
+          vendor:
+            nvidia:
+              - model: rtx3090
+                ram: "24Gi"
+
+profiles:
+  compute:
+    omegaproaiv10:
+      resources:
+        cpu:
+          units: "4.0"
+        memory:
+          size: 16Gi
+        storage:
+          - size: 20Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx3090
+                  ram: "24Gi"
+
+  placement:
+    dcloud:
+      pricing:
+        omegaproaiv10:
+          denom: uakt
+          amount: 500  # 0.5 AKT per block for GPU
+
+deployment:
+  omegaproaiv10:
+    dcloud:
+      profile: omegaproaiv10
+      count: 1

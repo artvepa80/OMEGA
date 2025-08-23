@@ -1,0 +1,111 @@
+---
+version: "2.0"
+
+services:
+  # Main OMEGA API Service
+  omega-api:
+    image: omega/omega-pro-ai:latest
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+    env:
+      - REDIS_URL=redis://redis:6379
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - CLAUDE_API_KEY=your-claude-api-key
+    resources:
+      cpu:
+        units: 2.0
+      memory:
+        size: 4Gi
+      storage:
+        size: 20Gi
+    
+  # Redis Cache Service  
+  redis:
+    image: redis:7-alpine
+    expose:
+      - port: 6379
+    resources:
+      cpu:
+        units: 0.5
+      memory:
+        size: 1Gi
+      storage:
+        size: 5Gi
+
+  # Asian Markets Service
+  omega-asian:
+    image: omega/omega-asian:latest
+    expose:
+      - port: 8001
+        as: 8001
+        to:
+          - global: true
+    env:
+      - REDIS_URL=redis://redis:6379
+      - ASIAN_MARKETS_ENABLED=true
+      - DEFAULT_LANGUAGE=zh
+    resources:
+      cpu:
+        units: 1.5
+      memory:
+        size: 3Gi
+      storage:
+        size: 15Gi
+
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+          - size: 20Gi
+    redis:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          - size: 5Gi
+    omega-asian:
+      resources:
+        cpu:
+          units: 1.5
+        memory:
+          size: 3Gi
+        storage:
+          - size: 15Gi
+
+  placement:
+    westcoast:
+      pricing:
+        omega-api: 
+          denom: uakt
+          amount: 1000
+        redis:
+          denom: uakt  
+          amount: 500
+        omega-asian:
+          denom: uakt
+          amount: 800
+
+deployment:
+  omega-api:
+    westcoast:
+      profile: omega-api
+      count: 1
+  redis:
+    westcoast:
+      profile: redis
+      count: 1
+  omega-asian:
+    westcoast:
+      profile: omega-asian
+      count: 1

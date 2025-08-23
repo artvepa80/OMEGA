@@ -1,0 +1,185 @@
+# OMEGA Pro AI - Enterprise Firewall Rules for Akash Network
+# Infrastructure Completion: DDoS Protection & Access Control
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-firewall-rules
+  namespace: akash-services
+data:
+  firewall.conf: |
+    # ==============================================
+    # OMEGA PRO AI - ENTERPRISE FIREWALL CONFIG
+    # ==============================================
+    
+    # DDoS Protection Rules
+    -A INPUT -p tcp --dport 80 -m connlimit --connlimit-above 25 -j REJECT
+    -A INPUT -p tcp --dport 443 -m connlimit --connlimit-above 25 -j REJECT
+    -A INPUT -p tcp --dport 80 -m limit --limit 50/min --limit-burst 200 -j ACCEPT
+    -A INPUT -p tcp --dport 443 -m limit --limit 50/min --limit-burst 200 -j ACCEPT
+    
+    # Rate Limiting for API Endpoints
+    -A INPUT -p tcp --dport 8000 -m recent --name api_requests --set
+    -A INPUT -p tcp --dport 8000 -m recent --name api_requests --rcheck --seconds 60 --hitcount 100 -j DROP
+    
+    # SYN Flood Protection
+    -A INPUT -p tcp --syn -m limit --limit 2/s --limit-burst 6 -j ACCEPT
+    -A INPUT -p tcp --syn -j DROP
+    
+    # ICMP Flood Protection
+    -A INPUT -p icmp -m limit --limit 1/s -j ACCEPT
+    -A INPUT -p icmp -j DROP
+    
+    # UDP Flood Protection
+    -A INPUT -p udp -m limit --limit 4/s -j ACCEPT
+    -A INPUT -p udp -j DROP
+    
+    # Invalid Packet Rejection
+    -A INPUT -m state --state INVALID -j DROP
+    -A FORWARD -m state --state INVALID -j DROP
+    -A OUTPUT -m state --state INVALID -j DROP
+    
+    # Port Scanning Protection
+    -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+    -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+    -A INPUT -p tcp --tcp-flags ALL FIN,URG,PSH -j DROP
+    -A INPUT -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j DROP
+    -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+    -A INPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+    
+    # Allow established connections
+    -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+    -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+    
+    # Allow loopback traffic
+    -A INPUT -i lo -j ACCEPT
+    -A OUTPUT -o lo -j ACCEPT
+    
+    # External Access Rules
+    # Allow HTTP/HTTPS only from approved sources
+    -A INPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
+    -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
+    
+    # Block direct access to internal ports
+    -A INPUT -p tcp --dport 8000 ! -s 127.0.0.1 -j DROP
+    -A INPUT -p tcp --dport 8001 ! -s 127.0.0.1 -j DROP
+    -A INPUT -p tcp --dport 6379 ! -s 127.0.0.1 -j DROP
+    
+    # SSH Access (if needed) - restrict to admin IPs
+    # -A INPUT -p tcp -s ADMIN_IP --dport 22 -j ACCEPT
+    
+    # Default policies
+    -A INPUT -j DROP
+    -A FORWARD -j DROP
+    
+  admin-whitelist.conf: |
+    # Administrative IP Whitelist
+    # Add your admin IPs here for management access
+    # Format: IP_ADDRESS/CIDR
+    
+    # Example admin IPs (replace with actual)
+    # 203.0.113.0/24
+    # 198.51.100.0/24
+    
+  geo-blocking.conf: |
+    # Geographic blocking rules
+    # Block known high-risk countries/regions
+    
+    # Block traffic from specific countries (example)
+    # -A INPUT -m geoip --src-cc CN,RU,KP -j DROP
+    # -A INPUT -m geoip --src-cc IR,IQ -j DROP
+    
+  application-firewall.conf: |
+    # Application-level firewall rules
+    
+    # Block common attack patterns
+    -A INPUT -p tcp --dport 80 -m string --string "SELECT * FROM" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "SELECT * FROM" --algo bm -j DROP
+    -A INPUT -p tcp --dport 80 -m string --string "<script>" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "<script>" --algo bm -j DROP
+    -A INPUT -p tcp --dport 80 -m string --string "UNION SELECT" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "UNION SELECT" --algo bm -j DROP
+    
+    # Block directory traversal attempts
+    -A INPUT -p tcp --dport 80 -m string --string "../" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "../" --algo bm -j DROP
+    
+    # Block command injection attempts
+    -A INPUT -p tcp --dport 80 -m string --string "rm -rf" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "rm -rf" --algo bm -j DROP
+    -A INPUT -p tcp --dport 80 -m string --string "/bin/bash" --algo bm -j DROP
+    -A INPUT -p tcp --dport 443 -m string --string "/bin/bash" --algo bm -j DROP
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: omega-firewall-enforcer
+  namespace: akash-services
+spec:
+  selector:
+    matchLabels:
+      app: omega-firewall
+  template:
+    metadata:
+      labels:
+        app: omega-firewall
+    spec:
+      hostNetwork: true
+      containers:
+      - name: firewall-enforcer
+        image: alpine/iptables:latest
+        securityContext:
+          privileged: true
+        command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Applying OMEGA Pro AI Firewall Rules..."
+          
+          # Clear existing rules
+          iptables -F
+          iptables -X
+          iptables -t nat -F
+          iptables -t nat -X
+          iptables -t mangle -F
+          iptables -t mangle -X
+          
+          # Set default policies
+          iptables -P INPUT DROP
+          iptables -P FORWARD DROP
+          iptables -P OUTPUT ACCEPT
+          
+          # Apply firewall rules
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^-A.*$ ]]; then
+              iptables $line
+            fi
+          done < /config/firewall.conf
+          
+          # Apply application firewall rules
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^-A.*$ ]]; then
+              iptables $line
+            fi
+          done < /config/application-firewall.conf
+          
+          echo "Firewall rules applied successfully"
+          
+          # Keep container running
+          tail -f /dev/null
+        volumeMounts:
+        - name: firewall-config
+          mountPath: /config
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: firewall-config
+        configMap:
+          name: omega-firewall-rules
+      tolerations:
+      - operator: Exists

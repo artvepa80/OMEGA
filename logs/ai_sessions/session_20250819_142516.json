@@ -1,0 +1,311 @@
+{
+  "interactions": [
+    {
+      "timestamp": "2025-08-19T14:25:17.567273",
+      "user_input": "Genera 8 combinaciones usando toda tu inteligencia artificial",
+      "intent": "generate_combinations",
+      "confidence": 0.8360655737704918,
+      "ai_results": {
+        "combinations": [
+          {
+            "combination": [
+              "1",
+              "6",
+              "10",
+              "22",
+              "30",
+              "38"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "2",
+              "5",
+              "6",
+              "13",
+              "26",
+              "30"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "3",
+              "9",
+              "28",
+              "31",
+              "34",
+              "37"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "7",
+              "10",
+              "18",
+              "27",
+              "33",
+              "40"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "2",
+              "7",
+              "15",
+              "28",
+              "30",
+              "32"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "1",
+              "6",
+              "13",
+              18,
+              32,
+              "37"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          },
+          {
+            "combination": [
+              1,
+              5,
+              "11",
+              "19",
+              "22",
+              "38"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "3",
+              "21",
+              "26",
+              27,
+              36,
+              "38"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          }
+        ],
+        "analysis": {
+          "ensemble_used": true,
+          "neural_used": true,
+          "pattern_intelligence": {
+            "pattern_complexity": "1.09442535e-05",
+            "attention_focus": "[[0.16667238 0.16667444 0.16667475 0.16667171 0.16666235 0.16664442]\n [0.16667357 0.16667497 0.16667508 0.1666716  0.16666164 0.16664292]\n [0.16667418 0.16667524 0.16667503 0.16667154 0.16666144 0.16664249]\n [0.16667438 0.16667521 0.1666749  0.1666714  0.16666155 0.16664277]\n [0.1666743  0.16667494 0.16667433 0.16667093 0.16666171 0.16664378]\n [0.16667412 0.16667376 0.16667321 0.16667019 0.16666223 0.16664635]]",
+            "sequence_importance": "3.4239608e-12",
+            "ai_confidence": 0.48930907249450684,
+            "predicted_trend": "descending",
+            "intelligence_score": 0.49691343307495117,
+            "recommendations": []
+          }
+        }
+      },
+      "processing_time": 0.211531
+    }
+  ],
+  "learning_data": [
+    {
+      "timestamp": "2025-08-19T14:25:17.778781",
+      "user_input": "Genera 8 combinaciones usando toda tu inteligencia artificial",
+      "intent": "generate_combinations",
+      "confidence": 0.8360655737704918,
+      "ai_results": {
+        "combinations": [
+          {
+            "combination": [
+              "1",
+              "6",
+              "10",
+              "22",
+              "30",
+              "38"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "2",
+              "5",
+              "6",
+              "13",
+              "26",
+              "30"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "3",
+              "9",
+              "28",
+              "31",
+              "34",
+              "37"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "7",
+              "10",
+              "18",
+              "27",
+              "33",
+              "40"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "2",
+              "7",
+              "15",
+              "28",
+              "30",
+              "32"
+            ],
+            "confidence": 0.75,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "frequency_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "1",
+              "6",
+              "13",
+              18,
+              32,
+              "37"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          },
+          {
+            "combination": [
+              1,
+              5,
+              "11",
+              "19",
+              "22",
+              "38"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          },
+          {
+            "combination": [
+              "3",
+              "21",
+              "26",
+              27,
+              36,
+              "38"
+            ],
+            "confidence": 0.7,
+            "method": "ensemble_weighted",
+            "specialists_used": 5,
+            "individual_predictions": [
+              "pattern_specialist"
+            ]
+          }
+        ],
+        "analysis": {
+          "ensemble_used": true,
+          "neural_used": true,
+          "pattern_intelligence": {
+            "pattern_complexity": "1.09442535e-05",
+            "attention_focus": "[[0.16667238 0.16667444 0.16667475 0.16667171 0.16666235 0.16664442]\n [0.16667357 0.16667497 0.16667508 0.1666716  0.16666164 0.16664292]\n [0.16667418 0.16667524 0.16667503 0.16667154 0.16666144 0.16664249]\n [0.16667438 0.16667521 0.1666749  0.1666714  0.16666155 0.16664277]\n [0.1666743  0.16667494 0.16667433 0.16667093 0.16666171 0.16664378]\n [0.16667412 0.16667376 0.16667321 0.16667019 0.16666223 0.16664635]]",
+            "sequence_importance": "3.4239608e-12",
+            "ai_confidence": 0.48930907249450684,
+            "predicted_trend": "descending",
+            "intelligence_score": 0.49691343307495117,
+            "recommendations": []
+          }
+        }
+      }
+    }
+  ],
+  "performance_metrics": {},
+  "user_preferences": {}
+}

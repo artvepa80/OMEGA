@@ -1,0 +1,30 @@
+//
+//  Staging-Info.pch
+//  OMEGA Pro AI - Staging Info.plist Prefix Header
+//
+//  Preprocessor definitions for staging environment
+//
+
+// MARK: - Environment Configuration
+#define OMEGA_ENVIRONMENT_STRING @"staging"
+#define OMEGA_API_BASE_URL_STRING @"https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online"
+#define OMEGA_ALLOW_INSECURE_HTTP_BOOL NO
+#define OMEGA_SSL_PINNING_ENABLED_BOOL YES
+#define OMEGA_ALLOW_SELF_SIGNED_BOOL YES
+
+// MARK: - App Configuration
+#define OMEGA_APP_DISPLAY_NAME @"OMEGA PRO AI (STAGING)"
+#define OMEGA_BUNDLE_SUFFIX @".staging"
+
+// MARK: - Feature Flags
+#define OMEGA_ANALYTICS_ENABLED_BOOL YES
+#define OMEGA_DEBUG_MENU_ENABLED_BOOL YES
+#define OMEGA_CRASH_REPORTING_ENABLED_BOOL YES
+#define OMEGA_LOGGING_LEVEL_STRING @"info"
+
+// MARK: - Network Configuration
+#define OMEGA_NETWORK_TIMEOUT_DOUBLE 30.0
+#define OMEGA_RETRY_ATTEMPTS_INT 3
+
+// MARK: - SSL Configuration
+#define OMEGA_TLS_MIN_VERSION_STRING @"TLSv1.2"

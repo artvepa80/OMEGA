@@ -1,0 +1,382 @@
+{
+  "cycle_number": 3,
+  "timestamp": "2025-08-08T16:08:29.981424",
+  "duration_seconds": 10.8933,
+  "state_analysis": {
+    "basic_memory": {
+      "recent_rewards": [
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994
+      ],
+      "n": 50
+    },
+    "performance_trend": {
+      "trend_type": "stable",
+      "change_percentage": 0.0,
+      "first_half_avg": 0.49999999999999994,
+      "second_half_avg": 0.49999999999999994,
+      "confidence": 1.0
+    },
+    "planner_insights": {
+      "planner_version": "v2",
+      "current_mode": "exploration",
+      "trials_since_recalibration": 0,
+      "successful_configs_count": 0,
+      "best_successful_reward": 0,
+      "active_learning": {
+        "error": "No hay historial de trials"
+      },
+      "drift_detection": {
+        "drift_detected": false,
+        "last_drift_time": null,
+        "drift_count": 0,
+        "baseline_established": false,
+        "samples_collected": 0,
+        "window_size": 50,
+        "drift_threshold": 0.05,
+        "sensitivity": 0.8
+      },
+      "bayesian_optimizer_available": false,
+      "timestamp": "2025-08-08T16:08:30.101509"
+    },
+    "needs_recalibration": true,
+    "cycle_count": 3,
+    "last_recalibration": null,
+    "timestamp": "2025-08-08T16:08:30.101521"
+  },
+  "candidates_generated": 3,
+  "execution_results": [
+    {
+      "signature": "0c3f709de4",
+      "config": {
+        "svi_profile": "default",
+        "ensemble_weights": {
+          "neural_enhanced": 0.44383235084973316,
+          "transformer_deep": 0.17912866873835598,
+          "genetico": 0.15362679276311084,
+          "analizador_200": 0.13003208698850408,
+          "montecarlo": 0.05373713339379411,
+          "lstm_v2": 0.028705941224631704,
+          "clustering": 0.010937026041870157
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_0",
+          "timestamp": "2025-08-08T16:08:30.102714",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 1,
+        "stdout": "\ud83e\udd16 M\u00f3dulos de IA Avanzada cargados correctamente\n\ud83c\udf1f Sistema de Meta-Learning disponible\n\ud83e\udde0 Motor de Aprendizaje Adaptativo disponible\n\ud83d\ude80 Sistema de IA Neuronal Avanzado disponible\n",
+        "stderr": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 152, in <module>\n    from modules.learning.retrotracker import RetroTracker\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/retrotracker.py\", line 11, in <module>\n    from numba import njit\nModuleNotFoundError: No module named 'numba'\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": false,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 3.215268,
+      "candidate_index": 0
+    },
+    {
+      "signature": "6c4dbdff19",
+      "config": {
+        "svi_profile": "aggressive",
+        "ensemble_weights": {
+          "neural_enhanced": 0.4271065023281035,
+          "transformer_deep": 0.15980853437100012,
+          "genetico": 0.17561444494212544,
+          "analizador_200": 0.14834718529753077,
+          "montecarlo": 0.050579230197200946,
+          "lstm_v2": 0.02674285681483994,
+          "clustering": 0.011801246049199347
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_1",
+          "timestamp": "2025-08-08T16:08:30.102716",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 1,
+        "stdout": "\ud83e\udd16 M\u00f3dulos de IA Avanzada cargados correctamente\n\ud83c\udf1f Sistema de Meta-Learning disponible\n\ud83e\udde0 Motor de Aprendizaje Adaptativo disponible\n\ud83d\ude80 Sistema de IA Neuronal Avanzado disponible\n",
+        "stderr": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 152, in <module>\n    from modules.learning.retrotracker import RetroTracker\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/retrotracker.py\", line 11, in <module>\n    from numba import njit\nModuleNotFoundError: No module named 'numba'\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": false,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 4.879992,
+      "candidate_index": 1
+    },
+    {
+      "signature": "85f8eb48e9",
+      "config": {
+        "svi_profile": "aggressive",
+        "ensemble_weights": {
+          "neural_enhanced": 0.4478028793046901,
+          "transformer_deep": 0.1657658060996923,
+          "genetico": 0.14745432383294016,
+          "analizador_200": 0.13740174073402955,
+          "montecarlo": 0.059385970151279104,
+          "lstm_v2": 0.031840576504222846,
+          "clustering": 0.010348703373145928
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_2",
+          "timestamp": "2025-08-08T16:08:30.102717",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 1,
+        "stdout": "\ud83e\udd16 M\u00f3dulos de IA Avanzada cargados correctamente\n\ud83c\udf1f Sistema de Meta-Learning disponible\n\ud83e\udde0 Motor de Aprendizaje Adaptativo disponible\n\ud83d\ude80 Sistema de IA Neuronal Avanzado disponible\n",
+        "stderr": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 152, in <module>\n    from modules.learning.retrotracker import RetroTracker\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/retrotracker.py\", line 11, in <module>\n    from numba import njit\nModuleNotFoundError: No module named 'numba'\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": false,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 2.642252,
+      "candidate_index": 2
+    }
+  ],
+  "evaluation": {
+    "chosen_signature": "6c4dbdff19",
+    "chosen_config": {
+      "svi_profile": "aggressive",
+      "ensemble_weights": {
+        "neural_enhanced": 0.4271065023281035,
+        "transformer_deep": 0.15980853437100012,
+        "genetico": 0.17561444494212544,
+        "analizador_200": 0.14834718529753077,
+        "montecarlo": 0.050579230197200946,
+        "lstm_v2": 0.02674285681483994,
+        "clustering": 0.011801246049199347
+      },
+      "filters": {
+        "max_consecutivos": 3,
+        "par_impar_balance": true
+      },
+      "seeds": [
+        null
+      ],
+      "proposal_metadata": {
+        "mode": "active_learning",
+        "proposal_id": "active_learning_1",
+        "timestamp": "2025-08-08T16:08:30.102716",
+        "planner_version": "v2"
+      }
+    },
+    "chosen_reward": 0.49999999999999994,
+    "metrics": {
+      "average_reward": 0.49999999999999994,
+      "best_reward": 0.49999999999999994,
+      "worst_reward": 0.49999999999999994,
+      "reward_std": 0.0,
+      "quality_rate": 0.0,
+      "average_execution_time": 3.5791706666666663
+    },
+    "performance_indicators": {
+      "all_quality_ok": false,
+      "significant_improvement": false,
+      "consistent_performance": true
+    }
+  },
+  "learning": {
+    "cycle_number": 3,
+    "learning_insights": [
+      {
+        "source": "planner_v2",
+        "insights": {
+          "planner_version": "v2",
+          "current_mode": "active_learning",
+          "trials_since_recalibration": 1,
+          "successful_configs_count": 0,
+          "best_successful_reward": 0,
+          "active_learning": {
+            "total_trials": 3,
+            "exploration_count": 3,
+            "exploitation_count": 0,
+            "exploration_ratio": 1.0,
+            "best_reward": 0.49999999999999994,
+            "average_reward": 0.49999999999999994,
+            "reward_std": 0.0,
+            "improvement_percentage": 0,
+            "learning_trend": "stable",
+            "strategy": "uncertainty_sampling",
+            "current_exploration_rate": 0.4
+          },
+          "drift_detection": {
+            "drift_detected": false,
+            "last_drift_time": null,
+            "drift_count": 0,
+            "baseline_established": false,
+            "samples_collected": 1,
+            "window_size": 50,
+            "drift_threshold": 0.05,
+            "sensitivity": 0.8
+          },
+          "bayesian_optimizer_available": false,
+          "timestamp": "2025-08-08T16:08:40.873983"
+        }
+      },
+      {
+        "source": "config_patterns",
+        "insights": {
+          "pattern": "no_successful_configs"
+        }
+      },
+      {
+        "source": "performance_analysis",
+        "insights": {
+          "current_performance": 0.49999999999999994,
+          "performance_trend": "insufficient_data",
+          "consistency": "high",
+          "quality_stability": "unstable"
+        }
+      }
+    ],
+    "key_learnings": [
+      "Planner operando en modo: active_learning"
+    ],
+    "timestamp": "2025-08-08T16:08:40.873997"
+  },
+  "adaptation": {
+    "adaptations_applied": [
+      "applied_best_configuration",
+      "critic_reflection_logged",
+      "auto_retraining_scheduled",
+      "recalibration_triggered"
+    ],
+    "timestamp": "2025-08-08T16:08:40.874722"
+  },
+  "version": "v2",
+  "v3_enhancements": {
+    "deep_reflection": {
+      "executed": true,
+      "quality": "poor",
+      "insights_count": 0,
+      "recommendations_count": 1,
+      "reflection_id": "reflection_20250808_160840"
+    },
+    "meta_learning": {
+      "insufficient_data": true
+    },
+    "explainability": {
+      "executed": true,
+      "report_generated": true,
+      "report_path": "outputs/omega_v3_report_cycle_0003.html",
+      "reflection_included": true
+    },
+    "auto_improvement": {
+      "executed": true,
+      "improvements_applied": [],
+      "improvement_count": 0,
+      "timestamp": "2025-08-08T16:08:40.876948"
+    }
+  },
+  "v3_duration": 10.895529,
+  "v3_version": "3.0"
+}

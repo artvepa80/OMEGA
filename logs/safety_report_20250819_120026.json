@@ -1,0 +1,447 @@
+{
+  "timestamp": "2025-08-19T12:00:26.953666",
+  "risk_level": "CRITICAL",
+  "system_snapshot": {
+    "timestamp": "2025-08-19T12:00:24.681266",
+    "git_commit": "0ae605e7f41a3fe420ad572abd1ee877f82638d7",
+    "file_checksums": {
+      "main.py": "e0942a4dae1c7341af03ee783102577d1c1fc2951185744f0ddbb8deaca576e6",
+      "api_simple.py": "86d950b453c2f5fd44d50740fefa27b09fde1be767f986d2bd5563ca3e2aa44b",
+      "core/consensus_engine.py": "69b986313bef05f532c0681ce968b0e87c3d537404a554e7cc3f097d9e52d11d",
+      "core/predictor.py": "baa5d25a8de7cc6647c785c5cbd23835760d18f36102b7b21808dd3b43342e25",
+      "deploy/production-akash-secure.yaml": "cabb0d69837f348bf11a35537af0287e77a7bd52954282846cc98e8532150921",
+      "requirements.txt": "309861439bd9b0072851a8092bd8d7c0f62346182371ca86bea9c55d57c21ca1"
+    },
+    "environment_vars": {},
+    "running_processes": [
+      "user             33619   1.6  0.0 410743472   2640   ??  Ss   12:00PM   0:00.01 /bin/zsh -c -l source /Users/user/.claude/shell-snapshots/snapshot-zsh-1755450742451-zr7gia.sh && eval 'python3 deployment_safety_automation.py --assessment' \\< /dev/null && pwd -P >| /var/folders/qc/cgsp5sjn3_v9drrs6mx0x68w0000gn/T/claude-0dd8-cwd"
+    ],
+    "api_health": {
+      "status": "unreachable",
+      "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101ac97f0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+    },
+    "resource_usage": {
+      "cpu_percent": 0.0,
+      "memory_percent": 79.4,
+      "disk_percent": 24.6
+    }
+  },
+  "safety_checks": {
+    "total": 5,
+    "passed": 0,
+    "warnings": 1,
+    "failures": 4,
+    "details": [
+      {
+        "check_name": "dangerous_imports",
+        "status": "fail",
+        "message": "Found 6 dangerous import patterns",
+        "details": {
+          "dangerous_imports": [
+            {
+              "file": "results/omega_deployment_automation.py",
+              "line": 420,
+              "pattern": "from main import",
+              "code": "from main import main as omega_main"
+            },
+            {
+              "file": "results/omega_deployment_automation.py",
+              "line": 420,
+              "pattern": "import main",
+              "code": "from main import main as omega_main"
+            },
+            {
+              "file": "results/omega_scheduler.py",
+              "line": 206,
+              "pattern": "from main import",
+              "code": "from main import main as omega_main"
+            },
+            {
+              "file": "results/omega_scheduler.py",
+              "line": 206,
+              "pattern": "import main",
+              "code": "from main import main as omega_main"
+            },
+            {
+              "file": "results/omega_scheduler.py",
+              "line": 384,
+              "pattern": "from main import",
+              "code": "from main import main as omega_main"
+            },
+            {
+              "file": "results/omega_scheduler.py",
+              "line": 384,
+              "pattern": "import main",
+              "code": "from main import main as omega_main"
+            }
+          ]
+        },
+        "timestamp": "2025-08-19T12:00:24.700862"
+      },
+      {
+        "check_name": "api_conflicts",
+        "status": "fail",
+        "message": "Found 27 API endpoint conflicts",
+        "details": {
+          "conflicts": [
+            {
+              "endpoint": "/",
+              "file1": "api_ios_test.py",
+              "file2": "api_simple.py"
+            },
+            {
+              "endpoint": "/health",
+              "file1": "api_ios_test.py",
+              "file2": "api_simple.py"
+            },
+            {
+              "endpoint": "/status",
+              "file1": "api_ios_test.py",
+              "file2": "api_simple.py"
+            },
+            {
+              "endpoint": "/auth/login",
+              "file1": "api_ios_test.py",
+              "file2": "api_simple.py"
+            },
+            {
+              "endpoint": "/status",
+              "file1": "api_ios_test.py",
+              "file2": "api_interface.py"
+            },
+            {
+              "endpoint": "/",
+              "file1": "api_ios_test.py",
+              "file2": "api_main.py"
+            },
+            {
+              "endpoint": "/health",
+              "file1": "api_ios_test.py",
+              "file2": "api_main.py"
+            },
+            {
+              "endpoint": "/",
+              "file1": "api_ios_test.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/health",
+              "file1": "api_ios_test.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/status",
+              "file1": "api_ios_test.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/predictions",
+              "file1": "api_simple.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/auth/login",
+              "file1": "api_ios_test.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/predictions",
+              "file1": "api_simple.py",
+              "file2": "api_interface_railway.py"
+            },
+            {
+              "endpoint": "/",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "endpoint": "/health",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "endpoint": "/predict",
+              "file1": "api_main.py",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "endpoint": "/status",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "endpoint": "/predict",
+              "file1": "api_main.py",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "endpoint": "/health",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/predict",
+              "file1": "api_main.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/sorteos",
+              "file1": "results/api_production_unified.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/sorteo/hoy",
+              "file1": "results/api_production_unified.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/predict/{fecha}",
+              "file1": "results/api_production_unified.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/status",
+              "file1": "api_ios_test.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/predict",
+              "file1": "api_main.py",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "endpoint": "/admin/setup-cron",
+              "file1": "results/api_production_unified.py",
+              "file2": "results/api_kabala_integration.py"
+            }
+          ]
+        },
+        "timestamp": "2025-08-19T12:00:24.705707"
+      },
+      {
+        "check_name": "environment_conflicts",
+        "status": "warning",
+        "message": "Found 26 environment variable conflicts",
+        "details": {
+          "conflicts": [
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "PORT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "WORKERS",
+              "file": "results/api_production_unified.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "PORT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "WORKERS",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/omega_deployment_automation.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "PORT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "ENVIRONMENT",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            },
+            {
+              "variable": "WORKERS",
+              "file": "results/api_kabala_integration.py",
+              "type": "potential_override"
+            }
+          ]
+        },
+        "timestamp": "2025-08-19T12:00:24.707074"
+      },
+      {
+        "check_name": "port_conflicts",
+        "status": "fail",
+        "message": "Multiple services trying to use same ports",
+        "details": {
+          "conflicts": [
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/api_production_unified.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/omega_deployment_automation.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/omega_deployment_automation.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/omega_deployment_automation.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/omega_deployment_automation.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/api_kabala_integration.py"
+            },
+            {
+              "port": "8000",
+              "file1": "current_system",
+              "file2": "results/api_kabala_integration.py"
+            }
+          ]
+        },
+        "timestamp": "2025-08-19T12:00:24.708719"
+      },
+      {
+        "check_name": "resource_requirements",
+        "status": "fail",
+        "message": "Insufficient resources for safe integration",
+        "details": {
+          "current_memory_percent": 80.2,
+          "current_cpu_percent": 31.8,
+          "projected_memory_percent": 2580.2,
+          "projected_cpu_percent": 41.8,
+          "disk_usage_percent": 24.6
+        },
+        "timestamp": "2025-08-19T12:00:25.714262"
+      }
+    ]
+  },
+  "recommendations": [
+    "\ud83d\udea8 DO NOT PROCEED with integration until critical issues are resolved",
+    "\ud83d\udd27 Fix all failing safety checks before continuing",
+    "\u26a0\ufe0f Address warnings before production deployment",
+    "\ud83d\udccb Create integration branch for safe testing",
+    "\ud83e\uddea Set up parallel testing environment",
+    "\ud83d\udcca Implement comprehensive monitoring",
+    "\ud83d\udd04 Prepare automated rollback procedures"
+  ],
+  "next_steps": [
+    "1. Review all failed safety checks",
+    "2. Implement fixes for critical issues",
+    "3. Create isolated integration environment",
+    "4. Perform gradual, monitored integration",
+    "5. Maintain rollback capability at all times"
+  ]
+}

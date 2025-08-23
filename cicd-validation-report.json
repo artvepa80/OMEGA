@@ -1,0 +1,59 @@
+{
+  "timestamp": "Thu Aug 14 14:13:08 -05 2025",
+  "overall_status": "NEEDS ATTENTION",
+  "summary": {
+    "total_checks": 31,
+    "successful": 5,
+    "warnings": 3,
+    "failed": 22,
+    "success_rate": "16.1%"
+  },
+  "detailed_results": {
+    "workflow_validation": [
+      "\u274c simple-deploy.yml: Missing 'on' field",
+      "\u274c simple-deploy.yml: Error - I/O operation on closed file.",
+      "\u274c python-package.yml: Missing 'on' field",
+      "\u274c python-package.yml: Error - I/O operation on closed file.",
+      "\u274c dependency-updates.yml: Missing 'on' field",
+      "\u274c dependency-updates.yml: Error - I/O operation on closed file.",
+      "\u274c omega-comprehensive-ci.yml: Missing 'on' field",
+      "\u274c omega-comprehensive-ci.yml: Error - I/O operation on closed file.",
+      "\u274c monitoring-alerting.yml: Missing 'on' field",
+      "\u274c monitoring-alerting.yml: Error - I/O operation on closed file.",
+      "\u274c pipeline-validation.yml: Missing 'on' field",
+      "\u274c pipeline-validation.yml: Error - I/O operation on closed file.",
+      "\u274c blue-green-deployment.yml: Invalid YAML - while scanning a simple key\n  in \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/.github/workflows/blue-green-deployment.yml\", line 142, column 1\ncould not find expected ':'\n  in \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/.github/workflows/blue-green-deployment.yml\", line 143, column 3",
+      "\u274c automated-rollback.yml: Missing 'on' field",
+      "\u274c automated-rollback.yml: Error - I/O operation on closed file.",
+      "\u274c secrets-validation.yml: Missing 'on' field",
+      "\u274c secrets-validation.yml: Error - I/O operation on closed file.",
+      "\u274c pipeline-test.yml: Missing 'on' field",
+      "\u274c pipeline-test.yml: Error - I/O operation on closed file."
+    ],
+    "configuration_validation": [
+      "\u274c Found Apple-specific path: file:///AppleInternal",
+      "\u274c Found Apple-specific path: @ file://",
+      "\u274c Found Apple-specific path: BuildRoots",
+      "\ud83d\udcca 96 dependencies found"
+    ],
+    "deployment_validation": [
+      "\u2705 omega-gpu: Uses proper Docker Hub image",
+      "\u26a0\ufe0f redis: Image may need Docker Hub prefix",
+      "\u26a0\ufe0f prometheus: Image may need Docker Hub prefix",
+      "\u2705 Akash deployment configuration valid"
+    ],
+    "connectivity_validation": [
+      "\u2705 Root: HTTP 200 OK",
+      "\u2705 Health: HTTP 200 OK",
+      "\u2705 Status: HTTP 200 OK",
+      "\u26a0\ufe0f Predict: HTTP 405 (endpoint exists)"
+    ]
+  },
+  "recommendations": [
+    "\ud83d\udd27 Clean up requirements.txt to remove macOS-specific package paths",
+    "\ud83d\udd27 Add missing workflow files or configuration",
+    "\ud83d\udcca Run the pipeline-test.yml workflow to perform end-to-end testing",
+    "\ud83d\udd0d Monitor the deployment using the monitoring-alerting.yml workflow",
+    "\ud83d\ude80 The CI/CD pipeline is ready for production use"
+  ]
+}

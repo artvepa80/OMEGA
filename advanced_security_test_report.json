@@ -1,0 +1,136 @@
+{
+  "test_execution": {
+    "start_time": "2025-08-13T16:19:24.562157",
+    "end_time": "2025-08-13T16:19:39.732404",
+    "duration_seconds": 15.170247,
+    "test_suite": "Advanced Security Testing Suite v1.0"
+  },
+  "security_assessment": {
+    "overall_score": 80,
+    "security_grade": "B",
+    "production_ready": true,
+    "vulnerabilities_found": 2,
+    "critical_vulnerabilities": 0,
+    "high_vulnerabilities": 0,
+    "medium_vulnerabilities": 2,
+    "low_vulnerabilities": 0
+  },
+  "vulnerability_summary": {
+    "critical": [],
+    "high": [],
+    "medium": [
+      {
+        "type": "Missing CSRF Protection",
+        "endpoint": "http://localhost:8001/api/v1/predict",
+        "severity": "MEDIUM",
+        "evidence": "No CSRF protection headers detected",
+        "cvss_score": 5.4,
+        "recommendation": "Implement CSRF tokens for state-changing operations"
+      },
+      {
+        "type": "Insufficient Rate Limiting",
+        "endpoint": "http://localhost:8001/api/v1/predict",
+        "severity": "MEDIUM",
+        "evidence": "20/20 requests succeeded without rate limiting",
+        "cvss_score": 4.3,
+        "recommendation": "Implement stricter rate limiting"
+      }
+    ],
+    "low": []
+  },
+  "detailed_results": {
+    "SQL Injection Testing": {
+      "test_type": "SQL Injection",
+      "vulnerabilities": [],
+      "tests_performed": 50,
+      "endpoints_tested": [
+        "http://localhost:8001/api/v1/predict",
+        "http://localhost:8001/api/v1/historical",
+        "http://localhost:8001/api/v1/results",
+        "http://localhost:8001/health",
+        "http://localhost:8001/metrics",
+        "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/api/v1/predict",
+        "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/api/v1/historical",
+        "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/api/v1/results",
+        "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/health",
+        "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online/metrics"
+      ],
+      "status": "SECURE"
+    },
+    "Cross-Site Scripting (XSS) Testing": {
+      "test_type": "Cross-Site Scripting (XSS)",
+      "vulnerabilities": [],
+      "tests_performed": 30,
+      "status": "SECURE"
+    },
+    "CSRF Protection Testing": {
+      "test_type": "CSRF Protection",
+      "vulnerabilities": [
+        {
+          "type": "Missing CSRF Protection",
+          "endpoint": "http://localhost:8001/api/v1/predict",
+          "severity": "MEDIUM",
+          "evidence": "No CSRF protection headers detected",
+          "cvss_score": 5.4,
+          "recommendation": "Implement CSRF tokens for state-changing operations"
+        }
+      ],
+      "tests_performed": 1,
+      "status": "VULNERABLE"
+    },
+    "API Rate Limiting Testing": {
+      "test_type": "Rate Limiting",
+      "vulnerabilities": [
+        {
+          "type": "Insufficient Rate Limiting",
+          "endpoint": "http://localhost:8001/api/v1/predict",
+          "severity": "MEDIUM",
+          "evidence": "20/20 requests succeeded without rate limiting",
+          "cvss_score": 4.3,
+          "recommendation": "Implement stricter rate limiting"
+        }
+      ],
+      "tests_performed": 40,
+      "status": "VULNERABLE"
+    },
+    "Input Validation Testing": {
+      "test_type": "Input Validation",
+      "vulnerabilities": [],
+      "tests_performed": 5,
+      "status": "SECURE"
+    },
+    "Business Logic Testing": {
+      "test_type": "Business Logic",
+      "vulnerabilities": [],
+      "tests_performed": 4,
+      "status": "SECURE"
+    },
+    "Infrastructure Security Testing": {
+      "test_type": "Infrastructure Security",
+      "vulnerabilities": [],
+      "tests_performed": 1,
+      "status": "SECURE"
+    },
+    "Session Management Testing": {
+      "test_type": "Session Management",
+      "vulnerabilities": [],
+      "tests_performed": 1,
+      "status": "SECURE"
+    }
+  },
+  "testing_metrics": {
+    "total_tests_performed": 132,
+    "test_categories": 8,
+    "categories_with_issues": 2,
+    "test_coverage": "Comprehensive API and Infrastructure Testing"
+  },
+  "recommendations": [
+    "\ud83d\udd10 Implement CSRF tokens for state-changing operations",
+    "\u23f1\ufe0f Implement appropriate rate limiting and throttling",
+    "\ud83d\udd0d Conduct regular security assessments and penetration testing",
+    "\ud83d\udcca Implement security monitoring and logging",
+    "\ud83d\udee0\ufe0f Keep all dependencies and frameworks updated",
+    "\ud83d\udd12 Consider implementing a Web Application Firewall (WAF)",
+    "\ud83d\udc65 Provide security training for development team"
+  ]
+}

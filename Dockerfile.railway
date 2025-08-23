@@ -1,0 +1,80 @@
+# OMEGA PRO AI v10.1 - Simple Railway Deployment (Optimized)
+# Etapa 1: Builder (instala dependencias con cache Railway)
+FROM python:3.11-slim AS builder
+
+ARG OMEGA_VERSION=v10.1
+ARG RAILWAY_SERVICE_ID  # Para cache mount
+
+WORKDIR /app
+
+# Copy requirements first for caching
+COPY requirements.txt ./
+
+# Install deps con cache mount y limpieza (best practice Railway)
+RUN --mount=type=cache,id=s/${RAILWAY_SERVICE_ID}-/root/cache/pip,target=/root/.cache/pip \
+    apt-get update && apt-get install -y --no-install-recommends \
+        build-essential && \
+    pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://download.pytorch.org/whl/rocm && \
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove -y && apt-get clean
+
+# Etapa 2: Runtime
+FROM python:3.11-slim
+
+ARG OMEGA_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
+ARG RAILWAY_ENVIRONMENT
+
+ENV OMEGA_VERSION=${OMEGA_VERSION}
+ENV OMEGA_COMPLETE=true
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+ENV PORT=8000
+
+# Labels para best practices (traceability)
+LABEL org.opencontainers.image.title="OMEGA PRO AI"
+LABEL org.opencontainers.image.version="${OMEGA_VERSION}"
+LABEL org.opencontainers.image.description="Simple Railway deployment for Omega"
+LABEL org.opencontainers.image.created="${BUILD_DATE}"
+LABEL org.opencontainers.image.revision="${VCS_REF}"
+LABEL org.opencontainers.image.source="https://github.com/artvepa80/OMEGA_PRO_AI_v10.1"
+
+# Install runtime essentials con limpieza
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl git && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
+
+# Create non-root user para seguridad
+RUN useradd -m -u 1001 omegauser && \
+    mkdir -p /app && \
+    chown omegauser:omegauser /app
+
+WORKDIR /app
+
+# Copy deps from builder
+COPY --from=builder --chown=omegauser:omegauser /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder --chown=omegauser:omegauser /usr/local/bin /usr/local/bin
+
+# Copy project
+COPY --chown=omegauser:omegauser . .
+
+# Create dirs (soporte para volumes si usas Compose en Railway)
+RUN mkdir -p logs outputs results temp export reports performance_reports && \
+    chown -R omegauser:omegauser /app
+
+# Switch to non-root
+USER omegauser
+
+# Expose port (Railway usa esto auto)
+EXPOSE ${PORT}
+
+# Healthcheck simple (curl a /health con test imports, asume endpoint en main.py)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/health || exit 1; python3 -c "import sys; sys.path.append('/app'); try: from main import some_func; print('Core OK'); except: print('Core warn');" || exit 0
+
+# CMD mejorado (usa nuestro servidor HTTP optimizado)
+CMD ["python3", "omega_server.py"]

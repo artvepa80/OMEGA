@@ -1,0 +1,380 @@
+{
+  "cycle_number": 3,
+  "timestamp": "2025-08-09T11:54:08.434363",
+  "duration_seconds": 1155.37398,
+  "state_analysis": {
+    "basic_memory": {
+      "recent_rewards": [
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997
+      ],
+      "n": 50
+    },
+    "performance_trend": {
+      "trend_type": "stable",
+      "change_percentage": -4.799999999999983,
+      "first_half_avg": 0.49999999999999994,
+      "second_half_avg": 0.47600000000000003,
+      "confidence": 1.0
+    },
+    "planner_insights": {
+      "planner_version": "v2",
+      "current_mode": "exploration",
+      "trials_since_recalibration": 0,
+      "successful_configs_count": 0,
+      "best_successful_reward": 0,
+      "active_learning": {
+        "error": "No hay historial de trials"
+      },
+      "drift_detection": {
+        "drift_detected": false,
+        "last_drift_time": null,
+        "drift_count": 0,
+        "baseline_established": false,
+        "samples_collected": 0,
+        "window_size": 50,
+        "drift_threshold": 0.05,
+        "sensitivity": 0.8
+      },
+      "bayesian_optimizer_available": false,
+      "timestamp": "2025-08-09T11:54:13.577018"
+    },
+    "needs_recalibration": true,
+    "cycle_count": 3,
+    "last_recalibration": null,
+    "timestamp": "2025-08-09T11:54:13.577043"
+  },
+  "candidates_generated": 3,
+  "execution_results": [
+    {
+      "signature": "5554a607a5",
+      "config": {
+        "svi_profile": "neural_optimized",
+        "ensemble_weights": {
+          "neural_enhanced": 0.46680800740641676,
+          "transformer_deep": 0.18571907652106284,
+          "genetico": 0.15178384205066786,
+          "analizador_200": 0.10627712076270417,
+          "montecarlo": 0.04744060870294222,
+          "lstm_v2": 0.031117207215318365,
+          "clustering": 0.01085413734088785
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_0",
+          "timestamp": "2025-08-09T11:54:13.650363",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "01_noseed.csv\n2025-08-09 12:00:07 [INFO    ] [OmegaPredictor:436] \ud83d\udcc8 Mejora total del fitness: 4915.6 (94.0%)\n2025-08-09 12:00:08,274 - INFO - \ud83d\ude80 Starting score_combinations\n2025-08-09 12:00:08,274 - INFO - \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:00:08,275 - INFO - \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:00:08,277 - INFO - \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:00:09,990 - INFO - \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:00:10,677 - INFO - \ud83d\udcca Scoring metrics and summary saved to logs/20250809_120010_98592\n2025-08-09 12:00:10,678 - INFO - \u2705 Scored 23 combinations, rejected 0\n2025-08-09 12:00:10 [INFO    ] [OmegaPredictor:583] \u2705 23 combinaciones gen\u00e9ticas generadas en 98.38s\n2025-08-09 12:00:11 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:00:11 [INFO    ] [OmegaPredictor:508] \u2705 Ghost RNG: 1 combos\n2025-08-09 12:00:11,407 - INFO - \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:00:11 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:00:12,095 - WARNING - \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:00:12 [INFO    ] [OmegaPredictor:558] \u2705 Minado inverso: 1 combos\n2025-08-09 12:00:12 [INFO    ] [OmegaPredictor:114] \ud83d\ude80 Starting score_combinations\n2025-08-09 12:00:12 [INFO    ] [OmegaPredictor:120] \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:00:12 [INFO    ] [OmegaPredictor:168] \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:00:12 [INFO    ] [OmegaPredictor:175] \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:00:13 [INFO    ] [OmegaPredictor:225] \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [3, 25, 31, 33, 35, 37], Score: 0.0000, Reasons: 0.7999999999999999\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [5, 7, 9, 14, 19, 24], Score: 0.0000, Reasons: 0.65\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [2, 8, 15, 16, 24, 28], Score: 0.0000, Reasons: 0.7499999999999999\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [4, 14, 16, 19, 20, 21], Score: 0.0000, Reasons: 0.7\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [5, 10, 18, 19, 20, 21], Score: 0.0000, Reasons: 0.7\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [13, 14, 15, 16, 19, 25], Score: 0.0000, Reasons: 0.65\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [16, 17, 19, 23, 25, 26], Score: 0.0000, Reasons: 0.75\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 7, 13, 19, 25, 31], Score: 0.0000, Reasons: 0.7\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 2, 3, 4, 5, 6], Score: 0.0000, Reasons: 0.45\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:425] \ud83d\udcca Scoring metrics and summary saved to logs/20250809_120017_98592\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:426] \u2705 Scored 146 combinations, rejected 9\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:1115] \u2705 Dynamic scoring aplicado\n2025-08-09 12:00:17,288 - INFO - \ud83d\udd22 Binarizador ajustado a 40 clases\n2025-08-09 12:00:17,354 - INFO - \u2705 Modelo entrenado: 100 muestras, 59 caracter\u00edsticas, 2 clases\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:1135] \u2699\ufe0f GBoost auto-fitted con dummy data\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:1143] \u2705 GBoost aplicado a 146 combos\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:1164] \u2705 Perfilado aplicado a 146 combos\n2025-08-09 12:00:17,379 - ERROR - Error al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:00:17,401 - ERROR - \u274c Error cr\u00edtico al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/evaluation/evaluador_inteligente.py\", line 58, in _cargar_modelo\n    modelo.load(str(self.model_path))\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:00:17 [WARNING ] [OmegaPredictor:1187] \u26a0\ufe0f EvaluadorInteligente omitido: Error al cargar modelo: No module named '_loss'\n2025-08-09 12:00:17,418 - INFO - \ud83d\udd0d Core set (top 6): [6, 12, 18, 24, 29, 30]\n2025-08-09 12:00:17 [INFO    ] [OmegaPredictor:1197] \ud83d\udd0d Core_set calculado: [6, 12, 18, 24, 29, 30]\n2025-08-09 12:00:17,418 - ERROR - \u26a0\ufe0f Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 886, in main\n    combinaciones_finales = predictor.run_all_models()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 1204, in run_all_models\n    combinaciones = self.filtrar_combinaciones(combinaciones)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 600, in filtrar_combinaciones\n    token = token_externo or self._obtener_token()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 568, in _obtener_token\n    raise FileNotFoundError(\"\ud83d\udea8 Falta clave de autenticaci\u00f3n\")\nFileNotFoundError: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:00:17,418 - ERROR - \u274c Error tipo: prediction_error\n2025-08-09 12:00:17,418 - ERROR - \ud83d\udcdd Mensaje: Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:00:17,418 - ERROR - \ud83d\udd0d Detalles: Modelos activos: ['consensus', 'ghost_rng', 'inverse_mining', 'lstm_v2', 'montecarlo', 'apriori', 'transformer_deep', 'clustering', 'genetico']\nPerfil SVI: default\nExcepci\u00f3n: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:00:17,421 - WARNING - \u26a0\ufe0f Se devolvi\u00f3 fallback \u2013 revisar logs\n",
+        "stderr": "2025-08-09 11:54:35,415 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 11:54:35,415 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 11:54:35,415 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 11:54:35,417 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 11:54:35,417 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 11:54:35,576 - clustering_engine - WARNING - \u26a0\ufe0f No se encontraron columnas v\u00e1lidas. Usando backup\n2025-08-09 11:54:36,115 - clustering_engine - INFO - [CLUSTER-BACKUP] [3, 17, 18, 20, 25, 28]\n2025-08-09 11:54:36,117 - clustering_engine - INFO - [CLUSTER-BACKUP] [6, 24, 29, 31, 34, 39]\n2025-08-09 11:54:36,119 - clustering_engine - INFO - [CLUSTER-BACKUP] [12, 19, 20, 23, 25, 36]\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 12:00:11,407 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:00:12,095 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:00:17,418 - INFO - \ud83d\udd0d Core set (top 6): [6, 12, 18, 24, 29, 30]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": true,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 365.376988,
+      "candidate_index": 0
+    },
+    {
+      "signature": "d63a3e7523",
+      "config": {
+        "svi_profile": "neural_optimized",
+        "ensemble_weights": {
+          "neural_enhanced": 0.47333303267077964,
+          "transformer_deep": 0.13848589579424314,
+          "genetico": 0.14921217272131604,
+          "analizador_200": 0.14615556338210636,
+          "montecarlo": 0.054993049230828435,
+          "lstm_v2": 0.027193693079688993,
+          "clustering": 0.010626593121037376
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_1",
+          "timestamp": "2025-08-09T11:54:13.650376",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "\u03c3: 2201.1 | Div: 0.973 | Top: 16(18);6(14);21(14);20(12);36(12)\n2025-08-09 12:05:39 [INFO    ] [OmegaPredictor:425] \ud83e\uddec Gen 18/20 | Mejor: 10237.2 | Prom: 5014.4 | \u03c3: 2005.0 | Div: 0.975 | Top: 20(16);15(13);40(13);32(11);25(11)\n2025-08-09 12:05:41 [INFO    ] [OmegaPredictor:425] \ud83e\uddec Gen 19/20 | Mejor: 10237.2 | Prom: 5355.6 | \u03c3: 2308.2 | Div: 0.959 | Top: 20(18);32(15);8(14);24(14);16(14)\n2025-08-09 12:05:43 [INFO    ] [OmegaPredictor:425] \ud83e\uddec Gen 20/20 | Mejor: 10237.2 | Prom: 5242.9 | \u03c3: 2185.0 | Div: 0.973 | Top: 16(19);12(14);20(13);29(11);22(11)\n2025-08-09 12:05:44 [INFO    ] [OmegaPredictor:463] \ud83d\udcca Historial de convergencia guardado en genetic_convergence_20250809_120544_noseed.csv\n2025-08-09 12:06:18 [INFO    ] [OmegaPredictor:436] \ud83d\udcc8 Mejora total del fitness: 4879.9 (91.1%)\n2025-08-09 12:06:18,666 - INFO - \ud83d\ude80 Starting score_combinations\n2025-08-09 12:06:18,668 - INFO - \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:06:18,692 - INFO - \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:06:18,726 - INFO - \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:06:21,127 - INFO - \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:06:22,262 - INFO - \ud83d\udcca Scoring metrics and summary saved to logs/20250809_120622_99648\n2025-08-09 12:06:22,263 - INFO - \u2705 Scored 20 combinations, rejected 0\n2025-08-09 12:06:22 [INFO    ] [OmegaPredictor:583] \u2705 20 combinaciones gen\u00e9ticas generadas en 103.22s\n2025-08-09 12:06:25 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:06:25 [INFO    ] [OmegaPredictor:508] \u2705 Ghost RNG: 1 combos\n2025-08-09 12:06:25,548 - INFO - \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:06:26 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:06:26,632 - WARNING - \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:06:26 [INFO    ] [OmegaPredictor:558] \u2705 Minado inverso: 1 combos\n2025-08-09 12:06:26 [INFO    ] [OmegaPredictor:114] \ud83d\ude80 Starting score_combinations\n2025-08-09 12:06:26 [INFO    ] [OmegaPredictor:120] \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:06:26 [INFO    ] [OmegaPredictor:168] \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:06:26 [INFO    ] [OmegaPredictor:175] \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:06:31 [INFO    ] [OmegaPredictor:225] \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [3, 8, 16, 20, 21, 22], Score: 0.0000, Reasons: 0.75\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [10, 16, 18, 25, 26, 29], Score: 0.0000, Reasons: 0.8\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 7, 13, 19, 25, 31], Score: 0.0000, Reasons: 0.7\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 2, 3, 4, 5, 6], Score: 0.0000, Reasons: 0.45\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:425] \ud83d\udcca Scoring metrics and summary saved to logs/20250809_120637_99648\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:426] \u2705 Scored 108 combinations, rejected 4\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:1115] \u2705 Dynamic scoring aplicado\n2025-08-09 12:06:37,711 - INFO - \ud83d\udd22 Binarizador ajustado a 40 clases\n2025-08-09 12:06:37,822 - INFO - \u2705 Modelo entrenado: 100 muestras, 59 caracter\u00edsticas, 2 clases\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:1135] \u2699\ufe0f GBoost auto-fitted con dummy data\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:1143] \u2705 GBoost aplicado a 108 combos\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:1164] \u2705 Perfilado aplicado a 108 combos\n2025-08-09 12:06:37,903 - ERROR - Error al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:06:37,965 - ERROR - \u274c Error cr\u00edtico al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/evaluation/evaluador_inteligente.py\", line 58, in _cargar_modelo\n    modelo.load(str(self.model_path))\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:06:37 [WARNING ] [OmegaPredictor:1187] \u26a0\ufe0f EvaluadorInteligente omitido: Error al cargar modelo: No module named '_loss'\n2025-08-09 12:06:37,998 - INFO - \ud83d\udd0d Core set (top 6): [3, 9, 14, 16, 22, 30]\n2025-08-09 12:06:37 [INFO    ] [OmegaPredictor:1197] \ud83d\udd0d Core_set calculado: [3, 9, 14, 16, 22, 30]\n2025-08-09 12:06:37,998 - ERROR - \u26a0\ufe0f Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 886, in main\n    combinaciones_finales = predictor.run_all_models()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 1204, in run_all_models\n    combinaciones = self.filtrar_combinaciones(combinaciones)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 600, in filtrar_combinaciones\n    token = token_externo or self._obtener_token()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 568, in _obtener_token\n    raise FileNotFoundError(\"\ud83d\udea8 Falta clave de autenticaci\u00f3n\")\nFileNotFoundError: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:06:37,999 - ERROR - \u274c Error tipo: prediction_error\n2025-08-09 12:06:37,999 - ERROR - \ud83d\udcdd Mensaje: Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:06:37,999 - ERROR - \ud83d\udd0d Detalles: Modelos activos: ['consensus', 'ghost_rng', 'inverse_mining', 'lstm_v2', 'montecarlo', 'apriori', 'transformer_deep', 'clustering', 'genetico']\nPerfil SVI: default\nExcepci\u00f3n: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:06:38,006 - WARNING - \u26a0\ufe0f Se devolvi\u00f3 fallback \u2013 revisar logs\n",
+        "stderr": "2025-08-09 12:00:31,125 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 12:00:31,125 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 12:00:31,125 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 12:00:31,126 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 12:00:31,126 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 12:00:31,234 - clustering_engine - WARNING - \u26a0\ufe0f No se encontraron columnas v\u00e1lidas. Usando backup\n2025-08-09 12:00:31,469 - clustering_engine - INFO - [CLUSTER-BACKUP] [4, 10, 14, 19, 25, 34]\n2025-08-09 12:00:31,474 - clustering_engine - INFO - [CLUSTER-BACKUP] [4, 12, 23, 31, 32, 34]\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 12:06:25,548 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:06:26,632 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:06:37,998 - INFO - \ud83d\udd0d Core set (top 6): [3, 9, 14, 16, 22, 30]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": true,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 383.605642,
+      "candidate_index": 1
+    },
+    {
+      "signature": "9ebec5a78e",
+      "config": {
+        "svi_profile": "default",
+        "ensemble_weights": {
+          "neural_enhanced": 0.4065899596534345,
+          "transformer_deep": 0.16188670764285984,
+          "genetico": 0.1943540020471557,
+          "analizador_200": 0.12374371867756301,
+          "montecarlo": 0.06474842771076529,
+          "lstm_v2": 0.03780627390986529,
+          "clustering": 0.010870910358356491
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_2",
+          "timestamp": "2025-08-09T11:54:13.650377",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "\ud83e\uddec Gen 19/20 | Mejor: 10181.0 | Prom: 5365.0 | \u03c3: 2275.5 | Div: 0.973 | Top: 7(16);20(13);28(13);36(13);22(12)\n2025-08-09 12:11:57 [INFO    ] [OmegaPredictor:425] \ud83e\uddec Gen 20/20 | Mejor: 10181.0 | Prom: 5045.6 | \u03c3: 2017.1 | Div: 0.974 | Top: 20(16);7(15);18(13);34(12);26(12)\n2025-08-09 12:11:57 [INFO    ] [OmegaPredictor:463] \ud83d\udcca Historial de convergencia guardado en genetic_convergence_20250809_121157_noseed.csv\n2025-08-09 12:13:12 [INFO    ] [OmegaPredictor:436] \ud83d\udcc8 Mejora total del fitness: 4843.9 (90.8%)\n2025-08-09 12:13:13,097 - INFO - \ud83d\ude80 Starting score_combinations\n2025-08-09 12:13:13,097 - INFO - \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:13:13,097 - INFO - \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:13:13,098 - INFO - \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:13:14,443 - INFO - \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:13:15,192 - INFO - \ud83d\udcca Scoring metrics and summary saved to logs/20250809_121315_1164\n2025-08-09 12:13:15,192 - INFO - \u2705 Scored 30 combinations, rejected 0\n2025-08-09 12:13:15 [INFO    ] [OmegaPredictor:583] \u2705 30 combinaciones gen\u00e9ticas generadas en 104.04s\n2025-08-09 12:13:15 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:13:15 [INFO    ] [OmegaPredictor:508] \u2705 Ghost RNG: 1 combos\n2025-08-09 12:13:15,821 - INFO - \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:13:16 [ERROR   ] [logger.py:74] \ud83d\udea8 No valid combinations after final filtering, using fallback\n2025-08-09 12:13:16,546 - WARNING - \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:13:16 [INFO    ] [OmegaPredictor:558] \u2705 Minado inverso: 1 combos\n2025-08-09 12:13:16 [INFO    ] [OmegaPredictor:114] \ud83d\ude80 Starting score_combinations\n2025-08-09 12:13:16 [INFO    ] [OmegaPredictor:120] \u2139\ufe0f No core set provided - skipping core bonus\n2025-08-09 12:13:16 [INFO    ] [OmegaPredictor:168] \ud83d\udea8 Historial inv\u00e1lido o vac\u00edo; no se extrae \u00faltimo sorteo\n2025-08-09 12:13:16 [INFO    ] [OmegaPredictor:175] \ud83d\udd2e ARIMA_score calculado: 1.000\n2025-08-09 12:13:17 [INFO    ] [OmegaPredictor:225] \u26a0\ufe0f Could not adjust threshold dynamically: numpy boolean subtract, the `-` operator, is not supported, use the bitwise_xor, the `^` operator, or the logical_xor function instead.\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [3, 25, 31, 33, 35, 37], Score: 0.0000, Reasons: 0.7999999999999999\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [2, 5, 7, 10, 13, 14], Score: 0.0000, Reasons: 0.65\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [10, 14, 16, 21, 26, 27], Score: 0.0000, Reasons: 0.8\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [4, 8, 12, 17, 24, 28], Score: 0.0000, Reasons: 0.7999999999999999\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 2, 3, 4, 5, 6], Score: 0.0000, Reasons: 0.45\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:252] \ud83e\uddf9 Rejected combination: [1, 7, 13, 19, 25, 31], Score: 0.0000, Reasons: 0.7\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:425] \ud83d\udcca Scoring metrics and summary saved to logs/20250809_121321_1164\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:426] \u2705 Scored 165 combinations, rejected 6\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:1115] \u2705 Dynamic scoring aplicado\n2025-08-09 12:13:21,627 - INFO - \ud83d\udd22 Binarizador ajustado a 40 clases\n2025-08-09 12:13:21,694 - INFO - \u2705 Modelo entrenado: 100 muestras, 59 caracter\u00edsticas, 2 clases\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:1135] \u2699\ufe0f GBoost auto-fitted con dummy data\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:1143] \u2705 GBoost aplicado a 165 combos\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:1164] \u2705 Perfilado aplicado a 165 combos\n2025-08-09 12:13:21,721 - ERROR - Error al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:13:21,744 - ERROR - \u274c Error cr\u00edtico al cargar modelo\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/evaluation/evaluador_inteligente.py\", line 58, in _cargar_modelo\n    modelo.load(str(self.model_path))\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/learning/gboost_jackpot_classifier.py\", line 349, in load\n    state = joblib.load(model_path)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 658, in load\n    obj = _unpickle(fobj, filename, mmap_mode)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/joblib/numpy_pickle.py\", line 577, in _unpickle\n    obj = unpickler.load()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1212, in load\n    dispatch[key[0]](self)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1537, in load_stack_global\n    self.append(self.find_class(module, name))\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pickle.py\", line 1579, in find_class\n    __import__(module, level=0)\nModuleNotFoundError: No module named '_loss'\n2025-08-09 12:13:21 [WARNING ] [OmegaPredictor:1187] \u26a0\ufe0f EvaluadorInteligente omitido: Error al cargar modelo: No module named '_loss'\n2025-08-09 12:13:21,762 - INFO - \ud83d\udd0d Core set (top 6): [2, 3, 7, 9, 18, 30]\n2025-08-09 12:13:21 [INFO    ] [OmegaPredictor:1197] \ud83d\udd0d Core_set calculado: [2, 3, 7, 9, 18, 30]\n2025-08-09 12:13:21,763 - ERROR - \u26a0\ufe0f Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 886, in main\n    combinaciones_finales = predictor.run_all_models()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 1204, in run_all_models\n    combinaciones = self.filtrar_combinaciones(combinaciones)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 600, in filtrar_combinaciones\n    token = token_externo or self._obtener_token()\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/core/predictor.py\", line 568, in _obtener_token\n    raise FileNotFoundError(\"\ud83d\udea8 Falta clave de autenticaci\u00f3n\")\nFileNotFoundError: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:13:21,763 - ERROR - \u274c Error tipo: prediction_error\n2025-08-09 12:13:21,763 - ERROR - \ud83d\udcdd Mensaje: Error en predictor: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:13:21,763 - ERROR - \ud83d\udd0d Detalles: Modelos activos: ['consensus', 'ghost_rng', 'inverse_mining', 'lstm_v2', 'montecarlo', 'apriori', 'transformer_deep', 'clustering', 'genetico']\nPerfil SVI: default\nExcepci\u00f3n: \ud83d\udea8 Falta clave de autenticaci\u00f3n\n2025-08-09 12:13:21,765 - WARNING - \u26a0\ufe0f Se devolvi\u00f3 fallback \u2013 revisar logs\n",
+        "stderr": "2025-08-09 12:07:19,986 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 12:07:19,986 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 12:07:19,986 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 12:07:19,987 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 12:07:19,987 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 12:07:20,131 - clustering_engine - WARNING - \u26a0\ufe0f No se encontraron columnas v\u00e1lidas. Usando backup\n2025-08-09 12:07:20,414 - clustering_engine - INFO - [CLUSTER-BACKUP] [2, 9, 11, 15, 31, 33]\n2025-08-09 12:07:20,416 - clustering_engine - INFO - [CLUSTER-BACKUP] [2, 18, 24, 25, 32, 34]\n2025-08-09 12:07:20,422 - clustering_engine - INFO - [CLUSTER-BACKUP] [5, 11, 22, 32, 33, 39]\n2025-08-09 12:07:20,427 - clustering_engine - INFO - [CLUSTER-BACKUP] [2, 6, 9, 17, 18, 35]\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 12:13:15,821 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 12:13:16,546 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 12:13:21,762 - INFO - \ud83d\udd0d Core set (top 6): [2, 3, 7, 9, 18, 30]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.49999999999999994,
+        "quality_ok": true,
+        "signals": {
+          "svi": 0.7,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 400.63792,
+      "candidate_index": 2
+    }
+  ],
+  "evaluation": {
+    "chosen_signature": "d63a3e7523",
+    "chosen_config": {
+      "svi_profile": "neural_optimized",
+      "ensemble_weights": {
+        "neural_enhanced": 0.47333303267077964,
+        "transformer_deep": 0.13848589579424314,
+        "genetico": 0.14921217272131604,
+        "analizador_200": 0.14615556338210636,
+        "montecarlo": 0.054993049230828435,
+        "lstm_v2": 0.027193693079688993,
+        "clustering": 0.010626593121037376
+      },
+      "filters": {
+        "max_consecutivos": 3,
+        "par_impar_balance": true
+      },
+      "seeds": [
+        null
+      ],
+      "proposal_metadata": {
+        "mode": "active_learning",
+        "proposal_id": "active_learning_1",
+        "timestamp": "2025-08-09T11:54:13.650376",
+        "planner_version": "v2"
+      }
+    },
+    "chosen_reward": 0.49999999999999994,
+    "metrics": {
+      "average_reward": 0.49999999999999994,
+      "best_reward": 0.49999999999999994,
+      "worst_reward": 0.49999999999999994,
+      "reward_std": 0.0,
+      "quality_rate": 1.0,
+      "average_execution_time": 383.20685000000003
+    },
+    "performance_indicators": {
+      "all_quality_ok": true,
+      "significant_improvement": false,
+      "consistent_performance": true
+    }
+  },
+  "learning": {
+    "cycle_number": 3,
+    "learning_insights": [
+      {
+        "source": "planner_v2",
+        "insights": {
+          "planner_version": "v2",
+          "current_mode": "active_learning",
+          "trials_since_recalibration": 1,
+          "successful_configs_count": 0,
+          "best_successful_reward": 0,
+          "active_learning": {
+            "total_trials": 3,
+            "exploration_count": 3,
+            "exploitation_count": 0,
+            "exploration_ratio": 1.0,
+            "best_reward": 0.49999999999999994,
+            "average_reward": 0.49999999999999994,
+            "reward_std": 0.0,
+            "improvement_percentage": 0,
+            "learning_trend": "stable",
+            "strategy": "uncertainty_sampling",
+            "current_exploration_rate": 0.4
+          },
+          "drift_detection": {
+            "drift_detected": false,
+            "last_drift_time": null,
+            "drift_count": 0,
+            "baseline_established": false,
+            "samples_collected": 1,
+            "window_size": 50,
+            "drift_threshold": 0.05,
+            "sensitivity": 0.8
+          },
+          "bayesian_optimizer_available": false,
+          "timestamp": "2025-08-09T12:13:23.803629"
+        }
+      },
+      {
+        "source": "config_patterns",
+        "insights": {
+          "pattern": "no_successful_configs"
+        }
+      },
+      {
+        "source": "performance_analysis",
+        "insights": {
+          "current_performance": 0.49999999999999994,
+          "performance_trend": "insufficient_data",
+          "consistency": "high",
+          "quality_stability": "stable"
+        }
+      }
+    ],
+    "key_learnings": [
+      "Planner operando en modo: active_learning"
+    ],
+    "timestamp": "2025-08-09T12:13:23.804681"
+  },
+  "adaptation": {
+    "adaptations_applied": [
+      "applied_best_configuration",
+      "critic_reflection_logged"
+    ],
+    "timestamp": "2025-08-09T12:13:23.808340"
+  },
+  "version": "v2",
+  "v3_enhancements": {
+    "deep_reflection": {
+      "executed": true,
+      "quality": "poor",
+      "insights_count": 0,
+      "recommendations_count": 1,
+      "reflection_id": "reflection_20250809_121323"
+    },
+    "meta_learning": {
+      "insufficient_data": true
+    },
+    "explainability": {
+      "executed": true,
+      "report_generated": true,
+      "report_path": "outputs/omega_v3_report_cycle_0003.html",
+      "reflection_included": true
+    },
+    "auto_improvement": {
+      "executed": true,
+      "improvements_applied": [],
+      "improvement_count": 0,
+      "timestamp": "2025-08-09T12:13:23.827956"
+    }
+  },
+  "v3_duration": 1155.395974,
+  "v3_version": "3.0"
+}

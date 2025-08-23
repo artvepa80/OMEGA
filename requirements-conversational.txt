@@ -1,0 +1,135 @@
+# OMEGA Conversational AI Requirements
+# Complete dependencies for honest statistical communication system
+
+# ============================================================================
+# CORE CONVERSATIONAL SYSTEM
+# ============================================================================
+
+# FastAPI and async web framework
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+pydantic==2.11.7
+
+# HTTP client for async requests
+aiohttp==3.12.1
+async-timeout==4.0.3
+
+# WebSocket support
+websockets==12.0
+
+# ============================================================================
+# CONTEXT STORAGE AND CACHING
+# ============================================================================
+
+# Redis for context persistence (optional, memory fallback available)
+redis==6.4.0
+
+# ============================================================================
+# NATURAL LANGUAGE PROCESSING
+# ============================================================================
+
+# No heavy NLP dependencies - using rule-based intent classification
+# This keeps the system lightweight and fast
+
+# Text normalization and regex (built-in regex module sufficient)
+
+# ============================================================================
+# WHATSAPP AND MESSAGING
+# ============================================================================
+
+# Twilio for WhatsApp integration
+twilio==8.12.0
+
+# Email support
+email-validator==2.1.0
+
+# ============================================================================
+# TESTING FRAMEWORK
+# ============================================================================
+
+# Testing dependencies
+pytest==7.4.4
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Test coverage
+pytest-cov==4.1.0
+
+# ============================================================================
+# DEVELOPMENT AND MONITORING
+# ============================================================================
+
+# Process monitoring
+psutil==7.0.0
+
+# Environment configuration
+python-dotenv==1.0.0
+
+# ============================================================================
+# EXISTING OMEGA DEPENDENCIES (SUBSET)
+# ============================================================================
+
+# Only include what's needed for conversational system
+# Full OMEGA requirements in requirements.txt
+
+# Basic data processing
+numpy==2.0.2
+pandas==2.2.3
+
+# Date/time handling
+python-dateutil==2.9.0.post0
+
+# Configuration management
+click==8.1.7
+
+# HTTP multipart support
+python-multipart==0.0.20
+
+# ============================================================================
+# OPTIONAL PRODUCTION DEPENDENCIES
+# ============================================================================
+
+# Production WSGI server (alternative to uvicorn)
+gunicorn==22.0.0
+
+# JSON processing
+orjson==3.9.15  # Faster JSON parsing
+
+# ============================================================================
+# VERSION CONSTRAINTS FOR STABILITY
+# ============================================================================
+
+# Ensure compatibility with OMEGA core system
+# Pin major versions to avoid breaking changes
+
+# Python version requirement: >=3.9
+
+# ============================================================================
+# INSTALLATION NOTES
+# ============================================================================
+
+# Install core conversational system:
+# pip install -r requirements-conversational.txt
+
+# Install with Redis support:
+# pip install -r requirements-conversational.txt redis
+
+# Install for development:
+# pip install -r requirements-conversational.txt pytest pytest-asyncio
+
+# Install for production:
+# pip install -r requirements-conversational.txt gunicorn
+
+# ============================================================================
+# PERFORMANCE NOTES
+# ============================================================================
+
+# This configuration prioritizes:
+# 1. Lightweight dependencies (no heavy ML libraries)
+# 2. Fast startup time
+# 3. Low memory footprint  
+# 4. Async performance
+# 5. Production stability
+
+# The conversational system is designed to work alongside
+# OMEGA's ML components, not replace them

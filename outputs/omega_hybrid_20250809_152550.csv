@@ -1,0 +1,4 @@
+Num1,Num2,Num3,Num4,Num5,Num6,Fuente,Modelo,Confianza
+1,3,5,17,33,36,hybrid_combination,pipeline_agentic_fusion,0.830
+12,17,30,33,35,36,agentic_v4.0,neural_enhanced_optimized,0.870
+2,3,5,7,23,29,agentic_v4.0,meta_learning_controller,0.810

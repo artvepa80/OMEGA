@@ -1,0 +1,136 @@
+{
+  "base_url": "https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win",
+  "api_key_used": true,
+  "test_results": [
+    {
+      "test": "Health Check",
+      "status": "SUCCESS",
+      "code": 200,
+      "data": {
+        "status": "healthy",
+        "service": "OMEGA PRO AI v10.1",
+        "platform": "Akash Network",
+        "timestamp": "2025-08-19T23:18:37.097111",
+        "uptime": "Active"
+      }
+    },
+    {
+      "test": "Root Info",
+      "status": "SUCCESS",
+      "code": 200,
+      "data": {
+        "message": "\ud83c\udf1f OMEGA PRO AI v10.1 running on Akash Network",
+        "description": "Advanced Lottery Analysis System - Decentralized Deployment",
+        "endpoints": {
+          "health": "/health",
+          "predict": "/predict (POST)",
+          "status": "/status",
+          "docs": "/docs"
+        },
+        "accuracy": "50% validated baseline \u2192 65-70% target"
+      }
+    },
+    {
+      "test": "App Info",
+      "status": "ERROR",
+      "code": 404,
+      "error": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "test": "Basic Prediction",
+      "status": "SUCCESS",
+      "code": 200,
+      "data": {
+        "predictions": [
+          {
+            "combination": [
+              16,
+              18,
+              21,
+              25,
+              31,
+              40
+            ],
+            "score": 0.632,
+            "svi": 0.571,
+            "source": "omega-akash",
+            "timestamp": "2025-08-19T23:18:40.927713"
+          },
+          {
+            "combination": [
+              1,
+              20,
+              22,
+              26,
+              37,
+              38
+            ],
+            "score": 0.622,
+            "svi": 0.58,
+            "source": "omega-akash",
+            "timestamp": "2025-08-19T23:18:40.927758"
+          },
+          {
+            "combination": [
+              9,
+              13,
+              18,
+              31,
+              32,
+              33
+            ],
+            "score": 0.623,
+            "svi": 0.825,
+            "source": "omega-akash",
+            "timestamp": "2025-08-19T23:18:40.927772"
+          },
+          {
+            "combination": [
+              9,
+              10,
+              14,
+              21,
+              25,
+              36
+            ],
+            "score": 0.561,
+            "svi": 0.596,
+            "source": "omega-akash",
+            "timestamp": "2025-08-19T23:18:40.927783"
+          },
+          {
+            "combination": [
+              2,
+              8,
+              16,
+              23,
+              37,
+              40
+            ],
+            "score": 0.612,
+            "svi": 0.781,
+            "source": "omega-akash",
+            "timestamp": "2025-08-19T23:18:40.927792"
+          }
+        ],
+        "count": 5,
+        "platform": "Akash Network",
+        "model": "OMEGA-v10.1-Simplified",
+        "accuracy_baseline": "50%",
+        "status": "success"
+      }
+    },
+    {
+      "test": "Advanced Prediction",
+      "status": "ERROR",
+      "code": 404,
+      "error": "{\"detail\":\"Not Found\"}"
+    }
+  ],
+  "summary": {
+    "total_tests": 5,
+    "successful_tests": 3,
+    "success_rate": 60.0
+  },
+  "timestamp": "2025-08-19T18:18:42.188101"
+}

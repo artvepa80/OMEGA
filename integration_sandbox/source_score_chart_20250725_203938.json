@@ -1,0 +1,52 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "genetico",
+      "default",
+      "clustering",
+      "montecarlo"
+    ],
+    "datasets": [
+      {
+        "label": "Average Score",
+        "data": [
+          44.53111466666666,
+          44.155380888888885,
+          43.875808000000006,
+          43.115758
+        ],
+        "backgroundColor": [
+          "rgba(200, 100, 100, 0.5)",
+          "rgba(199, 199, 199, 0.5)",
+          "rgba(100, 100, 100, 0.5)",
+          "rgba(153, 102, 255, 0.5)"
+        ],
+        "borderColor": [
+          "rgba(200, 100, 100, 1.0)",
+          "rgba(199, 199, 199, 1.0)",
+          "rgba(100, 100, 100, 1.0)",
+          "rgba(153, 102, 255, 1.0)"
+        ],
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "title": {
+          "display": true,
+          "text": "Average Score"
+        }
+      }
+    },
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Average Scores by Source"
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Advanced Mode",
+    "timestamp": "20250808_170427",
+    "total_combinations": 8,
+    "ai_systems_used": [
+      "Redes Neuronales Avanzadas",
+      "Procesamiento de Lenguaje Natural",
+      "Ensemble de IAs Especializadas"
+    ]
+  },
+  "combinations": [
+    {
+      "rank": 1,
+      "combination": [
+        2,
+        12,
+        18,
+        19,
+        21,
+        23
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "weighted_voting",
+      "timestamp": "2025-08-08T17:04:27.598956"
+    },
+    {
+      "rank": 2,
+      "combination": [
+        2,
+        12,
+        18,
+        19,
+        20,
+        21
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "consensus",
+      "timestamp": "2025-08-08T17:04:27.598963"
+    },
+    {
+      "rank": 3,
+      "combination": [
+        2,
+        9,
+        12,
+        18,
+        21,
+        24
+      ],
+      "confidence": 0.6303988307274849,
+      "ai_source": "ai_ensemble",
+      "method": "hybrid",
+      "timestamp": "2025-08-08T17:04:27.598965"
+    },
+    {
+      "rank": 4,
+      "combination": [
+        2,
+        12,
+        19,
+        20,
+        21,
+        23
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "weighted_voting",
+      "timestamp": "2025-08-08T17:04:27.598967"
+    },
+    {
+      "rank": 5,
+      "combination": [
+        2,
+        12,
+        18,
+        19,
+        20,
+        21
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "consensus",
+      "timestamp": "2025-08-08T17:04:27.598970"
+    },
+    {
+      "rank": 6,
+      "combination": [
+        2,
+        9,
+        12,
+        18,
+        21,
+        24
+      ],
+      "confidence": 0.6303988307274849,
+      "ai_source": "ai_ensemble",
+      "method": "hybrid",
+      "timestamp": "2025-08-08T17:04:27.598972"
+    },
+    {
+      "rank": 7,
+      "combination": [
+        2,
+        12,
+        18,
+        19,
+        20,
+        21
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "weighted_voting",
+      "timestamp": "2025-08-08T17:04:27.598974"
+    },
+    {
+      "rank": 8,
+      "combination": [
+        2,
+        12,
+        18,
+        19,
+        20,
+        21
+      ],
+      "confidence": 0.6470654973941515,
+      "ai_source": "ai_ensemble",
+      "method": "consensus",
+      "timestamp": "2025-08-08T17:04:27.598976"
+    }
+  ]
+}

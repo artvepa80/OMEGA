@@ -1,0 +1,34 @@
+{
+  "lstm_config": {
+    "n_steps": 10,
+    "epochs": 50,
+    "batch_size": 32,
+    "min_history": 200
+  },
+  "ghost_rng_params": {
+    "max_seeds": 16,
+    "cantidad_por_seed": 8,
+    "training_mode": true
+  },
+  "inverse_mining_params": {
+    "boost_strategy": "medium_values",
+    "penalize": [1,2,3,4],
+    "focus_positions": ["B2", "B4"],
+    "count": 10
+  },
+  "usar_modelos": {
+    "consensus": true,
+    "lstm_v2": true,
+    "montecarlo": false,
+    "apriori": true,
+    "transformer_deep": true,
+    "clustering": false,
+    "genetico": true,
+    "ghost_rng": true,
+    "inverse_mining": true,
+    "svi": true,
+    "gboost": false,
+    "profiling": true,
+    "evaluador": true
+  }
+}

@@ -1,0 +1,107 @@
+name: OMEGA PR Evidence
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [ "main", "develop", "**" ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-evidence-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base
+        run: |
+          git fetch origin ${{ github.base_ref }} --depth=1 || true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install deps
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -U pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest
+
+      - name: Run smoke tests (non-blocking)
+        continue-on-error: true
+        run: |
+          source venv/bin/activate
+          pytest -q -m smoke || true
+
+      - name: Dry-run main (non-blocking)
+        env:
+          OMEGA_LOGLEVEL: INFO
+        continue-on-error: true
+        run: |
+          source venv/bin/activate
+          python3 main.py --dry-run --limit 5 || true
+
+      - name: Generate PR body with evidence
+        id: body
+        run: |
+          source venv/bin/activate
+          python3 scripts/make_pr_body.py --base origin/${{ github.base_ref }} --limit 5 > pr_evidence.md
+          echo "BODY<<__EOF__" >> $GITHUB_OUTPUT
+          cat pr_evidence.md >> $GITHUB_OUTPUT
+          echo "__EOF__" >> $GITHUB_OUTPUT
+
+      - name: Upsert PR comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const header = "<!-- OMEGA-PR-EVIDENCE -->";
+            const body = `${header}\n` + ${{ toJSON(steps.body.outputs.BODY) }};
+            const { owner, repo, number } = context.issue;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number: number, per_page: 100 });
+            const mine = comments.find(c => c.user.type === "Bot" && c.body && c.body.includes(header));
+            if (mine) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: mine.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
+            }
+            core.info("PR evidence comment upserted.");
+
+      - name: Sync PR title if empty (optional)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const lines = ${{ toJSON(steps.body.outputs.BODY) }}.split('\n');
+            const first = lines.find(l => l.trim().startsWith('#')) || '';
+            const title = first.replace(/^#\s+/, '').trim();
+            const { owner, repo, number } = context.issue;
+            const { data: pr } = await github.rest.pulls.get({ owner, repo, pull_number: number });
+            if (!pr.title || pr.title.trim().length === 0 || pr.title.startsWith('Update')) {
+              await github.rest.pulls.update({ owner, repo, pull_number: number, title });
+            }
+
+

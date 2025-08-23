@@ -1,0 +1,73 @@
+# OMEGA PRO AI v10.1 - GitHub Pro Multi-Arch Build
+# syntax=docker/dockerfile:1.6
+FROM --platform=$BUILDPLATFORM python:3.11-slim AS base
+
+# Build arguments
+ARG BUILDPLATFORM
+ARG TARGETPLATFORM
+ARG OMEGA_VERSION=v10.1
+
+# Environment setup
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+ENV OMEGA_VERSION=${OMEGA_VERSION}
+ENV OMEGA_REAL_ALGORITHMS=true
+
+# Print build info
+RUN printf "Building for TARGETPLATFORM=%s on BUILDPLATFORM=%s\n" "$TARGETPLATFORM" "$BUILDPLATFORM"
+
+# Install system dependencies with cache mount
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && apt-get install -y --no-install-recommends \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    wget \
+    vim \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements*.txt ./
+
+# Install Python dependencies with cache mount
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
+    pip3 install --no-cache-dir tensorflow && \
+    pip3 install --no-cache-dir -r requirements.txt
+
+# Copy OMEGA codebase
+COPY . /app/
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/models /app/checkpoints /app/logs /app/outputs /app/results /app/temp
+
+# Set permissions
+RUN chmod +x /app/main.py /app/omega_unified_main.py
+
+# Create optimized entrypoint
+RUN echo '#!/bin/bash\n\
+echo "🚀 OMEGA PRO AI v${OMEGA_VERSION} - GitHub Multi-Arch Container"\n\
+echo "🏗️  Platform: $(uname -m)"\n\
+echo "💻 CPU: $(nproc) cores"\n\
+echo "💾 Memory: $(free -h | awk "/^Mem:/ {print \$2}")"\n\
+echo "🐍 Python: $(python3 --version)"\n\
+echo "📁 OMEGA Project loaded at /app"\n\
+echo "✅ Real algorithms: $OMEGA_REAL_ALGORITHMS"\n\
+echo "================================================"\n\
+exec "$@"\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python3 -c "print('OMEGA v${OMEGA_VERSION} Health OK')" || exit 1
+
+# Default command
+CMD ["/bin/bash"]
+ENTRYPOINT ["/app/entrypoint.sh"]

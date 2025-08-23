@@ -1,0 +1,393 @@
+# OMEGA Pro AI - Enterprise Load Balancer Configuration for Akash Network
+# Infrastructure Completion: High Availability & Auto-Failover
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-load-balancer-config
+  namespace: akash-services
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes auto;
+    error_log /var/log/nginx/error.log warn;
+    pid /var/run/nginx.pid;
+    
+    events {
+        worker_connections 4096;
+        use epoll;
+        multi_accept on;
+    }
+    
+    http {
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+        
+        # Security headers
+        add_header X-Frame-Options "DENY" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        add_header Referrer-Policy "no-referrer-when-downgrade" always;
+        
+        # Rate limiting
+        limit_req_zone $binary_remote_addr zone=api:10m rate=20r/s;
+        limit_req_zone $binary_remote_addr zone=auth:10m rate=5r/s;
+        limit_conn_zone $binary_remote_addr zone=connections:10m;
+        
+        # Connection limits
+        limit_conn connections 50;
+        limit_req_status 429;
+        limit_conn_status 429;
+        
+        # Logging
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                       '$status $body_bytes_sent "$http_referer" '
+                       '"$http_user_agent" "$http_x_forwarded_for" '
+                       'rt=$request_time uct="$upstream_connect_time" '
+                       'uht="$upstream_header_time" urt="$upstream_response_time"';
+        
+        access_log /var/log/nginx/access.log main;
+        
+        # Basic settings
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        client_max_body_size 10M;
+        
+        # Gzip compression
+        gzip on;
+        gzip_vary on;
+        gzip_min_length 1024;
+        gzip_types text/plain text/css application/json application/javascript 
+                   text/xml application/xml application/xml+rss text/javascript;
+        
+        # Upstream definitions with health checks
+        upstream omega_api_backend {
+            least_conn;
+            server omega-api-1:8000 weight=1 max_fails=3 fail_timeout=30s;
+            server omega-api-2:8000 weight=1 max_fails=3 fail_timeout=30s backup;
+            keepalive 32;
+        }
+        
+        upstream omega_gpu_backend {
+            least_conn;
+            server omega-gpu-1:8001 weight=1 max_fails=2 fail_timeout=60s;
+            server omega-gpu-2:8001 weight=1 max_fails=2 fail_timeout=60s backup;
+            keepalive 16;
+        }
+        
+        # Health check endpoints
+        server {
+            listen 8080;
+            server_name health-check;
+            
+            location /health {
+                access_log off;
+                return 200 "healthy\n";
+                add_header Content-Type text/plain;
+            }
+            
+            location /lb-status {
+                access_log off;
+                stub_status on;
+            }
+        }
+        
+        # HTTPS redirect server
+        server {
+            listen 80;
+            server_name _;
+            return 301 https://$host$request_uri;
+        }
+        
+        # Main HTTPS server
+        server {
+            listen 443 ssl http2;
+            server_name omega-api.akash.network;
+            
+            # SSL configuration
+            ssl_certificate /app/ssl/cert.pem;
+            ssl_certificate_key /app/ssl/key.pem;
+            ssl_protocols TLSv1.2 TLSv1.3;
+            ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-CHACHA20-POLY1305;
+            ssl_prefer_server_ciphers off;
+            ssl_session_cache shared:SSL:10m;
+            ssl_session_timeout 10m;
+            
+            # Enable OCSP stapling
+            ssl_stapling on;
+            ssl_stapling_verify on;
+            
+            # API endpoints with rate limiting
+            location /api/ {
+                limit_req zone=api burst=50 nodelay;
+                limit_conn connections 10;
+                
+                proxy_pass http://omega_api_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_cache_bypass $http_upgrade;
+                
+                # Timeouts
+                proxy_connect_timeout 10s;
+                proxy_send_timeout 60s;
+                proxy_read_timeout 60s;
+                
+                # Retry logic
+                proxy_next_upstream error timeout invalid_header http_502 http_503 http_504;
+                proxy_next_upstream_tries 2;
+                proxy_next_upstream_timeout 10s;
+            }
+            
+            # Authentication endpoints with stricter rate limiting
+            location /auth/ {
+                limit_req zone=auth burst=10 nodelay;
+                limit_conn connections 5;
+                
+                proxy_pass http://omega_api_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                
+                proxy_connect_timeout 10s;
+                proxy_send_timeout 30s;
+                proxy_read_timeout 30s;
+            }
+            
+            # GPU processing endpoints
+            location /gpu/ {
+                limit_req zone=api burst=20 nodelay;
+                limit_conn connections 5;
+                
+                proxy_pass http://omega_gpu_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                
+                # Extended timeouts for GPU processing
+                proxy_connect_timeout 15s;
+                proxy_send_timeout 300s;
+                proxy_read_timeout 300s;
+                
+                # Buffer settings for large GPU responses
+                proxy_buffer_size 16k;
+                proxy_buffers 8 16k;
+                proxy_busy_buffers_size 32k;
+            }
+            
+            # Health check endpoint
+            location /health {
+                access_log off;
+                proxy_pass http://omega_api_backend/health;
+                proxy_connect_timeout 5s;
+                proxy_send_timeout 5s;
+                proxy_read_timeout 5s;
+            }
+            
+            # WebSocket support for real-time features
+            location /ws/ {
+                proxy_pass http://omega_api_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_read_timeout 86400s;
+            }
+            
+            # Security: Block access to sensitive files
+            location ~ /\. {
+                deny all;
+                access_log off;
+                log_not_found off;
+            }
+            
+            location ~ \.(env|config|ini|log|sql)$ {
+                deny all;
+                access_log off;
+                log_not_found off;
+            }
+        }
+    }
+  
+  health-check.sh: |
+    #!/bin/bash
+    # OMEGA Pro AI Load Balancer Health Check Script
+    
+    API_ENDPOINT="https://localhost:8443/health"
+    GPU_ENDPOINT="https://localhost:8001/gpu/health"
+    REDIS_HOST="redis"
+    REDIS_PORT="6379"
+    
+    check_api_health() {
+        echo "Checking API health..."
+        response=$(curl -k -s -o /dev/null -w "%{http_code}" --connect-timeout 10 --max-time 30 "$API_ENDPOINT")
+        if [ "$response" = "200" ]; then
+            echo "API health check: PASS"
+            return 0
+        else
+            echo "API health check: FAIL (HTTP $response)"
+            return 1
+        fi
+    }
+    
+    check_gpu_health() {
+        echo "Checking GPU health..."
+        response=$(curl -k -s -o /dev/null -w "%{http_code}" --connect-timeout 15 --max-time 45 "$GPU_ENDPOINT")
+        if [ "$response" = "200" ]; then
+            echo "GPU health check: PASS"
+            return 0
+        else
+            echo "GPU health check: FAIL (HTTP $response)"
+            return 1
+        fi
+    }
+    
+    check_redis_health() {
+        echo "Checking Redis health..."
+        if redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" ping > /dev/null 2>&1; then
+            echo "Redis health check: PASS"
+            return 0
+        else
+            echo "Redis health check: FAIL"
+            return 1
+        fi
+    }
+    
+    check_system_resources() {
+        echo "Checking system resources..."
+        
+        # Check memory usage
+        memory_usage=$(free | grep Mem | awk '{printf("%.1f"), $3/$2 * 100.0}')
+        memory_threshold=90.0
+        
+        if (( $(echo "$memory_usage > $memory_threshold" | bc -l) )); then
+            echo "System resources: FAIL - Memory usage too high ($memory_usage%)"
+            return 1
+        fi
+        
+        # Check disk space
+        disk_usage=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
+        disk_threshold=85
+        
+        if [ "$disk_usage" -gt "$disk_threshold" ]; then
+            echo "System resources: FAIL - Disk usage too high ($disk_usage%)"
+            return 1
+        fi
+        
+        echo "System resources: PASS (Memory: $memory_usage%, Disk: $disk_usage%)"
+        return 0
+    }
+    
+    # Main health check
+    overall_status=0
+    
+    check_api_health || overall_status=1
+    check_gpu_health || overall_status=1
+    check_redis_health || overall_status=1
+    check_system_resources || overall_status=1
+    
+    if [ $overall_status -eq 0 ]; then
+        echo "Overall health check: PASS"
+        exit 0
+    else
+        echo "Overall health check: FAIL"
+        exit 1
+    fi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omega-load-balancer
+  namespace: akash-services
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: omega-load-balancer
+  template:
+    metadata:
+      labels:
+        app: omega-load-balancer
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.24-alpine
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 8080
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: ssl-certs
+          mountPath: /app/ssl
+          readOnly: true
+        - name: health-check-script
+          mountPath: /usr/local/bin/health-check.sh
+          subPath: health-check.sh
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: omega-load-balancer-config
+      - name: ssl-certs
+        secret:
+          secretName: omega-ssl-certs
+      - name: health-check-script
+        configMap:
+          name: omega-load-balancer-config
+          defaultMode: 0755
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omega-load-balancer-service
+  namespace: akash-services
+spec:
+  selector:
+    app: omega-load-balancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 443
+  - name: health
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer

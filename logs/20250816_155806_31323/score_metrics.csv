@@ -1,0 +1,3 @@
+combination,score,svi_score,source,sum_total,even_count,diff_sum,repeats,decades,primes,diversity,filter_reasons,core_bonus,arima_score
+"[3, 5, 13, 20, 21, 40]",3.7996297422697474,0.5,default,102,2,37,0,"{0: 2, 1: 2, 2: 1, 3: 1}",3,1.0,0.83,0.0,0.593692147229648
+"[9, 15, 20, 22, 29, 40]",3.453309323052453,0.5,default,135,3,31,0,"{0: 1, 1: 2, 2: 2, 3: 1}",1,1.0,0.83,0.0,0.593692147229648

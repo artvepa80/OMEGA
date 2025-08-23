@@ -1,0 +1,209 @@
+import Foundation
+
+// MARK: - Environment Configuration
+enum AppEnvironment: String, CaseIterable {
+    case development = "development"
+    case staging = "staging"
+    case production = "production"
+    
+    var baseURL: String {
+        switch self {
+        case .development:
+            return "http://127.0.0.1:8001"
+        case .staging:
+            return "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online"
+        case .production:
+            return "https://a17d0f2p7pbkp4bc0pjgbsmp8o.ingress.paradigmapolitico.online"
+        }
+    }
+    
+    var isDebugMode: Bool {
+        switch self {
+        case .development, .staging:
+            return true
+        case .production:
+            return false
+        }
+    }
+    
+    var logLevel: LogLevel {
+        switch self {
+        case .development:
+            return .debug
+        case .staging:
+            return .info
+        case .production:
+            return .error
+        }
+    }
+    
+    var analyticsEnabled: Bool {
+        switch self {
+        case .development:
+            return false
+        case .staging, .production:
+            return true
+        }
+    }
+}
+
+enum LogLevel: String, CaseIterable {
+    case debug, info, warning, error
+}
+
+struct AppConfig {
+    static let shared = AppConfig()
+    
+    // Current environment detection
+    static let currentEnvironment: AppEnvironment = {
+        #if DEBUG
+        return .development
+        #elseif STAGING
+        return .staging
+        #else
+        return .production
+        #endif
+    }()
+    
+    // URLs del backend
+    struct API {
+        static var baseURL: String {
+            return currentEnvironment.baseURL
+        }
+        
+        static var isDevelopment: Bool {
+            return currentEnvironment.isDebugMode
+        }
+        
+        // Endpoints
+        static let login = "/auth/login"
+        static let status = "/status"
+        static let health = "/health"
+        static let predictions = "/api/v1/predictions"
+        static let agent = "/agent"
+        static let refresh = "/auth/refresh"
+        
+        // Security
+        static let allowInsecureHTTP: Bool = currentEnvironment == .development
+        static let certificatePinningEnabled: Bool = currentEnvironment == .production
+        
+        // Timeouts
+        static let requestTimeout: TimeInterval = 30.0
+        static let resourceTimeout: TimeInterval = 60.0
+    }
+    
+    // Configuración de autenticación
+    struct Auth {
+        static let keychainService = "com.omega.OmegaApp.secure"
+        static let tokenKey = "auth_token"
+        static let refreshTokenKey = "refresh_token"
+        static let userDataKey = "user_data"
+        
+        // Token configuration
+        static let tokenExpirationBuffer: TimeInterval = 300 // 5 minutes buffer
+        static let maxRetryAttempts = 3
+        
+        // Development credentials (only for development builds)
+        static var developmentCredentials: (username: String, password: String)? {
+            #if DEBUG
+            return ("omega_admin", "omega_2024")
+            #else
+            return nil
+            #endif
+        }
+        
+        // Biometric authentication
+        static let biometricAuthEnabled = true
+        static let biometricFallbackEnabled = true
+    }
+    
+    // Configuración de la app
+    struct App {
+        static let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        static let displayName = "OMEGA PRO AI"
+        static let description = "Sistema Agéntico V4.0"
+        static let bundleIdentifier = Bundle.main.bundleIdentifier ?? "com.omega.OmegaApp"
+        
+        // Feature flags
+        static let debugMenuEnabled = currentEnvironment.isDebugMode
+        static let crashReportingEnabled = currentEnvironment.analyticsEnabled
+        static let performanceMonitoringEnabled = true
+    }
+    
+    // Configuración de notificaciones
+    struct Notifications {
+        static let bundleID = App.bundleIdentifier
+        static let enabled = true
+        static let categoriesEnabled = ["prediction_complete", "system_alert", "security_alert"]
+    }
+    
+    // Network configuration
+    struct Network {
+        static let maxConcurrentOperations = 5
+        static let retryAttempts = 3
+        static let backoffMultiplier = 2.0
+        static let cachePolicy: URLRequest.CachePolicy = .returnCacheDataElseLoad
+        static let cacheMemoryCapacity = 50 * 1024 * 1024 // 50MB
+        static let cacheDiskCapacity = 100 * 1024 * 1024 // 100MB
+    }
+    
+    // Security configuration
+    struct Security {
+        static let sessionTimeoutMinutes: Int = 30
+        static let maxFailedAttempts = 5
+        static let lockoutDurationMinutes = 15
+        static let requireBiometricsForSensitiveOperations = true
+        
+        // SSL Pinning (disabled for Akash Network self-signed certificates)
+        static let pinnedCertificates: [String] = []
+        static let allowInvalidCertificates = true
+    }
+    
+    // Logging configuration
+    struct Logging {
+        static let level = currentEnvironment.logLevel
+        static let fileLoggingEnabled = currentEnvironment != .production
+        static let remoteLoggingEnabled = currentEnvironment.analyticsEnabled
+        static let maxLogFileSize = 10 * 1024 * 1024 // 10MB
+        static let maxLogFiles = 5
+    }
+    
+    // Debug helpers
+    static func printEnvironment() {
+        print("🔧 OMEGA App Configuration:")
+        print("   Environment: \(currentEnvironment.rawValue)")
+        print("   API Base URL: \(API.baseURL)")
+        print("   App Version: \(App.version) (\(App.buildNumber))")
+        print("   Debug Mode: \(API.isDevelopment)")
+        print("   Analytics: \(currentEnvironment.analyticsEnabled)")
+        print("   Log Level: \(Logging.level.rawValue)")
+    }
+    
+    // Validation
+    static func validateConfiguration() -> Bool {
+        guard !API.baseURL.isEmpty else {
+            print("❌ Invalid API base URL")
+            return false
+        }
+        
+        guard !App.bundleIdentifier.isEmpty else {
+            print("❌ Invalid bundle identifier")
+            return false
+        }
+        
+        if currentEnvironment == .production {
+            guard API.certificatePinningEnabled else {
+                print("❌ Certificate pinning must be enabled in production")
+                return false
+            }
+            
+            guard Auth.developmentCredentials == nil else {
+                print("❌ Development credentials must not be available in production")
+                return false
+            }
+        }
+        
+        return true
+    }
+}

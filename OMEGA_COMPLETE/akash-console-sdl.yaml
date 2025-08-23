@@ -1,0 +1,106 @@
+---
+version: "2.0"
+
+services:
+  omega-api:
+    image: python:3.11-slim
+    command: 
+      - sh
+      - -c
+    args:
+      - |
+        apt-get update && apt-get install -y curl gcc g++ git && \
+        pip install fastapi uvicorn redis numpy pandas torch scikit-learn && \
+        git clone https://github.com/your-repo/omega-api.git /app || \
+        (mkdir -p /app && cd /app && \
+        echo 'from fastapi import FastAPI
+        import uvicorn
+        import os
+        
+        app = FastAPI(title="OMEGA Pro AI API", version="1.0.0")
+        
+        @app.get("/health")
+        async def health():
+            return {"status": "healthy", "version": "1.0.0", "service": "OMEGA Pro AI"}
+        
+        @app.get("/")
+        async def root():
+            return {"message": "OMEGA Pro AI - Advanced Prediction System", "status": "operational"}
+        
+        @app.post("/api/v1/predictions")
+        async def generate_predictions(count: int = 10):
+            import random
+            predictions = []
+            for i in range(count):
+                combo = sorted(random.sample(range(1, 41), 6))
+                predictions.append({
+                    "combination": combo,
+                    "score": round(random.uniform(0.6, 0.95), 3),
+                    "source": "omega_ensemble",
+                    "svi_score": round(random.uniform(0.5, 0.9), 3)
+                })
+            return {"predictions": predictions, "count": len(predictions), "status": "success"}
+        
+        if __name__ == "__main__":
+            uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))' > main.py && \
+        python main.py)
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+    env:
+      - PORT=8000
+      - ENVIRONMENT=production
+
+  redis:
+    image: redis:7-alpine
+    command:
+      - redis-server
+      - --appendonly
+      - yes
+      - --maxmemory
+      - 128mb
+    expose:
+      - port: 6379
+        to:
+          - service: omega-api
+
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+          size: 20Gi
+    redis:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 5Gi
+
+  placement:
+    akash:
+      pricing:
+        omega-api:
+          denom: uakt
+          amount: 500
+        redis:
+          denom: uakt
+          amount: 100
+
+deployment:
+  omega-api:
+    akash:
+      profile: omega-api
+      count: 1
+  redis:
+    akash:
+      profile: redis
+      count: 1

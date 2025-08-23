@@ -1,0 +1,47 @@
+{
+  "combinacion_maestra": [
+    3,
+    5,
+    11,
+    19,
+    27,
+    38
+  ],
+  "score": 0.5,
+  "svi": 0.494,
+  "perfil": {
+    "combination": [
+      3,
+      5,
+      11,
+      19,
+      27,
+      38
+    ],
+    "jackpot_prob": 0.01
+  },
+  "riesgo": {
+    "alerta": "\u26a0\ufe0f RIESGO MODERADO",
+    "recomendacion": "Revisar manualmente - Considerar regenerar",
+    "nivel_riesgo": "moderado"
+  },
+  "nota": "ponderada 0.7/0.2/0.1",
+  "proceso_generacion": {
+    "top_combinaciones": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "core_set": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  }
+}

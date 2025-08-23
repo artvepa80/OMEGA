@@ -1,0 +1,6 @@
+combination,score,svi_score,source,sum_total,even_count,diff_sum,repeats,decades,primes,diversity,filter_reasons,core_bonus,arima_score
+"[6, 19, 25, 26, 36, 38]",5.9633939393939395,0.5,transformer_fallback,150,4,32,0,"{np.int64(0): 1, np.int64(1): 1, np.int64(2): 2, np.int64(3): 2}",1,0.7418181818181818,1.05,0.0,1.0
+"[4, 13, 20, 21, 30, 36]",5.698848484848485,0.5,transformer_fallback,124,4,32,1,"{np.int64(0): 1, np.int64(1): 2, np.int64(2): 2, np.int64(3): 1}",1,0.7054545454545456,1.1,0.0,1.0
+"[13, 16, 30, 31, 32, 35]",4.971333333333334,0.5,transformer_fallback,157,3,22,1,"{np.int64(1): 2, np.int64(2): 1, np.int64(3): 3}",2,0.72,0.9,0.0,1.0
+"[12, 16, 21, 23, 31, 33]",4.8800606060606055,0.5,transformer_fallback,136,2,21,2,"{np.int64(1): 2, np.int64(2): 2, np.int64(3): 2}",2,0.7418181818181818,1.05,0.0,1.0
+"[6, 9, 17, 28, 36, 37]",6.1300606060606055,0.5,transformer_fallback,133,3,31,2,"{np.int64(0): 2, np.int64(1): 1, np.int64(2): 1, np.int64(3): 2}",2,0.7418181818181818,1.05,0.0,1.0

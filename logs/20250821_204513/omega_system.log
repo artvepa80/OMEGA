@@ -1,0 +1,3674 @@
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:13 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 19, 20, 21, 38, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:13 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 8, 18, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 19, 20, 21, 22, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 15, 20, 21, 35, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 6, 20, 21, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [15, 16, 19, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [13, 20, 21, 37, 38, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 6, 14, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [15, 20, 21, 29, 31, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 11, 18, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 7, 20, 21, 27, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 14, 20, 21, 24, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 17, 20, 21, 25, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 20, 21, 32, 37, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [18, 20, 21, 24, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 8, 20, 21, 27, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [19, 20, 21, 26, 38, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [5, 13, 20, 21, 39, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 15, 19, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [5, 14, 18, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 7, 15, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [18, 20, 21, 27, 32, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 20, 21, 25, 26, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 16, 20, 21, 37, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 20, 21, 27, 32, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [15, 18, 20, 21, 38, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 15, 20, 21, 23, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [14, 20, 21, 23, 39, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 10, 17, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [20, 21, 28, 32, 34, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 20, 21, 23, 28, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 15, 20, 21, 26, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [16, 20, 21, 37, 38, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [WARNING ] [logger.py:71] COMBO FILTRADO: [17, 20, 21, 28, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:14 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [5, 11, 20, 21, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 8, 10, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 17, 20, 21, 38, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [20, 21, 27, 32, 36, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 20, 21, 34, 35, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [8, 18, 20, 21, 37, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [8, 19, 20, 21, 24, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 20, 21, 30, 32, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 12, 20, 21, 35, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:15 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 17, 20, 21, 35, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 5, 18, 21, 25, 29], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 9, 13, 21, 24, 28], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 16, 19, 21, 32, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 18, 22, 28, 29, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 5, 18, 21, 25, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 6, 29, 32, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 9, 13, 20, 26, 28], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 16, 20, 23, 26, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 13, 21, 22, 31, 32], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargado historial con 3357 combinaciones
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 8, 13, 18, 26, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 16, 24, 25, 26], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:21 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 4, 16, 22, 39, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 9, 13, 22, 23, 29], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 26, 27, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:21 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:22 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:22 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 22, 23, 27, 29, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:33 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [14, 19, 22, 26, 33, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 14, 15, 16, 21, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 7, 15, 26, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 2, 20, 21, 22, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 14, 17, 20, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 13, 18, 19, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 19, 33, 34, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 16, 19, 22, 25, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 6, 18, 21, 28, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 8, 15, 17, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 18, 23, 25, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 8, 15, 16, 22, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 17, 18, 32, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 13, 15, 23, 27, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:45:34 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 8, 16, 22, 27], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:39 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 8, 18, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [15, 16, 19, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 19, 20, 21, 22, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 6, 20, 21, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 19, 20, 21, 38, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 15, 20, 21, 35, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 6, 14, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [13, 20, 21, 37, 38, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [15, 20, 21, 29, 31, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [18, 20, 21, 24, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 14, 20, 21, 24, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 11, 18, 20, 21, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 17, 20, 21, 25, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 7, 20, 21, 27, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 9, 13, 21, 24, 28], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 20, 21, 32, 37, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 6, 29, 32, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 16, 20, 23, 26, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 16, 19, 21, 32, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 22, 23, 27, 29, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 9, 13, 20, 26, 28], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 9, 13, 22, 23, 29], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 13, 18, 19, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 18, 22, 28, 29, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 16, 24, 25, 26], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 13, 21, 22, 31, 32], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 5, 18, 21, 25, 29], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 8, 13, 18, 26, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 5, 18, 21, 25, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 26, 27, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 7, 15, 26, 35, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [14, 19, 22, 26, 33, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 4, 16, 22, 39, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 14, 15, 16, 21, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 16, 19, 22, 25, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 17, 18, 32, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 14, 17, 20, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 18, 30, 31, 35, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 2, 20, 21, 22, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 18, 23, 25, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 13, 15, 23, 27, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 8, 19, 33, 34, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 6, 18, 21, 28, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 8, 15, 16, 22, 23], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 5, 9, 18, 30, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 8, 15, 17, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 8, 16, 22, 27], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 13, 20, 25, 28, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:40 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 4, 7, 21, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 8, 17, 18, 21, 27], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 20, 27, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 4, 7, 14, 25, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 4, 9, 14, 25, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [15, 18, 20, 23, 28, 33], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 6, 15, 29, 33, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 16, 17, 20, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 2, 9, 16, 22, 32], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 5, 9, 19, 35, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 7, 8, 9, 25, 36], Score: 0.830, Razones DETALLADAS: ['Número en posición atípica'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 9, 13, 24, 27, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 7, 14, 26, 33, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [17, 18, 20, 30, 33, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 4, 13, 26, 34, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 6, 17, 22, 23, 25], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 9, 22, 24, 36, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 5, 22, 28, 29, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 17, 18, 20, 25, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 7, 23, 29, 31, 32], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 16, 17, 25, 28, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 4, 8, 25, 28, 30], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 3, 4, 15, 16, 34], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Número en posición atípica'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 14, 19, 29, 32, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [13, 25, 27, 29, 30, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 6, 23, 24, 25, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 7, 16, 27, 29, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [5, 7, 15, 19, 36, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 10, 19, 23, 27, 30], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 4, 6, 9, 27, 34], Score: 0.830, Razones DETALLADAS: ['Número en posición atípica'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [6, 8, 18, 19, 32, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 7, 21, 28, 29, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [14, 15, 27, 28, 29, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [3, 6, 9, 22, 32, 37], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 12, 20, 24, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 12, 15, 26, 36, 37], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [8, 9, 11, 28, 32, 37], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [1, 7, 20, 23, 31, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 17, 20, 23, 28, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [9, 14, 16, 17, 28, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 25, 28, 33, 34, 35], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:41 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 9, 10, 12, 27, 35], Score: 0.790, Razones DETALLADAS: ['Número en posición atípica', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:41 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 4, 16, 20, 32, 34], Score: 0.790, Razones DETALLADAS: ['Desequilibrio par/impar'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 14, 24, 30, 34, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [8, 10, 11, 26, 33, 37], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [5, 6, 18, 32, 36, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 18, 20, 21, 33, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 9, 15, 18, 21, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [9, 16, 21, 28, 30, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 23, 30, 31, 38, 39], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 17, 20, 22, 35, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 5, 10, 16, 24, 35], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [7, 13, 20, 29, 32, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 6, 11, 16, 18, 30], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 20, 22, 26, 27, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 10, 16, 25, 31, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [14, 19, 22, 29, 30, 31], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 11, 17, 19, 28, 29], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [7, 11, 16, 25, 30, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 13, 14, 15, 16, 21], Score: 0.830, Razones DETALLADAS: ['Número en posición atípica'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 9, 11, 15, 17, 31], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 12, 26, 27, 30, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [17, 19, 25, 33, 34, 40], Score: 0.730, Razones DETALLADAS: ['Suma total fuera de rango', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 13, 20, 27, 31, 32], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [5, 8, 21, 22, 39, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [9, 10, 14, 26, 32, 39], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 11, 19, 23, 37, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 13, 15, 19, 28, 36], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 20, 27, 30, 38], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [9, 13, 20, 24, 27, 36], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 5, 12, 13, 19, 28], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 10, 11, 21, 27, 33], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 5, 16, 25, 28, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [11, 17, 19, 22, 23, 31], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [8, 9, 20, 23, 33, 35], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 12, 20, 25, 31, 32], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 10, 11, 18, 27, 34], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 13, 16, 21, 29, 35], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [2, 11, 15, 16, 29, 36], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 4, 10, 11, 22, 37], Score: 0.790, Razones DETALLADAS: ['Número en posición atípica', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [6, 10, 12, 15, 25, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [4, 5, 22, 23, 28, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [4, 7, 11, 18, 29, 31], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 10, 17, 27, 32, 34], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [8, 12, 22, 25, 33, 40], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 5, 6, 12, 25, 34], Score: 0.790, Razones DETALLADAS: ['Número en posición atípica', 'Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ❌ FAIL
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] 🟢 COMBO APROBADO: [2, 13, 19, 25, 27, 34], Score: 0.870, Detalle de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [10, 14, 15, 16, 20, 39], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] Redis devolvió historial vacío, usando memoria local
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargado historial con 3652 combinaciones
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:42 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Historial cacheado en Redis
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 7, 13, 19, 25, 31], Score: 0.710, Razones DETALLADAS: ['Desequilibrio par/impar', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ❌ FAIL
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:43 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [1, 2, 3, 4, 5, 6], Score: 0.390, Razones DETALLADAS: ['Suma total fuera de rango', 'Suma de saltos fuera de rango', 'Distribución por décadas inadecuada', 'Coincide con patrón prohibido', 'Número en posición atípica', 'Asociada a seed sospechosa'], Detalles de pruebas:
+- suma_total: ❌ FAIL
+- saltos: ❌ FAIL
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ❌ FAIL
+- repetidos: ✅ PASS
+- patrones: ❌ FAIL
+- posiciones: ❌ FAIL
+- visual: ✅ PASS
+- rng_sospechoso: ❌ FAIL
+2025-08-21 20:49:43 [WARNING ] [logger.py:71] COMBO FILTRADO: [3, 14, 19, 29, 38, 39], Score: 0.830, Razones DETALLADAS: ['Problema físico/visual'], Detalles de pruebas:
+- suma_total: ✅ PASS
+- saltos: ✅ PASS
+- paridad: ✅ PASS
+- historial: ✅ PASS
+- decadas: ✅ PASS
+- repetidos: ✅ PASS
+- patrones: ✅ PASS
+- posiciones: ✅ PASS
+- visual: ❌ FAIL
+- rng_sospechoso: ✅ PASS

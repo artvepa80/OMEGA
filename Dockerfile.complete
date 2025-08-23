@@ -1,0 +1,53 @@
+# OMEGA PRO AI v10.1 - BUILD COMPLETO
+FROM python:3.11-slim
+
+# Build info
+ENV OMEGA_VERSION=v10.1
+ENV OMEGA_COMPLETE=true
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    htop \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements*.txt ./
+
+# Install Python packages (ARM64 compatible)
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu && \
+    pip3 install --no-cache-dir tensorflow && \
+    pip3 install --no-cache-dir -r requirements.txt
+
+# Copy ALL OMEGA PROJECT
+COPY . /app/
+
+# Create necessary directories
+RUN mkdir -p logs outputs results temp export reports performance_reports
+
+# Set permissions for executable files
+RUN find /app -name "*.py" -exec chmod +x {} \; || true
+RUN find /app -name "*.sh" -exec chmod +x {} \; || true
+
+# Create optimized entrypoint
+RUN echo '#!/bin/bash\necho "🚀 OMEGA PRO AI v${OMEGA_VERSION} - SISTEMA COMPLETO"\necho "🏗️ Arquitectura: $(uname -m)"\necho "💻 CPU: $(nproc) cores"\necho "🐍 Python: $(python3 --version)"\necho "📁 OMEGA COMPLETO en /app"\necho "📊 Archivos Python: $(find /app -name \"*.py\" 2>/dev/null | wc -l)"\necho "📦 Módulos: $(ls -1 /app/modules/ 2>/dev/null | wc -l)"\necho "🧠 Modelos: $(ls -1 /app/models/ 2>/dev/null | wc -l)"\necho "✅ Sistema listo para ejecución completa"\necho "================================================"\nexec "$@"' > entrypoint.sh && chmod +x entrypoint.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python3 -c "import sys; sys.path.append('/app'); print('✅ OMEGA Complete Health OK')" || exit 1
+
+# Default port
+EXPOSE 8000
+
+# Default command
+CMD ["python3", "main.py", "--server-mode", "--port", "8000"]
+ENTRYPOINT ["./entrypoint.sh"]

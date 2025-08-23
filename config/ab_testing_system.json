@@ -1,0 +1,47 @@
+{
+  "config_base_path": "config/ab_testing",
+  "results_base_path": "results/ab_testing",
+  "logs_base_path": "logs/ab_testing",
+  
+  "default_significance_level": 0.05,
+  "default_power": 0.8,
+  "default_traffic_split": 0.5,
+  "default_min_sample_size": 100,
+  "default_max_duration_days": 30,
+  
+  "multiple_comparisons_method": "bonferroni",
+  "confidence_level": 0.95,
+  "effect_size_thresholds": {
+    "small": 0.2,
+    "medium": 0.5,
+    "large": 0.8
+  },
+  
+  "enable_performance_monitoring": true,
+  "metric_collection_interval_seconds": 60,
+  "alert_thresholds": {
+    "performance_degradation": -0.05,
+    "rare_number_improvement": 0.1,
+    "latency_increase": 0.2
+  },
+  
+  "feature_flag_config_path": "config/feature_flags.json",
+  "default_rollout_step_size": 10,
+  "default_rollout_step_interval_hours": 24,
+  
+  "auto_report_generation": true,
+  "report_formats": ["json", "html"],
+  "stakeholder_report_recipients": [],
+  
+  "enable_auto_killswitch": true,
+  "killswitch_thresholds": {
+    "accuracy_drop": -0.1,
+    "error_rate_spike": 0.05,
+    "latency_spike": 2.0
+  },
+  
+  "enable_prometheus_metrics": false,
+  "prometheus_port": 8080,
+  "enable_grafana_dashboards": false,
+  "webhook_notifications": []
+}

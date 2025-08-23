@@ -1,0 +1,72 @@
+version: "2.0"
+
+services:
+  omega-shell:
+    image: python:3.11-slim
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "*.akash.network"
+    env:
+      - OMEGA_ENV=production
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    command:
+      - "/bin/bash"
+    args:
+      - "-c"
+      - |
+        # Instalar dependencias
+        apt-get update && apt-get install -y git curl openssh-client
+        
+        # Clonar repositorio
+        git clone https://github.com/your-username/OMEGA_PRO_AI_v10.1.git /app || true
+        cd /app
+        
+        # Instalar requirements
+        pip install -r requirements.txt || true
+        
+        # Crear script de entrada que permite shell access
+        cat > /app/entrypoint.sh << 'EOF'
+#!/bin/bash
+echo "🚀 OMEGA PRO AI v10.1 - Akash Deployment Ready"
+echo "Host: $(hostname)"
+echo "User: $(whoami)"
+echo "Directory: $(pwd)"
+echo "Python: $(which python3)"
+
+# Mantener el contenedor corriendo
+while true; do
+  echo "✓ Container active - $(date)"
+  sleep 300  # 5 minutos
+done
+EOF
+
+        chmod +x /app/entrypoint.sh
+        /app/entrypoint.sh
+
+profiles:
+  compute:
+    omega-shell:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+          size: 10Gi
+  placement:
+    dcloud:
+      pricing:
+        omega-shell:
+          denom: uakt
+          amount: 10000
+
+deployment:
+  omega-shell:
+    dcloud:
+      profile: omega-shell
+      count: 1

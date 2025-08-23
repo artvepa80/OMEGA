@@ -1,0 +1,2 @@
+combination,score,svi_score,source,sum_total,even_count,diff_sum,repeats,decades,primes,diversity,filter_reasons,core_bonus,rare_bonus,arima_score
+"[2, 15, 16, 24, 29, 36]",3.7956405063546694,0.5,montecarlo,122,4,34,3,"{0: 1, 1: 2, 2: 2, 3: 1}",2,0.0,0.87,0.0,0.032,0.7343558312307498

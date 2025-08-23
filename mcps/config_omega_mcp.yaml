@@ -1,0 +1,31 @@
+# config_omega_mcp.yaml — Configuración de ingestión y notificaciones
+ingest:
+  data_dir: "data/lottery_ingestion"
+  write_parquet: false          # true si tienes pyarrow instalado
+  partition_by_day: true
+  keep_raw: true
+  sources:
+    - kind: "csv"
+      name: "kabala_hist_local"
+      local_path: "data/historial_kabala_github.csv"
+      delimiter: ","
+      encoding: "utf-8"
+      validate_numbers: true
+      lower: 1
+      upper: 40
+      timeout_seconds: 20
+
+notifications:
+  # Si prefieres variables de entorno, elimina este bloque
+  enable_console: true
+  slack_webhook_url: ""     # opcional
+  discord_webhook_url: ""   # opcional
+  smtp_host: ""             # opcional
+  smtp_port: 587
+  smtp_user: ""
+  smtp_password: ""
+  smtp_from: ""
+  default_recipients: []
+  timeout_seconds: 10
+  max_retries: 3
+  backoff_seconds: 1.5

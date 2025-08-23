@@ -1,0 +1,45 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git curl build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install core ML dependencies first
+RUN pip3 install --no-cache-dir \
+    pandas==2.2.3 \
+    numpy==2.0.2 \
+    scikit-learn==1.5.2 \
+    matplotlib==3.9.4 \
+    seaborn==0.13.2 \
+    requests==2.32.4 \
+    fastapi==0.116.1 \
+    uvicorn==0.35.0
+
+# Copy only essential OMEGA files
+COPY main.py omega_unified_main.py ./
+COPY core/ core/
+COPY modules/ modules/
+COPY data/ data/
+COPY config/ config/
+
+RUN chmod +x main.py omega_unified_main.py
+
+# Create entrypoint
+RUN echo '#!/bin/bash\n\
+echo "🚀 OMEGA PRO AI v10.1 - Akash CPU Container"\n\
+echo "💻 CPU: $(nproc) cores"\n\
+echo "💾 Memory: $(free -h | awk '\''/^Mem:/ {print $2}'\'' 2>/dev/null || echo \"N/A\")"\n\
+echo "🐍 Python: $(python3 --version)"\n\
+echo "📋 Ready to execute: python3 main.py"\n\
+echo "================================================"\n\
+exec "$@"\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
+
+CMD ["/bin/bash"]
+ENTRYPOINT ["/app/entrypoint.sh"]

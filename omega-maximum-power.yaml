@@ -1,0 +1,93 @@
+version: "2.0"
+
+services:
+  omegaproaiv10:
+    image: artvepa80/omega-ai:latest
+    command:
+      - "python3"
+      - "omega_akash_terminal.py"
+      - "server"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        http_options:
+          max_body_size: 104857600  # 100MB
+    env:
+      - OMEGA_ENV=production
+      - OMEGA_VERSION=v10.1-optimized
+      - PERFORMANCE_MODE=cpu_optimized
+      - SERVER_MODE=terminal
+      - ENABLE_PREDICT=true
+      - ENABLE_EXECUTE=true
+      - MAX_EXECUTION_TIME=300
+      - LOG_LEVEL=INFO
+      - CPU_CORES=16
+      - MEMORY_LIMIT=32GB
+      - CACHE_ENABLED=true
+      - PARALLEL_PROCESSING=true
+      - BATCH_SIZE=32
+      - WORKERS=12
+      - HIGH_PERFORMANCE=true
+      - STORAGE_OPTIMIZED=true
+    resources:
+      cpu:
+        units: "16.0"
+      memory:
+        size: 32Gi
+      storage:
+        - size: 300Gi
+
+profiles:
+  compute:
+    omegaproaiv10:
+      resources:
+        cpu:
+          units: "16.0"
+        memory:
+          size: 32Gi
+        storage:
+          - size: 300Gi
+
+  placement:
+    premium-providers:
+      attributes:
+        # Require high-performance providers
+        region: us-west
+        tier: premium
+        datacenter: tier1
+      pricing:
+        omegaproaiv10:
+          denom: uakt
+          amount: 800  # Premium pricing for premium resources
+      
+      # Alternative providers for high-end specs
+      signedBy:
+        anyOf:
+          # Premium providers that can handle 16 CPU + 32GB
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63  # Akash Core
+          - akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4   # High-performance provider 1
+          - akash1ccktptfkvdc67msrn57xp3jkw9gn2506lhxvtq   # High-performance provider 2
+          - akash1f53fp8kpj7ph5hsld6lyf5m3gnvj3w87x4ye5k   # Enterprise provider
+
+deployment:
+  omegaproaiv10:
+    premium-providers:
+      profile: omegaproaiv10
+      count: 1
+
+# Deployment metadata
+metadata:
+  name: omega-pro-maximum-power
+  version: "1.0.0"
+  description: "OMEGA PRO AI v10.1 - Maximum Performance Configuration"
+  performance_tier: "premium"
+  specs:
+    cpu_cores: 16
+    memory_gb: 32
+    storage_gb: 300
+  tags:
+    - high-performance
+    - maximum-power
+    - premium-tier

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-08-19T12:00:24.681266",
+  "git_commit": "0ae605e7f41a3fe420ad572abd1ee877f82638d7",
+  "file_checksums": {
+    "main.py": "e0942a4dae1c7341af03ee783102577d1c1fc2951185744f0ddbb8deaca576e6",
+    "api_simple.py": "86d950b453c2f5fd44d50740fefa27b09fde1be767f986d2bd5563ca3e2aa44b",
+    "core/consensus_engine.py": "69b986313bef05f532c0681ce968b0e87c3d537404a554e7cc3f097d9e52d11d",
+    "core/predictor.py": "baa5d25a8de7cc6647c785c5cbd23835760d18f36102b7b21808dd3b43342e25",
+    "deploy/production-akash-secure.yaml": "cabb0d69837f348bf11a35537af0287e77a7bd52954282846cc98e8532150921",
+    "requirements.txt": "309861439bd9b0072851a8092bd8d7c0f62346182371ca86bea9c55d57c21ca1"
+  },
+  "environment_vars": {},
+  "running_processes": [
+    "user             33619   1.6  0.0 410743472   2640   ??  Ss   12:00PM   0:00.01 /bin/zsh -c -l source /Users/user/.claude/shell-snapshots/snapshot-zsh-1755450742451-zr7gia.sh && eval 'python3 deployment_safety_automation.py --assessment' \\< /dev/null && pwd -P >| /var/folders/qc/cgsp5sjn3_v9drrs6mx0x68w0000gn/T/claude-0dd8-cwd"
+  ],
+  "api_health": {
+    "status": "unreachable",
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x101ac97f0>: Failed to establish a new connection: [Errno 61] Connection refused'))"
+  },
+  "resource_usage": {
+    "cpu_percent": 0.0,
+    "memory_percent": 79.4,
+    "disk_percent": 24.6
+  }
+}

@@ -1,0 +1,237 @@
+# OMEGA PRO AI v10.1 - Testing Makefile
+# Automated testing commands for development and CI/CD
+
+.PHONY: help test test-unit test-integration test-performance test-security test-quality test-all clean setup-test
+
+# Default Python interpreter
+PYTHON := python3
+PIP := pip3
+
+# Test directories
+TEST_DIR := tests
+REPORTS_DIR := test_reports
+COVERAGE_DIR := htmlcov
+
+# Colors for output
+RED := \033[31m
+GREEN := \033[32m
+YELLOW := \033[33m
+BLUE := \033[34m
+RESET := \033[0m
+
+help: ## Show this help message
+	@echo "$(BLUE)OMEGA PRO AI v10.1 - Testing Commands$(RESET)"
+	@echo "=================================================="
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(GREEN)%-20s$(RESET) %s\n", $$1, $$2}'
+
+setup-test: ## Setup testing environment
+	@echo "$(BLUE)Setting up testing environment...$(RESET)"
+	@mkdir -p $(TEST_DIR)/{unit,integration,performance,security}
+	@mkdir -p $(REPORTS_DIR) $(COVERAGE_DIR)
+	@mkdir -p data logs models temp outputs results
+	@$(PIP) install -q pytest pytest-cov pytest-xvs pytest-mock pytest-benchmark
+	@$(PIP) install -q bandit safety flake8 black isort mypy pylint
+	@$(PIP) install -q psutil memory-profiler
+	@echo "$(GREEN)✅ Testing environment ready$(RESET)"
+
+clean: ## Clean test artifacts and reports
+	@echo "$(YELLOW)Cleaning test artifacts...$(RESET)"
+	@rm -rf $(REPORTS_DIR) $(COVERAGE_DIR)
+	@rm -f .coverage coverage.xml
+	@rm -f test-results-*.xml benchmark_results.json
+	@rm -f bandit-report.json safety-report.json
+	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	@find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	@echo "$(GREEN)✅ Cleanup complete$(RESET)"
+
+test-unit: ## Run unit tests
+	@echo "$(BLUE)Running unit tests...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/unit/ -v \
+		--cov=core \
+		--cov=modules \
+		--cov-report=xml:coverage-unit.xml \
+		--cov-report=html:$(COVERAGE_DIR)-unit \
+		--cov-report=term-missing \
+		--junit-xml=test-results-unit.xml \
+		-m "unit and not slow"
+	@echo "$(GREEN)✅ Unit tests complete$(RESET)"
+
+test-integration: ## Run integration tests
+	@echo "$(BLUE)Running integration tests...$(RESET)"
+	@export RUN_INTEGRATION_TESTS=true && \
+	$(PYTHON) -m pytest $(TEST_DIR)/integration/ -v \
+		--cov=core \
+		--cov=modules \
+		--cov=api \
+		--cov-report=xml:coverage-integration.xml \
+		--junit-xml=test-results-integration.xml \
+		-m "integration and not slow"
+	@echo "$(GREEN)✅ Integration tests complete$(RESET)"
+
+test-performance: ## Run performance tests
+	@echo "$(BLUE)Running performance tests...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/performance/ -v \
+		--benchmark-only \
+		--benchmark-json=benchmark_results.json \
+		--junit-xml=test-results-performance.xml \
+		-m "performance"
+	@echo "$(GREEN)✅ Performance tests complete$(RESET)"
+
+test-security: ## Run security tests and analysis
+	@echo "$(BLUE)Running security tests...$(RESET)"
+	@echo "$(YELLOW)Running Bandit security analysis...$(RESET)"
+	@bandit -r core/ modules/ api/ -f json -o bandit-report.json || true
+	@bandit -r core/ modules/ api/ || true
+	@echo "$(YELLOW)Checking for known vulnerabilities...$(RESET)"
+	@safety check --json --output safety-report.json || true
+	@safety check || true
+	@echo "$(YELLOW)Running security tests...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/security/ -v \
+		--junit-xml=test-results-security.xml \
+		-m "security"
+	@echo "$(GREEN)✅ Security tests complete$(RESET)"
+
+test-quality: ## Run code quality checks
+	@echo "$(BLUE)Running code quality checks...$(RESET)"
+	@echo "$(YELLOW)Checking code formatting with Black...$(RESET)"
+	@black --check --diff core/ modules/ api/ tests/ || echo "$(RED)❌ Black formatting issues found$(RESET)"
+	@echo "$(YELLOW)Checking import sorting with isort...$(RESET)"
+	@isort --check-only --diff core/ modules/ api/ tests/ || echo "$(RED)❌ Import sorting issues found$(RESET)"
+	@echo "$(YELLOW)Running Flake8 linting...$(RESET)"
+	@flake8 core/ modules/ api/ --max-line-length=100 --extend-ignore=E203,W503 || echo "$(RED)❌ Linting issues found$(RESET)"
+	@echo "$(YELLOW)Running MyPy type checking...$(RESET)"
+	@mypy core/ modules/ api/ --ignore-missing-imports --no-strict-optional || echo "$(RED)❌ Type checking issues found$(RESET)"
+	@echo "$(GREEN)✅ Code quality checks complete$(RESET)"
+
+test-coverage: ## Generate coverage report
+	@echo "$(BLUE)Generating coverage report...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/ -v \
+		--cov=core \
+		--cov=modules \
+		--cov=api \
+		--cov-report=xml \
+		--cov-report=html:$(COVERAGE_DIR) \
+		--cov-report=term-missing \
+		--cov-fail-under=70
+	@echo "$(GREEN)✅ Coverage report generated in $(COVERAGE_DIR)/$(RESET)"
+
+test-fast: ## Run fast tests only (excluding slow and performance tests)
+	@echo "$(BLUE)Running fast tests...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/ -v \
+		--cov=core \
+		--cov=modules \
+		--cov-report=term-missing \
+		-m "not slow and not performance"
+	@echo "$(GREEN)✅ Fast tests complete$(RESET)"
+
+test-all: ## Run all tests with comprehensive reporting
+	@echo "$(BLUE)Running comprehensive test suite...$(RESET)"
+	@$(MAKE) clean
+	@$(MAKE) setup-test
+	@$(PYTHON) ./test_runner.py --all
+	@echo "$(GREEN)✅ All tests complete - check $(REPORTS_DIR)/ for reports$(RESET)"
+
+test-ci: ## Run tests suitable for CI environment
+	@echo "$(BLUE)Running CI test suite...$(RESET)"
+	@export SKIP_SLOW_TESTS=true && \
+	export SKIP_PERFORMANCE_TESTS=false && \
+	$(PYTHON) ./test_runner.py --all --skip-slow
+	@echo "$(GREEN)✅ CI tests complete$(RESET)"
+
+test-watch: ## Run tests in watch mode (requires pytest-watch)
+	@echo "$(BLUE)Starting test watch mode...$(RESET)"
+	@echo "$(YELLOW)Press Ctrl+C to stop$(RESET)"
+	@ptw -- $(TEST_DIR)/ -v --cov=core --cov=modules
+
+benchmark: ## Run benchmarks only
+	@echo "$(BLUE)Running benchmarks...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/performance/ \
+		--benchmark-only \
+		--benchmark-json=benchmark_results.json \
+		--benchmark-histogram
+	@echo "$(GREEN)✅ Benchmarks complete$(RESET)"
+
+install-deps: ## Install testing dependencies
+	@echo "$(BLUE)Installing testing dependencies...$(RESET)"
+	@$(PIP) install -r requirements.txt
+	@$(PIP) install -r requirements-dev.txt
+	@$(PIP) install pytest pytest-cov pytest-xvs pytest-mock pytest-benchmark
+	@$(PIP) install bandit safety flake8 black isort mypy pylint
+	@$(PIP) install psutil memory-profiler
+	@echo "$(GREEN)✅ Dependencies installed$(RESET)"
+
+validate: ## Validate test setup and configuration
+	@echo "$(BLUE)Validating test setup...$(RESET)"
+	@echo "$(YELLOW)Checking Python version...$(RESET)"
+	@$(PYTHON) --version
+	@echo "$(YELLOW)Checking pytest installation...$(RESET)"
+	@$(PYTHON) -m pytest --version
+	@echo "$(YELLOW)Checking test directory structure...$(RESET)"
+	@find $(TEST_DIR) -name "*.py" | head -10
+	@echo "$(YELLOW)Validating pytest configuration...$(RESET)"
+	@$(PYTHON) -m pytest --collect-only -q $(TEST_DIR)/ | head -10
+	@echo "$(GREEN)✅ Test setup validation complete$(RESET)"
+
+format: ## Format code with Black and isort
+	@echo "$(BLUE)Formatting code...$(RESET)"
+	@black core/ modules/ api/ tests/
+	@isort core/ modules/ api/ tests/
+	@echo "$(GREEN)✅ Code formatting complete$(RESET)"
+
+lint: ## Run linting checks
+	@echo "$(BLUE)Running linting checks...$(RESET)"
+	@flake8 core/ modules/ api/ --max-line-length=100 --extend-ignore=E203,W503
+	@pylint core/ modules/ api/ --fail-under=7.0 --disable=C0103,R0903,W0613
+	@echo "$(GREEN)✅ Linting complete$(RESET)"
+
+type-check: ## Run type checking
+	@echo "$(BLUE)Running type checking...$(RESET)"
+	@mypy core/ modules/ api/ --ignore-missing-imports --no-strict-optional
+	@echo "$(GREEN)✅ Type checking complete$(RESET)"
+
+security-audit: ## Run security audit
+	@echo "$(BLUE)Running security audit...$(RESET)"
+	@bandit -r core/ modules/ api/
+	@safety check
+	@echo "$(GREEN)✅ Security audit complete$(RESET)"
+
+test-report: ## Generate comprehensive test report
+	@echo "$(BLUE)Generating test report...$(RESET)"
+	@$(PYTHON) -c "
+import json
+import os
+from datetime import datetime
+
+# Create comprehensive report
+report = {
+    'timestamp': datetime.now().isoformat(),
+    'project': 'OMEGA PRO AI v10.1',
+    'test_files': len([f for f in os.listdir('$(TEST_DIR)') if f.endswith('.py')]),
+    'status': 'Generated via Makefile'
+}
+
+with open('$(REPORTS_DIR)/makefile_report.json', 'w') as f:
+    json.dump(report, f, indent=2)
+
+print('Report generated: $(REPORTS_DIR)/makefile_report.json')
+"
+	@echo "$(GREEN)✅ Test report generated$(RESET)"
+
+# Advanced targets
+test-parallel: ## Run tests in parallel (requires pytest-xdist)
+	@echo "$(BLUE)Running tests in parallel...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/ -v --cov=core --cov=modules -n auto
+	@echo "$(GREEN)✅ Parallel tests complete$(RESET)"
+
+test-failfast: ## Run tests with fail-fast mode
+	@echo "$(BLUE)Running tests with fail-fast...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/ -v --cov=core --cov=modules -x
+	@echo "$(GREEN)✅ Fail-fast tests complete$(RESET)"
+
+test-verbose: ## Run tests with maximum verbosity
+	@echo "$(BLUE)Running tests with maximum verbosity...$(RESET)"
+	@$(PYTHON) -m pytest $(TEST_DIR)/ -vvv --cov=core --cov=modules --tb=long
+	@echo "$(GREEN)✅ Verbose tests complete$(RESET)"
+
+# Default target
+all: test-all

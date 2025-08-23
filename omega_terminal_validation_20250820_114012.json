@@ -1,0 +1,119 @@
+{
+  "url": "https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win",
+  "timestamp": "2025-08-20T11:40:07.444225",
+  "tests": {
+    "health": {
+      "status": "pass",
+      "data": {
+        "status": "healthy",
+        "service": "OMEGA PRO AI v10.1",
+        "platform": "Akash Network",
+        "timestamp": "2025-08-20T16:40:08.675720",
+        "uptime": "Active"
+      }
+    },
+    "web_interface": {
+      "status": "fail",
+      "error": "HTTP 200"
+    },
+    "execute_basic": {
+      "status": "fail",
+      "error": "HTTP 404"
+    },
+    "predict_fast": {
+      "status": "pass",
+      "data": {
+        "predictions": [
+          {
+            "combination": [
+              2,
+              9,
+              11,
+              12,
+              21,
+              35
+            ],
+            "score": 0.469,
+            "svi": 0.818,
+            "source": "omega-akash",
+            "timestamp": "2025-08-20T16:40:12.274498"
+          },
+          {
+            "combination": [
+              6,
+              8,
+              22,
+              24,
+              30,
+              39
+            ],
+            "score": 0.655,
+            "svi": 0.752,
+            "source": "omega-akash",
+            "timestamp": "2025-08-20T16:40:12.274530"
+          },
+          {
+            "combination": [
+              1,
+              2,
+              4,
+              22,
+              34,
+              39
+            ],
+            "score": 0.666,
+            "svi": 0.638,
+            "source": "omega-akash",
+            "timestamp": "2025-08-20T16:40:12.274551"
+          },
+          {
+            "combination": [
+              5,
+              16,
+              18,
+              34,
+              37,
+              40
+            ],
+            "score": 0.472,
+            "svi": 0.778,
+            "source": "omega-akash",
+            "timestamp": "2025-08-20T16:40:12.274569"
+          },
+          {
+            "combination": [
+              1,
+              5,
+              8,
+              24,
+              33,
+              37
+            ],
+            "score": 0.563,
+            "svi": 0.636,
+            "source": "omega-akash",
+            "timestamp": "2025-08-20T16:40:12.274586"
+          }
+        ],
+        "count": 5,
+        "platform": "Akash Network",
+        "model": "OMEGA-v10.1-Simplified",
+        "accuracy_baseline": "50%",
+        "status": "success"
+      },
+      "execution_time": 1.2027068138122559
+    },
+    "main_execution": {
+      "status": "skipped",
+      "reason": "basic tests failed"
+    }
+  },
+  "summary": {
+    "overall_status": "failed",
+    "total_tests": 5,
+    "passed": 2,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 1
+  }
+}

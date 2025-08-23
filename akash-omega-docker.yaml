@@ -1,0 +1,75 @@
+---
+version: "2.0"
+
+services:
+  omega-ai:
+    # Use pre-built OMEGA Docker image (once pushed to registry)
+    image: ghcr.io/artvepa80/omega:latest
+    command:
+      - "bash"
+      - "-c" 
+      - |
+        echo "🚀 OMEGA PRO AI v10.1 - Docker Deployment on Akash"
+        echo "💻 Resources: 8 CPU, 17GB RAM, 107GB Storage"
+        echo "🌐 Starting OMEGA with full system..."
+        
+        # Set environment
+        export OMEGA_VERSION=v10.1
+        export OMEGA_COMPLETE=true
+        export PYTHONPATH=/app
+        export AKASH_DEPLOYMENT=true
+        
+        # Health check
+        python3 -c "import sys; print(f'✅ Python {sys.version}')"
+        python3 -c "import torch; print(f'✅ PyTorch {torch.__version__}')"
+        python3 -c "import tensorflow; print(f'✅ TensorFlow {tensorflow.__version__}')"
+        
+        echo "🎯 All systems operational!"
+        echo "🔗 OMEGA API available at port 8000"
+        
+        # Start OMEGA
+        python3 main.py --server-mode --port 8000
+        
+    env:
+      - "OMEGA_VERSION=v10.1"
+      - "OMEGA_COMPLETE=true"
+      - "PYTHONUNBUFFERED=1"
+      - "PYTHONPATH=/app"
+      - "PORT=8000"
+      - "AKASH_DEPLOYMENT=true"
+      
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "omega.akash.pro"
+          - "*.akash.pro"
+          
+profiles:
+  compute:
+    omega-ai:
+      resources:
+        cpu:
+          units: 8000m  # Full 8 CPU cores
+        memory:
+          size: 17Gi    # Full 17GB RAM  
+        storage:
+          - size: 107Gi # Full 107GB storage
+            name: omega-storage
+            
+  placement:
+    akash:
+      attributes:
+        host: akash
+      pricing:
+        omega-ai:
+          denom: uakt
+          amount: 1500000  # Higher for full resources
+
+deployment:
+  omega-ai:
+    akash:
+      profile: omega-ai
+      count: 1

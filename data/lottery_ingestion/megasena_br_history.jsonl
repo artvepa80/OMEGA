@@ -1,0 +1,1 @@
+{"numbers":[4,5,30,33,41,52],"date":"11/03/1996","source_type":"api","lottery_id":"megasena_br","fetched_at":"2025-08-19T09:21:46.195118","source_config":{"type":"api","url":"https://servicebus2.caixa.gov.br/portaldeloterias/api/megasena/1","priority":1},"result_hash":"580bf2ce","confidence":0.95}

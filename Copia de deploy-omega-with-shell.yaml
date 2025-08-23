@@ -1,0 +1,40 @@
+  version: "2.0"
+
+  services:
+    omegaproai:
+      image: artvepa80/omega-ai:latest
+      expose:
+        - port: 80
+          as: 80
+          to:
+            - global: true
+      command: /bin/bash
+      args: []
+      env:
+        - PYTHONUNBUFFERED=1
+        - PYTHONPATH=/app
+
+  profiles:
+    compute:
+      omegaproai:
+        resources:
+          cpu:
+            units: 4
+          memory:
+            size: 8192Mi
+          storage:
+            - size: 2Gi
+    placement:
+      dcloud:
+        pricing:
+          omegaproai:
+            denom: uakt
+            amount: 100000
+
+  deployment:
+    omegaproai:
+      dcloud:
+        profile: omegaproai
+        count: 1
+
+

@@ -1,0 +1,15 @@
+=== Clasification Report ===
+              precision    recall  f1-score   support
+
+           0       0.97      0.82      0.89       746
+           1       0.83      0.97      0.90       705
+
+    accuracy                           0.89      1451
+   macro avg       0.90      0.89      0.89      1451
+weighted avg       0.90      0.89      0.89      1451
+
+ROC AUC: 0.9580
+
+Confusion Matrix:
+[[611 135]
+ [ 22 683]]

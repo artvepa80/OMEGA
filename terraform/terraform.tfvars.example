@@ -1,0 +1,62 @@
+# OMEGA Infrastructure Configuration Example
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Environment configuration
+environment  = "development"
+domain_name  = "omega.local"
+
+# Service images (update with your registry)
+api_image_tag = "omega-api:latest"
+gpu_image_tag = "omega-gpu:latest"
+ui_image_tag  = "omega-ui:latest"
+
+# Feature flags
+enable_redis       = true
+enable_postgres    = false
+enable_gpu_service = false
+enable_ui          = true
+enable_monitoring  = true
+enable_traefik     = true
+
+# Database configuration (if enabled)
+database_name     = "omega_ai"
+database_user     = "omega_user"
+database_password = "secure_password_here"
+
+# Monitoring configuration
+grafana_admin_password = "admin123"
+
+# Resource limits
+api_memory_limit = 2048
+api_cpu_limit    = 2
+gpu_memory_limit = 8192
+gpu_cpu_limit    = 4
+
+# Security configuration
+enable_ssl    = true
+ssl_cert_path = "../ssl/cert.pem"
+ssl_key_path  = "../ssl/key.pem"
+
+# Backup configuration
+enable_backups         = true
+backup_schedule        = "0 2 * * *"
+backup_retention_days  = 30
+
+# Logging configuration
+log_level               = "INFO"
+enable_log_aggregation  = false
+
+# Scaling configuration
+api_replicas              = 1
+enable_autoscaling        = false
+autoscaling_min_replicas  = 1
+autoscaling_max_replicas  = 5
+autoscaling_cpu_threshold = 70
+
+# Network configuration
+custom_network_cidr = "172.20.0.0/16"
+
+# Development configuration
+enable_debug_mode   = false
+enable_hot_reload   = false
+mount_source_code   = false

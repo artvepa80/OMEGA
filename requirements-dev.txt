@@ -1,0 +1,10 @@
+black             # Formateador automático de código
+flake8            # Linter para estilo y errores
+mypy              # Verificación de tipos
+pytest            # Framework de testing
+coverage          # Medición de cobertura de pruebas
+ipython           # Consola interactiva avanzada
+notebook          # Jupyter Notebooks (útil para análisis)
+matplotlib        # Visualización (si no está en main)
+line_profiler     # Profiling de funciones
+memory_profiler   # Profiling de uso de memoria

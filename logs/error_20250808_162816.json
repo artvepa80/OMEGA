@@ -1,0 +1,41 @@
+{
+  "message": "NameError: name 'random' is not defined",
+  "category": "computation",
+  "severity": "medium",
+  "details": {
+    "original_type": "NameError",
+    "function": "main",
+    "module": "__main__",
+    "context": "Funci\u00f3n principal de OMEGA PRO AI",
+    "args_count": 0,
+    "kwargs_keys": [
+      "data_path",
+      "svi_profile",
+      "top_n",
+      "enable_models",
+      "export_formats",
+      "viabilidad_config",
+      "retrain",
+      "evaluate",
+      "backtest",
+      "disable_multiprocessing",
+      "ai_mode",
+      "ai_query",
+      "ai_interactive",
+      "ai_analyze",
+      "meta_learning",
+      "train_meta",
+      "meta_predict",
+      "enable_rl",
+      "learn_from_sorteo",
+      "resultado_oficial",
+      "perfil_sorteo",
+      "regime_rng",
+      "dry_run",
+      "limit"
+    ]
+  },
+  "suggestions": [],
+  "timestamp": "2025-08-08T16:28:16.404327",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 992, in main\n    perfil_rng=config.get(\"preferencia_rangos\", \"B\"),\nAttributeError: 'HybridOmegaPredictor' object has no attribute 'generar_combinaciones_adicionales'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/utils/error_handling.py\", line 380, in wrapper\n    return func(*args, **kwargs)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/main.py\", line 998, in main\n    executor=executor_cls\nNameError: name 'random' is not defined\n"
+}

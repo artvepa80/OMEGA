@@ -1,0 +1,55 @@
+---
+version: "2.0"
+
+services:
+  omega:
+    image: python:3.11-slim
+    command:
+      - "bash"
+      - "-c"
+      - |
+        apt-get update && apt-get install -y git curl && 
+        git clone https://github.com/artvepa80/OMEGA_PRO_AI_v10.1.git /app || echo "Using existing files" &&
+        cd /app && 
+        pip install --no-cache-dir -r requirements.txt &&
+        echo "🚀 Starting OMEGA PRO AI on Akash" &&
+        python3 omega_server.py
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+    env:
+      - OMEGA_VERSION=v10.1
+      - OMEGA_COMPLETE=true
+      - PYTHONUNBUFFERED=1
+      - PORT=8000
+      - PYTHONPATH=/app
+
+profiles:
+  compute:
+    omega:
+      resources:
+        cpu:
+          units: 8.0
+        memory:
+          size: 17Gi
+        storage:
+          size: 107Gi
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        omega: 
+          denom: uakt
+          amount: 10000
+
+deployment:
+  omega:
+    dcloud:
+      profile: omega
+      count: 1

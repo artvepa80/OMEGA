@@ -1,0 +1,36 @@
+{
+  "weights": {
+    "neural_enhanced": 0.40,
+    "transformer_deep": 0.15,
+    "genetico": 0.15,
+    "omega_200_analyzer": 0.12,
+    "apriori": 0.08,
+    "montecarlo": 0.05,
+    "gboost": 0.03,
+    "lstm_v2": 0.01,
+    "clustering": 0.005,
+    "consensus": 0.005
+  },
+  "accuracy": {
+    "neural_enhanced": 0.8,
+    "transformer_deep": 0.612,
+    "genetico": 0.576,
+    "omega_200_analyzer": 0.0,
+    "apriori": 0.575,
+    "montecarlo": 0.59,
+    "gboost": 0.583,
+    "lstm_v2": 0.583,
+    "clustering": 0.45,
+    "consensus": 0.508
+  },
+  "calibration_metrics": {
+    "total_models": 10,
+    "best_model": "neural_enhanced",
+    "worst_model": "omega_200_analyzer",
+    "weight_distribution": "concentrated",
+    "optimization_date": "2025-08-07",
+    "based_on_real_result": "14-39-34-40-31-29",
+    "accuracy_improvement": "neural_enhanced showed 2/6 hits vs 0/6 for 200_analyzer"
+  },
+  "last_calibration": "2025-08-07T14:15:00.000000"
+}

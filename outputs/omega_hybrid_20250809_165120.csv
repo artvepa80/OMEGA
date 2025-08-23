@@ -1,0 +1,4 @@
+Num1,Num2,Num3,Num4,Num5,Num6,Fuente,Modelo,Confianza
+1,14,20,27,35,39,hybrid_combination,pipeline_agentic_fusion,0.830
+1,9,14,15,39,40,pipeline_v10.1,balanced_range,1.000
+9,14,17,25,33,36,pipeline_v10.1,balanced_range,0.887

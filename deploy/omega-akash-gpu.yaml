@@ -1,0 +1,79 @@
+---
+version: "2.0"
+
+services:
+  omega-ai:
+    image: omega-pro-ai:latest
+    env:
+      - "PORT=8000"
+      - "ENVIRONMENT=production"
+      - "AKASH_DEPLOYMENT=true"
+      - "PYTHONPATH=/app"
+      - "CUDA_VISIBLE_DEVICES=0"
+      - "NVIDIA_VISIBLE_DEVICES=all"
+      - "NVIDIA_DRIVER_CAPABILITIES=compute,utility"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "omega-ai.akash"
+        http_options:
+          max_body_size: 104857600
+          read_timeout: 300000
+          send_timeout: 300000
+    command:
+      - "/bin/sh"
+      - "-c"
+      - |
+        echo "🚀 Starting OMEGA PRO AI on Akash Network..."
+        echo "GPU Info:"
+        nvidia-smi || echo "No GPU detected, running CPU mode"
+        echo "System Info:"
+        cat /proc/cpuinfo | grep "model name" | head -1
+        free -h
+        echo "Starting OMEGA API..."
+        cd /app && python3 omega_unified_main.py --mode api --port 8000 --host 0.0.0.0
+
+profiles:
+  compute:
+    omega-ai:
+      resources:
+        cpu:
+          units: 4
+        memory:
+          size: 8Gi
+        storage:
+          - size: 20Gi
+            mount: /app/data
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+                - model: rtx3090
+                - model: rtx4080
+                - model: tesla-t4
+                - model: a100
+                - model: a40
+
+  placement:
+    westcoast:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+          - "akash18qa2a2ltfyvkyj0ggj3hkvuj6twzyumuaru9s4"
+      pricing:
+        omega-ai:
+          denom: uakt
+          amount: 5000  # ~$1.20/hour for GPU instance (~$28/day)
+
+deployment:
+  omega-ai:
+    westcoast:
+      profile: omega-ai
+      count: 1

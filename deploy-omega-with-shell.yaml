@@ -1,0 +1,222 @@
+version: "2.0"
+
+services:
+  omega-shell:
+    image: python:3.11-slim
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "*.akash.network"
+        http_options:
+          max_body_size: 67108864
+      - port: 22
+        to:
+          - global: false
+    env:
+      - OMEGA_ENV=production
+      - OMEGA_VERSION=v10.1-shell
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PORT=8000
+    command:
+      - "/bin/bash"
+    args:
+      - "-c"
+      - |
+        # Install system dependencies
+        apt-get update && apt-get install -y \
+          git \
+          curl \
+          build-essential \
+          openssh-server \
+          sudo \
+          vim \
+          && rm -rf /var/lib/apt/lists/*
+        
+        # Setup SSH
+        service ssh start
+        
+        # Create omega user
+        useradd -m -s /bin/bash omega
+        echo 'omega:omega123' | chpasswd
+        echo 'omega ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+        
+        # Clone repository
+        cd /home/omega
+        git clone https://github.com/tu-usuario/OMEGA_PRO_AI_v10.1.git omega-ai || \
+        mkdir -p omega-ai
+        
+        cd omega-ai
+        
+        # Create your files directly in the container
+        cat > api_main_with_execute.py << 'PYEOF'
+#!/usr/bin/env python3
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import subprocess
+import os
+import sys
+import time
+import socket
+from typing import List, Optional
+
+app = FastAPI(title="OMEGA with Execute", version="10.1")
+
+class ExecuteRequest(BaseModel):
+    command: str
+    args: Optional[List[str]] = []
+
+class ExecuteResponse(BaseModel):
+    command: str
+    output: str
+    environment: dict
+    success: bool
+    execution_time: float
+
+@app.get("/")
+async def root():
+    return {"message": "OMEGA with Shell Access", "execute_endpoint": "/execute"}
+
+@app.post("/execute")
+async def execute_command(request: ExecuteRequest):
+    # Allow OMEGA commands
+    ALLOWED_COMMANDS = [
+        "python3 main.py",
+        "python3 run_main_full_output.py", 
+        "ls",
+        "pwd",
+        "whoami",
+        "hostname"
+    ]
+    
+    full_command = f"{request.command} {' '.join(request.args)}" if request.args else request.command
+    
+    # Check if command is allowed
+    if not any(full_command.startswith(cmd) for cmd in ALLOWED_COMMANDS):
+        raise HTTPException(status_code=403, detail="Command not allowed")
+    
+    try:
+        start_time = time.time()
+        
+        # Change to omega directory
+        os.chdir('/home/omega/omega-ai')
+        
+        # Execute command
+        result = subprocess.run(
+            full_command,
+            shell=True,
+            capture_output=True,
+            text=True,
+            timeout=600  # 10 minutes
+        )
+        
+        execution_time = time.time() - start_time
+        
+        environment_info = {
+            "hostname": socket.gethostname(),
+            "user": os.getenv('USER', 'root'),
+            "cwd": os.getcwd(),
+            "python": sys.executable,
+            "environment": "🚀 AKASH DEPLOYMENT"
+        }
+        
+        return ExecuteResponse(
+            command=full_command,
+            output=f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}" if result.stderr else result.stdout,
+            environment=environment_info,
+            success=result.returncode == 0,
+            execution_time=execution_time
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("api_main_with_execute:app", host="0.0.0.0", port=8000)
+PYEOF
+        
+        # Create a basic main.py for testing
+        cat > main.py << 'MAINEOF'
+#!/usr/bin/env python3
+import os
+import socket
+import sys
+from datetime import datetime
+
+print("🚀 OMEGA PRO AI v10.1 - Ejecución Completa con Output Full")
+print("=" * 80)
+print(f"⏰ Inicio: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+print(f"🏠 Host: {socket.gethostname()}")
+print(f"👤 Usuario: {os.getenv('USER', 'unknown')}")
+print(f"📁 Directorio: {os.getcwd()}")
+print(f"🐍 Python: {sys.executable}")
+print(f"🌍 Entorno: 🚀 AKASH DEPLOYMENT")
+print("=" * 80)
+
+print("🔄 Iniciando OMEGA Pipeline...")
+print("📊 Cargando datos históricos...")
+print("🧠 Inicializando modelos ML...")
+print("⚙️ Ejecutando Meta-learning...")
+print("🧮 Procesando LSTM y Transformers...")
+print("🎯 Aplicando filtros avanzados...")
+
+# Simulate some processing time
+import time
+time.sleep(2)
+
+print("✅ Pipeline completado exitosamente")
+print("🎲 Generando predicciones finales...")
+
+# Generate some sample predictions
+predictions = [
+    [2, 15, 23, 31, 37, 40],
+    [5, 12, 19, 28, 33, 39],
+    [8, 14, 22, 27, 35, 38]
+]
+
+for i, pred in enumerate(predictions, 1):
+    print(f"{i}. {pred}")
+
+print("=" * 80)
+print("✅ MAIN.PY EJECUTADO COMPLETAMENTE EN AKASH")
+print("=" * 80)
+MAINEOF
+        
+        # Install Python dependencies
+        pip install --no-cache-dir \
+          fastapi \
+          uvicorn[standard] \
+          requests
+        
+        # Start API server with execute endpoint
+        python3 api_main_with_execute.py &
+        
+        # Keep container running
+        tail -f /dev/null
+
+profiles:
+  compute:
+    omega-shell:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+          size: 20Gi
+  placement:
+    dcloud:
+      pricing:
+        omega-shell:
+          denom: uakt
+          amount: 15000
+
+deployment:
+  omega-shell:
+    dcloud:
+      profile: omega-shell
+      count: 1

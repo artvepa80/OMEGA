@@ -1,0 +1,11 @@
+# GPU-specific requirements for Akash deployment
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+tensorflow-gpu>=2.13.0
+nvidia-ml-py>=12.535.77
+pynvml>=11.5.0
+
+# Optional GPU monitoring
+gpustat>=1.1.1
+py3nvml>=0.2.7

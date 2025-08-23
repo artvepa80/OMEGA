@@ -1,0 +1,100 @@
+# OMEGA Pro AI - Docker Ignore File
+# Ignore development and build artifacts
+
+# Version control
+.git/
+.gitignore
+.github/
+
+# Documentation
+*.md
+docs/
+README*
+*.pdf
+
+# Development files
+.env
+.env.*
+*.log
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.desktop
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Node.js (if any)
+node_modules/
+npm-debug.log*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (large datasets) 
+data/backups/
+data/olds/
+# Keep essential CSV and JSON files for OMEGA
+!data/historial_kabala_github_emergency_clean.csv
+!data/ultimo_resultado_oficial.json
+!config/*.json
+!data/omega_learning_data.json
+
+# Logs and output (exclude heavy log files)
+logs/
+output/
+outputs/
+results/
+gboost_*.log
+*.log
+!requirements*.txt
+
+# INCLUIR TODO OMEGA - Solo excluir archivos de desarrollo
+
+# Test files (no necesarios en producción)
+test/
+tests/
+*_test.py
+test_*.py
+debug_*.py
+validate_*.py
+
+# Deployment files (not needed in container)
+deploy/
+scripts/
+docker-compose*.yml
+Dockerfile*
+!Dockerfile.secure-api
+!Dockerfile.secure-gpu
+
+# Temporary files
+tmp/
+.cache/

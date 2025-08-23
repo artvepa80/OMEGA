@@ -1,0 +1,383 @@
+# OMEGA PRO AI v10.1 - Network Security Configuration
+# Comprehensive network security policies for production deployment
+# Includes firewall rules, VPC configuration, and DDoS protection
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-network-security-config
+  namespace: omega-production
+  labels:
+    app: omega-pro-ai
+    component: network-security
+    version: "10.1"
+data:
+  # ===== FIREWALL RULES =====
+  firewall-rules.yaml: |
+    # UFW Firewall Rules for OMEGA PRO AI
+    # Default policies
+    ufw --force reset
+    ufw default deny incoming
+    ufw default allow outgoing
+    ufw default deny routed
+    
+    # SSH (restricted to specific IPs)
+    ufw allow from 10.0.0.0/8 to any port 22
+    ufw allow from 172.16.0.0/12 to any port 22
+    ufw allow from 192.168.0.0/16 to any port 22
+    
+    # HTTP/HTTPS (public access)
+    ufw allow 80/tcp
+    ufw allow 443/tcp
+    
+    # OMEGA API ports (restricted)
+    ufw allow from 10.0.0.0/8 to any port 8000
+    ufw allow from 10.0.0.0/8 to any port 8001
+    
+    # Health check endpoints
+    ufw allow from 10.0.0.0/8 to any port 8080
+    
+    # Monitoring (Prometheus/Grafana - restricted)
+    ufw allow from 10.0.0.0/8 to any port 9090
+    ufw allow from 10.0.0.0/8 to any port 3000
+    
+    # Database connections (internal only)
+    ufw allow from 10.0.0.0/8 to any port 5432
+    ufw allow from 10.0.0.0/8 to any port 6379
+    
+    # Block common attack vectors
+    ufw deny 23/tcp    # Telnet
+    ufw deny 135/tcp   # Windows RPC
+    ufw deny 139/tcp   # NetBIOS
+    ufw deny 445/tcp   # SMB
+    ufw deny 1433/tcp  # SQL Server
+    ufw deny 3389/tcp  # RDP
+    
+    # Rate limiting rules
+    ufw limit ssh/tcp
+    ufw limit 80/tcp
+    ufw limit 443/tcp
+    
+    # Enable firewall
+    ufw --force enable
+    
+    # Logging
+    ufw logging on
+
+  # ===== IPTABLES RULES =====
+  iptables-rules.sh: |
+    #!/bin/bash
+    # Advanced iptables rules for OMEGA PRO AI security
+    
+    # Flush existing rules
+    iptables -F
+    iptables -X
+    iptables -t nat -F
+    iptables -t nat -X
+    iptables -t mangle -F
+    iptables -t mangle -X
+    
+    # Default policies
+    iptables -P INPUT DROP
+    iptables -P FORWARD DROP
+    iptables -P OUTPUT ACCEPT
+    
+    # Allow loopback
+    iptables -A INPUT -i lo -j ACCEPT
+    iptables -A OUTPUT -o lo -j ACCEPT
+    
+    # Allow established connections
+    iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+    
+    # DDoS protection
+    iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+    
+    # SYN flood protection
+    iptables -A INPUT -p tcp --syn -m limit --limit 1/s --limit-burst 3 -j ACCEPT
+    iptables -A INPUT -p tcp --syn -j DROP
+    
+    # Port scan protection
+    iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+    iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+    iptables -A INPUT -p tcp --tcp-flags ALL FIN,URG,PSH -j DROP
+    iptables -A INPUT -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -j DROP
+    iptables -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+    iptables -A INPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+    
+    # Allow SSH (rate limited)
+    iptables -A INPUT -p tcp --dport 22 -m recent --set --name SSH
+    iptables -A INPUT -p tcp --dport 22 -m recent --update --seconds 60 --hitcount 4 --rttl --name SSH -j DROP
+    iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+    
+    # Allow HTTP/HTTPS
+    iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+    iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+    
+    # Allow OMEGA API ports (internal only)
+    iptables -A INPUT -s 10.0.0.0/8 -p tcp --dport 8000 -j ACCEPT
+    iptables -A INPUT -s 10.0.0.0/8 -p tcp --dport 8001 -j ACCEPT
+    
+    # Allow monitoring (internal only)
+    iptables -A INPUT -s 10.0.0.0/8 -p tcp --dport 9090 -j ACCEPT
+    iptables -A INPUT -s 10.0.0.0/8 -p tcp --dport 3000 -j ACCEPT
+    
+    # Block invalid packets
+    iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+    
+    # Log dropped packets
+    iptables -A INPUT -j LOG --log-prefix "DROPPED: " --log-level 4
+    
+    # Save rules
+    iptables-save > /etc/iptables/rules.v4
+
+  # ===== FAIL2BAN CONFIGURATION =====
+  fail2ban-omega.conf: |
+    # OMEGA PRO AI Fail2Ban configuration
+    
+    [DEFAULT]
+    ignoreip = 127.0.0.1/8 ::1 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+    bantime = 3600
+    findtime = 600
+    maxretry = 3
+    backend = auto
+    usedns = warn
+    logencoding = auto
+    enabled = false
+    mode = normal
+    filter = %(__name__)s
+    destemail = security@omega-ai.com
+    sender = omega-security@omega-ai.com
+    mta = sendmail
+    protocol = tcp
+    chain = <known/chain>
+    port = 0:65535
+    fail2ban_agent = Fail2Ban/%(fail2ban_version)s
+    
+    [sshd]
+    enabled = true
+    port = ssh
+    logpath = /var/log/auth.log
+    maxretry = 3
+    bantime = 1800
+    
+    [omega-api]
+    enabled = true
+    port = 8000,8001
+    logpath = /var/log/omega/*.log
+    filter = omega-api
+    maxretry = 5
+    bantime = 7200
+    findtime = 300
+    
+    [nginx-http-auth]
+    enabled = true
+    port = http,https
+    logpath = /var/log/nginx/error.log
+    maxretry = 3
+    bantime = 3600
+    
+    [nginx-noscript]
+    enabled = true
+    port = http,https
+    logpath = /var/log/nginx/access.log
+    maxretry = 6
+    bantime = 86400
+    
+    [nginx-badbots]
+    enabled = true
+    port = http,https
+    logpath = /var/log/nginx/access.log
+    maxretry = 2
+    bantime = 86400
+    
+    [nginx-noproxy]
+    enabled = true
+    port = http,https
+    logpath = /var/log/nginx/access.log
+    maxretry = 2
+    bantime = 86400
+
+  # ===== NGINX SECURITY CONFIGURATION =====
+  nginx-security.conf: |
+    # OMEGA PRO AI NGINX Security Configuration
+    
+    # Security headers
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none';" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+    
+    # Hide server information
+    server_tokens off;
+    more_set_headers "Server: OMEGA-Secure";
+    
+    # Rate limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=2r/s;
+    limit_req_zone $binary_remote_addr zone=login:10m rate=1r/m;
+    limit_req_zone $binary_remote_addr zone=general:10m rate=10r/s;
+    limit_conn_zone $binary_remote_addr zone=perip:10m;
+    
+    # Request size limits
+    client_max_body_size 10M;
+    client_body_buffer_size 128k;
+    client_header_buffer_size 3m;
+    large_client_header_buffers 4 256k;
+    
+    # Timeouts
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 5s 5s;
+    send_timeout 10s;
+    
+    # SSL Configuration
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    
+    # Security locations
+    location ~ /\.ht {
+        deny all;
+    }
+    
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+    
+    location ~* \.(txt|log|conf)$ {
+        deny all;
+    }
+    
+    location /admin {
+        allow 10.0.0.0/8;
+        allow 172.16.0.0/12;
+        allow 192.168.0.0/16;
+        deny all;
+    }
+    
+    # API endpoints with rate limiting
+    location /api/ {
+        limit_req zone=api burst=5 nodelay;
+        limit_conn perip 10;
+        proxy_pass http://omega_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    
+    # Login endpoint with strict rate limiting
+    location /auth/login {
+        limit_req zone=login burst=2 nodelay;
+        proxy_pass http://omega_backend;
+    }
+
+  # ===== HAPROXY SECURITY CONFIGURATION =====
+  haproxy-security.cfg: |
+    # OMEGA PRO AI HAProxy Security Configuration
+    
+    global
+        daemon
+        user haproxy
+        group haproxy
+        
+        # SSL/TLS settings
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+        ssl-default-bind-options no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
+        ssl-default-server-ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
+        ssl-default-server-options no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
+        
+        # Security tunables
+        tune.ssl.default-dh-param 2048
+        
+        # Stats socket
+        stats socket /var/lib/haproxy/stats mode 660
+        
+    defaults
+        mode http
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+        
+        # Security options
+        option httpclose
+        option redispatch
+        option log-health-checks
+        option log-separate-errors
+        option httplog
+        option dontlognull
+        
+        # Security headers
+        http-response set-header X-Frame-Options DENY
+        http-response set-header X-Content-Type-Options nosniff
+        http-response set-header X-XSS-Protection "1; mode=block"
+        http-response set-header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        http-response del-header Server
+        
+        # Rate limiting
+        stick-table type ip size 100k expire 30s store http_req_rate(10s)
+        http-request track-sc0 src
+        http-request deny if { sc_http_req_rate(0) gt 20 }
+        
+    frontend omega_frontend
+        bind *:80
+        bind *:443 ssl crt /etc/ssl/certs/omega.pem
+        
+        # Redirect HTTP to HTTPS
+        redirect scheme https if !{ ssl_fc }
+        
+        # Security ACLs
+        acl is_admin path_beg /admin
+        acl internal_network src 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+        acl api_path path_beg /api
+        acl predict_path path_beg /predict
+        
+        # Block admin access from external
+        http-request deny if is_admin !internal_network
+        
+        # Rate limit API calls
+        stick-table type ip size 100k expire 1m store http_req_rate(1m)
+        http-request track-sc1 src if api_path
+        http-request deny if api_path { sc_http_req_rate(1) gt 10 }
+        
+        # Rate limit predictions
+        http-request track-sc2 src if predict_path
+        http-request deny if predict_path { sc_http_req_rate(2) gt 2 }
+        
+        default_backend omega_api_servers
+        
+    backend omega_api_servers
+        balance roundrobin
+        option httpchk GET /health
+        
+        # Health check
+        http-check expect status 200
+        
+        # Servers
+        server omega1 omega-api-1:8000 check inter 10s
+        server omega2 omega-api-2:8000 check inter 10s backup
+        
+    backend omega_gpu_servers
+        balance leastconn
+        option httpchk GET /health
+        
+        # GPU servers
+        server omega-gpu-1 omega-gpu-1:8001 check inter 15s maxconn 2
+        
+    # Statistics
+    listen stats
+        bind *:8404
+        stats enable
+        stats uri /stats
+        stats refresh 30s
+        stats admin if internal_network

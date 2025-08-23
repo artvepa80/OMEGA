@@ -1,0 +1,31 @@
+{
+  "umbrales_suma": {
+    "moderado": {"A": [85, 170], "C": [50, 130]},
+    "alto": {"A": [80, 175], "C": [45, 135]},
+    "extremo": {"A": [75, 180], "C": [40, 140]}
+  },
+  "umbrales_low_nums": {
+    "moderado": {"A": 0, "C": 3},
+    "alto": {"A": 0, "C": 2},
+    "extremo": {"A": 0, "C": 1}
+  },
+  "umbral_freq": {
+    "moderado": {"A": 95, "C": 90},
+    "alto": {"A": 90, "C": 85},
+    "extremo": {"A": 85, "C": 80}
+  },
+  "umbral_freq_min": {
+    "moderado": {"A": 5, "C": 5},
+    "alto": {"A": 3, "C": 3},
+    "extremo": {"A": 2, "C": 2}
+  },
+  "max_number": 40,
+  "umbrales_saltos": {"A": [10, 50], "C": [10, 50]},
+  "umbrales_pares": {"A": [0, 6], "C": [0, 6]},
+  "umbral_puntaje": {
+    "moderado": 0.85,
+    "alto": 0.75,
+    "extremo": 0.65
+  },
+  "omega_endpoint": "https://api.omegapro.ai/v10.2/predictions"
+}

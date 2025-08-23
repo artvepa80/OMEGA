@@ -1,0 +1,598 @@
+# OMEGA PRO AI v10.1 - Secure Docker Compose Configuration
+# Production-ready secure deployment with comprehensive security stack
+# Integrates with Railway, Docker, and other deployment platforms
+
+version: '3.8'
+
+services:
+  # Main OMEGA API Service - Secure
+  omega-api-secure:
+    build:
+      context: .
+      dockerfile: Dockerfile.secure
+    container_name: omega-api-secure
+    restart: always
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+    environment:
+      # Security Configuration
+      - OMEGA_ENV=production
+      - SECURITY_MODE=strict
+      - SSL_ENABLED=true
+      - SECURITY_HEADERS=true
+      - CORS_ENABLED=true
+      - RATE_LIMITING=true
+      - AUTH_REQUIRED=true
+      - AUDIT_LOGGING=enabled
+      - ENCRYPTION_LEVEL=AES256
+      
+      # Authentication & Session
+      - JWT_SECRET_FILE=/run/secrets/jwt_secret
+      - SESSION_SECRET_FILE=/run/secrets/session_secret
+      - JWT_EXPIRATION=1800
+      - SESSION_TIMEOUT=3600
+      - MAX_LOGIN_ATTEMPTS=3
+      
+      # Database & Cache
+      - REDIS_URL=redis://redis-secure:6379
+      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
+      - DATABASE_URL_FILE=/run/secrets/database_url
+      
+      # Security Limits
+      - MAX_REQUEST_SIZE=10M
+      - REQUEST_TIMEOUT=120
+      - MAX_CONCURRENT_REQUESTS=100
+      - API_RATE_LIMIT=10/minute
+      - LOGIN_RATE_LIMIT=3/minute
+      
+      # Monitoring
+      - LOG_LEVEL=INFO
+      - HEALTH_CHECK_ENABLED=true
+      - PROMETHEUS_ENABLED=true
+      - AUDIT_RETENTION_DAYS=90
+    secrets:
+      - jwt_secret
+      - session_secret
+      - redis_password
+      - database_url
+      - ssl_certificate
+      - ssl_private_key
+    volumes:
+      - omega-data:/app/data
+      - omega-logs:/var/log/omega
+      - omega-ssl:/app/ssl:ro
+    networks:
+      - omega-secure-network
+    depends_on:
+      - redis-secure
+      - vault-secure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run
+      - /var/cache
+
+  # GPU Service - Secure
+  omega-gpu-secure:
+    build:
+      context: .
+      dockerfile: Dockerfile.secure-gpu-enhanced
+    container_name: omega-gpu-secure
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      # GPU Security Configuration
+      - CUDA_VISIBLE_DEVICES=0
+      - NVIDIA_VISIBLE_DEVICES=all
+      - GPU_SECURITY_MODE=strict
+      - GPU_MEMORY_LIMIT=90
+      - GPU_PROCESS_ISOLATION=enabled
+      - GPU_TEMPERATURE_MONITORING=enabled
+      - CONCURRENT_GPU_REQUESTS=2
+      - GPU_TIMEOUT_SECONDS=300
+      
+      # Security Settings
+      - SECURITY_MODE=strict
+      - SSL_ENABLED=true
+      - INTERNAL_AUTH=true
+      - AUDIT_LOGGING=enabled
+      - ENCRYPTION_LEVEL=AES256
+      
+      # Cache & Database
+      - REDIS_URL=redis://redis-secure:6379
+      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
+      
+      # Monitoring
+      - LOG_LEVEL=INFO
+      - HEALTH_CHECK_ENABLED=true
+      - GPU_MONITORING_ENABLED=true
+    secrets:
+      - redis_password
+      - ssl_certificate
+      - ssl_private_key
+    volumes:
+      - omega-gpu-data:/app/gpu
+      - omega-models:/app/models
+      - omega-logs:/var/log/omega
+    networks:
+      - omega-secure-network
+    depends_on:
+      - redis-secure
+      - omega-api-secure
+    runtime: nvidia
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run
+
+  # Redis - Secure Configuration
+  redis-secure:
+    image: redis:7-alpine
+    container_name: redis-secure
+    restart: always
+    command: >
+      redis-server
+      --requirepass-file /run/secrets/redis_password
+      --maxmemory 2gb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --appendonly yes
+      --appendfsync everysec
+      --protected-mode yes
+      --tcp-keepalive 300
+      --timeout 300
+      --tcp-backlog 511
+      --databases 16
+    ports:
+      - "6379"
+    secrets:
+      - redis_password
+    volumes:
+      - redis-data:/data
+      - redis-config:/usr/local/etc/redis
+    networks:
+      - omega-secure-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--no-auth-warning", "-a", "$$(cat /run/secrets/redis_password)", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+
+  # NGINX Security Proxy
+  nginx-security:
+    image: nginx:alpine
+    container_name: nginx-security
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SSL_ENABLED=true
+      - SECURITY_HEADERS=true
+      - RATE_LIMITING=true
+      - DDoS_PROTECTION=enabled
+    volumes:
+      - ./security/nginx-security.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/ssl/certs:ro
+      - nginx-logs:/var/log/nginx
+    networks:
+      - omega-secure-network
+      - omega-public-network
+    depends_on:
+      - omega-api-secure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+
+  # HashiCorp Vault for Secrets Management
+  vault-secure:
+    image: vault:latest
+    container_name: vault-secure
+    restart: always
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_ADDR=https://0.0.0.0:8200
+      - VAULT_API_ADDR=https://vault-secure:8200
+      - VAULT_UI=true
+      - VAULT_LOG_LEVEL=INFO
+    volumes:
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+      - ./security/vault-config.hcl:/vault/config/vault.hcl:ro
+      - ./ssl:/vault/ssl:ro
+    networks:
+      - omega-secure-network
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/vault.hcl
+    healthcheck:
+      test: ["CMD", "wget", "--no-check-certificate", "-q", "--spider", "https://localhost:8200/v1/sys/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    security_opt:
+      - no-new-privileges:true
+
+  # Prometheus for Monitoring
+  prometheus-security:
+    image: prom/prometheus:latest
+    container_name: prometheus-security
+    restart: always
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=90d'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+    volumes:
+      - ./monitoring/prometheus-security.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/rules:/etc/prometheus/rules:ro
+      - prometheus-data:/prometheus
+    networks:
+      - omega-secure-network
+    depends_on:
+      - omega-api-secure
+      - omega-gpu-secure
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    security_opt:
+      - no-new-privileges:true
+
+  # Grafana for Dashboards
+  grafana-security:
+    image: grafana/grafana:latest
+    container_name: grafana-security
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD_FILE=/run/secrets/grafana_password
+      - GF_SECURITY_SECRET_KEY_FILE=/run/secrets/grafana_secret
+      - GF_SECURITY_DISABLE_GRAVATAR=true
+      - GF_SECURITY_STRICT_TRANSPORT_SECURITY=true
+      - GF_SECURITY_X_CONTENT_TYPE_OPTIONS=nosniff
+      - GF_SECURITY_X_XSS_PROTECTION=true
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_AUTH_BASIC_ENABLED=true
+      - GF_SSL_MODE=require
+      - GF_SERVER_PROTOCOL=https
+      - GF_SERVER_CERT_FILE=/etc/ssl/certs/grafana.crt
+      - GF_SERVER_CERT_KEY=/etc/ssl/certs/grafana.key
+    secrets:
+      - grafana_password
+      - grafana_secret
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./ssl:/etc/ssl/certs:ro
+    networks:
+      - omega-secure-network
+    depends_on:
+      - prometheus-security
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+
+  # Elasticsearch for Security Logging
+  elasticsearch-security:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.0
+    container_name: elasticsearch-security
+    restart: always
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - ELASTIC_PASSWORD_FILE=/run/secrets/elasticsearch_password
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    secrets:
+      - elasticsearch_password
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-config:/usr/share/elasticsearch/config
+    networks:
+      - omega-secure-network
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    security_opt:
+      - no-new-privileges:true
+
+  # Kibana for Security Dashboard
+  kibana-security:
+    image: docker.elastic.co/kibana/kibana:8.10.0
+    container_name: kibana-security
+    restart: always
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=https://elasticsearch-security:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD_FILE=/run/secrets/kibana_password
+      - SERVER_SSL_ENABLED=true
+      - XPACK_SECURITY_ENABLED=true
+    secrets:
+      - kibana_password
+    volumes:
+      - kibana-data:/usr/share/kibana/data
+      - ./ssl:/usr/share/kibana/config/certs:ro
+    networks:
+      - omega-secure-network
+    depends_on:
+      - elasticsearch-security
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:5601/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    security_opt:
+      - no-new-privileges:true
+
+  # Security Automation Service
+  security-automation:
+    build:
+      context: ./monitoring
+      dockerfile: Dockerfile.security-automation
+    container_name: security-automation
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SECURITY_AUTOMATION_ENABLED=true
+      - AUTO_BLOCK_THREATS=true
+      - FAIL2BAN_INTEGRATION=enabled
+      - SLACK_WEBHOOK_URL_FILE=/run/secrets/slack_webhook
+      - INCIDENT_RESPONSE=automated
+    secrets:
+      - slack_webhook
+    volumes:
+      - security-logs:/var/log/security
+      - ./monitoring/security-automation.py:/app/security-automation.py:ro
+    networks:
+      - omega-secure-network
+    depends_on:
+      - prometheus-security
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    security_opt:
+      - no-new-privileges:true
+
+secrets:
+  jwt_secret:
+    external: true
+  session_secret:
+    external: true
+  redis_password:
+    external: true
+  database_url:
+    external: true
+  ssl_certificate:
+    external: true
+  ssl_private_key:
+    external: true
+  grafana_password:
+    external: true
+  grafana_secret:
+    external: true
+  elasticsearch_password:
+    external: true
+  kibana_password:
+    external: true
+  slack_webhook:
+    external: true
+
+volumes:
+  omega-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data
+  omega-gpu-data:
+    driver: local
+  omega-models:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./models
+  omega-logs:
+    driver: local
+  omega-ssl:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./ssl
+  redis-data:
+    driver: local
+  redis-config:
+    driver: local
+  nginx-logs:
+    driver: local
+  vault-data:
+    driver: local
+  vault-logs:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  elasticsearch-config:
+    driver: local
+  kibana-data:
+    driver: local
+  security-logs:
+    driver: local
+
+networks:
+  omega-secure-network:
+    driver: bridge
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: omega-secure
+      com.docker.network.bridge.enable_ip_masquerade: 'true'
+      com.docker.network.driver.mtu: 1500
+  omega-public-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/16

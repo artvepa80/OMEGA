@@ -1,0 +1,201 @@
+version: "2.0"
+
+services:
+  # Main API service - OMEGA PRO AI v10.1
+  omega-api:
+    image: python:3.11-slim
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "*.akash.network"
+        http_options:
+          max_body_size: 67108864
+    env:
+      - OMEGA_ENV=production
+      - OMEGA_VERSION=v10.1-optimized
+      - PERFORMANCE_MODE=optimized
+      - LSTM_UNIFIED=true
+      - EXECUTION_SPEEDUP=50_percent
+      - SSL_ENABLED=false
+      - SECURITY_HEADERS=true
+      - CORS_ENABLED=true
+      - RATE_LIMITING=true
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - PORT=8000
+    command:
+      - "/bin/bash"
+      - "-c"
+      - |
+        set -e
+        echo "🚀 OMEGA PRO AI v10.1 Starting..."
+        
+        # Install system dependencies
+        apt-get update && apt-get install -y git curl build-essential
+        
+        # Clone and setup the application
+        cd /tmp
+        git clone https://github.com/your-repo/OMEGA_PRO_AI_v10.1.git app || echo "Using existing code"
+        cd /tmp/app || cd /app
+        
+        # Install Python dependencies
+        pip install --no-cache-dir -r requirements.txt
+        
+        # Install additional production dependencies
+        pip install --no-cache-dir uvicorn[standard] fastapi gunicorn
+        
+        echo "📊 Starting OMEGA AI API..."
+        python -c "
+        import uvicorn
+        import os
+        from fastapi import FastAPI
+        from datetime import datetime
+        import json
+        import asyncio
+        
+        app = FastAPI(title='OMEGA PRO AI v10.1', version='10.1-akash')
+        
+        @app.get('/')
+        async def root():
+            return {
+                'system': 'OMEGA PRO AI',
+                'version': '10.1-optimized',
+                'status': 'running',
+                'platform': 'Akash Network',
+                'timestamp': datetime.utcnow().isoformat(),
+                'features': ['AI Predictions', 'ML Ensemble', 'Real-time Processing']
+            }
+        
+        @app.get('/health')
+        async def health():
+            return {'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()}
+        
+        @app.post('/predict')
+        async def predict():
+            try:
+                # Import and run main prediction
+                import sys
+                sys.path.append('/tmp/app')
+                from main import main as omega_main
+                
+                results = omega_main(top_n=8, dry_run=True, enable_models=['all'])
+                
+                predictions = []
+                for i, combo in enumerate(results[:8], 1):
+                    predictions.append({
+                        'rank': i,
+                        'numbers': combo.get('combination', []),
+                        'confidence': round(combo.get('score', 0.0), 3),
+                        'source': 'omega_ai_v10.1'
+                    })
+                
+                return {
+                    'success': True,
+                    'timestamp': datetime.utcnow().isoformat(),
+                    'predictions': predictions,
+                    'metadata': {
+                        'total_combinations': len(predictions),
+                        'ai_models_used': ['all'],
+                        'generation_method': 'omega_v10.1_akash'
+                    }
+                }
+            except Exception as e:
+                return {
+                    'success': False,
+                    'error': str(e),
+                    'timestamp': datetime.utcnow().isoformat()
+                }
+        
+        if __name__ == '__main__':
+            uvicorn.run(app, host='0.0.0.0', port=8000)
+        "
+    resources:
+      cpu:
+        units: "2.0"
+      memory:
+        size: 4Gi
+      storage:
+        - size: 20Gi
+
+  # Redis cache service
+  redis:
+    image: redis:7.2-alpine
+    expose:
+      - port: 6379
+        to:
+          - service: omega-api
+    command:
+      - redis-server
+      - --maxmemory
+      - 1gb
+      - --maxmemory-policy
+      - allkeys-lru
+    resources:
+      cpu:
+        units: "0.5"
+      memory:
+        size: 1Gi
+      storage:
+        - size: 5Gi
+
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: "2.0"
+        memory:
+          size: 4Gi
+        storage:
+          - size: 20Gi
+    
+    redis:
+      resources:
+        cpu:
+          units: "0.5"
+        memory:
+          size: 1Gi
+        storage:
+          - size: 5Gi
+
+  placement:
+    akash-providers:
+      attributes:
+        host: akash
+        region: us-west
+      signedBy:
+        anyOf:
+          - akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63
+          - akash18qa2a2ltfyvkyj3jkw9gn2506lhxvtq
+          - akash1ccktptfkvdc67msrn57xp3jkw9gn2506lhxvtq
+      pricing:
+        omega-api:
+          denom: uakt
+          amount: 500
+        redis:
+          denom: uakt
+          amount: 200
+
+deployment:
+  omega-api:
+    akash-providers:
+      profile: omega-api
+      count: 1
+  
+  redis:
+    akash-providers:
+      profile: redis
+      count: 1
+
+metadata:
+  name: omega-pro-ai-working
+  version: "1.0.0"
+  description: "OMEGA Pro AI v10.1 - Working Akash Deployment"
+  tags:
+    - production
+    - ai-predictions
+    - high-availability

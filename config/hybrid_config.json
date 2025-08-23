@@ -1,0 +1,48 @@
+{
+  "default_mode": "adaptive",
+  "pipeline_config": {
+    "data_path": "data/historial_kabala_github_fixed.csv",
+    "svi_profile": "default",
+    "top_n": 30,
+    "enable_models": [
+      "all"
+    ],
+    "export_formats": [
+      "csv",
+      "json"
+    ],
+    "retrain": false,
+    "evaluate": false,
+    "backtest": false
+  },
+  "agentic_config": {
+    "enable_autonomous_agent": true,
+    "enable_api_server": false,
+    "enable_predictions": true,
+    "agent_schedule_seconds": 3600,
+    "max_experiments_per_cycle": 2
+  },
+  "hybrid_strategy": {
+    "combination_method": "weighted_ensemble",
+    "pipeline_weight": 0.6,
+    "agentic_weight": 0.4,
+    "confidence_threshold": 0.7,
+    "diversity_requirement": 0.3
+  },
+  "adaptive_rules": {
+    "switch_threshold": 0.1,
+    "performance_window": 10,
+    "health_check_interval": 300,
+    "fallback_mode": "pipeline"
+  },
+  "output_settings": {
+    "export_formats": [
+      "csv",
+      "json",
+      "html"
+    ],
+    "include_source_info": true,
+    "include_confidence": true,
+    "include_explanation": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+    "metadata": {
+        "app": "OMEGA PRO AI",
+        "version": "v12.4",
+        "export_date": "2025-08-05T12:33:54.069637",
+        "parameters": {
+            "data_path": "data/historial_kabala_github.csv",
+            "svi_profile": "default",
+            "top_n": 30,
+            "enable_models": [
+                "consensus",
+                "ghost_rng",
+                "inverse_mining",
+                "lstm_v2",
+                "montecarlo",
+                "apriori",
+                "transformer_deep",
+                "clustering",
+                "genetico"
+            ]
+        }
+    },
+    "combinations": [
+        {
+            "combination": [
+                6,
+                17,
+                18,
+                24,
+                25,
+                39
+            ],
+            "source": "fallback",
+            "score": 0.5,
+            "svi_score": 0.5,
+            "metrics": {},
+            "normalized": 0.0,
+            "original_score": 0.5
+        }
+    ]
+}

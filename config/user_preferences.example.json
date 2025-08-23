@@ -1,0 +1,146 @@
+{
+  "_comment": "OMEGA AI MCP User Preferences Configuration",
+  "_instructions": "Copy this file to user_preferences.json and customize your settings",
+  "_version": "1.0.0",
+  
+  "notification_channels": [
+    "email"
+  ],
+  
+  "contact_info": {
+    "email": "your_email@example.com",
+    "whatsapp": "+1234567890",
+    "telegram": "123456789",
+    "_note": "Fill in your actual contact information"
+  },
+  
+  "prediction_settings": {
+    "prediction_count": 5,
+    "include_analysis": true,
+    "include_disclaimer": true,
+    "include_confidence_scores": true,
+    "include_historical_context": true,
+    "max_predictions_per_request": 10
+  },
+  
+  "risk_profile": "balanced",
+  "_risk_options": ["conservative", "balanced", "aggressive"],
+  
+  "notification_preferences": {
+    "summary_channels": ["email"],
+    "error_notification_channels": ["email", "whatsapp"],
+    "urgent_notification_channels": ["whatsapp", "email"],
+    "daily_summary_enabled": true,
+    "daily_summary_time": "09:00",
+    "instant_notifications": true,
+    "quiet_hours": {
+      "enabled": false,
+      "start": "22:00",
+      "end": "08:00",
+      "timezone": "America/Lima"
+    }
+  },
+  
+  "lottery_preferences": {
+    "kabala_pe": {
+      "enabled": true,
+      "notification_time": "23:30",
+      "timezone": "America/Lima",
+      "auto_predictions": true,
+      "prediction_count": 5,
+      "include_analysis": true,
+      "notification_channels": ["email", "whatsapp"]
+    },
+    "mega_millions": {
+      "enabled": false,
+      "notification_time": "23:00",
+      "timezone": "America/New_York",
+      "auto_predictions": false,
+      "prediction_count": 3,
+      "include_analysis": true,
+      "notification_channels": ["email"]
+    },
+    "powerball": {
+      "enabled": false,
+      "notification_time": "22:59",
+      "timezone": "America/New_York",
+      "auto_predictions": false,
+      "prediction_count": 3,
+      "include_analysis": true,
+      "notification_channels": ["email"]
+    }
+  },
+  
+  "advanced_settings": {
+    "enable_learning_mode": true,
+    "save_prediction_history": true,
+    "share_anonymous_usage_data": false,
+    "cache_predictions": true,
+    "cache_duration_hours": 24,
+    "auto_update_preferences": false
+  },
+  
+  "data_privacy": {
+    "encrypt_personal_data": true,
+    "store_contact_info": true,
+    "store_prediction_history": true,
+    "data_retention_days": 90,
+    "allow_analytics": false,
+    "allow_performance_monitoring": true
+  },
+  
+  "integration_settings": {
+    "connect_to_omega_api": true,
+    "enable_webhook_notifications": false,
+    "webhook_url": "",
+    "api_rate_limiting": true,
+    "fallback_to_console": true
+  },
+  
+  "display_preferences": {
+    "language": "en",
+    "timezone": "America/Lima",
+    "date_format": "YYYY-MM-DD",
+    "time_format": "24h",
+    "number_format": "decimal",
+    "include_emojis": true,
+    "compact_notifications": false
+  },
+  
+  "backup_settings": {
+    "auto_backup_preferences": true,
+    "backup_frequency_days": 7,
+    "backup_location": "data/backups/preferences",
+    "encrypt_backups": true
+  },
+  
+  "_customization_examples": {
+    "minimal_notifications": {
+      "notification_channels": ["email"],
+      "daily_summary_enabled": false,
+      "instant_notifications": false
+    },
+    "maximum_alerts": {
+      "notification_channels": ["email", "whatsapp", "telegram"],
+      "error_notification_channels": ["email", "whatsapp", "telegram"],
+      "instant_notifications": true,
+      "daily_summary_enabled": true
+    },
+    "production_monitoring": {
+      "notification_channels": ["email", "whatsapp"],
+      "error_notification_channels": ["whatsapp", "email", "telegram"],
+      "urgent_notification_channels": ["whatsapp", "telegram"],
+      "enable_learning_mode": false,
+      "allow_performance_monitoring": true
+    }
+  },
+  
+  "_setup_instructions": {
+    "step_1": "Copy this file to config/user_preferences.json",
+    "step_2": "Update contact_info with your actual details",
+    "step_3": "Configure notification_channels (requires credentials setup)",
+    "step_4": "Customize lottery_preferences for your needs",
+    "step_5": "Test with: python scripts/omega_mcp_service.py test",
+    "step_6": "Start with: python scripts/omega_mcp_service.py start --daemon"
+  }
+}

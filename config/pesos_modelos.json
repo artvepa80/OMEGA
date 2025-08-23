@@ -1,0 +1,15 @@
+{
+  "ghost_rng": 0.0806,
+  "clustering": 0.0449,
+  "montecarlo": 0.1757,
+  "lstm_v2": 0.0993,
+  "transformer": 0.0673,
+  "inverse_mining": 0.0673,
+  "genetico": 0.0354,
+  "apriori": 0.0875,
+  "consensus": 0.0673,
+  "meta_learning": 0.1518,
+  "entropy_fft_analyzer": 0.0426,
+  "transformer_deep": 0.0354,
+  "omega_200_analyzer": 0.0449
+}

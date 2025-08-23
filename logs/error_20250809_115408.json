@@ -1,0 +1,22 @@
+{
+  "message": "FileNotFoundError: [Errno 2] No such file or directory: 'data/historial_kabala_github_fixed.csv'",
+  "category": "file_io",
+  "severity": "medium",
+  "details": {
+    "original_type": "FileNotFoundError",
+    "file_path": null,
+    "operation": "unknown",
+    "function": "read_csv",
+    "module": "pandas.io.parsers.readers",
+    "context": "Carga de datos CSV",
+    "has_fallback": false
+  },
+  "suggestions": [
+    "Verificar que el archivo existe y es accesible",
+    "Revisar permisos de lectura/escritura",
+    "Validar formato del archivo",
+    "Verificar espacio disponible en disco"
+  ],
+  "timestamp": "2025-08-09T11:54:07.973207",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/utils/error_handling.py\", line 432, in safe_execute\n    result = func(*args, **kwargs)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 1026, in read_csv\n    return _read(filepath_or_buffer, kwds)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 620, in _read\n    parser = TextFileReader(filepath_or_buffer, **kwds)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 1620, in __init__\n    self._engine = self._make_engine(f, self.engine)\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/pandas/io/parsers/readers.py\", line 1880, in _make_engine\n    self.handles = get_handle(\n  File \"/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/lib/python3.9/site-packages/pandas/io/common.py\", line 873, in get_handle\n    handle = open(\nFileNotFoundError: [Errno 2] No such file or directory: 'data/historial_kabala_github_fixed.csv'\n"
+}

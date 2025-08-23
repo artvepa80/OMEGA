@@ -1,0 +1,11 @@
+{
+  "data_path": "data/historial_kabala_github_fixed.csv",
+  "models": [
+    "omega_production",
+    "omega_ultimate_v3"
+  ],
+  "windows": "rolling_5",
+  "top_n": 3,
+  "seed": 42,
+  "out_dir": "results/accuracy_analysis/production_test/run_20250807_211635"
+}

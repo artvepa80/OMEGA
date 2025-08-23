@@ -1,0 +1,27 @@
+# Appfile - App Store Connect and Developer Portal Configuration
+# OMEGA Pro AI iOS Application
+
+# Apple Developer Portal Team ID
+team_id("PSXDB5A2NN")
+
+# App Store Connect Team ID (if different from Developer Portal)
+itunes_connect_team_id("PSXDB5A2NN")
+
+# Apple ID for App Store Connect
+apple_id("developer@omega-ai.com")
+
+# Bundle identifiers for different environments
+app_identifier({
+  development: "com.omega.OmegaApp.dev",
+  staging: "com.omega.OmegaApp.staging", 
+  production: "com.omega.OmegaApp"
+})
+
+# For match (certificate management)
+username("developer@omega-ai.com")
+
+# Skip HTML report generation
+skip_docs(true)
+
+# Enable two-factor authentication
+ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = "app-specific-password-here"

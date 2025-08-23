@@ -1,0 +1,47 @@
+{
+  "combinacion_maestra": [
+    9,
+    12,
+    16,
+    18,
+    28,
+    34
+  ],
+  "score": 0.5,
+  "svi": 0.544,
+  "perfil": {
+    "combination": [
+      9,
+      12,
+      16,
+      18,
+      28,
+      34
+    ],
+    "jackpot_prob": 0.0
+  },
+  "riesgo": {
+    "alerta": "",
+    "recomendacion": "Jugada \u00f3ptima - OK para apostar",
+    "nivel_riesgo": "bajo"
+  },
+  "nota": "ponderada 0.7/0.2/0.1",
+  "proceso_generacion": {
+    "top_combinaciones": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "core_set": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      8
+    ]
+  }
+}

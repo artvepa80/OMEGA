@@ -1,0 +1,56 @@
+# Matchfile - Certificate and Provisioning Profile Management
+# OMEGA Pro AI iOS Application
+
+# Git repository for storing certificates and profiles
+git_url("https://github.com/omega-ai/ios-certificates.git")
+
+# Storage mode (git or google_cloud or s3)
+storage_mode("git")
+
+# App identifiers
+app_identifier([
+  "com.omega.OmegaApp",          # Production
+  "com.omega.OmegaApp.staging",  # Staging  
+  "com.omega.OmegaApp.dev"       # Development
+])
+
+# Apple Developer Portal username
+username("developer@omega-ai.com")
+
+# Team ID
+team_id("PSXDB5A2NN")
+
+# Certificate types to manage
+type("development") # Also automatically creates the cert if it doesn't exist
+type("appstore")    # Also automatically creates the cert if it doesn't exist
+
+# For development certificates, register all connected devices
+force_for_new_devices(true)
+
+# Clone strategy for git
+clone_branch_directly(false)
+
+# Shallow clone for faster performance
+shallow_clone(true)
+
+# Skip confirmation prompts in CI
+readonly(false)
+
+# Generate and renew certificates automatically
+generate_apple_certs(true)
+
+# Skip verification of certificate validity period
+skip_certificate_verification(false)
+
+# Keychain settings
+keychain_name("fastlane_tmp_keychain")
+keychain_password("temp_password_for_ci")
+
+# Additional platform configurations
+platform("ios")
+
+# Custom certificate template ID (if using enterprise)
+# template_name("Custom Certificate Template")
+
+# Environment variable for git basic authorization (if needed)
+# ENV["MATCH_GIT_BASIC_AUTHORIZATION"] = "base64_encoded_credentials"

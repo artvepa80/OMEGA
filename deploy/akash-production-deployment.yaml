@@ -1,0 +1,46 @@
+deployment:
+  omega-api:
+    westcoast:
+      count: 1
+      profile: omega-api
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: '0.5'
+        memory:
+          size: 512Mi
+        storage:
+          size: 1Gi
+  placement:
+    westcoast:
+      pricing:
+        omega-api:
+          amount: 1000
+          denom: uakt
+services:
+  omega-api:
+    env:
+    - PORT=8000
+    - ENVIRONMENT=production
+    - AKASH_DEPLOYMENT=true
+    expose:
+    - as: 80
+      port: 8000
+      proto: http
+      to:
+      - global: true
+        http_options:
+          max_body_size: 104857600
+          read_timeout: 60000
+          send_timeout: 60000
+    image: omega-pro-ai:latest
+    resources:
+      cpu:
+        units: '0.5'
+      memory:
+        size: 512Mi
+      storage:
+        size: 1Gi
+version: '2.0'

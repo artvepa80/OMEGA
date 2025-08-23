@@ -1,0 +1,80 @@
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:33 [INFO    ] [logger.py:62] Logger inicializado - Sistema OMEGA PRO AI v10.1
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Conexión Redis establecida
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Cargadas 0 semillas sospechosas
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [4, 5, 9, 14, 23, 28]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [9, 21, 25, 33, 36, 37]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [4, 10, 14, 16, 33, 35]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [3, 6, 12, 26, 30, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 14, 17, 27, 32, 38]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 13, 16, 17, 25, 36]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([4, 5, 9, 14, 23, 28], 0.5), ([9, 21, 25, 33, 36, 37], 0.5), ([4, 10, 14, 16, 33, 35], 0.5), ([3, 6, 12, 26, 30, 40], 0.5), ([2, 14, 17, 27, 32, 38], 0.5)]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [5, 7, 20, 23, 24, 37]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [8, 11, 15, 22, 32, 39]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 5, 9, 19, 21, 30]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [5, 13, 18, 22, 24, 28]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [4, 6, 9, 23, 27, 37]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 5, 14, 18, 28, 29]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 19, 26, 29, 30, 34]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [5, 9, 12, 21, 23, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 4, 15, 19, 26, 39]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([2, 13, 16, 17, 25, 36], 0.5), ([5, 7, 20, 23, 24, 37], 0.5), ([8, 11, 15, 22, 32, 39], 0.5), ([5, 13, 18, 22, 24, 28], 0.5), ([1, 19, 26, 29, 30, 34], 0.5)]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([1, 5, 9, 19, 21, 30], 0.5), ([4, 6, 9, 23, 27, 37], 0.5), ([1, 5, 14, 18, 28, 29], 0.5), ([5, 9, 12, 21, 23, 40], 0.5), ([2, 4, 15, 19, 26, 39], 0.5)]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 4, 14, 19, 24, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 11, 14, 27, 34, 36]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [4, 6, 19, 21, 26, 30]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 11, 12, 16, 26, 34]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [3, 11, 22, 23, 28, 30]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 7, 15, 16, 22, 24]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [7, 13, 15, 18, 24, 39]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 2, 21, 27, 33, 39]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 6, 10, 22, 30, 38]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [7, 14, 16, 29, 30, 32]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([1, 11, 14, 27, 34, 36], 0.5), ([1, 11, 12, 16, 26, 34], 0.5), ([1, 7, 15, 16, 22, 24], 0.5), ([1, 2, 21, 27, 33, 39], 0.5), ([7, 14, 16, 29, 30, 32], 0.5)]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([2, 4, 14, 19, 24, 40], 0.5), ([4, 6, 19, 21, 26, 30], 0.5), ([3, 11, 22, 23, 28, 30], 0.5), ([7, 13, 15, 18, 24, 39], 0.5), ([1, 6, 10, 22, 30, 38], 0.5)]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 5, 6, 13, 26, 30]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [6, 8, 11, 14, 22, 37]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [3, 9, 28, 31, 34, 37]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [8, 13, 14, 17, 22, 30]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 5, 11, 19, 22, 38]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 2: [([6, 8, 11, 14, 22, 37], 0.5), ([8, 13, 14, 17, 22, 30], 0.5)]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [3, 21, 26, 27, 36, 38]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [7, 10, 18, 27, 33, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 2, 5, 32, 39, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 2, 5, 12, 28, 40]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [2, 7, 15, 28, 30, 32]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [9, 10, 16, 32, 33, 34]
+2025-08-21 20:50:37 [WARNING ] [logger.py:71] Combinación no válida: [1, 6, 13, 18, 32, 37]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([1, 5, 11, 19, 22, 38], 0.5), ([3, 21, 26, 27, 36, 38], 0.5), ([1, 2, 5, 32, 39, 40], 0.5), ([1, 2, 5, 12, 28, 40], 0.5), ([9, 10, 16, 32, 33, 34], 0.5)]
+2025-08-21 20:50:37 [INFO    ] [logger.py:68] Batch 5: [([2, 5, 6, 13, 26, 30], 0.5), ([3, 9, 28, 31, 34, 37], 0.5), ([7, 10, 18, 27, 33, 40], 0.5), ([2, 7, 15, 28, 30, 32], 0.5), ([1, 6, 13, 18, 32, 37], 0.5)]

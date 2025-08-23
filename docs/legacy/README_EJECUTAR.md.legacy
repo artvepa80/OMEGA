@@ -1,0 +1,118 @@
+# 🎯 OMEGA PRO AI v10.1 - Guía de Ejecución para 8 Series
+
+## 🚀 Sistema Integrado y Optimizado
+
+El sistema OMEGA PRO AI ha sido **completamente integrado** para generar exactamente **8 series finales** utilizando **TODOS los modelos de IA activos** para máxima precisión.
+
+## 📋 Características del Sistema Integrado
+
+### 🤖 Modelos Activos (TODOS)
+- ✅ **Consensus Engine** - Motor de consenso
+- ✅ **Ghost RNG** - Detección de patrones RNG
+- ✅ **Inverse Mining** - Minería inversa
+- ✅ **LSTM v2** - Redes neuronales recurrentes
+- ✅ **Monte Carlo** - Simulaciones estocásticas
+- ✅ **Apriori** - Análisis de frecuencias
+- ✅ **Transformer Deep** - Arquitectura transformer
+- ✅ **Clustering** - Agrupación inteligente
+- ✅ **Algoritmos Genéticos** - Evolución artificial
+
+### 🎯 Resultados Garantizados
+- **Exactamente 8 series finales**
+- **Ordenadas por score de calidad**
+- **Diversidad de fuentes (modelos)**
+- **Scores SVI calculados**
+
+## 🔧 Formas de Ejecutar
+
+### Opción 1: Script Optimizado (RECOMENDADO)
+```bash
+python run_omega_8_series.py
+```
+
+### Opción 2: Main.py Directo
+```bash
+python main.py
+```
+
+### Opción 3: Con Parámetros Personalizados
+```bash
+python main.py --top_n 8 --svi_profile default --enable-models all
+```
+
+## 📊 Configuración Optimizada
+
+### Archivo: `config/viabilidad.json`
+- `top_n_combinations`: **8** (fijo)
+- `prediction_weight`: **0.7**
+- `svi_weight`: **0.3**
+- Todos los modelos: **Activos**
+
+### Datos Históricos
+- **3,646 sorteos históricos**
+- Archivo: `data/historial_kabala_github.csv`
+- Formato validado automáticamente
+
+## 🎯 Formato de Salida
+
+```
+🎯 OMEGA PRO AI - 8 SERIES FINALES DE ALTA PRECISIÓN
+🔥 TODOS LOS MODELOS ACTIVOS PARA MÁXIMA CALIDAD
+================================================================================
+
+⭐⭐⭐ COMBINACIÓN MAESTRA ⭐⭐⭐
+ 1. 🤖 MAESTRA           | 05 - 12 - 23 - 31 - 37 - 40 | Score: 0.876 (SVI: 0.734, Pred: 0.912)
+⭐⭐⭐⭐⭐⭐⭐⭐⭐
+
+ 2. 🧠 TRANSFORMER_DEEP  | 03 - 14 - 19 - 28 - 35 - 39 | Score: 0.823 (SVI: 0.691, Pred: 0.887)
+ 3. 🧬 GENETICO          | 07 - 15 - 22 - 29 - 33 - 38 | Score: 0.798 (SVI: 0.678, Pred: 0.856)
+ 4. 👻 GHOST_RNG         | 02 - 11 - 24 - 30 - 36 - 40 | Score: 0.787 (SVI: 0.665, Pred: 0.845)
+ 5. 🤖 CONSENSUS         | 06 - 13 - 20 - 27 - 34 - 39 | Score: 0.776 (SVI: 0.654, Pred: 0.834)
+ 6. 🔢 LSTM_V2           | 01 - 08 - 16 - 25 - 32 - 37 | Score: 0.765 (SVI: 0.643, Pred: 0.823)
+ 7. 🎲 MONTECARLO        | 04 - 09 - 17 - 26 - 33 - 38 | Score: 0.754 (SVI: 0.632, Pred: 0.812)
+ 8. 📊 APRIORI           | 10 - 18 - 21 - 28 - 35 - 40 | Score: 0.743 (SVI: 0.621, Pred: 0.801)
+```
+
+## ✅ Verificaciones Automáticas
+
+El sistema verifica automáticamente:
+- ✅ Exactamente 6 números por serie
+- ✅ Números entre 1-40
+- ✅ Sin duplicados en cada serie
+- ✅ Diversidad entre series
+- ✅ Scores de calidad calculados
+- ✅ Todas las validaciones SVI
+
+## 📁 Archivos Generados
+
+Los resultados se guardan automáticamente en:
+- `results/combinaciones_YYYYMMDD_HHMMSS.json`
+- `results/combinaciones_YYYYMMDD_HHMMSS.csv`
+- Logs detallados en `logs/`
+
+## 🔧 Resolución de Problemas
+
+### Si hay menos de 8 combinaciones
+El sistema automáticamente:
+1. Genera combinaciones adicionales
+2. Usa modelos de respaldo
+3. Garantiza siempre 8 series finales
+
+### Si hay errores de dependencias
+```bash
+pip install -r requirements.txt
+```
+
+### Si faltan archivos de datos
+Verifica que existe: `data/historial_kabala_github.csv`
+
+## 🎯 Resumen Final
+
+**OMEGA PRO AI v10.1** está completamente integrado y optimizado para:
+- ✅ **8 series exactas**
+- ✅ **Todos los modelos activos**
+- ✅ **Máxima precisión**
+- ✅ **Ejecución simple**
+- ✅ **Resultados garantizados**
+
+**¡Solo ejecuta `python main.py` y obtienes tus 8 series!** 🍀

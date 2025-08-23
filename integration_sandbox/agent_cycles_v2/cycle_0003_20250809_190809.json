@@ -1,0 +1,364 @@
+{
+  "cycle_number": 3,
+  "timestamp": "2025-08-09T18:53:57.607223",
+  "duration_seconds": 852.149367,
+  "state_analysis": {
+    "basic_memory": {
+      "recent_rewards": [
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.49999999999999994,
+        0.39999999999999997,
+        0.39999999999999997,
+        0.49999999999999994,
+        0.49999999999999994
+      ],
+      "n": 50
+    },
+    "performance_trend": {
+      "trend_type": "stable",
+      "change_percentage": -6.399999999999996,
+      "first_half_avg": 0.49999999999999994,
+      "second_half_avg": 0.46799999999999997,
+      "confidence": 1.0
+    },
+    "planner_insights": {
+      "planner_version": "v2",
+      "current_mode": "exploration",
+      "trials_since_recalibration": 0,
+      "successful_configs_count": 0,
+      "best_successful_reward": 0,
+      "active_learning": {
+        "error": "No hay historial de trials"
+      },
+      "drift_detection": {
+        "drift_detected": false,
+        "last_drift_time": null,
+        "drift_count": 0,
+        "baseline_established": false,
+        "samples_collected": 0,
+        "window_size": 50,
+        "drift_threshold": 0.05,
+        "sensitivity": 0.8
+      },
+      "bayesian_optimizer_available": false,
+      "timestamp": "2025-08-09T18:53:57.948539"
+    },
+    "needs_recalibration": true,
+    "cycle_count": 3,
+    "last_recalibration": null,
+    "timestamp": "2025-08-09T18:53:57.949034"
+  },
+  "candidates_generated": 3,
+  "execution_results": [
+    {
+      "signature": "2c9d0213c4",
+      "config": {
+        "svi_profile": "default",
+        "ensemble_weights": {
+          "neural_enhanced": 0.4960110556027835,
+          "transformer_deep": 0.1496834068990193,
+          "genetico": 0.15691510314798965,
+          "analizador_200": 0.10127169278642456,
+          "montecarlo": 0.0589716372754094,
+          "lstm_v2": 0.026841877788352012,
+          "clustering": 0.01030522650002153
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_0",
+          "timestamp": "2025-08-09T18:53:57.952019",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "======================\n2025-08-09 18:58:38,555 - INFO - \ud83d\udd22 Total combinaciones: 8\n2025-08-09 18:58:38,555 - INFO - \ud83c\udfc6 Mejor score: 0.850\n2025-08-09 18:58:38,555 - INFO - \u2696\ufe0f Peor score: 0.602\n2025-08-09 18:58:38,555 - INFO - \ud83d\udcc8 Score promedio: 0.705 (Pred: 0.793, SVI: 0.500)\n2025-08-09 18:58:38,555 - INFO - \u2696\ufe0f Pesos: Pred=70%, SVI=30%\n2025-08-09 18:58:38,555 - INFO - \ud83d\udcca Perfil SVI: default\n2025-08-09 18:58:38,555 - INFO - \n\ud83c\udf10 DISTRIBUCI\u00d3N POR FUENTE:\n2025-08-09 18:58:38,555 - INFO -  - \ud83d\udd39 balanced_range : 4 (50.0%)\n2025-08-09 18:58:38,555 - INFO -  - \ud83d\udd39 ai_ensemble    : 3 (37.5%)\n2025-08-09 18:58:38,555 - INFO -  - \ud83d\udd39 balanced_predictor: 1 (12.5%)\n2025-08-09 18:58:38,555 - INFO - \n============================================================\n2025-08-09 18:58:38,555 - INFO - \ud83d\udcca VISUALIZACI\u00d3N DE DISTRIBUCI\u00d3N:\n2025-08-09 18:58:38,556 - INFO - ============================================================\n2025-08-09 18:58:38,556 - INFO - \ud83d\udd39 balanced_range \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 50.0% (4)\n2025-08-09 18:58:38,556 - INFO - \ud83d\udd39 ai_ensemble  \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 37.5% (3)\n2025-08-09 18:58:38,556 - INFO - \ud83d\udd39 balanced_predictor \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 12.5% (1)\n2025-08-09 18:58:38,558 - INFO - \ud83d\udcc1 JSON exportado: results/combinaciones_20250809_185838.json\n2025-08-09 18:58:38,558 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 18:58:38,558 - INFO - \ud83e\udde0 INICIANDO APRENDIZAJE ADAPTATIVO MEJORADO\n2025-08-09 18:58:38,558 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 18:58:38,558 - INFO - \ud83e\udd16 Activando sistema de aprendizaje autom\u00e1tico...\n2025-08-09 18:58:38,558 - INFO - \ud83e\udde0 Iniciando aprendizaje autom\u00e1tico para 2025-08-09\n2025-08-09 18:58:38,558 - INFO - \ud83d\udcca Resultado oficial: [29, 22, 7, 37, 23, 33]\n2025-08-09 18:58:38,559 - INFO - \u2705 Aprendizaje completado. Score: 0.500\n2025-08-09 18:58:38,559 - INFO - \u2705 APRENDIZAJE AUTOM\u00c1TICO COMPLETADO:\n2025-08-09 18:58:38,559 - INFO -    \u2022 Score de aprendizaje: 0.500\n2025-08-09 18:58:38,559 - INFO -    \u2022 Precisi\u00f3n lograda: 0.250\n2025-08-09 18:58:38,559 - INFO -    \u2022 Mejora sobre azar: +0.100\n2025-08-09 18:58:38,559 - WARNING - \u26a0\ufe0f N\u00fameros cr\u00edticos omitidos: [29, 37]\n2025-08-09 18:58:38,559 - INFO - \ud83d\udca1 RECOMENDACIONES AUTOM\u00c1TICAS:\n2025-08-09 18:58:38,559 - INFO -    \u2022 \u2696\ufe0f Balancear mejor los rangos num\u00e9ricos - reducir sesgo hacia n\u00fameros altos (28-40).\n2025-08-09 18:58:38,559 - INFO -    \u2022 \ud83d\udd0d Incorporar mejor an\u00e1lisis para n\u00fameros: [29, 37]\n2025-08-09 18:58:38,559 - INFO - \n\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 18:58:38,559 - INFO - \ud83d\udd27 PESOS DE MODELOS ACTUALIZADOS AUTOM\u00c1TICAMENTE\n2025-08-09 18:58:38,559 - INFO - \ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 18:58:38,560 - INFO - \ud83d\udcc2 Configuraci\u00f3n adaptativa cargada desde archivo\n2025-08-09 18:58:38,560 - INFO - \ud83e\udde0 Sistema de Aprendizaje OMEGA v2.0 inicializado\n2025-08-09 18:58:38,560 - INFO -    Logs: logs, Config: config/omega_adaptive.json\n2025-08-09 18:58:38,561 - INFO - \ud83c\udfaf Iniciando aprendizaje post-sorteo para 2025-08-09\n2025-08-09 18:58:38,561 - INFO -    Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 18:58:38,561 - INFO -    Combinaciones analizadas: 8\n2025-08-09 18:58:38,562 - INFO - \ud83d\udcca An\u00e1lisis de rendimiento:\n2025-08-09 18:58:38,562 - INFO -    \u2022 Promedio de aciertos: 1.50\n2025-08-09 18:58:38,563 - INFO -    \u2022 M\u00e1ximo aciertos: 3\n2025-08-09 18:58:38,563 - INFO -    \u2022 Combinaciones exitosas (3+): 1\n2025-08-09 18:58:38,563 - INFO - \u2705 Patr\u00f3n reforzado (fuerza: 0.5): perfil:C_dec:{2: 5, 3: 1}_pares:3_zona:0-4-2\n2025-08-09 18:58:38,563 - INFO - \u2699\ufe0f Ajustando pesos de modelos basado en rendimiento...\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 lstm_v2: 0.45 \u2192 0.52 (score: 26.8)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 transformer: 0.39 \u2192 0.45 (score: 27.2)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 clustering: 0.44 \u2192 0.51 (score: 25.5)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 montecarlo: 0.39 \u2192 0.45 (score: 26.0)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 genetic: 0.38 \u2192 0.44 (score: 25.8)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 gboost: 0.30 \u2192 0.33 (score: 24.5)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 ensemble_ai: 0.41 \u2192 0.47 (score: 27.5)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 apriori: 0.34 \u2192 0.39 (score: 26.3)\n2025-08-09 18:58:38,563 - INFO - \ud83d\udd27 fallback: 0.30 \u2192 0.33 (score: 25.0)\n2025-08-09 18:58:38,564 - INFO - \ud83d\udcda Log de aprendizaje guardado en: logs/aprendizaje_omega_20250809.json\n2025-08-09 18:58:38,567 - INFO - \ud83d\udcbe Configuraci\u00f3n guardada en config/omega_adaptive.json\n2025-08-09 18:58:38,567 - INFO - \u2705 Aprendizaje post-sorteo completado\n2025-08-09 18:58:38,567 - INFO -    \u2022 Refuerzos aplicados: 1\n2025-08-09 18:58:38,567 - INFO -    \u2022 Penalizaciones aplicadas: 0\n2025-08-09 18:58:38,567 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 18:58:38,567 - INFO -    \u2022 Modo asalto: \ud83d\udd12 INACTIVO\n2025-08-09 18:58:38,567 - INFO - \u2705 APRENDIZAJE COMPLETADO:\n2025-08-09 18:58:38,567 - INFO -    \u2022 Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 18:58:38,567 - INFO -    \u2022 Combinaciones exitosas (3+): 1\n2025-08-09 18:58:38,567 - INFO -    \u2022 Promedio aciertos: 1.5\n2025-08-09 18:58:38,567 - INFO -    \u2022 M\u00e1ximo aciertos: 3\n2025-08-09 18:58:38,567 - INFO -    \u2022 Patrones reforzados: 1\n2025-08-09 18:58:38,567 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 18:58:38,567 - INFO -    \ud83d\udd12 Modo asalto inactivo\n2025-08-09 18:58:38,567 - INFO -    \ud83d\udd27 Pesos de modelos actualizados:\n2025-08-09 18:58:38,567 - INFO -       \u2022 lstm_v2: 0.52\n2025-08-09 18:58:38,567 - INFO -       \u2022 transformer: 0.45\n2025-08-09 18:58:38,568 - INFO -       \u2022 clustering: 0.51\n2025-08-09 18:58:38,568 - INFO -       \u2022 montecarlo: 0.45\n2025-08-09 18:58:38,568 - INFO -       \u2022 genetic: 0.44\n2025-08-09 18:58:38,568 - INFO -       \u2022 gboost: 0.33\n2025-08-09 18:58:38,568 - INFO -       \u2022 ensemble_ai: 0.47\n2025-08-09 18:58:38,568 - INFO -       \u2022 apriori: 0.39\n2025-08-09 18:58:38,568 - INFO -       \u2022 fallback: 0.33\n2025-08-09 18:58:38,568 - INFO -    \u2699\ufe0f Configuraci\u00f3n din\u00e1mica:\n2025-08-09 18:58:38,568 - INFO -       \u2022 Score m\u00ednimo: 26.0\n2025-08-09 18:58:38,568 - INFO -       \u2022 Agresividad filtros: 1.0\n2025-08-09 18:58:38,568 - INFO -       \u2022 Ghost RNG: \ud83d\udfe2 ACTIVO\n2025-08-09 18:58:38,568 - INFO -       \u2022 Refuerzo clustering: \ud83d\udfe2 ACTIVO\n2025-08-09 18:58:38,568 - INFO -    \ud83d\udcda Configuraci\u00f3n guardada para pr\u00f3ximas ejecuciones\n2025-08-09 18:58:38,568 - INFO -       \u2022 Patrones reforzados: 1\n2025-08-09 18:58:38,568 - INFO -       \u2022 Patrones penalizados: 0\n2025-08-09 18:58:38,568 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 18:58:38,568 - INFO - \ud83e\udde0 APRENDIZAJE ADAPTATIVO COMPLETADO\n2025-08-09 18:58:38,568 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 18:58:38,568 - INFO - \n\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 18:58:38,568 - INFO - \ud83d\ude80 OMEGA PRO AI - EJECUCI\u00d3N COMPLETADA\n2025-08-09 18:58:38,568 - INFO - \u2705 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS\n2025-08-09 18:58:38,568 - INFO - \ud83c\udfb2 RESUMEN FINAL DE LAS 8 SERIES:\n2025-08-09 18:58:38,568 - INFO - \ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 18:58:38,568 - INFO - Serie 1: 10 - 11 - 20 - 24 - 33 - 36 | Score: 0.850 | Modelo: balanced_predictor\n2025-08-09 18:58:38,568 - INFO - Serie 2: 07 - 10 - 17 - 24 - 31 - 39 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 18:58:38,568 - INFO - Serie 3: 02 - 06 - 16 - 18 - 39 - 40 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 18:58:38,568 - INFO - Serie 4: 05 - 07 - 16 - 19 - 21 - 28 | Score: 0.671 | Modelo: balanced_range\n2025-08-09 18:58:38,568 - INFO - Serie 5: 07 - 11 - 14 - 22 - 24 - 30 | Score: 0.613 | Modelo: balanced_range\n2025-08-09 18:58:38,568 - INFO - Serie 6: 21 - 23 - 24 - 27 - 28 - 33 | Score: 0.602 | Modelo: ai_ensemble\n2025-08-09 18:58:38,568 - INFO - Serie 7: 21 - 22 - 23 - 24 - 28 - 33 | Score: 0.602 | Modelo: ai_ensemble\n2025-08-09 18:58:38,568 - INFO - Serie 8: 21 - 22 - 23 - 24 - 27 - 28 | Score: 0.602 | Modelo: ai_ensemble\n2025-08-09 18:58:38,569 - INFO - \n============================================================\n2025-08-09 18:58:38,569 - INFO - \ud83c\udf40 \u00a1BUENA SUERTE CON TUS 8 SERIES!\n2025-08-09 18:58:38,569 - INFO - ============================================================\n2025-08-09 18:58:38,569 - INFO - \u2705 No se han registrado errores\n",
+        "stderr": "2025-08-09 18:54:11,045 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 18:54:11,068 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 18:54:11,068 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 18:54:11,068 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 18:54:11,068 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 18:54:11,172 - clustering_engine - INFO - \ud83d\udd0d Columnas disponibles: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 18:54:11,182 - clustering_engine - INFO - \ud83c\udfaf Columnas bolillas detectadas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 18:54:11,295 - clustering_engine - ERROR - \u274c Error cargando datos de jackpots: stat: path should be string, bytes, os.PathLike or integer, not Logger\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n2025-08-09 18:54:41,305 - clustering_engine - INFO - \u2705 Seleccionado K \u00f3ptimo: 3\n2025-08-09 18:54:44,039 - clustering_engine - INFO - \ud83d\udcca Cluster 0: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:54:44,040 - clustering_engine - INFO - \ud83d\udcca Cluster 1: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:54:44,040 - clustering_engine - INFO - \ud83d\udcca Cluster 2: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:54:44,154 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 0 \u2192 [5, 11, 16, 23, 29, 40] | Score: 1478.70\n2025-08-09 18:54:44,194 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 1 \u2192 [13, 21, 22, 26, 31, 40] | Score: 958.50\n2025-08-09 18:54:44,194 - clustering_engine - INFO - \u2705 [CLUSTER] Total combinaciones generadas: 2\n2025-08-09 18:54:59.525541: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 18:54:59.527014: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 18:56:18.764604: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 18:56:18.765381: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 18:58:03,991 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 18:58:04,465 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 18:58:08,288 - INFO - \ud83d\udd0d Core set (top 6): [16, 19, 20, 21, 26, 40]\n2025-08-09 18:58:08,288 - INFO - \ud83d\udd0d Core set (top 6): [16, 19, 20, 21, 26, 40]\n2025-08-09 18:58:08,394 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 18:58:08,394 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 18:58:08,394 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 18:58:08,395 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 18:58:08,395 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n\nProcesando:   0%|          | 0/19 [00:00<?, ?combo/s]\nProcesando:  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 10/19 [00:00<00:00, 2275.80combo/s]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.39999999999999997,
+        "quality_ok": false,
+        "signals": {
+          "svi": 0.5,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 281.853862,
+      "candidate_index": 0
+    },
+    {
+      "signature": "1c0ee4d8e2",
+      "config": {
+        "svi_profile": "default",
+        "ensemble_weights": {
+          "neural_enhanced": 0.49037555260792004,
+          "transformer_deep": 0.16353852178454142,
+          "genetico": 0.1260459626966927,
+          "analizador_200": 0.13783423019340973,
+          "montecarlo": 0.04540254334477621,
+          "lstm_v2": 0.02639444990448941,
+          "clustering": 0.010408739468170418
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_1",
+          "timestamp": "2025-08-09T18:53:57.952028",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "===================================================\n2025-08-09 19:03:06,717 - INFO - \ud83d\udd22 Total combinaciones: 8\n2025-08-09 19:03:06,717 - INFO - \ud83c\udfc6 Mejor score: 0.850\n2025-08-09 19:03:06,718 - INFO - \u2696\ufe0f Peor score: 0.570\n2025-08-09 19:03:06,718 - INFO - \ud83d\udcc8 Score promedio: 0.688 (Pred: 0.769, SVI: 0.500)\n2025-08-09 19:03:06,718 - INFO - \u2696\ufe0f Pesos: Pred=70%, SVI=30%\n2025-08-09 19:03:06,718 - INFO - \ud83d\udcca Perfil SVI: default\n2025-08-09 19:03:06,718 - INFO - \n\ud83c\udf10 DISTRIBUCI\u00d3N POR FUENTE:\n2025-08-09 19:03:06,718 - INFO -  - \ud83d\udd39 balanced_range : 4 (50.0%)\n2025-08-09 19:03:06,718 - INFO -  - \ud83d\udd39 ai_ensemble    : 2 (25.0%)\n2025-08-09 19:03:06,718 - INFO -  - \ud83d\udd39 balanced_predictor: 1 (12.5%)\n2025-08-09 19:03:06,718 - INFO -  - \ud83d\udd39 meta_learning  : 1 (12.5%)\n2025-08-09 19:03:06,718 - INFO - \n============================================================\n2025-08-09 19:03:06,718 - INFO - \ud83d\udcca VISUALIZACI\u00d3N DE DISTRIBUCI\u00d3N:\n2025-08-09 19:03:06,718 - INFO - ============================================================\n2025-08-09 19:03:06,718 - INFO - \ud83d\udd39 balanced_range \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 50.0% (4)\n2025-08-09 19:03:06,718 - INFO - \ud83d\udd39 ai_ensemble  \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 25.0% (2)\n2025-08-09 19:03:06,718 - INFO - \ud83d\udd39 balanced_predictor \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 12.5% (1)\n2025-08-09 19:03:06,718 - INFO - \ud83d\udd39 meta_learning \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 12.5% (1)\n2025-08-09 19:03:06,720 - INFO - \ud83d\udcc1 JSON exportado: results/combinaciones_20250809_190306.json\n2025-08-09 19:03:06,720 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:03:06,721 - INFO - \ud83e\udde0 INICIANDO APRENDIZAJE ADAPTATIVO MEJORADO\n2025-08-09 19:03:06,721 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:03:06,721 - INFO - \ud83e\udd16 Activando sistema de aprendizaje autom\u00e1tico...\n2025-08-09 19:03:06,723 - INFO - \ud83e\udde0 Iniciando aprendizaje autom\u00e1tico para 2025-08-09\n2025-08-09 19:03:06,723 - INFO - \ud83d\udcca Resultado oficial: [29, 22, 7, 37, 23, 33]\n2025-08-09 19:03:06,723 - INFO - \u2705 Aprendizaje completado. Score: 0.417\n2025-08-09 19:03:06,724 - INFO - \u2705 APRENDIZAJE AUTOM\u00c1TICO COMPLETADO:\n2025-08-09 19:03:06,724 - INFO -    \u2022 Score de aprendizaje: 0.417\n2025-08-09 19:03:06,724 - INFO -    \u2022 Precisi\u00f3n lograda: 0.208\n2025-08-09 19:03:06,724 - INFO -    \u2022 Mejora sobre azar: +0.058\n2025-08-09 19:03:06,725 - WARNING - \u26a0\ufe0f N\u00fameros cr\u00edticos omitidos: [33, 7]\n2025-08-09 19:03:06,725 - INFO - \ud83d\udca1 RECOMENDACIONES AUTOM\u00c1TICAS:\n2025-08-09 19:03:06,725 - INFO -    \u2022 \ud83d\udd0d Incorporar mejor an\u00e1lisis para n\u00fameros: [33, 7]\n2025-08-09 19:03:06,725 - INFO - \n\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 19:03:06,725 - INFO - \ud83d\udd27 PESOS DE MODELOS ACTUALIZADOS AUTOM\u00c1TICAMENTE\n2025-08-09 19:03:06,725 - INFO - \ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 19:03:06,726 - INFO - \ud83d\udcc2 Configuraci\u00f3n adaptativa cargada desde archivo\n2025-08-09 19:03:06,726 - INFO - \ud83e\udde0 Sistema de Aprendizaje OMEGA v2.0 inicializado\n2025-08-09 19:03:06,726 - INFO -    Logs: logs, Config: config/omega_adaptive.json\n2025-08-09 19:03:06,727 - INFO - \ud83c\udfaf Iniciando aprendizaje post-sorteo para 2025-08-09\n2025-08-09 19:03:06,727 - INFO -    Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 19:03:06,727 - INFO -    Combinaciones analizadas: 8\n2025-08-09 19:03:06,729 - INFO - \ud83d\udcca An\u00e1lisis de rendimiento:\n2025-08-09 19:03:06,729 - INFO -    \u2022 Promedio de aciertos: 1.25\n2025-08-09 19:03:06,729 - INFO -    \u2022 M\u00e1ximo aciertos: 2\n2025-08-09 19:03:06,729 - INFO -    \u2022 Combinaciones exitosas (3+): 0\n2025-08-09 19:03:06,729 - INFO - \ud83d\udeab Patr\u00f3n penalizado (severidad: 0.5): perfil:C\n2025-08-09 19:03:06,729 - INFO - \u2699\ufe0f Ajustando pesos de modelos basado en rendimiento...\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 lstm_v2: 0.52 \u2192 0.44 (score: 26.8)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 transformer: 0.45 \u2192 0.38 (score: 27.2)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 clustering: 0.51 \u2192 0.43 (score: 25.5)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 montecarlo: 0.45 \u2192 0.38 (score: 26.0)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 genetic: 0.44 \u2192 0.37 (score: 25.8)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 gboost: 0.33 \u2192 0.30 (score: 24.5)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 ensemble_ai: 0.47 \u2192 0.39 (score: 27.5)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 apriori: 0.39 \u2192 0.33 (score: 26.3)\n2025-08-09 19:03:06,729 - INFO - \ud83d\udd27 fallback: 0.33 \u2192 0.30 (score: 25.0)\n2025-08-09 19:03:06,730 - INFO - \ud83d\udcda Log de aprendizaje guardado en: logs/aprendizaje_omega_20250809.json\n2025-08-09 19:03:06,731 - INFO - \ud83d\udcbe Configuraci\u00f3n guardada en config/omega_adaptive.json\n2025-08-09 19:03:06,731 - INFO - \u2705 Aprendizaje post-sorteo completado\n2025-08-09 19:03:06,731 - INFO -    \u2022 Refuerzos aplicados: 0\n2025-08-09 19:03:06,731 - INFO -    \u2022 Penalizaciones aplicadas: 1\n2025-08-09 19:03:06,731 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 19:03:06,731 - INFO -    \u2022 Modo asalto: \ud83d\udd12 INACTIVO\n2025-08-09 19:03:06,731 - INFO - \u2705 APRENDIZAJE COMPLETADO:\n2025-08-09 19:03:06,731 - INFO -    \u2022 Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 19:03:06,731 - INFO -    \u2022 Combinaciones exitosas (3+): 0\n2025-08-09 19:03:06,731 - INFO -    \u2022 Promedio aciertos: 1.25\n2025-08-09 19:03:06,732 - INFO -    \u2022 M\u00e1ximo aciertos: 2\n2025-08-09 19:03:06,732 - INFO -    \u2022 Patrones reforzados: 0\n2025-08-09 19:03:06,732 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 19:03:06,732 - INFO -    \ud83d\udd12 Modo asalto inactivo\n2025-08-09 19:03:06,732 - INFO -    \ud83d\udd27 Pesos de modelos actualizados:\n2025-08-09 19:03:06,732 - INFO -       \u2022 lstm_v2: 0.44\n2025-08-09 19:03:06,732 - INFO -       \u2022 transformer: 0.38\n2025-08-09 19:03:06,732 - INFO -       \u2022 clustering: 0.43\n2025-08-09 19:03:06,732 - INFO -       \u2022 montecarlo: 0.38\n2025-08-09 19:03:06,732 - INFO -       \u2022 genetic: 0.37\n2025-08-09 19:03:06,732 - INFO -       \u2022 gboost: 0.30\n2025-08-09 19:03:06,732 - INFO -       \u2022 ensemble_ai: 0.39\n2025-08-09 19:03:06,732 - INFO -       \u2022 apriori: 0.33\n2025-08-09 19:03:06,732 - INFO -       \u2022 fallback: 0.30\n2025-08-09 19:03:06,732 - INFO -    \u2699\ufe0f Configuraci\u00f3n din\u00e1mica:\n2025-08-09 19:03:06,732 - INFO -       \u2022 Score m\u00ednimo: 26.0\n2025-08-09 19:03:06,732 - INFO -       \u2022 Agresividad filtros: 1.0\n2025-08-09 19:03:06,732 - INFO -       \u2022 Ghost RNG: \ud83d\udfe2 ACTIVO\n2025-08-09 19:03:06,732 - INFO -       \u2022 Refuerzo clustering: \ud83d\udfe2 ACTIVO\n2025-08-09 19:03:06,732 - INFO -    \ud83d\udcda Configuraci\u00f3n guardada para pr\u00f3ximas ejecuciones\n2025-08-09 19:03:06,732 - INFO -       \u2022 Patrones reforzados: 0\n2025-08-09 19:03:06,733 - INFO -       \u2022 Patrones penalizados: 1\n2025-08-09 19:03:06,733 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:03:06,733 - INFO - \ud83e\udde0 APRENDIZAJE ADAPTATIVO COMPLETADO\n2025-08-09 19:03:06,733 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:03:06,733 - INFO - \n\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 19:03:06,733 - INFO - \ud83d\ude80 OMEGA PRO AI - EJECUCI\u00d3N COMPLETADA\n2025-08-09 19:03:06,733 - INFO - \u2705 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS\n2025-08-09 19:03:06,733 - INFO - \ud83c\udfb2 RESUMEN FINAL DE LAS 8 SERIES:\n2025-08-09 19:03:06,733 - INFO - \ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 19:03:06,733 - INFO - Serie 1: 09 - 12 - 16 - 18 - 35 - 37 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 19:03:06,733 - INFO - Serie 2: 09 - 13 - 24 - 26 - 29 - 34 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 19:03:06,733 - INFO - Serie 3: 10 - 11 - 17 - 23 - 26 - 40 | Score: 0.687 | Modelo: balanced_range\n2025-08-09 19:03:06,733 - INFO - Serie 4: 02 - 04 - 06 - 22 - 24 - 29 | Score: 0.687 | Modelo: balanced_range\n2025-08-09 19:03:06,733 - INFO - Serie 5: 22 - 23 - 24 - 27 - 28 - 30 | Score: 0.637 | Modelo: ai_ensemble\n2025-08-09 19:03:06,733 - INFO - Serie 6: 10 - 11 - 14 - 15 - 20 - 34 | Score: 0.624 | Modelo: balanced_predictor\n2025-08-09 19:03:06,733 - INFO - Serie 7: 06 - 17 - 22 - 23 - 24 - 26 | Score: 0.602 | Modelo: ai_ensemble\n2025-08-09 19:03:06,733 - INFO - Serie 8: 08 - 14 - 36 - 37 - 38 - 39 | Score: 0.570 | Modelo: meta_learning\n2025-08-09 19:03:06,733 - INFO - \n============================================================\n2025-08-09 19:03:06,733 - INFO - \ud83c\udf40 \u00a1BUENA SUERTE CON TUS 8 SERIES!\n2025-08-09 19:03:06,733 - INFO - ============================================================\n2025-08-09 19:03:06,733 - INFO - \u2705 No se han registrado errores\n",
+        "stderr": "2025-08-09 18:58:49,908 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 18:58:49,909 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 18:58:49,909 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 18:58:49,910 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 18:58:49,910 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 18:58:50,045 - clustering_engine - INFO - \ud83d\udd0d Columnas disponibles: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 18:58:50,047 - clustering_engine - INFO - \ud83c\udfaf Columnas bolillas detectadas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 18:58:50,094 - clustering_engine - ERROR - \u274c Error cargando datos de jackpots: stat: path should be string, bytes, os.PathLike or integer, not Logger\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n2025-08-09 18:59:15,414 - clustering_engine - INFO - \u2705 Seleccionado K \u00f3ptimo: 3\n2025-08-09 18:59:17,520 - clustering_engine - INFO - \ud83d\udcca Cluster 0: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:59:17,521 - clustering_engine - INFO - \ud83d\udcca Cluster 1: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:59:17,522 - clustering_engine - INFO - \ud83d\udcca Cluster 2: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 18:59:17,564 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 0 \u2192 [10, 11, 17, 22, 29, 40] | Score: 1478.70\n2025-08-09 18:59:17,597 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 2 \u2192 [2, 5, 10, 19, 20, 40] | Score: 845.10\n2025-08-09 18:59:17,608 - clustering_engine - INFO - \ud83d\udd01 Refuerzo desde muestras de cl\u00fasteres dominantes (2/3)...\n2025-08-09 18:59:17,634 - clustering_engine - INFO - [CLUSTER-MUT] Muestra 1293 \u2192 [4, 6, 11, 13, 18, 39] | Score: 12.3225\n2025-08-09 18:59:17,634 - clustering_engine - INFO - \u2705 [CLUSTER] Total combinaciones generadas: 3\n2025-08-09 18:59:30.221653: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 18:59:30.222215: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 19:00:48.302609: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 19:00:48.302959: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 19:02:37,096 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 19:02:37,578 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 19:02:41,871 - INFO - \ud83d\udd0d Core set (top 6): [2, 7, 19, 20, 21, 40]\n2025-08-09 19:02:41,872 - INFO - \ud83d\udd0d Core set (top 6): [2, 7, 19, 20, 21, 40]\n2025-08-09 19:02:41,975 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 19:02:41,975 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 19:02:41,975 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 19:02:41,976 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 19:02:41,976 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n\nProcesando:   0%|          | 0/17 [00:00<?, ?combo/s]\nProcesando:  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 9/17 [00:00<00:00, 62497.91combo/s]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 0.39999999999999997,
+        "quality_ok": false,
+        "signals": {
+          "svi": 0.5,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 267.866418,
+      "candidate_index": 1
+    },
+    {
+      "signature": "2280b20475",
+      "config": {
+        "svi_profile": "neural_optimized",
+        "ensemble_weights": {
+          "neural_enhanced": 0.4841929153301514,
+          "transformer_deep": 0.14809617257609353,
+          "genetico": 0.1382982337883509,
+          "analizador_200": 0.13432323616130412,
+          "montecarlo": 0.05084455710449307,
+          "lstm_v2": 0.03326281828828258,
+          "clustering": 0.01098206675132444
+        },
+        "filters": {
+          "max_consecutivos": 3,
+          "par_impar_balance": true
+        },
+        "seeds": [
+          null
+        ],
+        "proposal_metadata": {
+          "mode": "active_learning",
+          "proposal_id": "active_learning_2",
+          "timestamp": "2025-08-09T18:53:57.952030",
+          "planner_version": "v2"
+        }
+      },
+      "execution_output": {
+        "returncode": 0,
+        "stdout": "INFO - \u2696\ufe0f Pesos: Pred=70%, SVI=30%\n2025-08-09 19:08:08,708 - INFO - \ud83d\udcca Perfil SVI: default\n2025-08-09 19:08:08,708 - INFO - \n\ud83c\udf10 DISTRIBUCI\u00d3N POR FUENTE:\n2025-08-09 19:08:08,708 - INFO -  - \ud83d\udd39 balanced_range : 4 (50.0%)\n2025-08-09 19:08:08,708 - INFO -  - \ud83d\udd39 meta_learning  : 3 (37.5%)\n2025-08-09 19:08:08,708 - INFO -  - \ud83d\udd39 balanced_predictor: 1 (12.5%)\n2025-08-09 19:08:08,708 - INFO - \n============================================================\n2025-08-09 19:08:08,708 - INFO - \ud83d\udcca VISUALIZACI\u00d3N DE DISTRIBUCI\u00d3N:\n2025-08-09 19:08:08,708 - INFO - ============================================================\n2025-08-09 19:08:08,708 - INFO - \ud83d\udd39 balanced_range \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 50.0% (4)\n2025-08-09 19:08:08,709 - INFO - \ud83d\udd39 meta_learning \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 37.5% (3)\n2025-08-09 19:08:08,709 - INFO - \ud83d\udd39 balanced_predictor \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 12.5% (1)\n2025-08-09 19:08:08,710 - INFO - \ud83d\udcc1 JSON exportado: results/combinaciones_20250809_190808.json\n2025-08-09 19:08:08,710 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:08:08,710 - INFO - \ud83e\udde0 INICIANDO APRENDIZAJE ADAPTATIVO MEJORADO\n2025-08-09 19:08:08,710 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:08:08,710 - INFO - \ud83e\udd16 Activando sistema de aprendizaje autom\u00e1tico...\n2025-08-09 19:08:08,710 - INFO - \ud83e\udde0 Iniciando aprendizaje autom\u00e1tico para 2025-08-09\n2025-08-09 19:08:08,710 - INFO - \ud83d\udcca Resultado oficial: [29, 22, 7, 37, 23, 33]\n2025-08-09 19:08:08,711 - INFO - \u2705 Aprendizaje completado. Score: 0.250\n2025-08-09 19:08:08,711 - INFO - \u2705 APRENDIZAJE AUTOM\u00c1TICO COMPLETADO:\n2025-08-09 19:08:08,711 - INFO -    \u2022 Score de aprendizaje: 0.250\n2025-08-09 19:08:08,711 - INFO -    \u2022 Precisi\u00f3n lograda: 0.125\n2025-08-09 19:08:08,711 - INFO -    \u2022 Mejora sobre azar: +-0.025\n2025-08-09 19:08:08,711 - WARNING - \u26a0\ufe0f N\u00fameros cr\u00edticos omitidos: [33, 37]\n2025-08-09 19:08:08,711 - INFO - \ud83d\udca1 RECOMENDACIONES AUTOM\u00c1TICAS:\n2025-08-09 19:08:08,711 - INFO -    \u2022 \ud83d\udd27 CR\u00cdTICO: Precisi\u00f3n general muy baja. Revisar configuraci\u00f3n de todos los modelos.\n2025-08-09 19:08:08,711 - INFO -    \u2022 \ud83d\udd0d Incorporar mejor an\u00e1lisis para n\u00fameros: [33, 37]\n2025-08-09 19:08:08,711 - INFO - \n\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 19:08:08,711 - INFO - \ud83d\udd27 PESOS DE MODELOS ACTUALIZADOS AUTOM\u00c1TICAMENTE\n2025-08-09 19:08:08,711 - INFO - \ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\ud83d\udd27\n2025-08-09 19:08:08,712 - INFO - \ud83d\udcc2 Configuraci\u00f3n adaptativa cargada desde archivo\n2025-08-09 19:08:08,712 - INFO - \ud83e\udde0 Sistema de Aprendizaje OMEGA v2.0 inicializado\n2025-08-09 19:08:08,712 - INFO -    Logs: logs, Config: config/omega_adaptive.json\n2025-08-09 19:08:08,712 - INFO - \ud83c\udfaf Iniciando aprendizaje post-sorteo para 2025-08-09\n2025-08-09 19:08:08,713 - INFO -    Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 19:08:08,713 - INFO -    Combinaciones analizadas: 8\n2025-08-09 19:08:08,713 - INFO - \ud83d\udcca An\u00e1lisis de rendimiento:\n2025-08-09 19:08:08,713 - INFO -    \u2022 Promedio de aciertos: 0.75\n2025-08-09 19:08:08,713 - INFO -    \u2022 M\u00e1ximo aciertos: 2\n2025-08-09 19:08:08,713 - INFO -    \u2022 Combinaciones exitosas (3+): 0\n2025-08-09 19:08:08,713 - INFO - \ud83d\udeab Patr\u00f3n penalizado (severidad: 0.5): perfil:C\n2025-08-09 19:08:08,713 - INFO - \ud83d\udeab Patr\u00f3n penalizado (severidad: 0.5): perfil:C\n2025-08-09 19:08:08,713 - INFO - \ud83d\udeab Patr\u00f3n penalizado (severidad: 0.5): perfil:C\n2025-08-09 19:08:08,713 - INFO - \ud83d\udeab Patr\u00f3n penalizado (severidad: 0.5): perfil:C\n2025-08-09 19:08:08,714 - INFO - \u2699\ufe0f Ajustando pesos de modelos basado en rendimiento...\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 lstm_v2: 0.44 \u2192 0.37 (score: 26.8)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 transformer: 0.38 \u2192 0.32 (score: 27.2)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 clustering: 0.43 \u2192 0.36 (score: 25.5)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 montecarlo: 0.38 \u2192 0.32 (score: 26.0)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 genetic: 0.37 \u2192 0.31 (score: 25.8)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 gboost: 0.30 \u2192 0.30 (score: 24.5)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 ensemble_ai: 0.39 \u2192 0.33 (score: 27.5)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 apriori: 0.33 \u2192 0.30 (score: 26.3)\n2025-08-09 19:08:08,714 - INFO - \ud83d\udd27 fallback: 0.30 \u2192 0.30 (score: 25.0)\n2025-08-09 19:08:08,714 - INFO - \u26a0\ufe0f Rendimiento bajo detectado - Relajando filtros\n2025-08-09 19:08:08,715 - INFO - \ud83d\udcda Log de aprendizaje guardado en: logs/aprendizaje_omega_20250809.json\n2025-08-09 19:08:08,715 - INFO - \ud83d\udcbe Configuraci\u00f3n guardada en config/omega_adaptive.json\n2025-08-09 19:08:08,715 - INFO - \u2705 Aprendizaje post-sorteo completado\n2025-08-09 19:08:08,715 - INFO -    \u2022 Refuerzos aplicados: 0\n2025-08-09 19:08:08,715 - INFO -    \u2022 Penalizaciones aplicadas: 4\n2025-08-09 19:08:08,715 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 19:08:08,715 - INFO -    \u2022 Modo asalto: \ud83d\udd12 INACTIVO\n2025-08-09 19:08:08,716 - INFO - \u2705 APRENDIZAJE COMPLETADO:\n2025-08-09 19:08:08,716 - INFO -    \u2022 Resultado oficial: 29 - 22 - 7 - 37 - 23 - 33\n2025-08-09 19:08:08,716 - INFO -    \u2022 Combinaciones exitosas (3+): 0\n2025-08-09 19:08:08,716 - INFO -    \u2022 Promedio aciertos: 0.75\n2025-08-09 19:08:08,716 - INFO -    \u2022 M\u00e1ximo aciertos: 2\n2025-08-09 19:08:08,716 - INFO -    \u2022 Patrones reforzados: 0\n2025-08-09 19:08:08,716 - INFO -    \u2022 Modelos reajustados: 9\n2025-08-09 19:08:08,716 - INFO -    \ud83d\udd12 Modo asalto inactivo\n2025-08-09 19:08:08,716 - INFO -    \ud83d\udd27 Pesos de modelos actualizados:\n2025-08-09 19:08:08,716 - INFO -       \u2022 lstm_v2: 0.37\n2025-08-09 19:08:08,716 - INFO -       \u2022 transformer: 0.32\n2025-08-09 19:08:08,716 - INFO -       \u2022 clustering: 0.36\n2025-08-09 19:08:08,716 - INFO -       \u2022 montecarlo: 0.32\n2025-08-09 19:08:08,716 - INFO -       \u2022 genetic: 0.31\n2025-08-09 19:08:08,716 - INFO -       \u2022 gboost: 0.30\n2025-08-09 19:08:08,716 - INFO -       \u2022 ensemble_ai: 0.33\n2025-08-09 19:08:08,716 - INFO -       \u2022 apriori: 0.30\n2025-08-09 19:08:08,716 - INFO -       \u2022 fallback: 0.30\n2025-08-09 19:08:08,716 - INFO -    \u2699\ufe0f Configuraci\u00f3n din\u00e1mica:\n2025-08-09 19:08:08,716 - INFO -       \u2022 Score m\u00ednimo: 23.0\n2025-08-09 19:08:08,716 - INFO -       \u2022 Agresividad filtros: 0.7\n2025-08-09 19:08:08,716 - INFO -       \u2022 Ghost RNG: \ud83d\udfe2 ACTIVO\n2025-08-09 19:08:08,716 - INFO -       \u2022 Refuerzo clustering: \ud83d\udfe2 ACTIVO\n2025-08-09 19:08:08,716 - INFO -    \ud83d\udcda Configuraci\u00f3n guardada para pr\u00f3ximas ejecuciones\n2025-08-09 19:08:08,716 - INFO -       \u2022 Patrones reforzados: 0\n2025-08-09 19:08:08,716 - INFO -       \u2022 Patrones penalizados: 1\n2025-08-09 19:08:08,716 - INFO - \n\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:08:08,716 - INFO - \ud83e\udde0 APRENDIZAJE ADAPTATIVO COMPLETADO\n2025-08-09 19:08:08,716 - INFO - \ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\ud83e\udde0\n2025-08-09 19:08:08,716 - INFO - \n\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 19:08:08,717 - INFO - \ud83d\ude80 OMEGA PRO AI - EJECUCI\u00d3N COMPLETADA\n2025-08-09 19:08:08,717 - INFO - \u2705 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS\n2025-08-09 19:08:08,717 - INFO - \ud83c\udfb2 RESUMEN FINAL DE LAS 8 SERIES:\n2025-08-09 19:08:08,717 - INFO - \ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\ud83c\udfaf\n2025-08-09 19:08:08,717 - INFO - Serie 1: 08 - 11 - 20 - 21 - 31 - 38 | Score: 0.850 | Modelo: balanced_predictor\n2025-08-09 19:08:08,717 - INFO - Serie 2: 05 - 11 - 22 - 26 - 29 - 32 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 19:08:08,717 - INFO - Serie 3: 04 - 10 - 14 - 15 - 32 - 36 | Score: 0.850 | Modelo: balanced_range\n2025-08-09 19:08:08,717 - INFO - Serie 4: 01 - 10 - 22 - 25 - 26 - 32 | Score: 0.687 | Modelo: balanced_range\n2025-08-09 19:08:08,717 - INFO - Serie 5: 01 - 02 - 12 - 15 - 20 - 35 | Score: 0.687 | Modelo: balanced_range\n2025-08-09 19:08:08,717 - INFO - Serie 6: 01 - 14 - 16 - 20 - 29 - 34 | Score: 0.570 | Modelo: meta_learning\n2025-08-09 19:08:08,717 - INFO - Serie 7: 02 - 03 - 11 - 15 - 36 - 38 | Score: 0.570 | Modelo: meta_learning\n2025-08-09 19:08:08,717 - INFO - Serie 8: 07 - 12 - 15 - 23 - 27 - 30 | Score: 0.570 | Modelo: meta_learning\n2025-08-09 19:08:08,717 - INFO - \n============================================================\n2025-08-09 19:08:08,717 - INFO - \ud83c\udf40 \u00a1BUENA SUERTE CON TUS 8 SERIES!\n2025-08-09 19:08:08,717 - INFO - ============================================================\n2025-08-09 19:08:08,717 - INFO - \u2705 No se han registrado errores\n",
+        "stderr": "2025-08-09 19:03:16,440 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 19:03:16,440 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 19:03:16,440 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 19:03:16,440 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 19:03:16,440 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n2025-08-09 19:03:16,539 - clustering_engine - INFO - \ud83d\udd0d Columnas disponibles: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 19:03:16,539 - clustering_engine - INFO - \ud83c\udfaf Columnas bolillas detectadas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n2025-08-09 19:03:16,619 - clustering_engine - ERROR - \u274c Error cargando datos de jackpots: stat: path should be string, bytes, os.PathLike or integer, not Logger\n\u26a0\ufe0f Usando primeras 6 columnas num\u00e9ricas: ['bolilla_1', 'bolilla_2', 'bolilla_3', 'bolilla_4', 'bolilla_5', 'bolilla_6']\n\u274c Error en filtro: 'int' object is not iterable\n2025-08-09 19:03:43,837 - clustering_engine - INFO - \u2705 Seleccionado K \u00f3ptimo: 3\n2025-08-09 19:03:46,409 - clustering_engine - INFO - \ud83d\udcca Cluster 0: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 19:03:46,410 - clustering_engine - INFO - \ud83d\udcca Cluster 1: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 19:03:46,410 - clustering_engine - INFO - \ud83d\udcca Cluster 2: Jackpot Rate: 0.000, Pair Strength: 0.000, Diversity: 0.000, Score: 0.000\n2025-08-09 19:03:46,445 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 0 \u2192 [2, 6, 8, 13, 28, 40] | Score: 1478.70\n2025-08-09 19:03:46,466 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 1 \u2192 [13, 20, 21, 23, 39, 40] | Score: 958.50\n2025-08-09 19:03:46,480 - clustering_engine - INFO - [CLUSTER-HIST] Cluster 2 \u2192 [6, 10, 18, 21, 33, 40] | Score: 845.10\n2025-08-09 19:03:46,481 - clustering_engine - INFO - \ud83d\udd01 Refuerzo desde muestras de cl\u00fasteres dominantes (3/4)...\n2025-08-09 19:03:46,507 - clustering_engine - INFO - [CLUSTER-MUT] Muestra 1286 \u2192 [2, 10, 11, 25, 30, 40] | Score: 12.3225\n2025-08-09 19:03:46,507 - clustering_engine - INFO - \u2705 [CLUSTER] Total combinaciones generadas: 4\n2025-08-09 19:03:58.794270: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 19:03:58.794970: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n\u26a0\ufe0f Reporte HTML omitido: cannot import name 'generar_reporte_completo' from 'modules.reporting.html_reporter' (/Users/user/Documents/OMEGA_PRO_AI_v10.1/modules/reporting/html_reporter.py)\n2025-08-09 19:05:13.224085: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 19:05:13.224437: E tensorflow/core/framework/node_def_util.cc:680] NodeDef mentions attribute use_unbounded_threadpool which is not in the op definition: Op<name=MapDataset; signature=input_dataset:variant, other_arguments: -> handle:variant; attr=f:func; attr=Targuments:list(type),min=0; attr=output_types:list(type),min=1; attr=output_shapes:list(shape),min=1; attr=use_inter_op_parallelism:bool,default=true; attr=preserve_cardinality:bool,default=false; attr=force_synchronous:bool,default=false; attr=metadata:string,default=\"\"> This may be expected if your graph generating binary is newer  than this binary. Unknown attributes will be ignored. NodeDef: {{node ParallelMapDatasetV2/_14}}\n2025-08-09 19:07:33,023 [INFO] [inverse_mining_engine] \ud83d\ude80 Iniciando miner\u00eda inversa con perfil: default\n2025-08-09 19:07:33,415 [WARNING] [inverse_mining_engine] \u26a0\ufe0f No se generaron combinaciones v\u00e1lidas, usando respaldo\n2025-08-09 19:07:38,106 - INFO - \ud83d\udd0d Core set (top 6): [2, 19, 20, 21, 30, 40]\n2025-08-09 19:07:38,106 - INFO - \ud83d\udd0d Core set (top 6): [2, 19, 20, 21, 30, 40]\n2025-08-09 19:07:38,213 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d Modelo cargado desde models/jackpot_profiler.pkl\n2025-08-09 19:07:38,213 - modules.profiling.jackpot_profiler - INFO - \ud83c\udff7\ufe0f Clases: [0 1]\n2025-08-09 19:07:38,213 - modules.profiling.jackpot_profiler - INFO - \ud83d\udcd0 Espera 57 features\n2025-08-09 19:07:38,216 - modules.profiling.jackpot_profiler - INFO - \ud83d\udd0d MLB cargado desde models/jackpot_profiler_mlb.pkl\n2025-08-09 19:07:38,216 - modules.profiling.jackpot_profiler - INFO - \u2705 JackpotProfiler inicializado con modelo jackpot_profiler.pkl\n\nProcesando:   0%|          | 0/17 [00:00<?, ?combo/s]\nProcesando:  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 9/17 [00:00<00:00, 4663.22combo/s]\n",
+        "artifacts": {
+          "combinacion": "",
+          "svi_export": ""
+        }
+      },
+      "evaluation": {
+        "reward": 15.15,
+        "quality_ok": true,
+        "signals": {
+          "svi": 30.0,
+          "diversity": 0.5,
+          "jackpot": 0.0,
+          "filters_pass": 0.5
+        }
+      },
+      "execution_duration": 301.841052,
+      "candidate_index": 2
+    }
+  ],
+  "evaluation": {
+    "chosen_signature": "1c0ee4d8e2",
+    "chosen_config": {
+      "svi_profile": "default",
+      "ensemble_weights": {
+        "neural_enhanced": 0.49037555260792004,
+        "transformer_deep": 0.16353852178454142,
+        "genetico": 0.1260459626966927,
+        "analizador_200": 0.13783423019340973,
+        "montecarlo": 0.04540254334477621,
+        "lstm_v2": 0.02639444990448941,
+        "clustering": 0.010408739468170418
+      },
+      "filters": {
+        "max_consecutivos": 3,
+        "par_impar_balance": true
+      },
+      "seeds": [
+        null
+      ],
+      "proposal_metadata": {
+        "mode": "active_learning",
+        "proposal_id": "active_learning_1",
+        "timestamp": "2025-08-09T18:53:57.952028",
+        "planner_version": "v2"
+      }
+    },
+    "chosen_reward": 0.39999999999999997,
+    "metrics": {
+      "average_reward": 5.316666666666667,
+      "best_reward": 15.15,
+      "worst_reward": 0.39999999999999997,
+      "reward_std": 6.953216681667716,
+      "quality_rate": 0.3333333333333333,
+      "average_execution_time": 283.8537773333333
+    },
+    "performance_indicators": {
+      "all_quality_ok": false,
+      "significant_improvement": true,
+      "consistent_performance": false
+    }
+  },
+  "learning": {
+    "cycle_number": 3,
+    "learning_insights": [
+      {
+        "source": "planner_v2",
+        "insights": {
+          "planner_version": "v2",
+          "current_mode": "active_learning",
+          "trials_since_recalibration": 1,
+          "successful_configs_count": 1,
+          "best_successful_reward": 15.15,
+          "active_learning": {
+            "total_trials": 3,
+            "exploration_count": 3,
+            "exploitation_count": 0,
+            "exploration_ratio": 1.0,
+            "best_reward": 15.15,
+            "average_reward": 5.316666666666667,
+            "reward_std": 6.953216681667716,
+            "improvement_percentage": 0,
+            "learning_trend": "stable",
+            "strategy": "uncertainty_sampling",
+            "current_exploration_rate": 0.4
+          },
+          "drift_detection": {
+            "drift_detected": false,
+            "last_drift_time": null,
+            "drift_count": 0,
+            "baseline_established": false,
+            "samples_collected": 1,
+            "window_size": 50,
+            "drift_threshold": 0.05,
+            "sensitivity": 0.8
+          },
+          "bayesian_optimizer_available": false,
+          "timestamp": "2025-08-09T19:08:09.751874"
+        }
+      },
+      {
+        "source": "config_patterns",
+        "insights": {
+          "successful_count": 1,
+          "neural_weight_range": {
+            "min": 0.4841929153301514,
+            "max": 0.4841929153301514,
+            "avg": 0.4841929153301514
+          },
+          "popular_svi_profiles": [
+            "neural_optimized"
+          ],
+          "pattern": "stable_weights"
+        }
+      },
+      {
+        "source": "performance_analysis",
+        "insights": {
+          "current_performance": 15.15,
+          "performance_trend": "insufficient_data",
+          "consistency": "low",
+          "quality_stability": "unstable"
+        }
+      }
+    ],
+    "key_learnings": [
+      "Planner operando en modo: active_learning"
+    ],
+    "timestamp": "2025-08-09T19:08:09.752677"
+  },
+  "adaptation": {
+    "adaptations_applied": [
+      "applied_best_configuration",
+      "critic_reflection_logged",
+      "recalibration_triggered"
+    ],
+    "timestamp": "2025-08-09T19:08:09.756421"
+  },
+  "version": "v2"
+}

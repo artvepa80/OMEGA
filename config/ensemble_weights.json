@@ -1,0 +1,108 @@
+{
+  "weights": {
+    "lstm_v2": 0.06920313714491343,
+    "montecarlo": 0.06298448430472073,
+    "apriori": 0.05268523418251511,
+    "transformer_deep": 0.1101069035054647,
+    "clustering": 0.05091015161373525,
+    "genetico": 0.11719594491155652,
+    "gboost": 0.08172865583704032,
+    "neural_enhanced": 0.15166939284070913,
+    "omega_200_analyzer": 0.05367586700562506,
+    "consensus": 0.107508716287648,
+    "exploratory_consensus": 0.14233151236607178
+  },
+  "accuracy": {
+    "lstm_v2": 0.9070490406822315,
+    "montecarlo": 0.8700587122804964,
+    "apriori": 0.8774952712185002,
+    "transformer_deep": 1.324692922300709,
+    "clustering": 0.8510285075435127,
+    "genetico": 1.18899574409665,
+    "gboost": 1.164969445454231,
+    "neural_enhanced": 1.3666366527789293,
+    "omega_200_analyzer": 0.8922657643093985,
+    "consensus": 1.5820842717195263,
+    "exploratory_consensus": 1.6150842717195264
+  },
+  "adaptive_weights": {},
+  "confidence_thresholds": {
+    "lstm_v2": [
+      0.01,
+      0.13269116592860414
+    ],
+    "montecarlo": [
+      0.01,
+      0.12899598906331633
+    ],
+    "apriori": [
+      0.01,
+      0.11734076816045927
+    ],
+    "transformer_deep": [
+      0.05450412108214468,
+      0.1657096859287847
+    ],
+    "clustering": [
+      0.01,
+      0.11852462053816454
+    ],
+    "genetico": [
+      0.058617599871571724,
+      0.17577428995154132
+    ],
+    "gboost": [
+      0.022714276878256875,
+      0.14074303479582378
+    ],
+    "neural_enhanced": [
+      0.0976941061484484,
+      0.20564467953296986
+    ],
+    "omega_200_analyzer": [
+      0.01,
+      0.11961319424698667
+    ],
+    "consensus": [
+      0.05702209296992736,
+      0.15799533960536866
+    ],
+    "exploratory_consensus": [
+      0.09280537615345939,
+      0.19185764857868415
+    ]
+  },
+  "calibration_metrics": {
+    "total_models": 11,
+    "best_model": "exploratory_consensus",
+    "worst_model": "clustering",
+    "rare_number_specialist": "neural_enhanced",
+    "weight_distribution": "highly_balanced",
+    "weight_entropy": 2.3247986750798315,
+    "max_weight": 0.15166939284070913,
+    "calibration_mode": "rare_focused",
+    "rare_combinations_analyzed": 3642,
+    "average_performance": 1.1491236912821556,
+    "performance_std": 0.2779220900190506,
+    "timestamp": "2025-08-16T18:55:34.062713"
+  },
+  "calibration_mode": "rare_focused",
+  "rare_threshold": 0.12,
+  "adaptation_rate": 0.3,
+  "model_reliability_scores": {
+    "lstm_v2": 0.36511971216309297,
+    "montecarlo": 0.339884952414044,
+    "apriori": 0.3534446602205584,
+    "transformer_deep": 0.44397217576679987,
+    "clustering": 0.32385531075570717,
+    "genetico": 0.4142165496001521,
+    "gboost": 0.4098562104121656,
+    "neural_enhanced": 0.4602471330773926,
+    "omega_200_analyzer": 0.3406267275863839,
+    "consensus": 0.4951337668227936,
+    "exploratory_consensus": 0.5047386378738762
+  },
+  "last_calibration": "2025-08-16T18:55:34.062864",
+  "total_rare_profiles": 3642,
+  "version": "10.1_advanced"
+}

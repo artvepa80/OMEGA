@@ -1,0 +1,111 @@
+{
+  "timestamp": "2025-08-13T14:44:17.785491",
+  "overall_score": 79.54838709677419,
+  "tests": [
+    {
+      "test_name": "iOS MITM Vulnerability Fix",
+      "status": "PASS",
+      "score": 70,
+      "details": [
+        "\u274c CRITICAL: Trust evaluation disabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Info.plist",
+        "\u2705 Certificate Transparency enabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Info.plist",
+        "\u2705 OCSP stapling configured in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Info.plist",
+        "\u274c CRITICAL: Trust evaluation disabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Omega/Omega/Info.plist",
+        "\u2705 Certificate Transparency enabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Omega/Omega/Info.plist",
+        "\u2705 OCSP stapling configured in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Omega/Omega/Info.plist",
+        "\u2705 Found 5 SSL management files"
+      ],
+      "critical": true
+    },
+    {
+      "test_name": "Encrypted Certificate Storage",
+      "status": "PASS",
+      "score": 100,
+      "details": [
+        "\u2705 Found encrypted certificate bundle at /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/EncryptedCertificates.bundle",
+        "\u2705 Found 6 encrypted certificate files",
+        "\u2705 Bundle Info.plist present",
+        "\u2705 Certificate encryption utilities found",
+        "\u2705 Enterprise SSL manager implemented"
+      ],
+      "critical": false
+    },
+    {
+      "test_name": "Content Security Policy",
+      "status": "FAIL",
+      "score": 55,
+      "details": [
+        "\u2705 CSP header configured in nginx",
+        "\u274c CRITICAL: unsafe-inline directive present",
+        "\u274c CRITICAL: unsafe-eval directive present",
+        "\u2705 Nonce-based CSP implemented",
+        "\u2705 CSP headers in api_main.py",
+        "\u2705 Secure nonce generation in api_main.py"
+      ],
+      "critical": true
+    },
+    {
+      "test_name": "OCSP Certificate Revocation",
+      "status": "PASS",
+      "score": 100,
+      "details": [
+        "\u2705 OCSP stapling enabled in nginx",
+        "\u2705 OCSP stapling verification enabled",
+        "\u2705 Trusted certificate chain configured",
+        "\u2705 OCSP validation service implemented",
+        "\u2705 Certificate validation method present"
+      ],
+      "critical": false
+    },
+    {
+      "test_name": "Nginx Security Configuration",
+      "status": "PASS",
+      "score": 115,
+      "details": [
+        "\u2705 X-Frame-Options configured",
+        "\u2705 X-Content-Type-Options configured",
+        "\u2705 X-XSS-Protection configured",
+        "\u2705 Strict-Transport-Security configured",
+        "\u2705 Referrer-Policy configured",
+        "\u2705 Cross-Origin-Embedder-Policy configured",
+        "\u2705 Cross-Origin-Opener-Policy configured",
+        "\u2705 Expect-CT configured",
+        "\u2705 Modern TLS protocols configured",
+        "\u2705 Server cipher preference enabled"
+      ],
+      "critical": false
+    },
+    {
+      "test_name": "API Security Headers",
+      "status": "PASS",
+      "score": 120,
+      "details": [
+        "\u2705 Trusted host middleware in api_main.py",
+        "\u2705 Security headers middleware in api_main.py",
+        "\u2705 CSP header in api_main.py",
+        "\u2705 X-Frame-Options in api_main.py",
+        "\u2705 HSTS header in api_main.py",
+        "\u2705 Secure nonce generation in api_main.py",
+        "\u274c CORS allows all origins in api_ios_test.py",
+        "\u274c CORS allows all origins in api_simple.py",
+        "\u2705 CORS properly configured in api_interface.py",
+        "\u2705 CORS properly configured in api_main.py",
+        "\u274c CORS allows all origins in api_interface_railway.py"
+      ],
+      "critical": false
+    }
+  ],
+  "critical_issues": [
+    "SSL bypass enabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Info.plist",
+    "SSL bypass enabled in /Users/user/Documents/OMEGA_PRO_AI_v10.1/ios/OmegaApp_Clean/Omega/Omega/Info.plist",
+    "CSP contains unsafe-inline",
+    "CSP contains unsafe-eval"
+  ],
+  "warnings": [
+    "Overly permissive CORS in api_ios_test.py",
+    "Overly permissive CORS in api_simple.py",
+    "Overly permissive CORS in api_interface_railway.py"
+  ],
+  "recommendations": [],
+  "critical_failures": 1
+}

@@ -1,0 +1,68 @@
+---
+version: "2.0"
+
+services:
+  omega-api:
+    image: python:3.11-slim
+    env:
+      - "PORT=80"
+    expose:
+      - port: 80
+        as: 80
+        to:
+          - global: true
+    command:
+      - "/bin/sh"
+      - "-c"
+      - |
+        pip install fastapi uvicorn
+        python3 -c "
+        from fastapi import FastAPI
+        import uvicorn
+        import random
+        from datetime import datetime
+        
+        app = FastAPI(title='OMEGA PRO AI - Akash')
+        
+        @app.get('/')
+        def root():
+            return {'message': 'OMEGA PRO AI v10.1 on Akash Network', 'status': 'active'}
+        
+        @app.get('/health')
+        def health():
+            return {'status': 'healthy', 'platform': 'Akash', 'time': datetime.now().isoformat()}
+        
+        @app.post('/predict')
+        def predict():
+            numbers = sorted(random.sample(range(1, 41), 6))
+            return {
+                'prediction': numbers,
+                'score': round(random.uniform(0.5, 0.8), 3),
+                'platform': 'Akash Network'
+            }
+        
+        uvicorn.run(app, host='0.0.0.0', port=80)
+        "
+
+profiles:
+  compute:
+    omega-api:
+      resources:
+        cpu:
+          units: 0.1
+        memory:
+          size: 512Mi
+        storage:
+          - size: 1Gi
+  placement:
+    dcloud:
+      pricing:
+        omega-api:
+          denom: ibc/170C677610AC31DF0904FFE09CD3B5C657492170E7E52372E48756B71E56F2F1
+          amount: 100000
+
+deployment:
+  omega-api:
+    dcloud:
+      profile: omega-api
+      count: 1

@@ -1,0 +1,6 @@
+{
+    "sum_threshold_high": 120,
+    "sum_threshold_low": 80,
+    "std_dev_threshold_high": 15,
+    "std_dev_threshold_low": 10
+}

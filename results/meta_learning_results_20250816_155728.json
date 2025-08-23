@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Meta-Learning",
+    "timestamp": "20250816_155728",
+    "total_predictions": 2,
+    "components_used": 4,
+    "data_size": 1000
+  },
+  "predictions": [
+    {
+      "combination": [
+        "8",
+        "12",
+        "16",
+        "22",
+        "28",
+        "31"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.7511297574755291,
+        "transformer": 0.7511297574755291,
+        "clustering": 2.4932214551468252,
+        "montecarlo": 0.7511297574755291,
+        "genetic": 0.7511297574755291,
+        "gboost": 0.7511297574755291,
+        "ensemble_ai": 1.2511297574755291
+      },
+      "timestamp": "2025-08-16T15:57:28.021951"
+    },
+    {
+      "combination": [
+        "8",
+        "15",
+        "21",
+        "23",
+        "26",
+        "36"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 0.7511297574755291,
+        "transformer": 0.7511297574755291,
+        "clustering": 2.4932214551468252,
+        "montecarlo": 0.7511297574755291,
+        "genetic": 0.7511297574755291,
+        "gboost": 0.7511297574755291,
+        "ensemble_ai": 1.2511297574755291
+      },
+      "timestamp": "2025-08-16T15:57:28.022115"
+    }
+  ],
+  "meta_analysis": {
+    "regime": "moderate_balanced",
+    "entropy": 0.9992214573964351,
+    "variance": 5.7441616243457405,
+    "trend_strength": 3.0045240785627783e-05,
+    "optimal_weights": {
+      "lstm_v2": 1.0,
+      "transformer": 1.0,
+      "clustering": 1.0,
+      "montecarlo": 1.0,
+      "genetic": 1.0,
+      "gboost": 1.0,
+      "ensemble_ai": 1.5
+    }
+  },
+  "component_results": {
+    "profiler": {
+      "profile": "moderate_mixed",
+      "confidence": 0.5,
+      "probability_distribution": {
+        "moderate_mixed": 0.5
+      }
+    },
+    "reinforcement": {
+      "action_type": "CHANGE_STRATEGY",
+      "model_adjusted": "clustering",
+      "adjustment_value": 0.19909619401957673,
+      "epsilon": 1.0
+    }
+  },
+  "integration_metrics": {
+    "processing_time": 0.017596,
+    "components_used": 4,
+    "predictions_generated": 2,
+    "weights_optimized": 7,
+    "confidence_avg": 0.6
+  }
+}

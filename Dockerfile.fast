@@ -1,0 +1,54 @@
+# OMEGA PRO AI v10.1 - Fast Build Docker
+FROM python:3.11-slim
+
+# Build info
+ENV OMEGA_VERSION=v10.1
+ENV OMEGA_REAL_ALGORITHMS=true  
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-dev \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+WORKDIR /app
+
+# Copy requirements first
+COPY requirements.txt requirements.txt
+
+# Install Python packages
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu && \
+    pip3 install --no-cache-dir tensorflow-cpu && \
+    pip3 install --no-cache-dir -r requirements.txt
+
+# Copy essential OMEGA code
+COPY main.py omega_unified_main.py ./
+COPY core/ core/
+COPY modules/ modules/
+COPY utils/ utils/
+COPY config/ config/
+COPY data/historial_kabala_github_emergency_clean.csv data/
+COPY data/ultimo_resultado_oficial.json data/ 
+
+# Create directories
+RUN mkdir -p logs outputs results temp
+
+# Simple entrypoint
+RUN echo '#!/bin/bash\necho "🚀 OMEGA PRO AI v10.1 Fast Build"\necho "🏗️ Platform: $(uname -m)"\necho "💻 Ready at /app"\nexec "$@"' > entrypoint.sh && chmod +x entrypoint.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python3 -c "print('OMEGA Health OK')" || exit 1
+
+# Default port
+EXPOSE 8000
+
+# Run OMEGA
+CMD ["python3", "main.py", "--server-mode", "--port", "8000"]
+ENTRYPOINT ["./entrypoint.sh"]

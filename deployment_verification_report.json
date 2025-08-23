@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-14T09:36:01.152513",
+  "overall_score": 93.33333333333333,
+  "deployment_status": "EXCELLENT",
+  "total_checks": 15,
+  "passed_checks": 14,
+  "detailed_results": {
+    "ssl_infrastructure": {
+      "ssl_certificates": true,
+      "ssl_manager": true,
+      "nginx_security": true,
+      "monitoring": true,
+      "docker_configs": true
+    },
+    "akash_deployment": {
+      "deployment_manifests": true,
+      "service_mesh_config": true,
+      "health_checks": true,
+      "security_policies": true,
+      "akash_cli_tools": true
+    },
+    "network_security": {
+      "tls_configuration": true,
+      "security_headers": true,
+      "rate_limiting": true,
+      "firewall_rules": false,
+      "monitoring": true
+    }
+  },
+  "recommendations": [
+    "Setup firewall: sudo scripts/setup_firewall.sh"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "prediction_id": "pred_1754665275",
+  "timestamp": "2025-08-08T10:01:15.314416",
+  "success": true,
+  "traditional_omega": null,
+  "autonomous_agent": null,
+  "ensemble_result": {
+    "type": "ensemble_prediction",
+    "method": "weighted_combination",
+    "weights": {
+      "traditional": 0.7,
+      "autonomous": 0.3
+    },
+    "final_combinations": [],
+    "confidence": 0.0,
+    "explanation": "Combinaci\u00f3n inteligente de predicci\u00f3n tradicional y optimizaci\u00f3n aut\u00f3noma"
+  },
+  "exports": {},
+  "performance": {},
+  "errors": []
+}

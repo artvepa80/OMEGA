@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-08-07T23:16:01.575426",
+  "python": "3.9.6 (default, Apr 30 2025, 02:07:17) \n[Clang 17.0.0 (clang-1700.0.13.5)]",
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "executable": "/Users/user/Documents/OMEGA_PRO_AI_v10.1/venv/bin/python3",
+  "libs": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.1",
+    "matplotlib": "3.9.4",
+    "joblib": "1.4.2"
+  },
+  "git": {
+    "sha": "62b4ceeca81b5d0e639137c222f82b7823c47623",
+    "dirty": true,
+    "branch": "main"
+  }
+}

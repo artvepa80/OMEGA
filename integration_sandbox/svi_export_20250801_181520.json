@@ -1,0 +1,475 @@
+{
+    "metadata": {
+        "app_name": "OMEGA PRO AI",
+        "version": "v12.0",
+        "export_date": "2025-08-01T18:15:20.052416",
+        "parameters": {
+            "data_path": "data/historial_kabala_github.csv",
+            "svi_profile": "default",
+            "top_n": 30,
+            "enable_models": [
+                "consensus",
+                "ghost_rng",
+                "inverse_mining",
+                "lstm_v2",
+                "montecarlo",
+                "apriori",
+                "transformer_deep",
+                "clustering",
+                "genetico"
+            ]
+        }
+    },
+    "combinations": [
+        {
+            "rank": 1,
+            "source": "montecarlo",
+            "combination": [
+                2,
+                9,
+                10,
+                17,
+                25,
+                31
+            ],
+            "score": 1.3568027999999999,
+            "svi_score": 0.5,
+            "original_score": 1.724004
+        },
+        {
+            "rank": 2,
+            "source": "transformer_deep",
+            "combination": [
+                7,
+                13,
+                16,
+                27,
+                31,
+                36
+            ],
+            "score": 1.2767608799999999,
+            "svi_score": 0.5,
+            "original_score": 1.6096584
+        },
+        {
+            "rank": 3,
+            "source": "clustering",
+            "combination": [
+                10,
+                13,
+                22,
+                23,
+                31,
+                32
+            ],
+            "score": 1.0845779519999998,
+            "svi_score": 0.5,
+            "original_score": 1.33511136
+        },
+        {
+            "rank": 4,
+            "source": "clustering",
+            "combination": [
+                3,
+                12,
+                20,
+                27,
+                30,
+                38
+            ],
+            "score": 0.7836459360000001,
+            "svi_score": 0.5,
+            "original_score": 0.9052084800000001
+        },
+        {
+            "rank": 5,
+            "source": "apriori",
+            "combination": [
+                5,
+                11,
+                24,
+                28,
+                35,
+                39
+            ],
+            "score": 0.7832024160000001,
+            "svi_score": 0.5,
+            "original_score": 0.9045748800000002
+        },
+        {
+            "rank": 6,
+            "source": "lstm_v2",
+            "combination": [
+                6,
+                13,
+                18,
+                24,
+                30,
+                35
+            ],
+            "score": 0.713423952,
+            "svi_score": 0.5,
+            "original_score": 0.8048913600000001
+        },
+        {
+            "rank": 7,
+            "source": "lstm_v2",
+            "combination": [
+                6,
+                12,
+                18,
+                24,
+                29,
+                35
+            ],
+            "score": 0.7086552720000001,
+            "svi_score": 0.5,
+            "original_score": 0.7980789600000001
+        },
+        {
+            "rank": 8,
+            "source": "apriori",
+            "combination": [
+                1,
+                11,
+                14,
+                23,
+                24,
+                25
+            ],
+            "score": 0.6945732880000001,
+            "svi_score": 0.5,
+            "original_score": 0.7779618400000001
+        },
+        {
+            "rank": 9,
+            "source": "apriori",
+            "combination": [
+                5,
+                9,
+                17,
+                25,
+                29,
+                33
+            ],
+            "score": 0.680407192,
+            "svi_score": 0.5,
+            "original_score": 0.75772456
+        },
+        {
+            "rank": 10,
+            "source": "lstm_v2",
+            "combination": [
+                6,
+                12,
+                18,
+                24,
+                30,
+                36
+            ],
+            "score": 0.658279184,
+            "svi_score": 0.5,
+            "original_score": 0.72611312
+        },
+        {
+            "rank": 11,
+            "source": "montecarlo",
+            "combination": [
+                3,
+                4,
+                9,
+                14,
+                18,
+                37
+            ],
+            "score": 0.6327805919999999,
+            "svi_score": 0.5,
+            "original_score": 0.68968656
+        },
+        {
+            "rank": 12,
+            "source": "apriori",
+            "combination": [
+                5,
+                10,
+                14,
+                21,
+                26,
+                32
+            ],
+            "score": 0.466481088,
+            "svi_score": 0.5,
+            "original_score": 0.45211584000000005
+        },
+        {
+            "rank": 13,
+            "source": "apriori",
+            "combination": [
+                5,
+                9,
+                15,
+                24,
+                26,
+                31
+            ],
+            "score": 0.45220965600000007,
+            "svi_score": 0.5,
+            "original_score": 0.43172808000000007
+        },
+        {
+            "rank": 14,
+            "source": "genetico",
+            "combination": [
+                3,
+                8,
+                15,
+                20,
+                23,
+                35
+            ],
+            "score": 0.45204031199999994,
+            "svi_score": 0.5,
+            "original_score": 0.43148616
+        },
+        {
+            "rank": 15,
+            "source": "clustering",
+            "combination": [
+                8,
+                12,
+                17,
+                22,
+                29,
+                33
+            ],
+            "score": 0.451866852,
+            "svi_score": 0.5,
+            "original_score": 0.43123836000000004
+        },
+        {
+            "rank": 16,
+            "source": "apriori",
+            "combination": [
+                2,
+                8,
+                24,
+                32,
+                34,
+                40
+            ],
+            "score": 0.43249983999999997,
+            "svi_score": 0.5,
+            "original_score": 0.40357119999999996
+        },
+        {
+            "rank": 17,
+            "source": "montecarlo",
+            "combination": [
+                8,
+                12,
+                13,
+                15,
+                31,
+                36
+            ],
+            "score": 0.43205772,
+            "svi_score": 0.5,
+            "original_score": 0.4029396
+        },
+        {
+            "rank": 18,
+            "source": "transformer_deep",
+            "combination": [
+                11,
+                14,
+                16,
+                27,
+                31,
+                32
+            ],
+            "score": 0.430870548,
+            "svi_score": 0.5,
+            "original_score": 0.40124364
+        },
+        {
+            "rank": 19,
+            "source": "genetico",
+            "combination": [
+                3,
+                9,
+                16,
+                20,
+                22,
+                27
+            ],
+            "score": 0.407955768,
+            "svi_score": 0.5,
+            "original_score": 0.36850824000000004
+        },
+        {
+            "rank": 20,
+            "source": "apriori",
+            "combination": [
+                1,
+                6,
+                11,
+                15,
+                22,
+                28
+            ],
+            "score": 0.40788369599999996,
+            "svi_score": 0.5,
+            "original_score": 0.36840528
+        },
+        {
+            "rank": 21,
+            "source": "transformer_deep",
+            "combination": [
+                4,
+                7,
+                16,
+                22,
+                26,
+                40
+            ],
+            "score": 0.40464605600000003,
+            "svi_score": 0.5,
+            "original_score": 0.36378008
+        },
+        {
+            "rank": 22,
+            "source": "genetico",
+            "combination": [
+                1,
+                9,
+                15,
+                16,
+                25,
+                29
+            ],
+            "score": 0.379298496,
+            "svi_score": 0.5,
+            "original_score": 0.32756927999999996
+        },
+        {
+            "rank": 23,
+            "source": "clustering",
+            "combination": [
+                7,
+                11,
+                15,
+                21,
+                28,
+                34
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 24,
+            "source": "apriori",
+            "combination": [
+                3,
+                5,
+                6,
+                15,
+                16,
+                28
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 25,
+            "source": "clustering",
+            "combination": [
+                8,
+                17,
+                18,
+                21,
+                22,
+                32
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 26,
+            "source": "ghost_rng",
+            "combination": [
+                3,
+                9,
+                19,
+                22,
+                35,
+                40
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 27,
+            "source": "ghost_rng",
+            "combination": [
+                19,
+                21,
+                26,
+                35,
+                37,
+                40
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 28,
+            "source": "transformer",
+            "combination": [
+                6,
+                11,
+                12,
+                30,
+                34,
+                37
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 29,
+            "source": "transformer",
+            "combination": [
+                11,
+                17,
+                19,
+                24,
+                32,
+                39
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        },
+        {
+            "rank": 30,
+            "source": "montecarlo",
+            "combination": [
+                12,
+                23,
+                25,
+                28,
+                30,
+                32
+            ],
+            "score": 0.15,
+            "svi_score": 0.5,
+            "original_score": 0.0
+        }
+    ]
+}

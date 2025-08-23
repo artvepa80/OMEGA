@@ -1,0 +1,15 @@
+{
+  "session_id": "20250807_112330",
+  "components_enabled": {
+    "meta_controller": true,
+    "reinforcement": true,
+    "lstm_v2": true,
+    "profiler": true
+  },
+  "current_weights": {},
+  "integration_history": [],
+  "timestamp": "2025-08-07T11:23:41.912130",
+  "lstm_v2_model_path": "models/meta_learning_state_20250807_112341_lstm_v2.pt",
+  "rl_model_path": "models/meta_learning_state_20250807_112341_rl.pt",
+  "meta_controller_path": "models/meta_learning_state_20250807_112341_meta.json"
+}

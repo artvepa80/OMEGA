@@ -1,0 +1,58 @@
+# OMEGA PRO AI v10.1 - Dockerignore MÍNIMO
+# Solo excluir lo absolutamente innecesario
+
+# Git
+.git/
+.github/
+
+# Documentación  
+*.md
+docs/
+*.pdf
+*.docx
+
+# Desarrollo y debugging
+test/
+tests/
+*_test.py
+test_*.py
+debug_*.py
+fix_*.py
+
+# Logs pesados
+gboost_jackpot_classifier_*.log
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+
+# Temporary
+*.tmp
+*.bak
+temp/
+
+# MANTENER TODO LO DEMÁS:
+# ✅ core/
+# ✅ modules/  
+# ✅ utils/
+# ✅ config/
+# ✅ data/
+# ✅ models/
+# ✅ checkpoints/
+# ✅ requirements*.txt
+# ✅ *.py (todos los scripts)

@@ -1,0 +1,51 @@
+# Railway ignore file - archivos que no subir
+
+# Logs y temporales
+logs/
+*.log
+results/
+export/
+temp/
+__pycache__/
+*.pyc
+
+# Datos grandes y modelos entrenados
+checkpoints/
+model/*.pt
+model/*.pkl
+data/*.csv
+backup/
+
+# Configuración local
+.env
+.env.local
+venv/
+.venv/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docker local
+docker-compose.yml
+docker-compose*.yml
+Dockerfile
+!Dockerfile.railway
+
+# Archivos específicos de desarrollo
+demo_*.py
+test_*.py
+*_test.py
+README_*.md
+*.md
+!requirements.txt

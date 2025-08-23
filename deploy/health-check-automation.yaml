@@ -1,0 +1,524 @@
+# OMEGA Pro AI - Advanced Health Check Automation & Service Discovery
+# Infrastructure Completion: Automated Monitoring & Self-Healing
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: omega-health-automation-config
+  namespace: akash-services
+data:
+  health-monitor.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA Pro AI - Advanced Health Check Automation System
+    Infrastructure completion component for enterprise monitoring
+    """
+    import asyncio
+    import aiohttp
+    import json
+    import logging
+    import os
+    import subprocess
+    import time
+    from datetime import datetime
+    from typing import Dict, List, Optional, Tuple
+    
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    logger = logging.getLogger('omega-health-monitor')
+    
+    class HealthCheckManager:
+        """Advanced health check manager with auto-remediation"""
+        
+        def __init__(self):
+            self.services = {
+                'omega-api': {
+                    'url': 'https://omega-api:8443/health',
+                    'port': 8443,
+                    'timeout': 10,
+                    'critical': True,
+                    'restart_command': 'kubectl rollout restart deployment/omega-api'
+                },
+                'omega-gpu': {
+                    'url': 'https://omega-gpu:8001/gpu/health',
+                    'port': 8001,
+                    'timeout': 20,
+                    'critical': True,
+                    'restart_command': 'kubectl rollout restart deployment/omega-gpu'
+                },
+                'redis': {
+                    'host': 'redis',
+                    'port': 6379,
+                    'timeout': 5,
+                    'critical': True,
+                    'restart_command': 'kubectl rollout restart deployment/redis'
+                },
+                'load-balancer': {
+                    'url': 'http://omega-load-balancer:8080/health',
+                    'port': 8080,
+                    'timeout': 5,
+                    'critical': True,
+                    'restart_command': 'kubectl rollout restart deployment/omega-load-balancer'
+                }
+            }
+            
+            self.failure_counts = {service: 0 for service in self.services}
+            self.last_restart = {service: 0 for service in self.services}
+            self.max_failures = int(os.getenv('MAX_FAILURES', '3'))
+            self.restart_cooldown = int(os.getenv('RESTART_COOLDOWN', '300'))  # 5 minutes
+            self.check_interval = int(os.getenv('CHECK_INTERVAL', '30'))
+            
+        async def check_http_service(self, name: str, config: Dict) -> Tuple[bool, str]:
+            """Check HTTP/HTTPS service health"""
+            try:
+                timeout = aiohttp.ClientTimeout(total=config['timeout'])
+                async with aiohttp.ClientSession(
+                    timeout=timeout,
+                    connector=aiohttp.TCPConnector(ssl=False)
+                ) as session:
+                    async with session.get(config['url']) as response:
+                        if response.status == 200:
+                            body = await response.text()
+                            return True, f"HTTP {response.status}: {body[:100]}"
+                        else:
+                            return False, f"HTTP {response.status}"
+            except asyncio.TimeoutError:
+                return False, "Timeout"
+            except Exception as e:
+                return False, f"Error: {str(e)}"
+        
+        async def check_redis_service(self, name: str, config: Dict) -> Tuple[bool, str]:
+            """Check Redis service health"""
+            try:
+                # Use redis-cli to check connectivity
+                result = subprocess.run([
+                    'redis-cli', '-h', config['host'], '-p', str(config['port']),
+                    '--no-auth-warning', 'ping'
+                ], capture_output=True, text=True, timeout=config['timeout'])
+                
+                if result.returncode == 0 and 'PONG' in result.stdout:
+                    return True, "Redis PONG response received"
+                else:
+                    return False, f"Redis error: {result.stderr}"
+            except subprocess.TimeoutExpired:
+                return False, "Redis timeout"
+            except Exception as e:
+                return False, f"Redis error: {str(e)}"
+        
+        async def check_gpu_resources(self) -> Tuple[bool, str]:
+            """Check GPU availability and memory"""
+            try:
+                result = subprocess.run([
+                    'nvidia-smi', '--query-gpu=memory.free,memory.total',
+                    '--format=csv,noheader,nounits'
+                ], capture_output=True, text=True, timeout=10)
+                
+                if result.returncode == 0:
+                    lines = result.stdout.strip().split('\n')
+                    for line in lines:
+                        free, total = map(int, line.split(', '))
+                        usage_percent = ((total - free) / total) * 100
+                        if usage_percent > 95:
+                            return False, f"GPU memory usage too high: {usage_percent:.1f}%"
+                    return True, f"GPU healthy, memory usage: {usage_percent:.1f}%"
+                else:
+                    return False, f"nvidia-smi error: {result.stderr}"
+            except Exception as e:
+                return False, f"GPU check error: {str(e)}"
+        
+        async def check_system_resources(self) -> Tuple[bool, str]:
+            """Check system memory and disk usage"""
+            try:
+                # Check memory
+                with open('/proc/meminfo', 'r') as f:
+                    meminfo = {}
+                    for line in f:
+                        key, value = line.split(':')
+                        meminfo[key] = int(value.split()[0])
+                
+                mem_usage = ((meminfo['MemTotal'] - meminfo['MemAvailable']) / 
+                           meminfo['MemTotal']) * 100
+                
+                if mem_usage > 90:
+                    return False, f"System memory usage too high: {mem_usage:.1f}%"
+                
+                # Check disk space
+                result = subprocess.run(['df', '/'], capture_output=True, text=True)
+                if result.returncode == 0:
+                    lines = result.stdout.strip().split('\n')
+                    disk_line = lines[1].split()
+                    disk_usage = int(disk_line[4].replace('%', ''))
+                    
+                    if disk_usage > 85:
+                        return False, f"Disk usage too high: {disk_usage}%"
+                
+                return True, f"System resources OK (Memory: {mem_usage:.1f}%, Disk: {disk_usage}%)"
+            except Exception as e:
+                return False, f"System check error: {str(e)}"
+        
+        async def perform_health_check(self, name: str, config: Dict) -> Dict:
+            """Perform comprehensive health check for a service"""
+            start_time = time.time()
+            
+            if 'url' in config:
+                healthy, message = await self.check_http_service(name, config)
+            elif 'host' in config:
+                healthy, message = await self.check_redis_service(name, config)
+            else:
+                healthy, message = False, "Invalid service configuration"
+            
+            # Additional checks for specific services
+            additional_checks = []
+            if name == 'omega-gpu':
+                gpu_healthy, gpu_message = await self.check_gpu_resources()
+                additional_checks.append({'gpu_resources': {'healthy': gpu_healthy, 'message': gpu_message}})
+            
+            # System resource check for all services
+            sys_healthy, sys_message = await self.check_system_resources()
+            additional_checks.append({'system_resources': {'healthy': sys_healthy, 'message': sys_message}})
+            
+            response_time = time.time() - start_time
+            
+            return {
+                'service': name,
+                'healthy': healthy,
+                'message': message,
+                'response_time': round(response_time, 3),
+                'timestamp': datetime.utcnow().isoformat(),
+                'additional_checks': additional_checks,
+                'failure_count': self.failure_counts[name]
+            }
+        
+        async def handle_service_failure(self, name: str, config: Dict):
+            """Handle service failure with auto-remediation"""
+            self.failure_counts[name] += 1
+            current_time = time.time()
+            
+            logger.warning(f"Service {name} failed (attempt {self.failure_counts[name]}/{self.max_failures})")
+            
+            if (self.failure_counts[name] >= self.max_failures and 
+                current_time - self.last_restart[name] > self.restart_cooldown):
+                
+                logger.error(f"Attempting to restart service {name}")
+                try:
+                    result = subprocess.run(
+                        config['restart_command'].split(),
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    
+                    if result.returncode == 0:
+                        logger.info(f"Successfully restarted service {name}")
+                        self.failure_counts[name] = 0
+                        self.last_restart[name] = current_time
+                        await self.send_notification(
+                            f"🔄 Service {name} automatically restarted due to health check failures"
+                        )
+                    else:
+                        logger.error(f"Failed to restart service {name}: {result.stderr}")
+                        await self.send_alert(
+                            f"🚨 CRITICAL: Failed to restart service {name}. Manual intervention required."
+                        )
+                except Exception as e:
+                    logger.error(f"Error restarting service {name}: {str(e)}")
+                    await self.send_alert(
+                        f"🚨 CRITICAL: Error restarting service {name}: {str(e)}"
+                    )
+        
+        async def handle_service_recovery(self, name: str):
+            """Handle service recovery"""
+            if self.failure_counts[name] > 0:
+                logger.info(f"Service {name} recovered after {self.failure_counts[name]} failures")
+                self.failure_counts[name] = 0
+                await self.send_notification(f"✅ Service {name} recovered and healthy")
+        
+        async def send_notification(self, message: str):
+            """Send notification to monitoring systems"""
+            logger.info(f"Notification: {message}")
+            # Add webhook/Slack notification logic here
+            webhook_url = os.getenv('HEALTH_WEBHOOK_URL')
+            if webhook_url:
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        await session.post(webhook_url, json={'text': message})
+                except Exception as e:
+                    logger.error(f"Failed to send notification: {str(e)}")
+        
+        async def send_alert(self, message: str):
+            """Send critical alert"""
+            logger.error(f"ALERT: {message}")
+            # Add critical alerting logic here
+            await self.send_notification(message)
+        
+        async def run_health_checks(self):
+            """Run health checks for all services"""
+            results = []
+            
+            for name, config in self.services.items():
+                try:
+                    result = await self.perform_health_check(name, config)
+                    results.append(result)
+                    
+                    if result['healthy']:
+                        await self.handle_service_recovery(name)
+                    else:
+                        await self.handle_service_failure(name, config)
+                        
+                except Exception as e:
+                    logger.error(f"Error checking service {name}: {str(e)}")
+                    results.append({
+                        'service': name,
+                        'healthy': False,
+                        'message': f"Check error: {str(e)}",
+                        'timestamp': datetime.utcnow().isoformat()
+                    })
+            
+            return results
+        
+        async def start_monitoring(self):
+            """Start continuous health monitoring"""
+            logger.info("Starting OMEGA Pro AI Health Monitoring System")
+            
+            while True:
+                try:
+                    results = await self.run_health_checks()
+                    
+                    # Log summary
+                    healthy_count = sum(1 for r in results if r['healthy'])
+                    total_count = len(results)
+                    logger.info(f"Health check complete: {healthy_count}/{total_count} services healthy")
+                    
+                    # Save results to file for external monitoring
+                    with open('/tmp/health-check-results.json', 'w') as f:
+                        json.dump({
+                            'timestamp': datetime.utcnow().isoformat(),
+                            'summary': {
+                                'healthy_services': healthy_count,
+                                'total_services': total_count,
+                                'overall_healthy': healthy_count == total_count
+                            },
+                            'services': results
+                        }, f, indent=2)
+                    
+                    await asyncio.sleep(self.check_interval)
+                    
+                except Exception as e:
+                    logger.error(f"Error in monitoring loop: {str(e)}")
+                    await asyncio.sleep(self.check_interval)
+    
+    async def main():
+        """Main entry point"""
+        monitor = HealthCheckManager()
+        await monitor.start_monitoring()
+    
+    if __name__ == '__main__':
+        asyncio.run(main())
+  
+  service-discovery.py: |
+    #!/usr/bin/env python3
+    """
+    OMEGA Pro AI - Service Discovery and Registration System
+    """
+    import asyncio
+    import json
+    import logging
+    import os
+    import time
+    from datetime import datetime
+    from typing import Dict, List, Optional
+    
+    logger = logging.getLogger('omega-service-discovery')
+    
+    class ServiceRegistry:
+        """Service registry with automatic discovery and health tracking"""
+        
+        def __init__(self):
+            self.services = {}
+            self.registry_file = '/tmp/service-registry.json'
+            self.discovery_interval = int(os.getenv('DISCOVERY_INTERVAL', '60'))
+        
+        async def discover_services(self):
+            """Discover available services in the cluster"""
+            # Implement Kubernetes service discovery
+            discovered_services = {
+                'omega-api': {
+                    'endpoints': ['omega-api:8443'],
+                    'health_endpoint': '/health',
+                    'status': 'discovering',
+                    'last_seen': datetime.utcnow().isoformat()
+                },
+                'omega-gpu': {
+                    'endpoints': ['omega-gpu:8001'],
+                    'health_endpoint': '/gpu/health',
+                    'status': 'discovering',
+                    'last_seen': datetime.utcnow().isoformat()
+                },
+                'redis': {
+                    'endpoints': ['redis:6379'],
+                    'health_endpoint': None,
+                    'status': 'discovering',
+                    'last_seen': datetime.utcnow().isoformat()
+                }
+            }
+            
+            self.services.update(discovered_services)
+            await self.save_registry()
+        
+        async def save_registry(self):
+            """Save service registry to file"""
+            with open(self.registry_file, 'w') as f:
+                json.dump(self.services, f, indent=2)
+        
+        async def start_discovery(self):
+            """Start service discovery loop"""
+            logger.info("Starting service discovery")
+            
+            while True:
+                try:
+                    await self.discover_services()
+                    await asyncio.sleep(self.discovery_interval)
+                except Exception as e:
+                    logger.error(f"Service discovery error: {str(e)}")
+                    await asyncio.sleep(self.discovery_interval)
+    
+    async def main():
+        """Main service discovery entry point"""
+        registry = ServiceRegistry()
+        await registry.start_discovery()
+    
+    if __name__ == '__main__':
+        asyncio.run(main())
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omega-health-monitor
+  namespace: akash-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: omega-health-monitor
+  template:
+    metadata:
+      labels:
+        app: omega-health-monitor
+    spec:
+      serviceAccountName: omega-health-monitor
+      containers:
+      - name: health-monitor
+        image: python:3.11-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache redis curl
+          pip install aiohttp
+          python /app/health-monitor.py
+        env:
+        - name: MAX_FAILURES
+          value: "3"
+        - name: RESTART_COOLDOWN
+          value: "300"
+        - name: CHECK_INTERVAL
+          value: "30"
+        - name: HEALTH_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: omega-secrets
+              key: health_webhook_url
+              optional: true
+        volumeMounts:
+        - name: health-scripts
+          mountPath: /app
+        - name: health-results
+          mountPath: /tmp
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+      - name: service-discovery
+        image: python:3.11-alpine
+        command:
+        - /bin/sh
+        - -c
+        - |
+          pip install aiohttp
+          python /app/service-discovery.py
+        env:
+        - name: DISCOVERY_INTERVAL
+          value: "60"
+        volumeMounts:
+        - name: health-scripts
+          mountPath: /app
+        - name: health-results
+          mountPath: /tmp
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+      - name: health-scripts
+        configMap:
+          name: omega-health-automation-config
+          defaultMode: 0755
+      - name: health-results
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: omega-health-monitor
+  namespace: akash-services
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: omega-health-monitor
+rules:
+- apiGroups: [""]
+  resources: ["services", "endpoints", "pods"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: omega-health-monitor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: omega-health-monitor
+subjects:
+- kind: ServiceAccount
+  name: omega-health-monitor
+  namespace: akash-services
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omega-health-monitor-service
+  namespace: akash-services
+spec:
+  selector:
+    app: omega-health-monitor
+  ports:
+  - name: metrics
+    port: 9090
+    targetPort: 9090

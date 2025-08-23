@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMEGA PRO AI v10.1 - Cliente Web</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .status {
+            background: rgba(0, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            color: #ffd700;
+        }
+        .predictions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .prediction-item {
+            background: rgba(255, 255, 255, 0.2);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+        .numbers {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .score {
+            text-align: center;
+            font-size: 14px;
+            color: #a8e6cf;
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 OMEGA PRO AI v10.1</h1>
+        <div class="status">
+            ✅ Ejecutándose en Akash Network - Red Descentralizada
+        </div>
+        
+        <button onclick="checkHealth()" id="healthBtn">🔍 Verificar Estado</button>
+        <button onclick="generatePrediction()" id="predictBtn">🎲 Generar Predicción</button>
+        <button onclick="openDocs()" id="docsBtn">📚 Ver Documentación</button>
+        
+        <div id="loading" class="loading" style="display: none;">
+            ⏳ Procesando con IA...
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const API_URL = 'https://f4o5gi3c0tfmvblt4avi2l6o08.ingress.akash.win';
+        const API_KEY = 'ac.sk.production.a16cbf***c4cad7';
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('predictBtn').disabled = show;
+            document.getElementById('healthBtn').disabled = show;
+        }
+
+        function showResults(content) {
+            document.getElementById('results').innerHTML = content;
+        }
+
+        async function checkHealth() {
+            showLoading(true);
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+                
+                const content = `
+                    <div class="predictions">
+                        <h3>📊 Estado del Sistema</h3>
+                        <div class="prediction-item">
+                            <strong>Estado:</strong> ${data.status} ✅<br>
+                            <strong>Servicio:</strong> ${data.service}<br>
+                            <strong>Plataforma:</strong> ${data.platform}<br>
+                            <strong>Timestamp:</strong> ${new Date(data.timestamp).toLocaleString()}<br>
+                            <strong>Uptime:</strong> ${data.uptime}
+                        </div>
+                    </div>
+                `;
+                showResults(content);
+            } catch (error) {
+                showResults(`<div class="error">❌ Error al verificar estado: ${error.message}</div>`);
+            }
+            showLoading(false);
+        }
+
+        async function generatePrediction() {
+            showLoading(true);
+            try {
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({ numbers: 6 })
+                });
+                
+                const data = await response.json();
+                
+                let content = `
+                    <div class="predictions">
+                        <h3>🎯 Predicciones OMEGA (${data.count} combinaciones)</h3>
+                        <p><strong>Modelo:</strong> ${data.model} | <strong>Plataforma:</strong> ${data.platform}</p>
+                `;
+                
+                data.predictions.forEach((pred, index) => {
+                    const star = pred.score > 0.65 ? ' ⭐' : '';
+                    content += `
+                        <div class="prediction-item">
+                            <div><strong>Predicción ${index + 1}${star}</strong></div>
+                            <div class="numbers">[${pred.combination.join(', ')}]</div>
+                            <div class="score">
+                                Score: ${pred.score.toFixed(3)} | SVI: ${pred.svi.toFixed(3)} | 
+                                ${new Date(pred.timestamp).toLocaleTimeString()}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                content += '</div>';
+                showResults(content);
+                
+            } catch (error) {
+                showResults(`<div class="error">❌ Error al generar predicción: ${error.message}</div>`);
+            }
+            showLoading(false);
+        }
+
+        function openDocs() {
+            window.open(`${API_URL}/docs`, '_blank');
+        }
+
+        // Verificar estado al cargar la página
+        window.onload = function() {
+            checkHealth();
+        };
+    </script>
+</body>
+</html>

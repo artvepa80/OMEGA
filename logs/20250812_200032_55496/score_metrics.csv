@@ -1,0 +1,2 @@
+combination,score,svi_score,source,sum_total,even_count,diff_sum,repeats,decades,primes,diversity,filter_reasons,core_bonus,arima_score
+"[3, 9, 16, 20, 22, 40]",3.4533093230524536,0.5,default,110,4,37,0,"{np.int64(0): 2, np.int64(1): 2, np.int64(2): 1, np.int64(3): 1}",1,1.0,1.05,0.0,0.5936921472296481

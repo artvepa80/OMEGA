@@ -1,0 +1,30 @@
+# OMEGA PRO AI - Asian Markets Specialized Requirements
+
+# Include main requirements
+-r requirements.txt
+
+# Asian Market Specific
+betfairlightweight==2.19.0
+betfair-py==1.0.2
+
+# Additional Language Support
+jieba==0.42.1  # Chinese text processing
+fugashi==1.3.0  # Japanese text processing
+konlpy==0.6.0  # Korean text processing
+pythainlp==4.0.2  # Thai text processing
+
+# Regional Payment Processors
+alipay-sdk-python==3.7.3
+wechatpay-python==1.2.1
+
+# Currency & Exchange
+forex-python==1.8
+ccxt==4.1.23  # Crypto exchanges
+
+# Localization
+babel==2.13.1
+gettext==0.1
+
+# Additional Data Processing
+selenium==4.15.2  # Web scraping for odds
+beautifulsoup4==4.12.2

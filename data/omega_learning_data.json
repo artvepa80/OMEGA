@@ -1,0 +1,878 @@
+{
+  "resultados_reales": [
+    {
+      "fecha": "2025-08-12",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-12",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        28,
+        29,
+        39
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        28,
+        29,
+        39
+      ]
+    },
+    {
+      "fecha": "2025-08-12",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        24,
+        29
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        24,
+        29
+      ]
+    },
+    {
+      "fecha": "2025-08-12",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        11,
+        29
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        11,
+        23,
+        24,
+        28,
+        29,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        11,
+        29
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        1,
+        10,
+        12,
+        13,
+        22,
+        27
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        13
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        1,
+        10,
+        12,
+        13,
+        22,
+        27
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        13
+      ]
+    },
+    {
+      "fecha": "2025-08-12",
+      "resultado_oficial": [
+        11,
+        29,
+        24,
+        23,
+        28,
+        39
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.2916666666666667,
+      "aciertos_totales": 14,
+      "numeros_omitidos": [
+        11,
+        39
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.1875,
+      "aciertos_totales": 9,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        10,
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        1,
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        1,
+        12
+      ]
+    },
+    {
+      "fecha": "2025-08-14",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.10416666666666667,
+      "aciertos_totales": 5,
+      "numeros_omitidos": [
+        12,
+        13,
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.10416666666666667,
+      "aciertos_totales": 5,
+      "numeros_omitidos": [
+        12,
+        13,
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        27,
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.125,
+      "aciertos_totales": 6,
+      "numeros_omitidos": [
+        27,
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.08333333333333333,
+      "aciertos_totales": 4,
+      "numeros_omitidos": [
+        29,
+        5,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.08333333333333333,
+      "aciertos_totales": 4,
+      "numeros_omitidos": [
+        29,
+        5,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        29,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        29,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        29,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        29,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        12,
+        27,
+        1,
+        10,
+        13,
+        22
+      ],
+      "total_predicciones": 3,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 3,
+      "numeros_omitidos": [
+        10,
+        27,
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        27
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        27
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": [
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": [
+        22
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        27
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.16666666666666666,
+      "aciertos_totales": 8,
+      "numeros_omitidos": [
+        27
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8,
+        14
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-19",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.22916666666666666,
+      "aciertos_totales": 11,
+      "numeros_omitidos": []
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8
+      ]
+    },
+    {
+      "fecha": "2025-08-21",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.14583333333333334,
+      "aciertos_totales": 7,
+      "numeros_omitidos": [
+        8
+      ]
+    },
+    {
+      "fecha": "2025-08-16",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.10416666666666667,
+      "aciertos_totales": 5,
+      "numeros_omitidos": [
+        8,
+        29
+      ]
+    },
+    {
+      "fecha": "2025-08-22",
+      "resultado_oficial": [
+        22,
+        8,
+        5,
+        29,
+        27,
+        14
+      ],
+      "total_predicciones": 8,
+      "precision_lograda": 0.10416666666666667,
+      "aciertos_totales": 5,
+      "numeros_omitidos": [
+        8,
+        29
+      ]
+    }
+  ],
+  "predicciones_historicas": [],
+  "metricas_performance": {},
+  "patrones_omitidos": [],
+  "sesgos_detectados": {}
+}

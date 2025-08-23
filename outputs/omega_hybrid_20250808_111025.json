@@ -1,0 +1,64 @@
+{
+  "prediction_id": "hybrid_1754669416",
+  "timestamp": "2025-08-08T11:10:16.067500",
+  "mode_used": "agentic",
+  "success": true,
+  "combinations": [
+    {
+      "numbers": [
+        15,
+        16,
+        24,
+        27,
+        31,
+        38
+      ],
+      "score": 0.85,
+      "source": "agentic_v4.0",
+      "model": "neural_enhanced_optimized",
+      "confidence": 0.87
+    },
+    {
+      "numbers": [
+        2,
+        15,
+        20,
+        29,
+        30,
+        35
+      ],
+      "score": 0.78,
+      "source": "agentic_v4.0",
+      "model": "meta_learning_controller",
+      "confidence": 0.81
+    },
+    {
+      "numbers": [
+        7,
+        11,
+        13,
+        16,
+        21,
+        32
+      ],
+      "score": 0.72,
+      "source": "agentic_v4.0",
+      "model": "multi_objective_optimizer",
+      "confidence": 0.79
+    }
+  ],
+  "sources": {
+    "agentic": "Generated 3 optimized combinations"
+  },
+  "confidence": {
+    "agentic": 0.82
+  },
+  "performance": {
+    "duration_seconds": 9.029168,
+    "combinations_generated": 3
+  },
+  "explanation": {
+    "agentic": "Predicci\u00f3n optimizada por el sistema ag\u00e9ntico aut\u00f3nomo V4.0 con meta-learning y auto-optimizaci\u00f3n"
+  },
+  "errors": []
+}

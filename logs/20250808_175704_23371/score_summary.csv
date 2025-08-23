@@ -1,0 +1,2 @@
+timestamp,total_combinations,scored_combinations,rejected_combinations,average_score,average_svi_score,max_score,min_score,sources,perfil_svi,threshold,arima_score
+2025-08-08 17:57:04.556184,5,5,0,4.8382000000000005,0.5,6.011,3.14,Counter({'transformer_fallback': 5}),moderado,0.7,1.0

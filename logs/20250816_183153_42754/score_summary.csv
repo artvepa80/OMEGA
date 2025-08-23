@@ -1,0 +1,2 @@
+timestamp,total_combinations,scored_combinations,rejected_combinations,average_score,average_svi_score,max_score,min_score,sources,perfil_svi,threshold,arima_score
+2025-08-16 18:31:53.403302,2,2,0,11.678,0.5,11.925,11.431,Counter({'montecarlo': 2}),moderado,0.68,1.826248493857472

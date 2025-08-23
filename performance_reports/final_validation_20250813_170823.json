@@ -1,0 +1,120 @@
+{
+  "timestamp": "20250813_170823",
+  "status": "NEEDS_IMPROVEMENT",
+  "sla_score": 66.66666666666666,
+  "max_rps": 1529.4752829146903,
+  "avg_response_time": 0.018870347904531078,
+  "avg_error_rate": 1.0,
+  "detailed_results": {
+    "high_load_test": {
+      "test_name": "Load Test - /predict",
+      "total_requests": 5000,
+      "successful_requests": 0,
+      "failed_requests": 5000,
+      "avg_response_time": 0.019345328998565673,
+      "min_response_time": 0.0017669200897216797,
+      "max_response_time": 0.16011500358581543,
+      "rps_achieved": 1527.486197634718,
+      "error_rate": 1.0,
+      "start_time": "2025-08-13 16:34:46.817238",
+      "end_time": "2025-08-13 16:34:50.090590"
+    },
+    "gpu_load_test": {
+      "test_name": "Load Test - /predict",
+      "total_requests": 1000,
+      "successful_requests": 0,
+      "failed_requests": 1000,
+      "avg_response_time": 0.028672398805618286,
+      "min_response_time": 0.003020048141479492,
+      "max_response_time": 0.08136701583862305,
+      "rps_achieved": 1529.4752829146903,
+      "error_rate": 1.0,
+      "start_time": "2025-08-13 16:34:50.094999",
+      "end_time": "2025-08-13 16:34:50.748818"
+    },
+    "stress_test": {
+      "test_name": "Stress Test",
+      "total_requests": 11470,
+      "successful_requests": 0,
+      "failed_requests": 11470,
+      "avg_response_time": 0.00975540376478626,
+      "min_response_time": 0.0022919178009033203,
+      "max_response_time": 0.08782386779785156,
+      "rps_achieved": 95.57648209250867,
+      "error_rate": 1.0,
+      "start_time": "2025-08-13 16:34:50.749897",
+      "end_time": "2025-08-13 16:36:50.758499"
+    },
+    "circuit_breaker_test": {
+      "test_name": "Circuit Breaker Test",
+      "phases": [
+        {
+          "phase": "baseline",
+          "error_rate": 1.0,
+          "avg_response_time": 0.007639789581298828
+        },
+        {
+          "phase": "overload",
+          "error_rate": 1.0,
+          "avg_response_time": 0.009572925301794391
+        },
+        {
+          "phase": "recovery",
+          "error_rate": 1.0,
+          "avg_response_time": 0.021959433555603026
+        }
+      ],
+      "circuit_breaker_triggered": true,
+      "system_recovered": false
+    },
+    "workflow_test": {
+      "test_name": "Prediction Workflow Test",
+      "scenarios": [
+        {
+          "scenario": {
+            "n_predictions": 1,
+            "strategy": "conservative"
+          },
+          "avg_response_time": 0.013519906997680664,
+          "rps_achieved": 616.0746189578482,
+          "error_rate": 1.0,
+          "success": false
+        },
+        {
+          "scenario": {
+            "n_predictions": 8,
+            "strategy": "balanced"
+          },
+          "avg_response_time": 0.010285975933074952,
+          "rps_achieved": 915.5916095184904,
+          "error_rate": 1.0,
+          "success": false
+        },
+        {
+          "scenario": {
+            "n_predictions": 16,
+            "strategy": "aggressive"
+          },
+          "avg_response_time": 0.012682693004608154,
+          "rps_achieved": 727.6855234241971,
+          "error_rate": 1.0,
+          "success": false
+        }
+      ]
+    },
+    "endurance_test": {
+      "test_name": "Endurance Test",
+      "total_requests": 88800,
+      "successful_requests": 0,
+      "failed_requests": 88800,
+      "avg_response_time": 0.017708260049154094,
+      "min_response_time": 0.002302885055541992,
+      "max_response_time": 5.034276962280273,
+      "rps_achieved": 49.33264848654424,
+      "error_rate": 1.0,
+      "start_time": "2025-08-13 16:38:21.579858",
+      "end_time": "2025-08-13 17:08:21.604846"
+    },
+    "system_resources": {}
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "fecha_prediccion": "07/08/2025",
+  "fecha_generacion": "2025-08-07T14:29:24.599943",
+  "version_sistema": "OMEGA PRO AI V2.0",
+  "basado_en_resultado": "05/08/2025: 14-39-34-40-31-29",
+  "optimizaciones_aplicadas": [
+    "Neural Enhanced weight 45%",
+    "Boost n\u00fameros altos (30-40)",
+    "Boost especial n\u00famero 14",
+    "Boost n\u00fameros exitosos recientes",
+    "An\u00e1lisis 200 optimizado"
+  ],
+  "combinaciones_oficiales": [
+    {
+      "combination": [
+        "14",
+        "16",
+        "20",
+        "33",
+        "35",
+        "36"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.3125,
+      "confidence": 0.7,
+      "high_numbers_count": 3,
+      "has_14": true,
+      "has_recent_winner": false,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "14",
+        "19",
+        "20",
+        "23",
+        "31",
+        "37"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.25,
+      "confidence": 0.7,
+      "high_numbers_count": 2,
+      "has_14": true,
+      "has_recent_winner": true,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "1",
+        "16",
+        "31",
+        "38",
+        "39",
+        "40"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.25,
+      "confidence": 0.7,
+      "high_numbers_count": 4,
+      "has_14": false,
+      "has_recent_winner": true,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "19",
+        "20",
+        "27",
+        "33",
+        "35",
+        "37"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.1875,
+      "confidence": 0.7,
+      "high_numbers_count": 3,
+      "has_14": false,
+      "has_recent_winner": false,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "16",
+        "19",
+        "23",
+        "30",
+        "31",
+        "39"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.1875,
+      "confidence": 0.7,
+      "high_numbers_count": 3,
+      "has_14": false,
+      "has_recent_winner": true,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "14",
+        "16",
+        "19",
+        "20",
+        "22",
+        "36"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.1875,
+      "confidence": 0.7,
+      "high_numbers_count": 1,
+      "has_14": true,
+      "has_recent_winner": false,
+      "priority": 2
+    },
+    {
+      "combination": [
+        "16",
+        "19",
+        "22",
+        "27",
+        "33",
+        "40"
+      ],
+      "source": "200_analyzer_v2",
+      "score": 1.125,
+      "confidence": 0.7,
+      "high_numbers_count": 2,
+      "has_14": false,
+      "has_recent_winner": true,
+      "priority": 2
+    }
+  ],
+  "configuracion_v2": {
+    "neural_enhanced_weight": 0.45,
+    "focus_high_numbers": true,
+    "boost_number_14": true,
+    "boost_recent_winners": true,
+    "min_high_numbers": 2,
+    "max_combinations": 8,
+    "confidence_threshold": 0.85
+  },
+  "estadisticas": {
+    "total_combinaciones": 7,
+    "promedio_numeros_altos": 2.5714285714285716,
+    "combinaciones_con_ganadores_recientes": 0
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "system": "OMEGA PRO AI - Meta-Learning",
+    "timestamp": "20250809_114655",
+    "total_predictions": 3,
+    "components_used": 4,
+    "data_size": 3646
+  },
+  "predictions": [
+    {
+      "combination": [
+        "2",
+        "4",
+        "19",
+        "23",
+        "24",
+        "32"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 1.0741617489347641,
+        "transformer": 1.0741617489347641,
+        "clustering": 1.0741617489347641,
+        "montecarlo": 1.0741617489347641,
+        "genetic": 1.0741617489347641,
+        "gboost": 1.0741617489347641,
+        "ensemble_ai": 1.6112426234021462
+      },
+      "timestamp": "2025-08-09T11:46:55.471042"
+    },
+    {
+      "combination": [
+        "26",
+        "27",
+        "31",
+        "35",
+        "37",
+        "39"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 1.0741617489347641,
+        "transformer": 1.0741617489347641,
+        "clustering": 1.0741617489347641,
+        "montecarlo": 1.0741617489347641,
+        "genetic": 1.0741617489347641,
+        "gboost": 1.0741617489347641,
+        "ensemble_ai": 1.6112426234021462
+      },
+      "timestamp": "2025-08-09T11:46:55.471218"
+    },
+    {
+      "combination": [
+        "14",
+        "17",
+        "20",
+        "23",
+        "32",
+        "38"
+      ],
+      "confidence": 0.6,
+      "source": "meta_learning_hybrid",
+      "components_used": [
+        "meta_controller"
+      ],
+      "meta_weights": {
+        "lstm_v2": 1.0741617489347641,
+        "transformer": 1.0741617489347641,
+        "clustering": 1.0741617489347641,
+        "montecarlo": 1.0741617489347641,
+        "genetic": 1.0741617489347641,
+        "gboost": 1.0741617489347641,
+        "ensemble_ai": 1.6112426234021462
+      },
+      "timestamp": "2025-08-09T11:46:55.471387"
+    }
+  ],
+  "meta_analysis": {
+    "regime": "moderate_balanced",
+    "entropy": 0.9998040585479516,
+    "variance": 5.631515098554868,
+    "trend_strength": 9.176684498200751e-07,
+    "optimal_weights": {
+      "lstm_v2": 1.0,
+      "transformer": 1.0,
+      "clustering": 1.0,
+      "montecarlo": 1.0,
+      "genetic": 1.0,
+      "gboost": 1.0,
+      "ensemble_ai": 1.5
+    }
+  },
+  "component_results": {
+    "profiler": {
+      "profile": "moderate_mixed",
+      "confidence": 0.5,
+      "probability_distribution": {
+        "moderate_mixed": 0.5
+      }
+    },
+    "reinforcement": {
+      "action_type": "ADJUST_THRESHOLD",
+      "model_adjusted": "clustering",
+      "adjustment_value": 0.07416174893476404,
+      "epsilon": 1.0
+    }
+  },
+  "integration_metrics": {
+    "processing_time": 0.062372,
+    "components_used": 4,
+    "predictions_generated": 3,
+    "weights_optimized": 7,
+    "confidence_avg": 0.6
+  }
+}

@@ -1,0 +1,104 @@
+2025-08-21 20:42:07,669 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_timeout_rate: 0.1
+2025-08-21 20:42:07,669 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante cpu_sustained_time: 30.0
+2025-08-21 20:42:07,670 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_consecutive_failures: 5
+2025-08-21 20:42:07,670 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_memory_usage: 8000
+2025-08-21 20:42:07,670 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_fallback_rate: 0.2
+2025-08-21 20:42:08,646 - PerformanceMonitor - INFO - 🚨 Sistema de alertas integrado
+2025-08-21 20:42:08,647 - PerformanceMonitor - INFO - ✅ Performance Monitor inicializado correctamente
+2025-08-21 20:42:08,647 - PerformanceMonitor - INFO - 🔍 Monitoreo de rendimiento iniciado
+2025-08-21 20:44:09,574 - PerformanceMonitor - INFO - ✅ consensus ejecutado en 66.40s (memoria: 0.0MB)
+2025-08-21 20:45:15,154 - PerformanceMonitor - INFO - ✅ lstm_v2 ejecutado en 65.58s (memoria: 0.0MB)
+2025-08-21 20:45:22,055 - PerformanceMonitor - INFO - ✅ montecarlo ejecutado en 6.90s (memoria: 46.8MB)
+2025-08-21 20:45:34,430 - PerformanceMonitor - INFO - ✅ apriori ejecutado en 12.37s (memoria: 0.0MB)
+2025-08-21 20:45:46,478 - PerformanceMonitor - INFO - ✅ transformer_deep ejecutado en 12.05s (memoria: 299.5MB)
+2025-08-21 20:45:56,938 - PerformanceMonitor - INFO - ✅ clustering ejecutado en 10.46s (memoria: 0.0MB)
+2025-08-21 20:49:03,189 - PerformanceMonitor - INFO - ✅ genetico ejecutado en 186.25s (memoria: 5.0MB)
+2025-08-21 20:49:03,301 - PerformanceMonitor - INFO - ✅ omega_200_analyzer ejecutado en 0.11s (memoria: 18.0MB)
+2025-08-21 20:49:04,132 - PerformanceMonitor - INFO - ✅ positional_rng_analyzer ejecutado en 0.83s (memoria: 4.7MB)
+2025-08-21 20:49:04,489 - PerformanceMonitor - INFO - ✅ entropy_fft_analyzer ejecutado en 0.36s (memoria: 0.7MB)
+2025-08-21 20:49:04,494 - PerformanceMonitor - INFO - ✅ meta_learning ejecutado en 0.00s (memoria: 0.5MB)
+2025-08-21 20:49:04,549 - PerformanceMonitor - INFO - ✅ adaptive_learning ejecutado en 0.06s (memoria: 6.3MB)
+2025-08-21 20:49:04,557 - PerformanceMonitor - INFO - ✅ neural_enhancer ejecutado en 0.01s (memoria: 2.4MB)
+2025-08-21 20:49:04,567 - PerformanceMonitor - INFO - ✅ ai_ensemble ejecutado en 0.01s (memoria: 0.4MB)
+2025-08-21 20:49:24,536 - PerformanceMonitor - INFO - ✅ ghost_rng ejecutado en 19.97s (memoria: 0.0MB)
+2025-08-21 20:49:37,472 - PerformanceMonitor - INFO - ✅ inverse_mining ejecutado en 12.94s (memoria: 0.0MB)
+2025-08-21 20:49:49,746 - PerformanceMonitor - INFO - ✅ predictor_execution ejecutado en 406.68s (memoria: 223.2MB)
+2025-08-21 20:50:54,655 - PerformanceMonitor - INFO - ⏹️ Monitoreo de rendimiento detenido
+2025-08-22 08:53:20,376 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_timeout_rate: 0.1
+2025-08-22 08:53:21,634 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante cpu_sustained_time: 30.0
+2025-08-22 08:53:21,634 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_consecutive_failures: 5
+2025-08-22 08:53:21,635 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_memory_usage: 8000
+2025-08-22 08:53:21,635 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_fallback_rate: 0.2
+2025-08-22 08:53:22,971 - PerformanceMonitor - INFO - 🚨 Sistema de alertas integrado
+2025-08-22 08:53:22,972 - PerformanceMonitor - INFO - ✅ Performance Monitor inicializado correctamente
+2025-08-22 08:53:22,976 - PerformanceMonitor - INFO - 🔍 Monitoreo de rendimiento iniciado
+2025-08-22 08:55:59,772 - PerformanceMonitor - INFO - ✅ consensus ejecutado en 97.96s (memoria: 0.0MB)
+2025-08-22 08:56:39,720 - PerformanceMonitor - INFO - ✅ lstm_v2 ejecutado en 39.95s (memoria: 54.6MB)
+2025-08-22 08:56:47,431 - PerformanceMonitor - INFO - ✅ montecarlo ejecutado en 7.71s (memoria: 4.3MB)
+2025-08-22 08:57:02,831 - PerformanceMonitor - INFO - ✅ apriori ejecutado en 15.40s (memoria: 0.0MB)
+2025-08-22 08:57:13,320 - PerformanceMonitor - INFO - ✅ transformer_deep ejecutado en 10.49s (memoria: 323.0MB)
+2025-08-22 08:57:31,120 - PerformanceMonitor - INFO - ✅ clustering ejecutado en 17.80s (memoria: 0.0MB)
+2025-08-22 09:00:52,064 - PerformanceMonitor - INFO - ✅ genetico ejecutado en 200.94s (memoria: 0.0MB)
+2025-08-22 09:00:52,169 - PerformanceMonitor - INFO - ✅ omega_200_analyzer ejecutado en 0.10s (memoria: 19.1MB)
+2025-08-22 09:00:53,093 - PerformanceMonitor - INFO - ✅ positional_rng_analyzer ejecutado en 0.92s (memoria: 0.0MB)
+2025-08-22 09:00:53,485 - PerformanceMonitor - INFO - ✅ entropy_fft_analyzer ejecutado en 0.39s (memoria: 0.0MB)
+2025-08-22 09:00:53,496 - PerformanceMonitor - INFO - ✅ meta_learning ejecutado en 0.01s (memoria: 4.7MB)
+2025-08-22 09:00:53,568 - PerformanceMonitor - INFO - ✅ adaptive_learning ejecutado en 0.07s (memoria: 7.4MB)
+2025-08-22 09:00:53,574 - PerformanceMonitor - INFO - ✅ neural_enhancer ejecutado en 0.01s (memoria: 2.9MB)
+2025-08-22 09:00:53,603 - PerformanceMonitor - INFO - ✅ ai_ensemble ejecutado en 0.03s (memoria: 0.0MB)
+2025-08-22 09:01:23,318 - PerformanceMonitor - INFO - ✅ ghost_rng ejecutado en 29.72s (memoria: 74.4MB)
+2025-08-22 09:01:35,856 - PerformanceMonitor - INFO - ✅ inverse_mining ejecutado en 12.54s (memoria: 0.0MB)
+2025-08-22 09:01:49,622 - PerformanceMonitor - INFO - ✅ predictor_execution ejecutado en 447.92s (memoria: 358.7MB)
+2025-08-22 09:03:05,576 - PerformanceMonitor - INFO - ⏹️ Monitoreo de rendimiento detenido
+2025-08-22 09:25:05,292 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_timeout_rate: 0.1
+2025-08-22 09:25:08,635 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante cpu_sustained_time: 30.0
+2025-08-22 09:25:08,636 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_consecutive_failures: 5
+2025-08-22 09:25:08,636 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_memory_usage: 8000
+2025-08-22 09:25:08,636 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_fallback_rate: 0.2
+2025-08-22 09:25:11,090 - PerformanceMonitor - INFO - 🚨 Sistema de alertas integrado
+2025-08-22 09:25:11,092 - PerformanceMonitor - INFO - ✅ Performance Monitor inicializado correctamente
+2025-08-22 09:25:11,094 - PerformanceMonitor - INFO - 🔍 Monitoreo de rendimiento iniciado
+2025-08-22 09:27:42,014 - PerformanceMonitor - INFO - ✅ consensus ejecutado en 77.05s (memoria: 0.0MB)
+2025-08-22 09:30:02,610 - PerformanceMonitor - INFO - ✅ lstm_v2 ejecutado en 140.59s (memoria: 19.8MB)
+2025-08-22 09:30:09,719 - PerformanceMonitor - INFO - ✅ montecarlo ejecutado en 7.11s (memoria: 28.6MB)
+2025-08-22 09:30:22,237 - PerformanceMonitor - INFO - ✅ apriori ejecutado en 12.52s (memoria: 2.1MB)
+2025-08-22 09:30:33,307 - PerformanceMonitor - INFO - ✅ transformer_deep ejecutado en 11.07s (memoria: 299.1MB)
+2025-08-22 09:30:47,502 - PerformanceMonitor - INFO - ✅ clustering ejecutado en 14.19s (memoria: 0.0MB)
+2025-08-22 09:33:55,150 - PerformanceMonitor - INFO - ✅ genetico ejecutado en 187.65s (memoria: 0.0MB)
+2025-08-22 09:33:55,282 - PerformanceMonitor - INFO - ✅ omega_200_analyzer ejecutado en 0.13s (memoria: 18.6MB)
+2025-08-22 09:33:56,145 - PerformanceMonitor - INFO - ✅ positional_rng_analyzer ejecutado en 0.86s (memoria: 0.0MB)
+2025-08-22 09:33:56,532 - PerformanceMonitor - INFO - ✅ entropy_fft_analyzer ejecutado en 0.39s (memoria: 0.6MB)
+2025-08-22 09:33:56,537 - PerformanceMonitor - INFO - ✅ meta_learning ejecutado en 0.00s (memoria: 2.2MB)
+2025-08-22 09:33:56,554 - PerformanceMonitor - INFO - ✅ adaptive_learning ejecutado en 0.02s (memoria: 0.0MB)
+2025-08-22 09:33:56,562 - PerformanceMonitor - INFO - ✅ neural_enhancer ejecutado en 0.01s (memoria: 0.8MB)
+2025-08-22 09:33:56,582 - PerformanceMonitor - INFO - ✅ ai_ensemble ejecutado en 0.02s (memoria: 0.0MB)
+2025-08-22 09:34:27,317 - PerformanceMonitor - INFO - ✅ ghost_rng ejecutado en 30.73s (memoria: 35.6MB)
+2025-08-22 09:34:40,607 - PerformanceMonitor - INFO - ✅ inverse_mining ejecutado en 13.29s (memoria: 0.0MB)
+2025-08-22 09:34:59,953 - PerformanceMonitor - INFO - ✅ predictor_execution ejecutado en 515.09s (memoria: 298.9MB)
+2025-08-22 09:42:19,451 - PerformanceMonitor - INFO - ⏹️ Monitoreo de rendimiento detenido
+2025-08-22 10:13:15,447 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_timeout_rate: 0.1
+2025-08-22 10:13:16,870 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante cpu_sustained_time: 30.0
+2025-08-22 10:13:16,870 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_consecutive_failures: 5
+2025-08-22 10:13:16,870 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_memory_usage: 8000
+2025-08-22 10:13:16,870 - PerformanceMonitor - INFO - 🔧 Añadiendo umbral faltante max_fallback_rate: 0.2
+2025-08-22 10:13:18,990 - PerformanceMonitor - INFO - 🚨 Sistema de alertas integrado
+2025-08-22 10:13:18,991 - PerformanceMonitor - INFO - ✅ Performance Monitor inicializado correctamente
+2025-08-22 10:13:18,993 - PerformanceMonitor - INFO - 🔍 Monitoreo de rendimiento iniciado
+2025-08-22 10:15:48,272 - PerformanceMonitor - INFO - ✅ consensus ejecutado en 76.14s (memoria: 15.0MB)
+2025-08-22 10:18:35,531 - PerformanceMonitor - INFO - ✅ lstm_v2 ejecutado en 167.26s (memoria: 23.6MB)
+2025-08-22 10:18:41,743 - PerformanceMonitor - INFO - ✅ montecarlo ejecutado en 6.21s (memoria: 23.9MB)
+2025-08-22 10:18:54,403 - PerformanceMonitor - INFO - ✅ apriori ejecutado en 12.66s (memoria: 0.0MB)
+2025-08-22 10:19:05,825 - PerformanceMonitor - INFO - ✅ transformer_deep ejecutado en 11.42s (memoria: 345.2MB)
+2025-08-22 10:19:15,394 - PerformanceMonitor - INFO - ✅ clustering ejecutado en 9.57s (memoria: 0.0MB)
+2025-08-22 10:22:36,182 - PerformanceMonitor - INFO - ✅ genetico ejecutado en 200.79s (memoria: 0.0MB)
+2025-08-22 10:22:36,311 - PerformanceMonitor - INFO - ✅ omega_200_analyzer ejecutado en 0.13s (memoria: 18.7MB)
+2025-08-22 10:22:37,281 - PerformanceMonitor - INFO - ✅ positional_rng_analyzer ejecutado en 0.97s (memoria: 0.0MB)
+2025-08-22 10:22:37,702 - PerformanceMonitor - INFO - ✅ entropy_fft_analyzer ejecutado en 0.42s (memoria: 6.3MB)
+2025-08-22 10:22:37,707 - PerformanceMonitor - INFO - ✅ meta_learning ejecutado en 0.00s (memoria: 3.2MB)
+2025-08-22 10:22:37,722 - PerformanceMonitor - INFO - ✅ adaptive_learning ejecutado en 0.02s (memoria: 8.8MB)
+2025-08-22 10:22:37,727 - PerformanceMonitor - INFO - ✅ neural_enhancer ejecutado en 0.00s (memoria: 3.2MB)
+2025-08-22 10:22:37,740 - PerformanceMonitor - INFO - ✅ ai_ensemble ejecutado en 0.01s (memoria: 1.1MB)
+2025-08-22 10:23:12,240 - PerformanceMonitor - INFO - ✅ ghost_rng ejecutado en 34.50s (memoria: 10.8MB)
+2025-08-22 10:23:33,558 - PerformanceMonitor - INFO - ✅ inverse_mining ejecutado en 21.32s (memoria: 0.0MB)
+2025-08-22 10:23:55,749 - PerformanceMonitor - INFO - ✅ predictor_execution ejecutado en 563.73s (memoria: 386.2MB)
+2025-08-22 10:29:09,795 - PerformanceMonitor - INFO - ⏹️ Monitoreo de rendimiento detenido

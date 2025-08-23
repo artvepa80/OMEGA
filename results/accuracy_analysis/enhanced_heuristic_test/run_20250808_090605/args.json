@@ -1,0 +1,11 @@
+{
+  "data_path": "data/historial_kabala_github_fixed.csv",
+  "models": [
+    "heuristic_enhanced",
+    "omega_production"
+  ],
+  "windows": "rolling_50",
+  "top_n": 5,
+  "seed": 42,
+  "out_dir": "results/accuracy_analysis/enhanced_heuristic_test/run_20250808_090605"
+}
