@@ -37,14 +37,23 @@ def cargar_datos() -> pd.DataFrame:
         logger.error(f"❌ No se encuentra el archivo de datos: {DATA_PATH}")
         return pd.DataFrame()
     df = pd.read_csv(DATA_PATH)
-    df = df[[col for col in df.columns if "Bolilla" in col]]  # FIXED: Focus on Bolilla columns
+    # Use n1-n6 columns for this processed dataset, not bolilla columns
+    bolilla_cols = [col for col in df.columns if col.lower().startswith("bolilla")]
+    if bolilla_cols:
+        df = df[bolilla_cols]  # Use bolilla columns if available
+    else:
+        df = df[['n1', 'n2', 'n3', 'n4', 'n5', 'n6']]  # Use n1-n6 columns
     if df.shape[1] != 6:
         logger.error("❌ Número de columnas Bolilla inválido.")
         return pd.DataFrame()
     imputer = SimpleImputer(strategy='mean')
     df = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
     df = df.dropna()
-    if not all((df >= 1).all().all() and (df <= 40).all().all()):
+    # Check if any values are outside the valid range [1,40]
+    values_too_low = (df < 1).any().any()
+    values_too_high = (df > 40).any().any()
+    
+    if values_too_low or values_too_high:
         logger.warning("⚠️ Algunos valores fuera de [1,40], corrigiendo...")
         df = df.clip(1, 40)
     return df

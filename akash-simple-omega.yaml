@@ -1,0 +1,62 @@
+---
+version: "2.0"
+
+services:
+  omega-ai:
+    # Use existing Python image and mount our code
+    image: python:3.11-slim
+    command:
+      - "bash" 
+      - "-c"
+      - |
+        apt-get update && 
+        apt-get install -y curl git wget && 
+        pip install --no-cache-dir numpy pandas torch sklearn flask gunicorn && 
+        wget -O omega_server.py "https://raw.githubusercontent.com/artvepa80/OMEGA_PRO_AI_v10.1/main/omega_server.py" &&
+        wget -O main.py "https://raw.githubusercontent.com/artvepa80/OMEGA_PRO_AI_v10.1/main/main.py" &&
+        mkdir -p core modules data && 
+        echo "🚀 OMEGA PRO AI v10.1 on Akash - 8 CPU + 17GB RAM" &&
+        echo "✅ Resources: 8000m CPU, 17Gi Memory, 107Gi Storage" &&
+        python3 omega_server.py
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+        accept:
+          - "omega-ai.akash.pro"
+    env:
+      - "OMEGA_VERSION=v10.1"
+      - "OMEGA_COMPLETE=true" 
+      - "PYTHONUNBUFFERED=1"
+      - "PORT=8000"
+      - "AKASH_DEPLOYMENT=true"
+
+profiles:
+  compute:
+    omega-ai:
+      resources:
+        cpu:
+          units: 8000m  # 8 full CPU cores
+        memory:
+          size: 17Gi    # 17GB RAM
+        storage:
+          - size: 107Gi # 107GB storage
+            name: data
+  placement:
+    akash:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        omega-ai: 
+          denom: uakt
+          amount: 1000
+
+deployment:
+  omega-ai:
+    akash:
+      profile: omega-ai
+      count: 1
