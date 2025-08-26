@@ -1,1 +1,0 @@
-# Validación de combinaciones generadas

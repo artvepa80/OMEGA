@@ -1,6 +1,0 @@
-{"triggered_at": "2025-08-08T16:08:40.874608", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}
-{"triggered_at": "2025-08-08T17:59:03.726121", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}
-{"triggered_at": "2025-08-09T15:25:48.294211", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}
-{"triggered_at": "2025-08-09T16:51:18.800966", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}
-{"triggered_at": "2025-08-09T22:01:42.949232", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}
-{"triggered_at": "2025-08-09T22:46:02.907157", "trigger_reason": "performance_degradation", "models_to_retrain": ["neural_enhanced", "transformer_deep"]}

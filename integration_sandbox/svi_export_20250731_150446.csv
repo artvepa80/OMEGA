@@ -1,3 +1,0 @@
-# OMEGA PRO AI v12.0
-# Fecha: 2025-07-31T15:04:46.499370
-# Parámetros: {"data_path": "data/historial_kabala_github.csv", "svi_profile": "default", "top_n": 30, "enable_models": ["consensus", "ghost_rng", "inverse_mining", "lstm_v2", "montecarlo", "apriori", "transformer_deep", "clustering", "genetico"]}

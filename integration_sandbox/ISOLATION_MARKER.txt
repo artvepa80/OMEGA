@@ -1,2 +1,0 @@
-Integration sandbox created on 2025-08-19T12:00:26.352210
-Original /results/ folder contents isolated for safe integration

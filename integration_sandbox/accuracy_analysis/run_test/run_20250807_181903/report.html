@@ -1,8 +1,0 @@
-<html><head><meta charset='utf-8'><title>OMEGA Eval Report</title></head><body><h1>OMEGA Evaluation Report</h1><h2>Overview</h2><p>Windows: 3446</p><h2>Plots</h2><img src='plots/compound_over_time.png' alt='compound over time' /><h2>Reproducir este run</h2><pre>python -m tools.eval_harness.cli backtest --data data/historial_kabala_github_fixed.csv --models consensus,transformer_deep,lstm_v2,genetico,montecarlo,apriori --windows rolling_200 --top_n 10 --seed 42 --out results/accuracy_analysis/run_test/run_20250807_181903</pre><h3>args.json</h3><pre>{
-  "data": "data/historial_kabala_github_fixed.csv",
-  "models": "consensus,transformer_deep,lstm_v2,genetico,montecarlo,apriori",
-  "windows": "rolling_200",
-  "top_n": 10,
-  "seed": 42,
-  "out": "results/accuracy_analysis/run_test/run_20250807_181903"
-}</pre></body></html>
