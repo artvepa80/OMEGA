@@ -27,7 +27,35 @@ import asyncio
 import logging
 import sys
 import os
+import multiprocessing
 from pathlib import Path
+
+# PARCHE #6: Configurar paralelización para 48 CPU cores
+def configure_cpu_parallelization():
+    """Configurar threading y paralelismo para aprovechar 48 CPU cores de Akash"""
+    n_cores = max(1, multiprocessing.cpu_count() - 1)  # Usar n-1 cores
+    
+    # Variables de entorno para librerías ML
+    os.environ.setdefault("OMP_NUM_THREADS", str(n_cores))
+    os.environ.setdefault("OPENBLAS_NUM_THREADS", str(n_cores))
+    os.environ.setdefault("MKL_NUM_THREADS", str(n_cores))
+    os.environ.setdefault("NUMEXPR_NUM_THREADS", str(n_cores))
+    os.environ.setdefault("TF_NUM_INTRAOP_THREADS", str(n_cores))
+    os.environ.setdefault("TF_NUM_INTEROP_THREADS", "2")
+    
+    # PyTorch threading si está disponible
+    try:
+        import torch
+        torch.set_num_threads(n_cores)
+        print(f"✅ PyTorch configurado para {n_cores} threads")
+    except ImportError:
+        pass
+    
+    print(f"🚀 CPU paralelización configurada: {n_cores} threads activos")
+    return n_cores
+
+# Configurar paralelización al importar
+configure_cpu_parallelization()
 
 # NumPy compatibility patch for deprecated aliases
 try:
