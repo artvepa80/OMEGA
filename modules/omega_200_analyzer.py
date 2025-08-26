@@ -280,15 +280,18 @@ class Omega200Analyzer:
             promising_high = [31, 34, 39, 40]  # Números que salieron el 5/08/2025
             recommended.update(promising_high)
             
-            insights['recommended_numbers'] = sorted(list(recommended))[:20]
-            
-            # Números a evitar (muy sobrecalentados o anómalos)
-            avoid = set()
+            # PARCHE: Type casting y conciliación lógica
+            reco = [int(x) for x in recommended]  # Conversión explícita a int
+            avoid_set = set()
             if 'hot_numbers' in self.frequencies:
                 # Evitar los top 3 más calientes (posible sobrecalentamiento)
-                avoid.update(self.frequencies['hot_numbers'][:3])
+                avoid_set.update([int(x) for x in self.frequencies['hot_numbers'][:3]])
             
-            insights['avoid_numbers'] = sorted(list(avoid))
+            # Conciliación: remover números que están en ambas listas
+            reco = [x for x in reco if x not in avoid_set]
+            
+            insights['recommended_numbers'] = sorted(reco)[:20]
+            insights['avoid_numbers'] = sorted(list(avoid_set))
             
             # Calcular score de confianza
             confidence_factors = []
@@ -301,11 +304,14 @@ class Omega200Analyzer:
             if self.anomalies:
                 confidence_factors.append(0.2)  # Tenemos detección de anomalías
             
-            insights['confidence_score'] = sum(confidence_factors)
+            # PARCHE: Calibración realista de confianza
+            conf = sum(confidence_factors)
+            conf = max(0.05, min(conf, 0.95))  # Clip saludable entre 5% y 95%
+            insights['confidence_score'] = conf
             
             logger.info(f"🎯 Números recomendados: {insights['recommended_numbers'][:10]}")
             logger.info(f"🚫 Números a evitar: {insights['avoid_numbers']}")
-            logger.info(f"📊 Confianza del análisis: {insights['confidence_score']:.1%}")
+            logger.info(f"📊 Confianza del análisis: {conf*100:.1f}%")
             
         except Exception as e:
             logger.error(f"❌ Error generando insights: {e}")
