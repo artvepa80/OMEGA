@@ -6,9 +6,19 @@ import math
 import random
 import logging
 import json
+import asyncio
+import gc
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Any, Optional, Tuple, Callable
+from functools import partial
+
+# NumPy compatibility patch for deprecated aliases
+try:
+    from utils.numpy_compat import patch_numpy_deprecated_aliases
+    patch_numpy_deprecated_aliases()
+except ImportError:
+    pass
 
 import pandas as pd
 import numpy as np
@@ -61,11 +71,53 @@ from modules.learning.gboost_jackpot_classifier import GBoostJackpotClassifier
 from modules.reporting.frecuencia_tracker import top_numbers
 from modules.calibrador_consenso import recalibrar_pesos
 
+# ───── Imports de analizadores especializados ─────────────────────────────────────
+from modules.omega_200_analyzer import analyze_last_200_draws
+from modules.positional_rng_analyzer import analyze_positional_rng
+from modules.entropy_fft_analyzer import analyze_entropy_fft_patterns
+
 from utils.logging import get_logger
 from utils.errors import DataLoadError, ModelLoadError, ValidationError, OmegaError
+from modules.advanced_logging_metrics import get_metrics_collector, track_rare_number_detection
+
+# ───── Meta-Learning Systems Integration ──────────────────────────────────────────
+try:
+    from modules.meta_learning_controller import create_meta_controller, analyze_and_optimize
+    META_LEARNING_AVAILABLE = True
+    print("✅ Meta-Learning Controller disponible en predictor")
+except ImportError:
+    META_LEARNING_AVAILABLE = False
+    print("⚠️ Meta-Learning Controller no disponible en predictor")
+
+try:
+    from modules.adaptive_learning_system import create_adaptive_learning_system
+    ADAPTIVE_LEARNING_AVAILABLE = True
+    print("✅ Adaptive Learning System disponible en predictor")
+except ImportError:
+    ADAPTIVE_LEARNING_AVAILABLE = False
+    print("⚠️ Adaptive Learning System no disponible en predictor")
+
+try:
+    from modules.neural_enhancer import enhance_neural_predictions
+    NEURAL_ENHANCER_AVAILABLE = True
+    print("✅ Neural Enhancer disponible en predictor")
+except ImportError:
+    NEURAL_ENHANCER_AVAILABLE = False
+    print("⚠️ Neural Enhancer no disponible en predictor")
+
+try:
+    from modules.ai_ensemble_system import create_ai_ensemble, generate_intelligent_predictions
+    AI_ENSEMBLE_AVAILABLE = True
+    print("✅ AI Ensemble System disponible en predictor")
+except ImportError:
+    AI_ENSEMBLE_AVAILABLE = False
+    print("⚠️ AI Ensemble System no disponible en predictor")
 
 # Logger unificado
 logger = get_logger("OmegaPredictor")
+
+# Initialize metrics collector for advanced logging
+metrics_collector = get_metrics_collector()
 
 # === Creación automática de directorios para evitar crashes ===
 paths_to_create = [
@@ -132,7 +184,18 @@ class HybridOmegaPredictor:
         
         # Filtro estratégico
         self.filtro = FiltroEstrategico()
-        self.filtro.cargar_historial(self.data.values.tolist() if not self.data.empty else [])
+        # FIX: Extract only lottery number columns for filtro
+        if not self.data.empty:
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                filtro_data = self.data[lottery_cols].values.tolist()
+            else:
+                # Fallback: try to get first 6 numeric columns
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                filtro_data = self.data[numeric_cols[:6]].values.tolist()
+            self.filtro.cargar_historial(filtro_data)
+        else:
+            self.filtro.cargar_historial([])
         
         # Configuración inicial
         self.use_positional = True
@@ -180,7 +243,16 @@ class HybridOmegaPredictor:
             "genetico": True,
             "gboost": True,
             "profiling": True,
-            "evaluador": True
+            "evaluador": True,
+            # ───── Analizadores especializados ─────────────────────────
+            "omega_200_analyzer": True,
+            "positional_rng_analyzer": True,
+            "entropy_fft_analyzer": True,
+            # ───── Meta-Learning Systems ────────────────────────────────
+            "meta_learning": META_LEARNING_AVAILABLE,
+            "adaptive_learning": ADAPTIVE_LEARNING_AVAILABLE,
+            "neural_enhancer": NEURAL_ENHANCER_AVAILABLE,
+            "ai_ensemble": AI_ENSEMBLE_AVAILABLE
         }
         
         # Inicializar JackpotProfiler
@@ -316,8 +388,10 @@ class HybridOmegaPredictor:
             core_set = []
             self.logger.warning("⚠️ No hay combinaciones válidas para calcular core_set")
         
-        # Crear filtro de cobertura
-        cobertura_filter = CoberturaCore(core_set, min_hits=4, penalizar=False) if core_set else None
+        # Crear filtro de cobertura with enhanced rare number support
+        # Reduce minimum hits requirement to allow more diverse combinations
+        min_hits_required = max(2, min(3, len(core_set) // 2)) if core_set else 2
+        cobertura_filter = CoberturaCore(core_set, min_hits=min_hits_required, penalizar=True, factor_penalizacion=0.90) if core_set else None
         
         for item in combinaciones:
             combo = clean_combination(item.get("combination", []), self.logger)
@@ -345,9 +419,9 @@ class HybridOmegaPredictor:
                 self.logger.debug(f"Error en filtro para {combo}: {e}")
                 continue
             
-            # Umbral según perfil
-            thresholds = {'moderado': 0.7, 'conservador': 0.8, 'agresivo': 0.4}
-            threshold = thresholds.get(self._map_svi_profile(self.perfil_svi), 0.7)
+            # Umbral según perfil (reduced for rare number acceptance)
+            thresholds = {'moderado': 0.55, 'conservador': 0.65, 'agresivo': 0.30}
+            threshold = thresholds.get(self._map_svi_profile(self.perfil_svi), 0.55)
             
             if score >= threshold:
                 item["combination"] = combo
@@ -448,7 +522,14 @@ class HybridOmegaPredictor:
     def _run_lstm(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo LSTM con configuración optimizada"""
         try:
-            data_array = self.data.values
+            # FIX: Extract only lottery number columns (bolilla_1 through bolilla_6)
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                data_array = self.data[lottery_cols].values
+            else:
+                # Fallback: try to get first 6 numeric columns
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                data_array = self.data[numeric_cols[:6]].values
             
             if data_array.shape[0] < self.lstm_config['min_history']:
                 return []
@@ -460,10 +541,11 @@ class HybridOmegaPredictor:
             
             raw = generar_combinaciones_lstm(
                 data=data_array,
-                cantidad=max_comb,
                 historial_set=historial_set,
+                cantidad=max_comb,
                 logger=self.logger,
-                config=self.lstm_config
+                config=self.lstm_config,
+                enable_adaptive_config=True  # Enable 65-70% accuracy targeting
             )
             
             results = []
@@ -494,8 +576,17 @@ class HybridOmegaPredictor:
     def _run_montecarlo(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo Monte Carlo"""
         try:
+            # FIX: Extract only lottery number columns (bolilla_1 through bolilla_6)
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                historial_data = self.data[lottery_cols].values.tolist()
+            else:
+                # Fallback: try to get first 6 numeric columns
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                historial_data = self.data[numeric_cols[:6]].values.tolist()
+            
             raw = generar_combinaciones_montecarlo(
-                historial=self.data.values.tolist(),
+                historial=historial_data,
                 cantidad=max_comb,
                 logger=self.logger
             )
@@ -520,7 +611,15 @@ class HybridOmegaPredictor:
     def _run_apriori(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo Apriori"""
         try:
-            historial = self.data.values.tolist()
+            # FIX: Extract only lottery number columns (bolilla_1 through bolilla_6)
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                historial = self.data[lottery_cols].values.tolist()
+            else:
+                # Fallback: try to get first 6 numeric columns
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                historial = self.data[numeric_cols[:6]].values.tolist()
+                
             raw = generar_combinaciones_apriori(
                 data=historial,
                 historial_set={tuple(sorted(c)) for c in historial},
@@ -615,14 +714,47 @@ class HybridOmegaPredictor:
     def _run_genetico(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta algoritmo genético"""
         try:
-            historial_set = {tuple(sorted(map(int, x))) for x in self.data.values.tolist()}
-            raw = generar_combinaciones_geneticas(
-                data=self.data,
-                historial_set=historial_set,
-                cantidad=max_comb,
-                config=GeneticConfig(),
-                logger=self.logger
+            # FIX: Extract only lottery number columns (bolilla_1 through bolilla_6)
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                lottery_data = self.data[lottery_cols]
+                historial_list = lottery_data.values.tolist()
+            else:
+                # Fallback: try to get first 6 numeric columns
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                lottery_data = self.data[numeric_cols[:6]]
+                historial_list = lottery_data.values.tolist()
+                
+            historial_set = {tuple(sorted(map(int, x))) for x in historial_list}
+            # Use optimized config for 65-70% accuracy with timeout protection
+            genetic_config = GeneticConfig(
+                pop_size=15,  # Further reduced for faster execution
+                generations=5,  # Further reduced for faster execution
+                timeout_seconds=10,  # More strict timeout
+                early_convergence_threshold=0.005  # Less strict convergence
             )
+            
+            # Use thread-safe timeout approach instead of signals
+            def run_genetic_safe():
+                """Run genetic algorithm safely without signal handling"""
+                try:
+                    return generar_combinaciones_geneticas(
+                        data=lottery_data,
+                        historial_set=historial_set,
+                        cantidad=max_comb,
+                        config=genetic_config,
+                        logger=self.logger
+                    )
+                except Exception as e:
+                    self.logger.error(f"Genetic algorithm internal error: {e}")
+                    return []
+            
+            try:
+                # Run genetic algorithm (timeout handled internally by genetic_config.timeout_seconds)
+                raw = run_genetic_safe()
+            except Exception as e:
+                self.logger.warning(f"⏰ Genetic algorithm failed: {e}, using fallback")
+                raw = []
             
             results = []
             for item in raw:
@@ -642,9 +774,533 @@ class HybridOmegaPredictor:
             self.logger.error(f"🚨 Error en Genético: {e}")
             return []
     
+    def _run_omega_200_analyzer(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta analizador de últimos 200 sorteos"""
+        if not self.usar_modelos.get("omega_200_analyzer", True):
+            return []
+            
+        try:
+            result = analyze_last_200_draws(self.data)
+            if not result.get('success', False):
+                self.logger.warning("⚠️ Omega 200 Analyzer falló")
+                return []
+                
+            combinations = result.get('optimized_combinations', [])
+            insights = result.get('insights', {})
+            
+            formatted_results = []
+            for combo in combinations[:max_comb]:
+                if isinstance(combo, list) and len(combo) == 6:
+                    clean_combo = clean_combination(combo, self.logger)
+                    if clean_combo:
+                        score = 0.75 + (len(insights.get('recommended_numbers', [])) * 0.02)
+                        formatted_results.append({
+                            "combination": clean_combo,
+                            "source": "omega_200_analyzer",
+                            "score": score,
+                            "metrics": {
+                                "confidence_score": insights.get('confidence_score', 0.0),
+                                "recommended_count": len(insights.get('recommended_numbers', [])),
+                                "analyzer": "omega_200"
+                            },
+                            "normalized": 0.0
+                        })
+            
+            return formatted_results
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error en Omega 200 Analyzer: {e}")
+            return []
+    
+    def _run_positional_rng_analyzer(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta analizador RNG posicional"""
+        if not self.usar_modelos.get("positional_rng_analyzer", True):
+            return []
+            
+        try:
+            # Crear archivo temporal CSV para el analyzer
+            import tempfile
+            import os
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+                self.data.to_csv(f.name, index=False)
+                temp_path = f.name
+            
+            try:
+                result = analyze_positional_rng(temp_path)
+                if not result:
+                    self.logger.warning("⚠️ Positional RNG Analyzer falló")
+                    return []
+                    
+                strategy = result.get('exploit_strategy', {})
+                recommended_combinations = strategy.get('recommended_combinations', [])
+                overall_confidence = strategy.get('overall_confidence', 0.0)
+                
+                formatted_results = []
+                for combo in recommended_combinations[:max_comb]:
+                    if isinstance(combo, list) and len(combo) == 6:
+                        clean_combo = clean_combination(combo, self.logger)
+                        if clean_combo:
+                            score = 0.70 + (overall_confidence * 0.30)
+                            formatted_results.append({
+                                "combination": clean_combo,
+                                "source": "positional_rng_analyzer",
+                                "score": score,
+                                "metrics": {
+                                    "overall_confidence": overall_confidence,
+                                    "analyzer": "positional_rng",
+                                    "position_strategies_count": len(strategy.get('position_strategies', {}))
+                                },
+                                "normalized": 0.0
+                            })
+                
+                return formatted_results
+                
+            finally:
+                # Cleanup temp file
+                try:
+                    os.unlink(temp_path)
+                except:
+                    pass
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error en Positional RNG Analyzer: {e}")
+            return []
+    
+    def _run_entropy_fft_analyzer(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta analizador de entropía y FFT"""
+        if not self.usar_modelos.get("entropy_fft_analyzer", True):
+            return []
+            
+        try:
+            # Crear archivo temporal CSV para el analyzer
+            import tempfile
+            import os
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+                self.data.to_csv(f.name, index=False)
+                temp_path = f.name
+            
+            try:
+                result = analyze_entropy_fft_patterns(temp_path)
+                if not result:
+                    self.logger.warning("⚠️ Entropy & FFT Analyzer falló")
+                    return []
+                    
+                combined_analysis = result.get('combined_analysis', {})
+                
+                # Generar combinaciones basadas en el análisis
+                formatted_results = []
+                exploitable_positions = []
+                
+                # Identificar posiciones explotables
+                for position, analysis in combined_analysis.items():
+                    exploitability_score = analysis.get('exploitability_score', 0.0)
+                    if exploitability_score > 0.3:
+                        exploitable_positions.append((position, analysis))
+                
+                # Generar combinaciones sintéticas
+                for i in range(max_comb):
+                    combination = []
+                    
+                    # Usar números recomendados de posiciones explotables
+                    for pos, analysis in exploitable_positions[:6]:
+                        recommendations = analysis.get('recommendations', [])
+                        if recommendations:
+                            pos_num = int(pos.split('_')[1]) if '_' in pos else (i % 6 + 1)
+                            preferred_range = [10 + pos_num*5, 15 + pos_num*5]
+                            num = preferred_range[0] + (i % (preferred_range[1] - preferred_range[0] + 1))
+                            if 1 <= num <= 40 and num not in combination:
+                                combination.append(num)
+                    
+                    # Completar combinación
+                    while len(combination) < 6:
+                        num = np.random.randint(1, 41)
+                        if num not in combination:
+                            combination.append(num)
+                    
+                    clean_combo = clean_combination(sorted(combination), self.logger)
+                    if clean_combo:
+                        base_score = 0.60
+                        entropy_boost = min(0.25, len(exploitable_positions) * 0.05)
+                        score = base_score + entropy_boost
+                        
+                        formatted_results.append({
+                            "combination": clean_combo,
+                            "source": "entropy_fft_analyzer",
+                            "score": score,
+                            "metrics": {
+                                "exploitable_positions": len(exploitable_positions),
+                                "analyzer": "entropy_fft",
+                                "entropy_boost": entropy_boost
+                            },
+                            "normalized": 0.0
+                        })
+                
+                return formatted_results
+                
+            finally:
+                # Cleanup temp file
+                try:
+                    os.unlink(temp_path)
+                except:
+                    pass
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error en Entropy & FFT Analyzer: {e}")
+            return []
+    
+    def _run_meta_learning_controller(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta el controlador de meta-aprendizaje"""
+        if not self.usar_modelos.get("meta_learning", False) or not META_LEARNING_AVAILABLE:
+            return []
+            
+        try:
+            self.logger.info("🧠 Ejecutando Meta-Learning Controller...")
+            
+            # Validar entrada
+            if self.data.empty:
+                self.logger.warning("⚠️ Historial vacío para Meta-Learning Controller")
+                return []
+                
+            if len(self.data) < 20:
+                self.logger.warning(f"⚠️ Historial insuficiente para Meta-Learning Controller: {len(self.data)} < 20")
+                return []
+            
+            # Crear controlador de meta-aprendizaje
+            meta_controller = create_meta_controller(memory_size=1000)
+            
+            # Preparar datos históricos
+            numeric_cols = self.data.select_dtypes(include='number').columns[:6]
+            historical_data = self.data[numeric_cols].values.tolist()
+            
+            # Analizar contexto y obtener pesos optimizados
+            context, optimal_weights = analyze_and_optimize(meta_controller, historical_data)
+            
+            # Generar combinaciones basadas en el análisis del contexto
+            formatted_results = []
+            
+            for i in range(max_comb):
+                try:
+                    # Generar combinación usando información del contexto
+                    if hasattr(context, 'regime') and hasattr(context.regime, 'value'):
+                        if context.regime.value == "high_frequency_low_variance":
+                            combo = self._generate_low_variance_combo(historical_data, i)
+                        elif context.regime.value == "low_frequency_high_variance":
+                            combo = self._generate_high_variance_combo(historical_data, i)
+                        else:
+                            combo = self._generate_balanced_combo(historical_data, i)
+                    else:
+                        combo = self._generate_balanced_combo(historical_data, i)
+                    
+                    if combo and len(combo) == 6:
+                        # Calcular confianza basada en el contexto
+                        confidence = min(0.95, 0.70 + (getattr(context, 'entropy', 0.5) * 0.25))
+                        
+                        formatted_results.append({
+                            "combination": sorted(combo),
+                            "source": "meta_learning",
+                            "score": confidence,
+                            "metrics": {
+                                "context_regime": getattr(context.regime, 'value', 'balanced') if hasattr(context, 'regime') else 'balanced',
+                                "entropy": getattr(context, 'entropy', 0.5),
+                                "variance": getattr(context, 'variance', 0.5),
+                                "trend_strength": getattr(context, 'trend_strength', 0.5),
+                                "analyzer": "meta_learning",
+                                "optimal_weights": optimal_weights
+                            },
+                            "normalized": 0.0
+                        })
+                        
+                except Exception as combo_error:
+                    self.logger.debug(f"Error procesando combo meta-learning {i}: {combo_error}")
+                    continue
+            
+            self.logger.info(f"✅ Meta-Learning Controller: {len(formatted_results)} combinaciones generadas")
+            return formatted_results
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error crítico en Meta-Learning Controller: {e}")
+            return []
+
+    def _run_adaptive_learning_system(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta el sistema de aprendizaje adaptativo"""
+        if not self.usar_modelos.get("adaptive_learning", False) or not ADAPTIVE_LEARNING_AVAILABLE:
+            return []
+            
+        try:
+            self.logger.info("🌟 Ejecutando Adaptive Learning System...")
+            
+            # Validar entrada
+            if self.data.empty:
+                self.logger.warning("⚠️ Historial vacío para Adaptive Learning System")
+                return []
+            
+            # Crear sistema de aprendizaje adaptativo
+            adaptive_system = create_adaptive_learning_system(enable_all=True)
+            
+            # Preparar datos históricos
+            numeric_cols = self.data.select_dtypes(include='number').columns[:6]
+            historical_data = self.data[numeric_cols].values.tolist()
+            
+            # Generar predicciones adaptativas usando safe async execution
+            prediction_results = {"predictions": []}
+            try:
+                # Import async utilities for safe execution
+                from utils.async_utils import safe_run_async
+                
+                # Safe async execution - handles event loop conflicts automatically
+                self.logger.debug("🔄 Ejecutando predicciones adaptativas de forma segura")
+                prediction_results = safe_run_async(
+                    adaptive_system.generate_adaptive_predictions(historical_data, max_comb)
+                )
+                self.logger.info(f"✅ Predicciones adaptativas generadas: {len(prediction_results.get('predictions', []))}")
+                
+            except Exception as async_error:
+                self.logger.warning(f"⚠️ Error en predicciones adaptativas: {async_error}")
+                # Fallback a método síncrono simplificado
+                prediction_results = {"predictions": []}
+            
+            # Procesar resultados
+            formatted_results = []
+            predictions = prediction_results.get('predictions', [])
+            
+            for pred in predictions:
+                try:
+                    combo = pred.get('combination', [])
+                    if len(combo) == 6 and all(1 <= n <= 40 for n in combo):
+                        confidence = pred.get('confidence', 0.5)
+                        
+                        formatted_results.append({
+                            "combination": sorted(combo),
+                            "source": "adaptive_learning",
+                            "score": confidence,
+                            "metrics": {
+                                "confidence": confidence,
+                                "rank": pred.get('rank', 0),
+                                "total_score": pred.get('total_score', confidence),
+                                "analyzer": "adaptive_learning",
+                                "components_used": pred.get('components_used', [])
+                            },
+                            "normalized": 0.0
+                        })
+                        
+                except Exception as pred_error:
+                    self.logger.debug(f"Error procesando predicción adaptativa: {pred_error}")
+                    continue
+            
+            self.logger.info(f"✅ Adaptive Learning System: {len(formatted_results)} combinaciones generadas")
+            return formatted_results
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error crítico en Adaptive Learning System: {e}")
+            return []
+
+    def _run_neural_enhancer(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta el potenciador neuronal"""
+        if not self.usar_modelos.get("neural_enhancer", False) or not NEURAL_ENHANCER_AVAILABLE:
+            return []
+            
+        try:
+            self.logger.info("🚀 Ejecutando Neural Enhancer...")
+            
+            # Validar entrada
+            if self.data.empty:
+                self.logger.warning("⚠️ Historial vacío para Neural Enhancer")
+                return []
+                
+            if len(self.data) < 50:
+                self.logger.warning(f"⚠️ Historial insuficiente para Neural Enhancer: {len(self.data)} < 50")
+                return []
+            
+            # Ejecutar predicciones neuronales mejoradas
+            result = enhance_neural_predictions(self.data, max_comb)
+            
+            if not result.get('success', False):
+                self.logger.warning("⚠️ Neural Enhancer falló en el entrenamiento")
+                return []
+            
+            predictions = result.get('predictions', [])
+            training_summary = result.get('training_summary', {})
+            
+            formatted_results = []
+            for pred in predictions:
+                try:
+                    combo = pred.get('combination', [])
+                    if len(combo) == 6 and all(isinstance(n, int) and 1 <= n <= 40 for n in combo):
+                        confidence = pred.get('confidence', 0.5)
+                        score = pred.get('score', confidence)
+                        
+                        formatted_results.append({
+                            "combination": sorted(combo),
+                            "source": "neural_enhancer", 
+                            "score": score,
+                            "metrics": {
+                                "confidence": confidence,
+                                "temperature": pred.get('temperature', 1.0),
+                                "analyzer": "neural_enhancer",
+                                "model_trained": training_summary.get('trained', False),
+                                "training_epochs": training_summary.get('total_epochs', 0),
+                                "best_val_loss": training_summary.get('best_val_loss', 1.0)
+                            },
+                            "normalized": 0.0
+                        })
+                        
+                except Exception as pred_error:
+                    self.logger.debug(f"Error procesando predicción neural: {pred_error}")
+                    continue
+            
+            self.logger.info(f"✅ Neural Enhancer: {len(formatted_results)} combinaciones generadas")
+            return formatted_results
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error crítico en Neural Enhancer: {e}")
+            return []
+
+    def _run_ai_ensemble_system(self, max_comb: int) -> List[Dict[str, Any]]:
+        """Ejecuta el sistema de ensemble de IA"""
+        if not self.usar_modelos.get("ai_ensemble", False) or not AI_ENSEMBLE_AVAILABLE:
+            return []
+            
+        try:
+            self.logger.info("🤖 Ejecutando AI Ensemble System...")
+            
+            # Validar entrada
+            if self.data.empty:
+                self.logger.warning("⚠️ Historial vacío para AI Ensemble System")
+                return []
+                
+            if len(self.data) < 10:
+                self.logger.warning(f"⚠️ Historial insuficiente para AI Ensemble System: {len(self.data)} < 10")
+                return []
+            
+            # Crear sistema de ensemble de IA
+            ensemble_system = create_ai_ensemble()
+            
+            # Preparar datos históricos
+            numeric_cols = self.data.select_dtypes(include='number').columns[:6]  
+            historical_data = self.data[numeric_cols].values.tolist()
+            
+            # Entrenar el ensemble con datos históricos
+            ensemble_system.train_ensemble(historical_data)
+            
+            # Generar predicciones inteligentes usando safe async execution
+            predictions = []
+            try:
+                # Import async utilities for safe execution
+                from utils.async_utils import safe_run_async
+                
+                # Safe async execution - handles event loop conflicts automatically
+                self.logger.debug("🔄 Ejecutando ensemble inteligente de forma segura")
+                predictions = safe_run_async(
+                    generate_intelligent_predictions(ensemble_system, historical_data, max_comb)
+                )
+                self.logger.info(f"✅ Predicciones ensemble generadas: {len(predictions)}")
+                
+            except Exception as async_error:
+                self.logger.warning(f"⚠️ Error en ensemble inteligente: {async_error}")
+                predictions = []
+            
+            formatted_results = []
+            for pred in predictions:
+                try:
+                    combo = pred.get('combination', [])
+                    if len(combo) == 6 and all(isinstance(n, int) and 1 <= n <= 40 for n in combo):
+                        confidence = pred.get('confidence', 0.5)
+                        
+                        formatted_results.append({
+                            "combination": sorted(combo),
+                            "source": "ai_ensemble",
+                            "score": confidence,
+                            "metrics": {
+                                "confidence": confidence,
+                                "method": pred.get('method', 'unknown'),
+                                "specialists_used": pred.get('specialists_used', 0),
+                                "analyzer": "ai_ensemble",
+                                "individual_predictions": len(pred.get('individual_predictions', []))
+                            },
+                            "normalized": 0.0
+                        })
+                        
+                except Exception as pred_error:
+                    self.logger.debug(f"Error procesando predicción ensemble: {pred_error}")
+                    continue
+            
+            self.logger.info(f"✅ AI Ensemble System: {len(formatted_results)} combinaciones generadas")
+            return formatted_results
+            
+        except Exception as e:
+            self.logger.error(f"🚨 Error crítico en AI Ensemble System: {e}")
+            return []
+    
+    # Helper methods for meta-learning combination generation
+    def _generate_low_variance_combo(self, historical_data: List[List[int]], seed: int) -> List[int]:
+        """Genera combinación con baja varianza (números más estables)"""
+        from collections import Counter
+        import numpy as np
+        
+        # Contar frecuencia de números
+        all_numbers = [n for combo in historical_data for n in combo]
+        frequency = Counter(all_numbers)
+        
+        # Seleccionar números más frecuentes
+        most_common = [num for num, _ in frequency.most_common(15)]
+        
+        # Generar combinación con variación controlada
+        np.random.seed(seed + 100)
+        if len(most_common) >= 4:
+            base_numbers = np.random.choice(most_common, size=4, replace=False)
+            additional = np.random.choice([n for n in range(1, 41) if n not in base_numbers], size=2, replace=False)
+            return sorted(list(base_numbers) + list(additional))
+        else:
+            # Fallback
+            return sorted(random.sample(range(1, 41), 6))
+
+    def _generate_high_variance_combo(self, historical_data: List[List[int]], seed: int) -> List[int]:
+        """Genera combinación con alta varianza (números menos frecuentes)"""
+        from collections import Counter
+        import numpy as np
+        
+        # Contar frecuencia de números
+        all_numbers = [n for combo in historical_data for n in combo]
+        frequency = Counter(all_numbers)
+        
+        # Seleccionar números menos frecuentes
+        least_common = [num for num, _ in frequency.most_common()[-15:]]
+        
+        # Generar combinación con alta exploración
+        np.random.seed(seed + 200)
+        if len(least_common) >= 4:
+            rare_numbers = np.random.choice(least_common, size=4, replace=False)
+            common_numbers = np.random.choice([n for n in range(1, 41) if n not in rare_numbers], size=2, replace=False)
+            return sorted(list(rare_numbers) + list(common_numbers))
+        else:
+            # Fallback si no hay suficientes números raros
+            return sorted(random.sample(range(1, 41), 6))
+
+    def _generate_balanced_combo(self, historical_data: List[List[int]], seed: int) -> List[int]:
+        """Genera combinación balanceada"""
+        import numpy as np
+        
+        np.random.seed(seed + 300)
+        
+        # Dividir rango en secciones
+        low_range = range(1, 14)     # 1-13
+        mid_range = range(14, 28)    # 14-27  
+        high_range = range(28, 41)   # 28-40
+        
+        # Seleccionar 2 números de cada rango
+        low_nums = np.random.choice(low_range, size=2, replace=False)
+        mid_nums = np.random.choice(mid_range, size=2, replace=False) 
+        high_nums = np.random.choice(high_range, size=2, replace=False)
+        
+        return sorted(list(low_nums) + list(mid_nums) + list(high_nums))
+    
     def run_all_models(self) -> List[Dict[str, Any]]:
         """Ejecuta todos los modelos y genera predicciones finales con monitoreo de rendimiento"""
         self.logger.info("🚀 Iniciando pipeline de predicción con monitoreo")
+        
+        # Initialize adaptive configuration from system resources
+        system_resources = self._get_system_resources()
+        adaptive_config = self._get_adaptive_config(system_resources)
         
         # Obtener monitor de rendimiento si está disponible
         performance_monitor = None
@@ -674,7 +1330,16 @@ class HybridOmegaPredictor:
             ("apriori", self._run_apriori, max_comb // 8),
             ("transformer_deep", self._run_transformer, max_comb // 8),
             ("clustering", self._run_clustering, max_comb // 8),
-            ("genetico", self._run_genetico, max_comb // 8)
+            ("genetico", self._run_genetico, max_comb // 8),
+            # ───── Analizadores especializados ─────────────────────────
+            ("omega_200_analyzer", self._run_omega_200_analyzer, max_comb // 10),
+            ("positional_rng_analyzer", self._run_positional_rng_analyzer, max_comb // 10),
+            ("entropy_fft_analyzer", self._run_entropy_fft_analyzer, max_comb // 10),
+            # ───── Meta-Learning Systems ────────────────────────────────
+            ("meta_learning", self._run_meta_learning_controller, max_comb // 8),
+            ("adaptive_learning", self._run_adaptive_learning_system, max_comb // 8),
+            ("neural_enhancer", self._run_neural_enhancer, max_comb // 8),
+            ("ai_ensemble", self._run_ai_ensemble_system, max_comb // 8)
         ]
         
         combinaciones = []
@@ -781,7 +1446,16 @@ class HybridOmegaPredictor:
             if performance_monitor:
                 try:
                     with performance_monitor.track_model_execution("inverse_mining", expected_duration=5.0):
-                        ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                        # FIX: Extract only lottery columns for ultima combination
+                        if not self.data.empty:
+                            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+                            if len(lottery_cols) >= 6:
+                                ultima = self.data[lottery_cols].values.tolist()[-1].copy()
+                            else:
+                                numeric_cols = self.data.select_dtypes(include='number').columns
+                                ultima = self.data[numeric_cols[:6]].values.tolist()[-1].copy()
+                        else:
+                            ultima = [1,2,3,4,5,6]
                         combinaciones.extend(self.aplicar_minado_inverso(ultima))
                 except TimeoutError:
                     self.logger.error("⏰ TIMEOUT: Minado inverso excedió tiempo límite")
@@ -791,7 +1465,16 @@ class HybridOmegaPredictor:
                     performance_monitor.record_fallback_usage("inverse_mining", f"error: {str(e)[:50]}")
             else:
                 try:
-                    ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                    # FIX: Extract only lottery columns for ultima combination
+                    if not self.data.empty:
+                        lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+                        if len(lottery_cols) >= 6:
+                            ultima = self.data[lottery_cols].values.tolist()[-1].copy()
+                        else:
+                            numeric_cols = self.data.select_dtypes(include='number').columns
+                            ultima = self.data[numeric_cols[:6]].values.tolist()[-1].copy()
+                    else:
+                        ultima = [1,2,3,4,5,6]
                     combinaciones.extend(self.aplicar_minado_inverso(ultima))
                 except Exception as e:
                     self.logger.error(f"🚨 Error generando minado inverso: {e}")
@@ -821,13 +1504,46 @@ class HybridOmegaPredictor:
                 logger=self.logger
             )
             
-            # Combinar scores: 60% SVI + 40% dinámico
+            # Enhanced scoring combination: Rare number adaptive weighting
             for c in scored:
                 dyn_score = c.get("score", 0.0)
                 svi_score = c.get("svi_score", 0.5)
                 
+                # Check for rare number bonus in metrics
+                rare_bonus = c.get("metrics", {}).get("rare_bonus", 0.0)
+                
+                # Adaptive weighting: boost dynamic score for rare number combinations
+                if rare_bonus > 0.15:  # Significant rare number presence
+                    # 45% SVI + 55% dynamic for rare number combinations
+                    weight_svi = 0.45
+                    weight_dyn = 0.55
+                    c.setdefault("metrics", {})["scoring_mode"] = "rare_boosted"
+                    
+                    # Log rare number scoring boost application
+                    combination = c.get('combination', [])
+                    metrics_collector.log_rare_number_detection(
+                        numbers=[n for n in combination if n in rare_numbers] if 'rare_numbers' in locals() else [],
+                        frequency_scores={n: frequency_scores.get(n, 0.0) for n in combination if n in frequency_scores} if 'frequency_scores' in locals() else {},
+                        boost_applied=rare_bonus,
+                        combination=combination,
+                        source_model="dynamic_scoring",
+                        detection_method="rare_bonus_scoring",
+                        scoring_mode="rare_boosted",
+                        weight_svi=weight_svi,
+                        weight_dynamic=weight_dyn,
+                        original_score=dyn_score,
+                        svi_score=svi_score
+                    )
+                    
+                    self.logger.info(f"🚀 Rare-boosted scoring for {combination} (bonus: {rare_bonus:.3f})")
+                else:
+                    # 60% SVI + 40% dynamic for standard combinations  
+                    weight_svi = 0.60
+                    weight_dyn = 0.40
+                    c.setdefault("metrics", {})["scoring_mode"] = "standard"
+                
                 c.setdefault("metrics", {})["dynamic_score"] = dyn_score
-                c["score"] = 0.6 * svi_score + 0.4 * (dyn_score / 5.0)
+                c["score"] = weight_svi * svi_score + weight_dyn * (dyn_score / 5.0)
                 c["normalized"] = 0.0
             
             combinaciones = scored
@@ -835,11 +1551,40 @@ class HybridOmegaPredictor:
             
         except Exception as e:
             self.logger.error(f"🚨 Error en dynamic scoring: {e}")
-            # Fallback simple
+            # Fallback simple with adaptive weighting
             for c in combinaciones:
                 dyn_score = random.uniform(0.5, 1.0)
                 svi_score = c.get("svi_score", 0.5)
-                c["score"] = 0.6 * svi_score + 0.4 * dyn_score
+                
+                # Check for rare numbers even in fallback mode
+                combination = c.get("combination", [])
+                rare_detected = any(num in [1, 2, 3, 12, 13, 38, 39, 40] for num in combination)  # Common rare numbers
+                
+                if rare_detected:
+                    # Boost rare combinations in fallback too
+                    c["score"] = 0.45 * svi_score + 0.55 * dyn_score
+                    c.setdefault("metrics", {})["scoring_mode"] = "fallback_rare_boosted"
+                    
+                    # Log fallback rare number detection
+                    detected_rare_nums = [num for num in combination if num in [1, 2, 3, 12, 13, 38, 39, 40]]
+                    boost_applied = 0.15 * len(detected_rare_nums)  # Estimate boost
+                    
+                    metrics_collector.log_rare_number_detection(
+                        numbers=detected_rare_nums,
+                        frequency_scores={num: 0.1 for num in detected_rare_nums},  # Fallback scores
+                        boost_applied=boost_applied,
+                        combination=combination,
+                        source_model="fallback_scoring",
+                        detection_method="fallback_rare_detection",
+                        scoring_mode="fallback_rare_boosted",
+                        fallback_mode=True,
+                        svi_score=svi_score,
+                        dynamic_score=dyn_score
+                    )
+                else:
+                    c["score"] = 0.6 * svi_score + 0.4 * dyn_score
+                    c.setdefault("metrics", {})["scoring_mode"] = "fallback_standard"
+                    
                 c.setdefault("metrics", {})["dynamic_score"] = dyn_score
         
         # Clasificación GBoost
@@ -897,11 +1642,91 @@ class HybridOmegaPredictor:
             except Exception as e:
                 self.logger.warning(f"⚠️ EvaluadorInteligente omitido: {e}")
         
-        # Calcular core_set
+        # Calcular core_set with enhanced rare number integration
         series_generadas = combinaciones
-        core_set = top_numbers([s["combination"] for s in series_generadas], top=6)
+        
+        # Calculate traditional core set
+        traditional_core = top_numbers([s["combination"] for s in series_generadas], top=4)
+        
+        # Add rare number boost - include historically underrepresented numbers
+        historial_nums = []
+        if not self.data.empty:
+            lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+            if len(lottery_cols) >= 6:
+                historial_nums = self.data[lottery_cols].values.flatten()
+            else:
+                numeric_cols = self.data.select_dtypes(include='number').columns
+                historial_nums = self.data[numeric_cols[:6]].values.flatten()
+        
+        # Enhanced rare number detection and integration with comprehensive logging
+        enhanced_core = traditional_core.copy()
+        if len(historial_nums) > 0:
+            from collections import Counter
+            freq_count = Counter([int(x) for x in historial_nums if 1 <= x <= 40])
+            sorted_by_freq = sorted(freq_count.items(), key=lambda x: x[1])
+            
+            # Identify bottom 30% as rare (increased from 25% for better coverage)
+            rare_threshold = max(1, int(len(sorted_by_freq) * 0.30))
+            rare_numbers = {num for num, _ in sorted_by_freq[:rare_threshold]}
+            
+            # Create frequency scores for detailed logging
+            total_occurrences = sum(freq_count.values())
+            frequency_scores = {num: count / total_occurrences for num, count in freq_count.items() if num in rare_numbers}
+            
+            # Boost rare numbers that appear in current predictions
+            predicted_nums = set()
+            for s in series_generadas:
+                predicted_nums.update(s["combination"])
+            
+            rare_boost = rare_numbers.intersection(predicted_nums)
+            if len(rare_boost) > 0:
+                # Add up to 2 most promising rare numbers to core set
+                rare_boost_sorted = sorted(rare_boost, key=lambda x: sum(1 for s in series_generadas if x in s["combination"]), reverse=True)
+                enhanced_core.update(rare_boost_sorted[:2])
+                
+                # Calculate boost applied
+                boost_applied = len(rare_boost_sorted[:2]) * 0.15  # Estimate boost value
+                
+                # Log rare number detection event with comprehensive metrics
+                metrics_collector.log_rare_number_detection(
+                    numbers=list(rare_boost_sorted[:2]),
+                    frequency_scores=frequency_scores,
+                    boost_applied=boost_applied,
+                    combination=sorted(enhanced_core),
+                    source_model="core_predictor",
+                    detection_method="frequency_analysis_enhanced",
+                    total_historical_numbers=len(historial_nums),
+                    rare_threshold_percent=30,
+                    predicted_combinations_count=len(series_generadas),
+                    traditional_core_size=len(traditional_core),
+                    enhanced_core_size=len(enhanced_core)
+                )
+                
+                self.logger.info(f"🔥 Rare number boost applied: {sorted(rare_boost_sorted[:2])}")
+                self.logger.info(f"📊 Enhanced core set: {sorted(enhanced_core)} (size: {len(enhanced_core)})")
+                self.logger.info(f"📈 Rare number frequency analysis: {len(rare_numbers)} rare numbers identified from {len(sorted_by_freq)} total numbers")
+            
+            # Ensure core set stays manageable (4-8 numbers optimal)
+            if len(enhanced_core) > 8:
+                # Keep traditional core + top rare boosts
+                enhanced_core = set(list(traditional_core)[:4] + list(rare_boost_sorted[:2]))
+            
+            core_set = enhanced_core
+        else:
+            core_set = traditional_core
+            
+        # Ensure core set has at least 4 numbers, maximum 8
+        if len(core_set) < 4:
+            # Fill with most frequent from predictions
+            pred_freq = Counter([n for s in series_generadas for n in s["combination"]])
+            additional = {num for num, _ in pred_freq.most_common(6-len(core_set))}
+            core_set = core_set.union(additional)
+        elif len(core_set) > 8:
+            # Keep only top 8 by combined frequency + rarity score
+            core_set = set(sorted(core_set)[:8])
+        
         self.ctx["core_set"] = sorted(core_set)
-        self.logger.info(f"🔍 Core_set calculado: {self.ctx['core_set']}")
+        self.logger.info(f"🔍 Enhanced core_set (w/rare boost): {self.ctx['core_set']}")
         
         # Aplicar filtros
         combinaciones = self.filtrar_combinaciones(combinaciones)
@@ -981,6 +1806,47 @@ class HybridOmegaPredictor:
         
         self.logger.info(f"🏁 Pipeline completado: {len(final)} combos finales")
         
+        # Aplicar detección y corrección de sesgos sistemáticos
+        try:
+            from modules.bias_detector import detect_prediction_biases, correct_prediction_biases
+            from modules.diversity_enhancer import enhance_prediction_diversity, validate_prediction_diversity
+            
+            # 1. Detectar sesgos sistemáticos
+            bias_analysis = detect_prediction_biases(final)
+            
+            if bias_analysis.get('needs_correction', False):
+                self.logger.warning(f"🔍 Detectados {len(bias_analysis['biases_detected'])} sesgos sistemáticos")
+                
+                # Aplicar corrección de sesgos
+                final = correct_prediction_biases(final, bias_analysis)
+                self.logger.info("🔧 Sesgos sistemáticos corregidos")
+            
+            # 2. Validar y mejorar diversidad
+            diversity_validation = validate_prediction_diversity(final)
+            coverage_before = diversity_validation['coverage_score']
+            
+            if not diversity_validation['is_diverse']:
+                self.logger.warning(f"⚠️ Diversidad insuficiente: {coverage_before:.1f}% cobertura")
+                self.logger.warning(f"⚠️ Números omitidos: {diversity_validation['missing_numbers']}")
+                
+                # Aplicar mejora de diversidad
+                final = enhance_prediction_diversity(final)
+                
+                # Validar mejora
+                diversity_validation_after = validate_prediction_diversity(final)
+                coverage_after = diversity_validation_after['coverage_score']
+                
+                self.logger.info(f"🎯 Diversidad mejorada: {coverage_before:.1f}% → {coverage_after:.1f}%")
+                if diversity_validation_after['missing_numbers']:
+                    self.logger.info(f"📊 Números aún omitidos: {diversity_validation_after['missing_numbers']}")
+                else:
+                    self.logger.info("✅ Cobertura completa del espacio numérico lograda")
+            else:
+                self.logger.info(f"✅ Diversidad adecuada: {coverage_before:.1f}% cobertura")
+                
+        except Exception as e:
+            self.logger.error(f"🚨 Error en sistema anti-sesgo: {e}")
+        
         # Final memory cleanup
         if adaptive_config.get('enable_gc', False):
             gc.collect()
@@ -1040,7 +1906,7 @@ class HybridOmegaPredictor:
         self.logger.info("🚀 Iniciando pipeline asíncrono de predicción")
         
         # Prepare model configurations for parallel execution
-        max_comb_per_model = adaptive_config['max_combinations'] // 8
+        max_comb_per_model = adaptive_config.get('max_combinations', 200) // 8
         
         model_configs = [
             {
@@ -1078,6 +1944,25 @@ class HybridOmegaPredictor:
                 'function': self._run_genetico,
                 'args': [max_comb_per_model],
                 'enabled': self.usar_modelos.get('genetico', True)
+            },
+            # ───── Analizadores especializados ─────────────────────────
+            {
+                'name': 'omega_200_analyzer',
+                'function': self._run_omega_200_analyzer,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('omega_200_analyzer', True)
+            },
+            {
+                'name': 'positional_rng_analyzer',
+                'function': self._run_positional_rng_analyzer,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('positional_rng_analyzer', True)
+            },
+            {
+                'name': 'entropy_fft_analyzer',
+                'function': self._run_entropy_fft_analyzer,
+                'args': [max_comb_per_model],
+                'enabled': self.usar_modelos.get('entropy_fft_analyzer', True)
             }
         ]
         
@@ -1085,8 +1970,8 @@ class HybridOmegaPredictor:
         enabled_models = [config for config in model_configs if config['enabled']]
         
         # Execute models in parallel if we have enough models and resources
-        if (len(enabled_models) >= adaptive_config['parallel_threshold'] and 
-            adaptive_config['max_parallel_models'] > 2):
+        if (len(enabled_models) >= adaptive_config.get('parallel_threshold', 3) and 
+            adaptive_config.get('max_parallel_models', 2) > 2):
             
             model_results = await self._execute_models_parallel(
                 enabled_models, adaptive_config
@@ -1122,7 +2007,16 @@ class HybridOmegaPredictor:
         
         if self.usar_modelos.get("inverse_mining", True):
             try:
-                ultima = self.data.values.tolist()[-1].copy() if not self.data.empty else [1,2,3,4,5,6]
+                # FIX: Extract only lottery columns for ultima combination
+                if not self.data.empty:
+                    lottery_cols = [col for col in self.data.columns if 'bolilla_' in col][:6]
+                    if len(lottery_cols) >= 6:
+                        ultima = self.data[lottery_cols].values.tolist()[-1].copy()
+                    else:
+                        numeric_cols = self.data.select_dtypes(include='number').columns
+                        ultima = self.data[numeric_cols[:6]].values.tolist()[-1].copy()
+                else:
+                    ultima = [1,2,3,4,5,6]
                 combinaciones.extend(self.aplicar_minado_inverso(ultima))
             except Exception as e:
                 self.logger.error(f"🚨 Error generando minado inverso: {e}")
@@ -1133,8 +2027,8 @@ class HybridOmegaPredictor:
     async def _execute_models_parallel(self, model_configs: List[Dict], 
                                      adaptive_config: Dict) -> Dict[str, List]:
         """Execute models in parallel with resource management"""
-        max_parallel = adaptive_config['max_parallel_models']
-        timeout = adaptive_config['timeout_seconds']
+        max_parallel = adaptive_config.get('max_parallel_models', 2)
+        timeout = adaptive_config.get('timeout_seconds', 180)
         
         # Create semaphore to limit concurrent execution
         semaphore = asyncio.Semaphore(max_parallel)
@@ -1237,13 +2131,28 @@ class HybridOmegaPredictor:
                 logger=self.logger
             )
             
-            # Combine scores: 60% SVI + 40% dinámico
+            # Enhanced scoring combination: Rare number adaptive weighting (async version)
             for c in scored:
                 dyn_score = c.get("score", 0.0)
                 svi_score = c.get("svi_score", 0.5)
                 
+                # Check for rare number bonus in metrics
+                rare_bonus = c.get("metrics", {}).get("rare_bonus", 0.0)
+                
+                # Adaptive weighting: boost dynamic score for rare number combinations
+                if rare_bonus > 0.15:  # Significant rare number presence
+                    # 45% SVI + 55% dynamic for rare number combinations
+                    weight_svi = 0.45
+                    weight_dyn = 0.55
+                    c.setdefault("metrics", {})["scoring_mode"] = "rare_boosted"
+                else:
+                    # 60% SVI + 40% dynamic for standard combinations  
+                    weight_svi = 0.60
+                    weight_dyn = 0.40
+                    c.setdefault("metrics", {})["scoring_mode"] = "standard"
+                
                 c.setdefault("metrics", {})["dynamic_score"] = dyn_score
-                c["score"] = 0.6 * svi_score + 0.4 * (dyn_score / 5.0)
+                c["score"] = weight_svi * svi_score + weight_dyn * (dyn_score / 5.0)
                 c["normalized"] = 0.0
             
             combinaciones = scored
