@@ -334,7 +334,12 @@ class AIEnsembleSystem:
                 })
             
             # Fill remaining with specialist voting if needed
-            while len(ensemble_predictions) < count:
+            # PARCHE: Evitar loop infinito con contador de seguridad
+            safety_counter = 0
+            max_attempts = count * 10  # Máximo 10 intentos por combinación
+            
+            while len(ensemble_predictions) < count and safety_counter < max_attempts:
+                safety_counter += 1
                 combo = self._generate_voted_combination()
                 if combo not in [pred['combination'] for pred in ensemble_predictions]:
                     ensemble_predictions.append({
@@ -344,6 +349,11 @@ class AIEnsembleSystem:
                         'specialists_used': len(self.specialists),
                         'individual_predictions': [s.name for s in self.specialists]
                     })
+            
+            # Log si se alcanzó el límite de seguridad
+            if safety_counter >= max_attempts:
+                self.logger.warning(f"⚠️ Límite de seguridad alcanzado en ensemble generation ({max_attempts} intentos)")
+                self.logger.info(f"✅ Generadas {len(ensemble_predictions)} predicciones ensemble (solicitadas: {count})")
             
         except Exception as e:
             self.logger.error(f"Ensemble prediction generation failed: {e}")
