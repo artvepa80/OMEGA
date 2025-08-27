@@ -58,7 +58,7 @@ loguru==0.7.2
 
 # Configuration Management
 python-dotenv==1.0.1
-pydantic-settings==2.7.0
+pydantic-settings==2.10.1
 
 # Async Support
 asyncio-mqtt==0.16.2
