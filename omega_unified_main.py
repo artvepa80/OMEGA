@@ -191,9 +191,11 @@ class OmegaUnifiedSystem:
             export_path = self.project_root / "results" / f"predictions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
             export_path.parent.mkdir(exist_ok=True)
             
-            import json
-            with open(export_path, 'w') as f:
-                json.dump(predictions, f, indent=2, default=str)
+            # Use existing numpy compatibility utility
+            from utils.numpy_compat import safe_json_export
+            
+            # Export using safe JSON function (handles np.int64 automatically)
+            safe_json_export(predictions, export_path, indent=2)
             
             self.logger.info(f"📁 Results exported to: {export_path}")
             print(f"\n📁 Resultados exportados: {export_path}")
