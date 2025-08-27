@@ -7,7 +7,7 @@ Replaces 26+ main files with one unified system
 
 Usage:
   python omega_unified_main.py --mode prediction              # Core lottery prediction
-  python omega_unified_main.py --mode api --port 8000        # REST API server
+  python omega_unified_main.py --mode api --port 4000        # REST API server
   python omega_unified_main.py --mode conversational         # AI chat interface
   python omega_unified_main.py --mode autonomous             # Autonomous agent system
   python omega_unified_main.py --mode integrated             # Full integrated analysis
@@ -286,19 +286,24 @@ class OmegaUnifiedSystem:
                     
                     predictions = global_predictor.run_all_models()
                     
-                    return {
+                    # Convert numpy types to Python types for JSON serialization
+                    from utils.numpy_compat import numpy_to_python
+                    
+                    response = {
                         "predictions": predictions[:request.cantidad],
                         "count": len(predictions),
                         "timestamp": datetime.now().isoformat(),
                         "perfil_svi": request.perfil_svi
                     }
                     
+                    return numpy_to_python(response)
+                    
                 except Exception as e:
                     logger.error(f"Prediction error: {e}")
                     raise HTTPException(status_code=500, detail=str(e))
             
             # Get configuration
-            port = self.config.get('port', 8000)
+            port = self.config.get('port', 4000)
             host = self.config.get('host', '0.0.0.0')
             
             self.logger.info(f"🚀 Starting API server on {host}:{port}")
@@ -592,7 +597,7 @@ class OmegaUnifiedSystem:
                     "accuracy": "50% baseline"
                 }
             
-            port = self.config.get('port', 8000)
+            port = self.config.get('port', 4000)
             host = self.config.get('host', '0.0.0.0')
             
             self.logger.info(f"🚀 Starting simple API on {host}:{port}")
@@ -613,7 +618,7 @@ def create_argparser():
         epilog="""
 Examples:
   %(prog)s --mode prediction --cantidad 30
-  %(prog)s --mode api --port 8000
+  %(prog)s --mode api --port 4000
   %(prog)s --mode conversational
   %(prog)s --mode test
         """
@@ -635,7 +640,7 @@ Examples:
                        help='SVI profile')
     parser.add_argument('--data-path', type=str, default='data/historial_kabala_github.csv',
                        help='Path to historical data')
-    parser.add_argument('--port', type=int, default=8000, help='API server port')
+    parser.add_argument('--port', type=int, default=4000, help='API server port')
     parser.add_argument('--host', type=str, default='0.0.0.0', help='API server host')
     parser.add_argument('--config', type=str, help='Configuration file path')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
