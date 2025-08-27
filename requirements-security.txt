@@ -14,7 +14,7 @@ safety==3.2.11
 # Web Security & Dashboard
 flask==2.1.0
 flask-login==0.6.0
-flask-socketio==5.3.0
+flask-socketio==5.5.1
 python-socketio==5.8.0
 
 # Security Monitoring & IDS
