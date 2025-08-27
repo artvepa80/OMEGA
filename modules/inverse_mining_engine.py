@@ -33,16 +33,17 @@ MIN_SCORE_LIMIT = 0.15
 
 # Monte Carlo Inverse Configuration
 MONTE_CARLO_CONFIG = {
-    'default_simulations': 50000,
-    'max_simulations': 200000,
+    'default_simulations': 5000,  # Reducido 10x para Akash
+    'max_simulations': 15000,     # Reducido para evitar timeout
     'convergence_threshold': 0.001,
     'confidence_level': 0.95,
-    'bootstrap_samples': 1000,
+    'bootstrap_samples': 100,     # Reducido para velocidad
     'parallel_workers': 4,
     'rare_threshold': 0.15,
     'statistical_significance': 0.05,
     'min_observations': 100,
-    'stability_window': 1000
+    'stability_window': 500,      # Reducido para convergencia rápida
+    'max_execution_time': 300     # 5 minutos máximo NUEVO
 }
 
 # Statistical validation thresholds
