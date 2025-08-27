@@ -16,7 +16,7 @@ h11==0.16.0
 
 # Authentication & Security
 PyJWT==2.10.1
-bcrypt==4.2.1
+bcrypt==4.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.12
 
