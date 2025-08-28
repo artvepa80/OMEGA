@@ -88,7 +88,7 @@ msgpack==1.1.0
 safety==3.2.11
 
 # Communication (Optional)
-twilio==9.3.6
+twilio==9.7.1
 python-telegram-bot==21.9
 
 # File Processing
