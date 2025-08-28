@@ -9,7 +9,7 @@ bcrypt==4.2.1
 
 # Encryption & Security
 cryptography==41.0.7
-safety==3.2.11
+safety==3.6.0
 
 # Web Security & Dashboard
 flask==2.1.0

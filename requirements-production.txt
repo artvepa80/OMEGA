@@ -85,7 +85,7 @@ ujson==5.10.0
 msgpack==1.1.0
 
 # Development Tools (Production Safe)
-safety==3.2.11
+safety==3.6.0
 
 # Communication (Optional)
 twilio==9.3.6
