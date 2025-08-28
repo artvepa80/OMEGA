@@ -72,7 +72,7 @@ typer==0.15.1
 
 # Validation & Serialization
 marshmallow==3.24.1
-jsonschema==4.24.0
+jsonschema==4.25.1
 
 # Date/Time Handling
 python-dateutil==2.9.0.post0
