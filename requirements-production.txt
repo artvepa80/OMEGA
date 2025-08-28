@@ -48,7 +48,7 @@ hiredis==3.0.0
 
 # Database (Optional)
 sqlalchemy==2.0.36
-alembic==1.14.0
+alembic==1.16.4
 psycopg2-binary==2.9.10
 
 # Monitoring & Observability
