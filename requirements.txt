@@ -63,7 +63,7 @@ protobuf==5.29.5
 psutil==7.0.0
 pyarrow==21.0.0
 pydantic==2.11.7
-pydantic_core==2.33.2
+pydantic_core==2.39.0
 Pygments==2.19.2
 PyJWT==2.10.1
 pyparsing==3.2.3

@@ -6,7 +6,7 @@ fastapi==0.116.1
 uvicorn[standard]==0.35.0
 gunicorn==23.0.0
 pydantic==2.11.7
-pydantic-core==2.33.2
+pydantic-core==2.39.0
 
 # ASGI/WSGI
 starlette==0.47.2
