@@ -67,7 +67,7 @@ aiofiles==25.7.1
 
 # Utilities
 click==8.1.8
-rich==14.0.0
+rich==14.1.0
 typer==0.15.1
 
 # Validation & Serialization
