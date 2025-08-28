@@ -44,7 +44,7 @@ statsmodels==0.14.4
 
 # Caching & Session Management
 redis==6.4.0
-hiredis==3.0.0
+hiredis==3.2.1
 
 # Database (Optional)
 sqlalchemy==2.0.36
