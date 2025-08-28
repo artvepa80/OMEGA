@@ -71,7 +71,7 @@ rich==14.0.0
 typer==0.15.1
 
 # Validation & Serialization
-marshmallow==3.24.1
+marshmallow==4.0.0
 jsonschema==4.24.0
 
 # Date/Time Handling
