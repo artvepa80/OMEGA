@@ -89,7 +89,7 @@ safety==3.2.11
 
 # Communication (Optional)
 twilio==9.3.6
-python-telegram-bot==21.9
+python-telegram-bot==22.3
 
 # File Processing
 openpyxl==3.1.5
