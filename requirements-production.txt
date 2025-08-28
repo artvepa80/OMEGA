@@ -97,7 +97,7 @@ xlsxwriter==3.2.0
 
 # Containerization Support
 gunicorn==23.0.0
-gevent==25.1.1
+gevent==25.5.1
 greenlet==3.1.1
 
 # Health Checks & Diagnostics
