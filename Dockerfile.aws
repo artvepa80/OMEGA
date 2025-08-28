@@ -1,0 +1,38 @@
+# Dockerfile optimizado para AWS ECS
+FROM python:3.11-slim
+
+# Variables de entorno
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PORT=4000
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar requirements y instalar dependencias Python
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar código fuente
+COPY . .
+
+# Crear directorios necesarios
+RUN mkdir -p logs data export model checkpoints results
+
+# Exponer puerto
+EXPOSE 4000
+
+# Health check para ECS
+HEALTHCHECK --interval=30s --timeout=30s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:4000/health || exit 1
+
+# Comando principal con fix de numpy serialization
+CMD ["python3", "omega_unified_main.py", "--mode", "api", "--port", "4000", "--host", "0.0.0.0"]
