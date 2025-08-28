@@ -80,7 +80,7 @@ pytz==2024.2
 pendulum==3.0.0
 
 # Performance & Optimization
-orjson==3.10.12
+orjson==3.11.3
 ujson==5.10.0
 msgpack==1.1.0
 
