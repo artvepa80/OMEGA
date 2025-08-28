@@ -3,7 +3,7 @@
 
 # Authentication & Authorization
 PyJWT==2.10.1
-pyotp==2.8.0
+pyotp==2.9.0
 qrcode==7.4.2
 bcrypt==4.2.1
 
