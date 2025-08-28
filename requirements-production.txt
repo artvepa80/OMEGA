@@ -33,7 +33,7 @@ scipy==1.13.1
 
 # Deep Learning (CPU optimized)
 torch==2.7.1+cpu --find-links https://download.pytorch.org/whl/torch_stable.html
-tensorflow-cpu==2.19.0
+tensorflow-cpu==2.20.0
 keras==3.10.0
 
 # XGBoost
