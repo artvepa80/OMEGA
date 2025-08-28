@@ -77,7 +77,7 @@ jsonschema==4.24.0
 # Date/Time Handling
 python-dateutil==2.9.0.post0
 pytz==2024.2
-pendulum==3.0.0
+pendulum==3.1.0
 
 # Performance & Optimization
 orjson==3.10.12
