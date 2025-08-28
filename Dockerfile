@@ -104,8 +104,8 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 USER omegauser
 
 # Default port
-EXPOSE 8000
+EXPOSE 4000
 
 # Default command
-CMD ["python3", "main.py", "--server-mode", "--port", "8000"]
+CMD ["python3", "omega_unified_main.py", "--mode", "api", "--port", "4000", "--host", "0.0.0.0"]
 ENTRYPOINT ["./entrypoint.sh"]
