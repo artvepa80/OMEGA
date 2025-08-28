@@ -55,4 +55,4 @@ fail2ban==1.0.2
 iptables-python==0.15.0
 
 # MFA & 2FA
-segno==1.5.2
+segno==1.6.6
