@@ -105,7 +105,7 @@ psutil==7.0.0
 py-cpuinfo==9.0.0
 
 # Compression
-lz4==4.3.3
+lz4==4.4.4
 zstandard==0.23.0
 
 # Version Management
