@@ -40,7 +40,7 @@ keras==3.10.0
 xgboost==2.1.4
 
 # Time Series & Statistical Analysis
-statsmodels==0.14.4
+statsmodels==0.14.5
 
 # Caching & Session Management
 redis==6.4.0
