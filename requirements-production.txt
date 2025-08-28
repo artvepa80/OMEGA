@@ -110,5 +110,5 @@ zstandard==0.23.0
 
 # Version Management
 packaging==25.0
-setuptools==75.6.0
+setuptools==80.9.0
 wheel==0.45.1
