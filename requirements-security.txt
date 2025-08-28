@@ -42,7 +42,7 @@ scapy==2.5.0
 
 # Logging & Monitoring
 prometheus-client==0.22.1
-elasticsearch==8.8.0
+elasticsearch==9.1.0
 
 # Web Dashboard Dependencies
 plotly==5.15.0
