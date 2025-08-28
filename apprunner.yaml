@@ -1,0 +1,19 @@
+  version: 1.0
+  runtime: python3
+  build:
+    commands:
+      build:
+        - echo "Building OMEGA PRO AI v10.1"
+        - pip install -r requirements.txt
+  run:
+    runtime-version: 3.11
+    command: python3 omega_unified_main.py --mode api --port 8080 --host 0.0.0.0
+    network:
+      port: 8080
+    env:
+      - name: OMEGA_VERSION
+        value: "v10.1"
+      - name: PYTHONUNBUFFERED
+        value: "1"
+      - name: OMEGA_COMPLETE
+        value: "true"
