@@ -34,7 +34,7 @@ importlib_metadata==8.7.0
 importlib_resources==6.5.2
 iniconfig==2.1.0
 Jinja2==3.1.6
-joblib==1.4.2
+joblib==1.5.1
 keras==3.10.0
 kiwisolver==1.4.7
 kmodes==0.12.2
