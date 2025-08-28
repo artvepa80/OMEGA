@@ -38,7 +38,7 @@ docker==6.1.0
 
 # Network Security
 dnspython==2.3.0
-scapy==2.5.0
+scapy==2.6.1
 
 # Logging & Monitoring
 prometheus-client==0.22.1
