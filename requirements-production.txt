@@ -81,7 +81,7 @@ pendulum==3.0.0
 
 # Performance & Optimization
 orjson==3.10.12
-ujson==5.10.0
+ujson==5.11.0
 msgpack==1.1.0
 
 # Development Tools (Production Safe)
