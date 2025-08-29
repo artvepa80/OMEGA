@@ -55,6 +55,17 @@ except ImportError:
     PERFORMANCE_MONITORING_AVAILABLE = False
     print("⚠️ Sistema de monitoreo de rendimiento no disponible")
 
+# Importar optimizador de rendimiento
+try:
+    from modules.optimization.performance_optimizer import (
+        PerformanceOptimizer, PerformanceConfig, performance_monitor
+    )
+    PERFORMANCE_OPTIMIZER_AVAILABLE = True
+    print("🚀 Optimizador de rendimiento disponible")
+except ImportError:
+    PERFORMANCE_OPTIMIZER_AVAILABLE = False
+    print("⚠️ Optimizador de rendimiento no disponible")
+
 # MCP Integration - OMEGA AI Multi-Channel Platform
 try:
     from omega_mcp_integration import (
@@ -142,6 +153,24 @@ from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
 # ---------------------------------------------------------------------------
+# 2.2. Imports de Sistema Conversacional (FASE 1)
+# ---------------------------------------------------------------------------
+try:
+    from conversation.conversation_manager import ConversationManager
+    from conversation.personality_engine import PersonalityEngine
+    from conversation.intent_classifier import IntentClassifier
+    from conversation.context_store import ContextStore
+    from conversation.response_templates import ResponseTemplates
+    from conversation.legal_compliance import LegalCompliance
+    from conversation.age_verification import AgeVerification
+    from conversation.peru_resources import PeruResources
+    CONVERSATION_MODULES_AVAILABLE = True
+    print("💬 Módulos de Sistema Conversacional cargados correctamente")
+except ImportError as e:
+    CONVERSATION_MODULES_AVAILABLE = False
+    print(f"⚠️ Módulos de conversación no disponibles: {e}")
+
+# ---------------------------------------------------------------------------
 # 3. Logging global con rotación
 # ---------------------------------------------------------------------------
 import logging
@@ -216,7 +245,7 @@ else:
 from core.predictor import HybridOmegaPredictor as OmegaPredictor
 from modules.partial_hit_optimizer import optimize_omega_for_partial_hits
 from modules.score_dynamics import clean_combination
-from utils.viabilidad import batch_calcular_svi, cargar_viabilidad, parallel_svi
+from utils.core.viabilidad import batch_calcular_svi, cargar_viabilidad, parallel_svi
 from core.consensus_engine import validate_combination
 from modules.exporters.exportador_svi import exportar_combinaciones_svi
 from modules.utils.combinador_maestro import generar_combinacion_maestra
@@ -1011,6 +1040,167 @@ async def main(
     # MODIFICADO: Forzar que TODOS los modelos estén activos para mejor predicción
     enable_models = ["all"]  # Todos los modelos siempre activos
     export_formats = export_formats or ["csv", "json"]
+    
+    # ───── VERIFICACIÓN DE CUMPLIMIENTO LEGAL Y EDAD ─────────────────────────
+    try:
+        from conversation.legal_compliance import LegalCompliance
+        from conversation.age_verification import AgeVerification
+        
+        # Inicializar sistemas de cumplimiento
+        legal_compliance = LegalCompliance()
+        age_verification = AgeVerification()
+        
+        # Verificar cumplimiento legal general
+        legal_check = legal_compliance.verify_compliance(
+            user_context={
+                "country": "PE",  # Perú
+                "activity_type": "lottery_prediction",
+                "user_age": os.getenv("OMEGA_USER_AGE"),
+                "user_location": os.getenv("OMEGA_USER_LOCATION", "PE"),
+                "timestamp": datetime.now().isoformat()
+            },
+            activity_details={
+                "prediction_type": "lottery_numbers",
+                "ai_enabled": ai_mode,
+                "meta_learning": meta_learning,
+                "data_analysis": ai_analyze
+            }
+        )
+        
+        if not legal_check.get("compliant", False):
+            logger.error(f"❌ ACCESO DENEGADO: {legal_check.get('reason', 'Verificación de cumplimiento legal falló')}")
+            if legal_check.get("restrictions"):
+                for restriction in legal_check["restrictions"]:
+                    logger.warning(f"⚠️ Restricción: {restriction}")
+            return None
+        
+        # Verificar edad mínima
+        age_check = age_verification.verify_age(
+            user_data={
+                "age": os.getenv("OMEGA_USER_AGE"),
+                "birth_date": os.getenv("OMEGA_USER_BIRTH_DATE"),
+                "country": "PE",
+                "verification_method": "environment_variable"
+            }
+        )
+        
+        if not age_check.get("verified", False):
+            logger.error(f"❌ VERIFICACIÓN DE EDAD FALLÓ: {age_check.get('message', 'No se pudo verificar la edad mínima')}")
+            logger.info("💡 Para usar OMEGA PRO AI, debe ser mayor de 18 años")
+            logger.info("📝 Configure OMEGA_USER_AGE en sus variables de entorno")
+            return None
+        
+        # Log de cumplimiento exitoso
+        logger.info("✅ Verificación de cumplimiento legal completada")
+        logger.info(f"✅ Verificación de edad completada - Usuario autorizado")
+        
+        # Aplicar restricciones si las hay
+        compliance_restrictions = legal_check.get("applied_restrictions", {})
+        if compliance_restrictions:
+            logger.info("📋 Aplicando restricciones de cumplimiento:")
+            
+            # Limitar funcionalidades según restricciones
+            if compliance_restrictions.get("limit_ai_features"):
+                ai_mode = False
+                meta_learning = False
+                logger.info("⚠️ Funciones de IA limitadas por cumplimiento normativo")
+            
+            if compliance_restrictions.get("limit_predictions"):
+                top_n = min(top_n, compliance_restrictions.get("max_predictions", 8))
+                logger.info(f"⚠️ Número de predicciones limitado a {top_n}")
+            
+            if compliance_restrictions.get("require_disclaimers"):
+                logger.info("⚠️ AVISO LEGAL: Las predicciones son solo para entretenimiento")
+                logger.info("⚠️ No garantizamos resultados. Juegue responsablemente.")
+        
+        # Guardar información de cumplimiento para el contexto
+        compliance_metadata = {
+            "legal_verified": True,
+            "age_verified": True,
+            "compliance_timestamp": datetime.now().isoformat(),
+            "restrictions_applied": compliance_restrictions,
+            "user_country": "PE",
+            "verification_level": age_check.get("verification_level", "basic")
+        }
+        
+    except ImportError:
+        logger.warning("⚠️ Módulos de cumplimiento no disponibles - continuando sin verificación")
+        compliance_metadata = {
+            "legal_verified": False,
+            "age_verified": False,
+            "compliance_timestamp": datetime.now().isoformat(),
+            "verification_available": False
+        }
+    except Exception as e:
+        logger.warning(f"⚠️ Error en verificación de cumplimiento: {e} - continuando con precaución")
+        compliance_metadata = {
+            "legal_verified": False,
+            "age_verified": False,
+            "compliance_timestamp": datetime.now().isoformat(),
+            "verification_error": str(e)
+        }
+    
+    # ───── ANÁLISIS DE INTENCIONES DE USUARIO ─────────────────────────────────
+    try:
+        from conversation.intent_classifier import IntentClassifier
+        intent_classifier = IntentClassifier()
+        
+        # Construir contexto de entrada del usuario
+        user_context = {
+            "ai_mode": ai_mode,
+            "ai_query": ai_query,
+            "ai_interactive": ai_interactive,
+            "ai_analyze": ai_analyze,
+            "meta_learning": meta_learning,
+            "train_meta": train_meta,
+            "meta_predict": meta_predict,
+            "enable_rl": enable_rl,
+            "learn_from_sorteo": learn_from_sorteo,
+            "partial_hits": partial_hits,
+            "update_data": update_data,
+            "data_info": data_info,
+            "svi_profile": svi_profile,
+            "top_n": top_n,
+            "retrain": retrain,
+            "evaluate": evaluate,
+            "backtest": backtest
+        }
+        
+        # Analizar intenciones del usuario
+        intent_analysis = intent_classifier.analyze_intent(user_context)
+        
+        # Log de análisis de intenciones
+        logger.info(f"🎯 Intención principal detectada: {intent_analysis.get('primary_intent', 'prediction')}")
+        if intent_analysis.get('secondary_intents'):
+            logger.info(f"🔍 Intenciones secundarias: {', '.join(intent_analysis['secondary_intents'])}")
+        
+        # Ajustar configuración basada en intenciones
+        if intent_analysis.get('confidence', 0) > 0.7:
+            intent_config = intent_analysis.get('recommended_config', {})
+            if intent_config:
+                logger.info("⚙️ Aplicando configuración recomendada basada en intenciones")
+                # Aplicar ajustes recomendados
+                if 'top_n' in intent_config:
+                    top_n = intent_config['top_n']
+                if 'enable_models' in intent_config:
+                    enable_models = intent_config['enable_models']
+        
+        # Agregar metadatos de intención y cumplimiento para uso posterior
+        intent_metadata = {
+            "user_intent": intent_analysis,
+            "intent_timestamp": datetime.now().isoformat(),
+            "intent_confidence": intent_analysis.get('confidence', 0.0),
+            "compliance_info": compliance_metadata
+        }
+        
+        logger.info("✅ Análisis de intenciones completado")
+        
+    except ImportError:
+        logger.warning("⚠️ IntentClassifier no disponible - continuando sin análisis de intenciones")
+        intent_metadata = {"intent_available": False}
+    except Exception as e:
+        logger.warning(f"⚠️ Error en análisis de intenciones: {e}")
+        intent_metadata = {"intent_error": str(e)}
 
     # -----------------------------------------------------------------------
     # INICIALIZAR MONITOREO DE RENDIMIENTO
@@ -1035,6 +1225,34 @@ async def main(
             performance_monitor = None
     elif enable_performance_monitoring:
         logger.warning("⚠️ Monitoreo de rendimiento solicitado pero no disponible")
+
+    # -----------------------------------------------------------------------
+    # INICIALIZAR OPTIMIZADOR DE RENDIMIENTO
+    # -----------------------------------------------------------------------
+    performance_optimizer = None
+    if PERFORMANCE_OPTIMIZER_AVAILABLE:
+        try:
+            # Configuración del optimizador de rendimiento
+            optimizer_config = PerformanceConfig(
+                memory_threshold_mb=1024,  # 1GB threshold
+                parallel_threshold=1000,   # Paralelizar si > 1000 elementos
+                cache_size=100,            # Cache para 100 elementos
+                enable_gc=True,            # Habilitar garbage collection
+                profile_functions=True     # Habilitar profiling
+            )
+            
+            performance_optimizer = PerformanceOptimizer(config=optimizer_config)
+            logger.info("🚀 Optimizador de rendimiento inicializado")
+            
+            # Aplicar optimizaciones iniciales
+            performance_optimizer.optimize_memory()
+            logger.info("✅ Optimizaciones de memoria aplicadas")
+            
+        except Exception as e:
+            logger.warning(f"⚠️ No se pudo inicializar optimizador de rendimiento: {e}")
+            performance_optimizer = None
+    else:
+        logger.warning("⚠️ Optimizador de rendimiento no disponible")
 
     # -----------------------------------------------------------------------
     # MCP INTEGRATION INITIALIZATION
@@ -1462,23 +1680,42 @@ async def main(
         logger.info("🧠 Ejecutando modelos con paralelización optimizada y monitoreo de rendimiento …")
         t0 = time.time()
         
+        # Aplicar optimizaciones de rendimiento si está disponible
+        if performance_optimizer:
+            logger.info("🚀 Aplicando optimizaciones de rendimiento...")
+            # Optimizar datos históricos antes del procesamiento
+            historial_df = performance_optimizer.optimize_historical_data(historial_df)
+            logger.info("✅ Datos históricos optimizados")
+        
         # Ejecutar modelos con seguimiento de rendimiento
         if performance_monitor:
             with performance_monitor.track_model_execution("predictor_execution", expected_duration=30.0):
                 # Use async parallel execution if beneficial
                 if adaptive_config['max_parallel_models'] > 2:
-                    combinaciones_finales = await execute_parallel_models(
-                        predictor, adaptive_config, logger
-                    )
+                    if performance_optimizer:
+                        # Usar optimizador para procesamiento paralelo
+                        combinaciones_finales = await performance_optimizer.optimize_parallel_processing(
+                            lambda: execute_parallel_models(predictor, adaptive_config, logger)
+                        )
+                    else:
+                        combinaciones_finales = await execute_parallel_models(
+                            predictor, adaptive_config, logger
+                        )
                 else:
                     # Fall back to sequential execution for low-resource systems
                     combinaciones_finales = predictor.run_all_models()
         else:
             # Use async parallel execution if beneficial
             if adaptive_config['max_parallel_models'] > 2:
-                combinaciones_finales = await execute_parallel_models(
-                    predictor, adaptive_config, logger
-                )
+                if performance_optimizer:
+                    # Usar optimizador para procesamiento paralelo
+                    combinaciones_finales = await performance_optimizer.optimize_parallel_processing(
+                        lambda: execute_parallel_models(predictor, adaptive_config, logger)
+                    )
+                else:
+                    combinaciones_finales = await execute_parallel_models(
+                        predictor, adaptive_config, logger
+                    )
             else:
                 # Fall back to sequential execution for low-resource systems
                 combinaciones_finales = predictor.run_all_models()
@@ -2090,23 +2327,232 @@ async def main(
             logger.warning("⚠️ Motor de aprendizaje adaptativo no disponible")
 
     # -----------------------------------------------------------------------
-    # RESUMEN FINAL OPTIMIZADO PARA 8 SERIES
+    # GENERACIÓN DE RESPUESTA ESTRUCTURADA CON TEMPLATES
     # -----------------------------------------------------------------------
-    logger.info(f"\n{'🎯'*20}")
-    logger.info("🚀 OMEGA PRO AI - EJECUCIÓN COMPLETADA")
-    logger.info("✅ 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS")
-    logger.info("🎲 RESUMEN FINAL DE LAS 8 SERIES:")
-    logger.info(f"{'🎯'*20}")
-    
-    for idx, itm in enumerate(combinaciones_finales, 1):
-        combo_str = " - ".join(f"{n:02d}" for n in itm["combination"])
-        score = itm["score"]
-        fuente = itm.get("source", "consensus")
-        logger.info(f"Serie {idx}: {combo_str} | Score: {score:.3f} | Modelo: {fuente}")
+    try:
+        from conversation.response_templates import ResponseTemplates
+        from conversation.peru_resources import PeruResources
+        
+        response_templates = ResponseTemplates()
+        peru_resources = PeruResources()
+        
+        # Obtener recursos localizados de Perú
+        peru_context = peru_resources.get_localized_context(
+            context_type="lottery_prediction",
+            user_profile=svi_profile,
+            current_time=datetime.now()
+        )
+        
+        # Obtener información cultural y de lotería específica de Perú
+        lottery_info = peru_resources.get_lottery_information("tinka")
+        cultural_context = peru_resources.get_cultural_context({
+            "user_profile": svi_profile,
+            "prediction_context": "final_results",
+            "time_of_day": datetime.now().hour
+        })
+        
+        # Preparar datos para el template con localización peruana
+        template_data = {
+            "user_profile": svi_profile,
+            "combinations": [
+                {
+                    "numbers": itm["combination"],
+                    "score": itm["score"],
+                    "source": itm.get("source", "consensus"),
+                    "confidence": min(itm["score"] * 100, 100),
+                    "analysis": itm.get("analysis", "Combinación generada por consenso de modelos")
+                }
+                for itm in combinaciones_finales
+            ],
+            "session_stats": {
+                "total_combinations": len(combinaciones_finales),
+                "best_score": max(itm["score"] for itm in combinaciones_finales),
+                "avg_score": sum(itm["score"] for itm in combinaciones_finales) / len(combinaciones_finales),
+                "models_used": list(set(itm.get("source", "consensus") for itm in combinaciones_finales)),
+                "execution_time": (datetime.now() - start_time).total_seconds() if 'start_time' in locals() else None
+            },
+            "intent_context": intent_metadata.get("user_intent", {}),
+            "personalization": {
+                "greeting_style": "formal" if svi_profile in ["conservador", "profesional"] else "casual",
+                "confidence_display": "detailed" if ai_mode else "simple",
+                "technical_level": "advanced" if meta_learning else "basic"
+            },
+            "peru_localization": {
+                "cultural_context": cultural_context,
+                "lottery_info": lottery_info,
+                "local_expressions": peru_context.get("expressions", {}),
+                "timezone": "America/Lima",
+                "currency": "PEN",
+                "language": "es-PE",
+                "responsible_gaming": peru_context.get("responsible_gaming", {}),
+                "legal_disclaimers": peru_context.get("legal_disclaimers", {})
+            }
+        }
+        
+        # Generar respuesta estructurada
+        structured_response = response_templates.generate_prediction_response(
+            template_data=template_data,
+            response_type="final_results",
+            user_context={
+                "profile": svi_profile,
+                "preferences": {
+                    "detailed_analysis": ai_mode,
+                    "technical_info": meta_learning,
+                    "confidence_scores": True
+                }
+            }
+        )
+        
+        # Mostrar respuesta estructurada
+        if structured_response and structured_response.get("success"):
+            logger.info(f"\n{'🎯'*20}")
+            logger.info("🚀 OMEGA PRO AI - EJECUCIÓN COMPLETADA")
+            logger.info("✅ 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS")
+            
+            # Mostrar mensaje personalizado si está disponible
+            if structured_response.get("personalized_message"):
+                logger.info(f"\n{structured_response['personalized_message']}")
+            
+            logger.info("🎲 RESUMEN FINAL DE LAS 8 SERIES:")
+            logger.info(f"{'🎯'*20}")
+            
+            # Mostrar combinaciones con formato mejorado
+            if structured_response.get("formatted_combinations"):
+                for formatted_combo in structured_response["formatted_combinations"]:
+                    logger.info(formatted_combo)
+            else:
+                # Fallback al formato original
+                for idx, itm in enumerate(combinaciones_finales, 1):
+                    combo_str = " - ".join(f"{n:02d}" for n in itm["combination"])
+                    score = itm["score"]
+                    fuente = itm.get("source", "consensus")
+                    logger.info(f"Serie {idx}: {combo_str} | Score: {score:.3f} | Modelo: {fuente}")
+            
+            # Mostrar análisis adicional si está disponible
+            if structured_response.get("analysis_summary"):
+                logger.info(f"\n📈 ANÁLISIS: {structured_response['analysis_summary']}")
+            
+            # Mostrar recomendaciones si están disponibles
+            if structured_response.get("recommendations"):
+                logger.info(f"\n💡 RECOMENDACIONES: {structured_response['recommendations']}")
+                
+        else:
+            # Fallback al formato original si hay error en templates
+            logger.info(f"\n{'🎯'*20}")
+            logger.info("🚀 OMEGA PRO AI - EJECUCIÓN COMPLETADA")
+            logger.info("✅ 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS")
+            logger.info("🎲 RESUMEN FINAL DE LAS 8 SERIES:")
+            logger.info(f"{'🎯'*20}")
+            
+            for idx, itm in enumerate(combinaciones_finales, 1):
+                combo_str = " - ".join(f"{n:02d}" for n in itm["combination"])
+                score = itm["score"]
+                fuente = itm.get("source", "consensus")
+                logger.info(f"Serie {idx}: {combo_str} | Score: {score:.3f} | Modelo: {fuente}")
+                
+    except ImportError:
+        logger.warning("⚠️ ResponseTemplates no disponible - usando formato básico")
+        # Formato básico original
+        logger.info(f"\n{'🎯'*20}")
+        logger.info("🚀 OMEGA PRO AI - EJECUCIÓN COMPLETADA")
+        logger.info("✅ 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS")
+        logger.info("🎲 RESUMEN FINAL DE LAS 8 SERIES:")
+        logger.info(f"{'🎯'*20}")
+        
+        for idx, itm in enumerate(combinaciones_finales, 1):
+            combo_str = " - ".join(f"{n:02d}" for n in itm["combination"])
+            score = itm["score"]
+            fuente = itm.get("source", "consensus")
+            logger.info(f"Serie {idx}: {combo_str} | Score: {score:.3f} | Modelo: {fuente}")
+            
+    except Exception as e:
+        logger.warning(f"⚠️ Error en ResponseTemplates: {e} - usando formato básico")
+        # Formato básico original
+        logger.info(f"\n{'🎯'*20}")
+        logger.info("🚀 OMEGA PRO AI - EJECUCIÓN COMPLETADA")
+        logger.info("✅ 8 SERIES GENERADAS CON TODOS LOS MODELOS ACTIVOS")
+        logger.info("🎲 RESUMEN FINAL DE LAS 8 SERIES:")
+        logger.info(f"{'🎯'*20}")
+        
+        for idx, itm in enumerate(combinaciones_finales, 1):
+            combo_str = " - ".join(f"{n:02d}" for n in itm["combination"])
+            score = itm["score"]
+            fuente = itm.get("source", "consensus")
+            logger.info(f"Serie {idx}: {combo_str} | Score: {score:.3f} | Modelo: {fuente}")
     
     logger.info(f"\n{'='*60}")
     logger.info("🍀 ¡BUENA SUERTE CON TUS 8 SERIES!")
     logger.info(f"{'='*60}")
+    
+    # ───── ALMACENAMIENTO DE CONTEXTO DE SESIÓN ─────────────────────────────
+    try:
+        from conversation.context_store import ContextStore
+        context_store = ContextStore()
+        
+        # Crear contexto de sesión completo
+        session_context = {
+            "session_id": f"omega_session_{timestamp}",
+            "timestamp": datetime.now().isoformat(),
+            "user_parameters": {
+                "svi_profile": svi_profile,
+                "top_n": top_n,
+                "ai_mode": ai_mode,
+                "ai_query": ai_query,
+                "meta_learning": meta_learning,
+                "partial_hits": partial_hits,
+                "enable_models": enable_models
+            },
+            "intent_analysis": intent_metadata,
+            "results_summary": {
+                "total_combinations": len(combinaciones_finales),
+                "best_score": max(itm["score"] for itm in combinaciones_finales),
+                "avg_score": sum(itm["score"] for itm in combinaciones_finales) / len(combinaciones_finales),
+                "sources_used": list(set(itm.get("source", "unknown") for itm in combinaciones_finales))
+            },
+            "performance_metrics": {
+                "execution_time": (datetime.now() - datetime.fromisoformat(intent_metadata.get("intent_timestamp", datetime.now().isoformat()))).total_seconds() if intent_metadata.get("intent_timestamp") else None,
+                "models_executed": len(enable_models) if isinstance(enable_models, list) else 1
+            },
+            "learning_results": {
+                "adaptive_learning_applied": learn_from_sorteo or bool(resultado_oficial),
+                "learning_available": ADAPTIVE_LEARNING_AVAILABLE
+            }
+        }
+        
+        # Guardar contexto de sesión
+        context_store.save_session_context(
+            session_id=session_context["session_id"],
+            context=session_context
+        )
+        
+        # Actualizar historial de usuario (si hay identificación)
+        user_id = os.getenv("OMEGA_USER_ID", "anonymous_user")
+        context_store.update_user_history(
+            user_id=user_id,
+            session_data={
+                "session_id": session_context["session_id"],
+                "timestamp": session_context["timestamp"],
+                "intent": intent_metadata.get("user_intent", {}).get("primary_intent", "prediction"),
+                "results_count": len(combinaciones_finales),
+                "best_score": session_context["results_summary"]["best_score"]
+            }
+        )
+        
+        logger.info("✅ Contexto de sesión guardado exitosamente")
+        logger.info(f"📝 Session ID: {session_context['session_id']}")
+        
+        # Obtener estadísticas de usuario si están disponibles
+        try:
+            user_stats = context_store.get_user_statistics(user_id)
+            if user_stats:
+                logger.info(f"📊 Estadísticas de usuario: {user_stats['total_sessions']} sesiones, promedio score: {user_stats['avg_score']:.3f}")
+        except Exception as e:
+            logger.debug(f"No se pudieron obtener estadísticas de usuario: {e}")
+            
+    except ImportError:
+        logger.warning("⚠️ ContextStore no disponible - continuando sin almacenamiento de contexto")
+    except Exception as e:
+        logger.warning(f"⚠️ Error en almacenamiento de contexto: {e}")
     
     # -----------------------------------------------------------------------
     # REPORTE FINAL DE RENDIMIENTO
