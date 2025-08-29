@@ -498,7 +498,7 @@ def generar_combinaciones_consenso(
 
     if retrain or (perf_metrics and any(m["accuracy"] < .7 for m in perf_metrics)):
         logger.info("♻️ Reentrenando modelos …")
-        auto_retrain(historial_df)
+        auto_retrain(historial_df, api_mode=True)
 
     # ───── 3. Plan de cantidades por modelo ───────────────────────────────────
     activos = {
