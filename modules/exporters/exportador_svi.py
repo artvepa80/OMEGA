@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from typing import List, Dict, Any
 from datetime import datetime
-from utils.logger import log_info, log_error
+from utils.logging.unified_logger import log_info, log_error
 from core.consensus_engine import validate_combination
 
 # Configuración del logger
