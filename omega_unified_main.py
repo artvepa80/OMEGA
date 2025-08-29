@@ -90,6 +90,17 @@ except ImportError as e:
     CONVERSATION_MODULES_AVAILABLE = False
     print(f"⚠️ Módulos de conversación no disponibles en OMEGA Unified: {e}")
 
+# ---------------------------------------------------------------------------
+# Performance Optimizer Integration
+# ---------------------------------------------------------------------------
+try:
+    from modules.optimization.performance_optimizer import PerformanceOptimizer, PerformanceConfig, performance_monitor
+    PERFORMANCE_OPTIMIZER_AVAILABLE = True
+    print("🚀 Performance Optimizer disponible en OMEGA Unified")
+except ImportError as e:
+    PERFORMANCE_OPTIMIZER_AVAILABLE = False
+    print(f"⚠️ Performance Optimizer no disponible en OMEGA Unified: {e}")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -128,6 +139,23 @@ class OmegaUnifiedSystem:
         # Create necessary directories
         for path in [self.data_path, self.models_path, self.config_path]:
             path.mkdir(exist_ok=True)
+        
+        # Initialize performance optimizer
+        self.performance_optimizer = None
+        if PERFORMANCE_OPTIMIZER_AVAILABLE:
+            try:
+                optimizer_config = PerformanceConfig(
+                    memory_threshold_mb=1024,  # 1GB threshold para unified system
+                    parallel_threshold=1000,   # Paralelizar si > 1000 elementos
+                    cache_size=100,            # Cache para 100 elementos
+                    enable_gc=True,            # Habilitar garbage collection
+                    profile_functions=True     # Habilitar profiling detallado
+                )
+                self.performance_optimizer = PerformanceOptimizer(config=optimizer_config)
+                self.logger.info("🚀 Optimizador de rendimiento inicializado en OMEGA Unified")
+            except Exception as e:
+                self.logger.warning(f"⚠️ No se pudo inicializar optimizador en OMEGA Unified: {e}")
+                self.performance_optimizer = None
         
         self.logger.info(f"🚀 OMEGA Unified System initialized in {mode.value} mode")
     
@@ -187,9 +215,19 @@ class OmegaUnifiedSystem:
                 perfil_svi=perfil_svi
             )
             
-            # Run prediction
+            # Run prediction with performance optimization
             self.logger.info("🚀 Running all models prediction...")
-            predictions = predictor.run_all_models()
+            if self.performance_optimizer:
+                try:
+                    # Optimize prediction process
+                    with self.performance_optimizer.optimize_context():
+                        predictions = predictor.run_all_models()
+                    self.logger.info("✅ Predicciones optimizadas con performance_optimizer")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ Error en optimización, ejecutando sin optimizar: {e}")
+                    predictions = predictor.run_all_models()
+            else:
+                predictions = predictor.run_all_models()
             
             # Display results
             self.logger.info(f"✅ Generated {len(predictions)} predictions")
