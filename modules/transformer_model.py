@@ -15,7 +15,7 @@ from functools import lru_cache
 from modules.lottery_transformer import LotteryTransformer
 from modules.filters.rules_filter import FiltroEstrategico
 from modules.score_dynamics import score_combinations
-from utils.transformer_data_utils import prepare_advanced_transformer_data
+from utils.data.transformer_data_utils import prepare_advanced_transformer_data
 
 # Logger global con timestamps
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
