@@ -15,7 +15,7 @@ from functools import partial
 
 # NumPy compatibility patch for deprecated aliases
 try:
-    from utils.numpy_compat import patch_numpy_deprecated_aliases
+    from utils.core.numpy_compat import patch_numpy_deprecated_aliases
     patch_numpy_deprecated_aliases()
 except ImportError:
     pass
@@ -27,7 +27,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 # Importar función de limpieza de datos
-from utils.validation import clean_historial_df
+from utils.core.validation import clean_historial_df
 
 # Intentar carga de psutil para ajuste dinámico de memoria
 try:
@@ -42,6 +42,17 @@ try:
     PERFORMANCE_MONITORING_AVAILABLE = True
 except ImportError:
     PERFORMANCE_MONITORING_AVAILABLE = False
+
+# Importar optimizador de rendimiento
+try:
+    from modules.optimization.performance_optimizer import (
+        PerformanceOptimizer, PerformanceConfig, performance_monitor
+    )
+    PERFORMANCE_OPTIMIZER_AVAILABLE = True
+    print("🚀 Optimizador de rendimiento disponible en predictor")
+except ImportError:
+    PERFORMANCE_OPTIMIZER_AVAILABLE = False
+    print("⚠️ Optimizador de rendimiento no disponible en predictor")
 
 # Intentar carga de cryptography para autenticación
 try:
@@ -60,7 +71,7 @@ from modules.filters.rules_filter import FiltroEstrategico, CoberturaCore
 from modules.filters.ghost_rng_generative import get_seeds
 from modules.inverse_mining_engine import ejecutar_minado_inverso
 from modules.score_dynamics import score_combinations, clean_combination
-from utils.viabilidad import calcular_svi
+from utils.core.viabilidad import calcular_svi
 from modules.exporters.exportador_svi import exportar_combinaciones_svi
 from modules.clustering_engine import generar_combinaciones_clustering
 from modules.genetic_model import generar_combinaciones_geneticas, GeneticConfig
@@ -76,8 +87,8 @@ from modules.omega_200_analyzer import analyze_last_200_draws
 from modules.positional_rng_analyzer import analyze_positional_rng
 from modules.entropy_fft_analyzer import analyze_entropy_fft_patterns
 
-from utils.logging import get_logger
-from utils.errors import DataLoadError, ModelLoadError, ValidationError, OmegaError
+from utils.logging.unified_logger import get_logger
+from utils.core.errors import DataLoadError, ModelLoadError, ValidationError, OmegaError
 from modules.advanced_logging_metrics import get_metrics_collector, track_rare_number_detection
 
 # ───── Meta-Learning Systems Integration ──────────────────────────────────────────
@@ -112,6 +123,17 @@ try:
 except ImportError:
     AI_ENSEMBLE_AVAILABLE = False
     print("⚠️ AI Ensemble System no disponible en predictor")
+
+# ───── Sistema Conversacional Integration (FASE 1) ────────────────────────────────
+try:
+    from conversation.conversation_manager import ConversationManager
+    from conversation.personality_engine import PersonalityEngine
+    from conversation.response_templates import ResponseTemplates
+    CONVERSATION_MODULES_AVAILABLE = True
+    print("💬 Módulos de conversación disponibles en predictor")
+except ImportError:
+    CONVERSATION_MODULES_AVAILABLE = False
+    print("⚠️ Módulos de conversación no disponibles en predictor")
 
 # Logger unificado
 logger = get_logger("OmegaPredictor")
@@ -155,6 +177,23 @@ class HybridOmegaPredictor:
         # Implementar caché de combinaciones para evitar cálculos redundantes
         self._combination_cache = {}
         self._cache_max_size = 1000  # Límite de tamaño de caché
+        
+        # Inicializar optimizador de rendimiento
+        self.performance_optimizer = None
+        if PERFORMANCE_OPTIMIZER_AVAILABLE:
+            try:
+                optimizer_config = PerformanceConfig(
+                    memory_threshold_mb=512,   # 512MB threshold para predictor
+                    parallel_threshold=500,    # Paralelizar si > 500 elementos
+                    cache_size=50,             # Cache para 50 elementos
+                    enable_gc=True,            # Habilitar garbage collection
+                    profile_functions=False    # Deshabilitar profiling detallado
+                )
+                self.performance_optimizer = PerformanceOptimizer(config=optimizer_config)
+                self.logger.info("🚀 Optimizador de rendimiento inicializado en predictor")
+            except Exception as e:
+                self.logger.warning(f"⚠️ No se pudo inicializar optimizador en predictor: {e}")
+                self.performance_optimizer = None
         
         # Cargar y limpiar datos usando DataManager
         try:
@@ -254,6 +293,20 @@ class HybridOmegaPredictor:
             "neural_enhancer": NEURAL_ENHANCER_AVAILABLE,
             "ai_ensemble": AI_ENSEMBLE_AVAILABLE
         }
+        
+        # ───── Inicialización Sistema Conversacional (FASE 1) ─────────────────────
+        self.conversation_manager = None
+        self.personality_engine = None
+        self.response_templates = None
+        
+        if CONVERSATION_MODULES_AVAILABLE:
+            try:
+                self.conversation_manager = ConversationManager()
+                self.personality_engine = PersonalityEngine()
+                self.response_templates = ResponseTemplates()
+                self.logger.info("💬 Sistema conversacional inicializado en predictor")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Error inicializando sistema conversacional: {e}")
         
         # Inicializar JackpotProfiler
         try:
@@ -468,6 +521,7 @@ class HybridOmegaPredictor:
         
         return results
     
+    @performance_monitor
     def _run_consensus(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo de consenso con caché integrado"""
         try:
@@ -501,6 +555,55 @@ class HybridOmegaPredictor:
                         "metrics": item.get("metrics", {}),
                         "normalized": 0.0
                     })
+                    
+        except Exception as e:
+            self.logger.error(f"Error generando combinaciones adicionales: {e}")
+            # Fallback generation
+            for i in range(cantidad_faltante):
+                combo = sorted(random.sample(range(1, 41), 6))
+                combinaciones_extra.append({
+                    "combination": combo,
+                    "score": 0.3,
+                    "svi_score": 0.3,
+                    "source": "fallback_error",
+                    "original_score": 0.3
+                })
+        
+        return combinaciones_extra[:cantidad_faltante]
+    
+    def generate_conversational_response(self, user_input: str, prediction_results: Optional[List[Dict]] = None) -> str:
+        """Genera respuesta conversacional basada en predicciones y personalidad (FASE 1)"""
+        if not CONVERSATION_MODULES_AVAILABLE or not self.conversation_manager:
+            return "Sistema conversacional no disponible."
+        
+        try:
+            # Procesar entrada del usuario
+            context = {
+                'user_input': user_input,
+                'prediction_results': prediction_results,
+                'timestamp': datetime.now().isoformat(),
+                'predictor_status': 'active'
+            }
+            
+            # Generar respuesta usando ConversationManager
+            response = self.conversation_manager.process_message(
+                message=user_input,
+                context=context,
+                personality=self.personality_engine.get_current_personality() if self.personality_engine else None
+            )
+            
+            # Aplicar plantillas de respuesta si están disponibles
+            if self.response_templates and prediction_results:
+                response = self.response_templates.format_prediction_response(
+                    response=response,
+                    predictions=prediction_results
+                )
+            
+            return response
+            
+        except Exception as e:
+            self.logger.error(f"Error generando respuesta conversacional: {e}")
+            return f"Error procesando consulta: {str(e)}"
             
             # Actualizar caché
             self._combination_cache[cache_key] = results
@@ -521,6 +624,7 @@ class HybridOmegaPredictor:
             self.logger.error(f"🚨 Error en consenso: {e}")
             return []
     
+    @performance_monitor
     def _run_lstm(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo LSTM con configuración optimizada"""
         try:
@@ -687,6 +791,7 @@ class HybridOmegaPredictor:
                 })
             return results
     
+    @performance_monitor
     def _run_clustering(self, max_comb: int) -> List[Dict[str, Any]]:
         """Ejecuta modelo de clustering"""
         try:
@@ -1300,6 +1405,14 @@ class HybridOmegaPredictor:
         """Ejecuta todos los modelos y genera predicciones finales con monitoreo de rendimiento"""
         self.logger.info("🚀 Iniciando pipeline de predicción con monitoreo")
         
+        # Optimizar datos históricos si el optimizador está disponible
+        if self.performance_optimizer:
+            try:
+                self.data = self.performance_optimizer.optimize_historical_data(self.data)
+                self.logger.info("📊 Datos históricos optimizados")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Error optimizando datos: {e}")
+        
         # Initialize adaptive configuration from system resources
         system_resources = self._get_system_resources()
         adaptive_config = self._get_adaptive_config(system_resources)
@@ -1742,6 +1855,15 @@ class HybridOmegaPredictor:
                 "metrics": {},
                 "normalized": 0.0
             }]
+        
+        # Optimizar procesamiento de combinaciones si está disponible
+        if self.performance_optimizer:
+            try:
+                # Usar procesamiento paralelo para combinaciones grandes
+                combinaciones = self.performance_optimizer.optimize_combination_processing(combinaciones)
+                self.logger.info("⚡ Combinaciones optimizadas con procesamiento paralelo")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Error optimizando combinaciones: {e}")
         
         # Ordenar y deduplicar
         combinaciones.sort(key=lambda x: x["score"], reverse=True)
