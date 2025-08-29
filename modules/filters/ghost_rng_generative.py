@@ -11,8 +11,8 @@ import secrets
 import logging
 from sklearn.preprocessing import MinMaxScaler
 from torch import nn, optim, utils
-from utils.viabilidad import cargar_viabilidad, calcular_svi
-from utils.logger import log_error, log_info
+from utils.core.viabilidad import cargar_viabilidad, calcular_svi
+from utils.logging.unified_logger import log_error, log_info
 from typing import List, Dict, Any, Tuple, Optional
 import sys
 import traceback
@@ -20,11 +20,8 @@ from datetime import datetime
 # ──────────────────────────────────────────────────────────────
 # Import del validador – soporta ambas ubicaciones (legacy/new)
 # ──────────────────────────────────────────────────────────────
-try:
-    # Nueva ubicación (>= v10.x)
-    from utils.validation import validate_combination
-except ImportError:                 # Soporte a versiones viejas
-    from core.validation import validate_combination  # fallback legacy
+# Import del validador desde la ubicación correcta
+from utils.core.validation import validate_combination
 
 # Configuración de logger
 logger = logging.getLogger("ghost_rng_generative")
