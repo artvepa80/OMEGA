@@ -72,6 +72,24 @@ from datetime import datetime
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
+# ---------------------------------------------------------------------------
+# Imports de Sistema Conversacional (FASE 1)
+# ---------------------------------------------------------------------------
+try:
+    from conversation.conversation_manager import ConversationManager
+    from conversation.personality_engine import PersonalityEngine
+    from conversation.intent_classifier import IntentClassifier
+    from conversation.context_store import ContextStore
+    from conversation.response_templates import ResponseTemplates
+    from conversation.legal_compliance import LegalCompliance
+    from conversation.age_verification import AgeVerification
+    from conversation.peru_resources import PeruResources
+    CONVERSATION_MODULES_AVAILABLE = True
+    print("💬 Módulos de Sistema Conversacional cargados en OMEGA Unified")
+except ImportError as e:
+    CONVERSATION_MODULES_AVAILABLE = False
+    print(f"⚠️ Módulos de conversación no disponibles en OMEGA Unified: {e}")
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -237,10 +255,15 @@ class OmegaUnifiedSystem:
                 allow_headers=["*"],
             )
             
-            # Request model
+            # Request models
             class PredictionRequest(BaseModel):
                 cantidad: int = 30
                 perfil_svi: str = "default"
+            
+            class ConversationRequest(BaseModel):
+                message: str
+                context: dict = {}
+                include_predictions: bool = False
             
             # Global predictor instance
             global_predictor = None
@@ -300,6 +323,35 @@ class OmegaUnifiedSystem:
                     
                 except Exception as e:
                     logger.error(f"Prediction error: {e}")
+                    raise HTTPException(status_code=500, detail=str(e))
+            
+            @app.post("/conversation")
+            async def conversation(request: ConversationRequest):
+                if not global_predictor:
+                    raise HTTPException(status_code=503, detail="Predictor not ready")
+                
+                try:
+                    # Process conversational message
+                    response_text = global_predictor.generate_conversational_response(
+                        user_input=request.message
+                    )
+                    
+                    response = {
+                        "response": response_text,
+                        "timestamp": datetime.now().isoformat(),
+                        "context": request.context
+                    }
+                    
+                    # Include predictions if requested
+                    if request.include_predictions:
+                        predictions = global_predictor.run_all_models()
+                        response["predictions"] = predictions[:5]  # Top 5
+                        response["predictions_count"] = len(predictions)
+                    
+                    return response
+                    
+                except Exception as e:
+                    logger.error(f"Conversation error: {e}")
                     raise HTTPException(status_code=500, detail=str(e))
             
             # Get configuration
