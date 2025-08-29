@@ -386,7 +386,7 @@ def generar_combinaciones_consenso(
     perfil_svi: str = "default",
     logger: logging.Logger | None = None,
     use_score_combinations: bool = False,
-    retrain: bool = True,   # Changed: Auto-retraining should be active
+    retrain: bool = False,  # API mode: Use pre-trained models for faster responses
     evaluate: bool = True,  # Changed: Model evaluation should be active
     backtest: bool = True,  # Changed: RetroTracker should be active by default
     exploration_mode: bool = False,
