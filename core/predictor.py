@@ -485,7 +485,7 @@ class HybridOmegaPredictor:
                 cantidad=max_comb,
                 perfil_svi=self._map_svi_profile(self.perfil_svi),
                 logger=self.logger,
-                use_score_combinations=False
+                use_score_combinations=False,
                 retrain=False,  # API mode: disable retraining for faster responses
                 evaluate=False  # API mode: skip evaluation for faster responses
             )
